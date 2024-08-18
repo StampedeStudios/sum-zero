@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_b3qmw")
-level_size = Vector2i(4, 4)
-cells_values = Array[Array]([[4, 1, 1, 0], [0, 1, 1, 0], [0, 0, 2, 2], [0, 1, 0, 3]])
+cells_values = Array[Array]([[1, 1, 1, 0, 2], [0, 1, 1, 0, 0], [0, 0, 2, 2, 0], [0, 1, 0, 2, 0], [1, 1, 1, 0, 0]])

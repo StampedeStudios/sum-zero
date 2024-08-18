@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://drgb25lub04ll"]
+
+[ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/button.png" id="1_qtyoq"]
+[ext_resource type="Texture2D" uid="uid://d3pc0tot7kej7" path="res://assets/button_hover.png" id="2_m21px"]
+[ext_resource type="Texture2D" uid="uid://dqpsj2ht1hsak" path="res://assets/container.png" id="3_dxsx7"]
+
+[node name="Ui" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+offset_right = 648.0
+offset_bottom = 648.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_qtyoq")
+texture_pressed = ExtResource("2_m21px")
+texture_hover = ExtResource("2_m21px")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("3_dxsx7")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.341176, 0.65098, 0.368627, 1)
+theme_override_font_sizes/font_size = 48
+text = "01:25"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 256
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.341176, 0.65098, 0.368627, 1)
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Scale up and down the blocks and cover all the tiles as requested to complete the level.
+
+Use the mouse left button ([img]res://assets/mouse-sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis."
+fit_content = true

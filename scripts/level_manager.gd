@@ -3,8 +3,12 @@ extends Node2D
 const LEVEL_FOLDER_PATH := "res://assets/resources/"
 const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
 const TILE_SIZE: int = 128
+const GRID_OFFSET: float = 128.0
 
 var level_data: Array[LevelData]
+var grid_size: Vector2
+
+@onready var grid: Node2D = $Grid
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +20,8 @@ func _ready() -> void:
 		current_level.cells_values.size(), current_level.cells_values[0].size()
 	)
 
+	grid_size = level_size * TILE_SIZE / 2
+
 	for x in range(0, level_size.x):
 		var row_cells: Array = current_level.cells_values[x]
 		for y in range(0, level_size.y):
@@ -24,7 +30,7 @@ func _ready() -> void:
 			var tile_y_pos := (y - float(level_size.y) / 2) * TILE_SIZE
 
 			tile_instance.position = Vector2(tile_x_pos, tile_y_pos)
-			add_child(tile_instance)
+			grid.add_child(tile_instance)
 
 			tile_instance.init(row_cells[y])
 
@@ -33,7 +39,8 @@ func _ready() -> void:
 
 
 func _on_size_changed() -> void:
-	position = Vector2(get_viewport_rect().size.x / 2, get_viewport_rect().size.y / 2)
+	var viewport_size = get_viewport_rect().size
+	grid.position = Vector2(viewport_size.x - grid_size.x - GRID_OFFSET, viewport_size.y / 2)
 
 
 func _load_levels() -> void:
