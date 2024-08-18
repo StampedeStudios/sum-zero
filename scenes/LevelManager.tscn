@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqii2e6dq0dmu"]
+
+[ext_resource type="Script" path="res://scripts/level_manager.gd" id="1_lxew3"]
+[ext_resource type="PackedScene" uid="uid://ce6hhyfbr036r" path="res://scenes/ScalableArea.tscn" id="2_ouq2f"]
+
+[node name="LevelManager" type="Node2D"]
+script = ExtResource("1_lxew3")
+
+[node name="ScalableArea" parent="." instance=ExtResource("2_ouq2f")]

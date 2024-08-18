@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bpr74i8ln7erw"]
+
+[ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/tile.png" id="1_l8avl"]
+[ext_resource type="Script" path="res://scripts/basic_tile.gd" id="1_wt3ii"]
+[ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_w2njh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2y5"]
+resource_local_to_scene = true
+shader = ExtResource("2_w2njh")
+shader_parameter/base_color = Vector4(0, 0.6, 0, 0)
+
+[sub_resource type="Theme" id="Theme_aebv0"]
+default_font_size = 48
+
+[node name="BasicTile" type="Node2D"]
+script = ExtResource("1_wt3ii")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_tc2y5")
+texture = ExtResource("1_l8avl")
+centered = false
+
+[node name="TargetValueTxt" type="Label" parent="Sprite2D"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme = SubResource("Theme_aebv0")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
