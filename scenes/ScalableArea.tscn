@@ -14,14 +14,14 @@ size = Vector2(128, 128)
 [node name="ScalableArea" type="Node2D"]
 script = ExtResource("2_f08w0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Area" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_gx784")
 texture = ExtResource("3_wrmo2")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="Area"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area/Area2D"]
 shape = SubResource("RectangleShape2D_bx6b5")
 
-[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="input_event" from="Area/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Area/Area2D" to="." method="_on_area_2d_mouse_entered"]

@@ -15,6 +15,10 @@ run/main_scene="res://scenes/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/game/logo.png"
 
+[autoload]
+
+GameManager="*res://scripts/game_manager.gd"
+
 [display]
 
 window/size/viewport_width=1920
