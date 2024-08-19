@@ -1,24 +1,23 @@
 extends Node2D
 
-const LEVEL_FOLDER_PATH := "res://assets/resources/"
 const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
 const SCALABLE_AREA = preload("res://scenes/ScalableArea.tscn")
 const CELL_SIZE: float = 128
 const GRID_OFFSET: float = 128.0
 
-var level_data: Array[LevelData]
 var half_grid_size: Vector2
 var handled_area: ScalableArea = null
 var grid_tiles: Array[Tile]
 
 @onready var grid: Node2D = $Grid
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	_load_levels()
-
-	var current_level: LevelData = level_data[0]  # TODO: Fix data
+	GameManager.level_loading.connect(init)
+	GameManager.load_level()
+	
+	
+# Called when the node enters the scene tree for the first time.
+func init(current_level: LevelData) -> void:
 	var level_size: Vector2i = Vector2i(
 		current_level.cells_values.size(), current_level.cells_values[0].size()
 	)
@@ -103,11 +102,6 @@ func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
 	grid.position = Vector2(viewport_size.x - half_grid_size.x - GRID_OFFSET, viewport_size.y / 2)
 
-
-func _load_levels() -> void:
-	var level_folder: DirAccess = DirAccess.open(LEVEL_FOLDER_PATH)
-	for file in level_folder.get_files():
-		level_data.append(load(LEVEL_FOLDER_PATH + file))
 
 
 func _on_scalable_area_clicked(ref:ScalableArea) -> void:
