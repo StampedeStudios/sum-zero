@@ -5,11 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://bb6hgd3i624hv" path="res://assets/square.png" id="3_wrmo2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gx784"]
+resource_local_to_scene = true
 shader = ExtResource("1_cfxa8")
 shader_parameter/base_color = Vector4(0, 0.2, 0, 0.2)
+shader_parameter/is_hovered = false
+shader_parameter/glow_intensity = 1.0
+shader_parameter/hover_glow_multiplier = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bx6b5"]
-size = Vector2(128, 128)
+size = Vector2(136, 136)
 
 [node name="ScalableArea" type="Node2D"]
 script = ExtResource("2_f08w0")
@@ -25,3 +29,4 @@ shape = SubResource("RectangleShape2D_bx6b5")
 
 [connection signal="input_event" from="Area/Area2D" to="." method="_on_area_2d_input_event"]
 [connection signal="mouse_entered" from="Area/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Area/Area2D" to="." method="_on_area_2d_mouse_exited"]
