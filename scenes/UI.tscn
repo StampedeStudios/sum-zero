@@ -39,7 +39,7 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_colors/font_color = Color(0.341176, 0.65098, 0.368627, 1)
+theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/font_size = 48
 text = "00:00"
 
@@ -62,7 +62,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
-theme_override_colors/default_color = Color(0.341176, 0.65098, 0.368627, 1)
+theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
 text = "Scale up and down the blocks and cover all the tiles as requested to complete the level.
