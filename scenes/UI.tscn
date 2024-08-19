@@ -70,9 +70,9 @@ layout_mode = 2
 theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "Scale up and down the blocks and cover all the tiles as requested to complete the level.
+text = "Scale up and down the blocks and cover all the tiles as many times is requested to complete the level.
 
-Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis."
+Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero."
 fit_content = true
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
