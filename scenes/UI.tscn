@@ -41,7 +41,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.341176, 0.65098, 0.368627, 1)
 theme_override_font_sizes/font_size = 48
-text = "01:25"
+text = "00:00"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
