@@ -1,12 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cx3a8j50nwxxr"]
+[gd_scene load_steps=9 format=3 uid="uid://cx3a8j50nwxxr"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_tgd8e"]
 [ext_resource type="Script" path="res://scripts/level_data.gd" id="2_2qdvc"]
 [ext_resource type="Resource" uid="uid://cy3yqsyubwqqs" path="res://assets/resources/level1.tres" id="3_3gcmy"]
+[ext_resource type="Resource" uid="uid://chbkiomehg0do" path="res://assets/resources/level0.tres" id="3_baghy"]
 [ext_resource type="Resource" uid="uid://by81juci778v2" path="res://assets/resources/level2.tres" id="4_fwxrq"]
+[ext_resource type="Resource" uid="uid://cnpekw2v5fg56" path="res://assets/resources/level00.tres" id="4_ykqnk"]
 [ext_resource type="Resource" uid="uid://dvldd5gluq2t7" path="res://assets/resources/level3.tres" id="5_wbjok"]
 [ext_resource type="Resource" uid="uid://b61npao3hu3lt" path="res://assets/resources/level4.tres" id="6_r3mtk"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_tgd8e")
-level_data = Array[ExtResource("2_2qdvc")]([ExtResource("3_3gcmy"), ExtResource("4_fwxrq"), ExtResource("5_wbjok"), ExtResource("6_r3mtk")])
+level_data = Array[ExtResource("2_2qdvc")]([ExtResource("3_baghy"), ExtResource("5_wbjok"), ExtResource("4_ykqnk"), ExtResource("3_3gcmy"), ExtResource("4_fwxrq"), ExtResource("6_r3mtk")])

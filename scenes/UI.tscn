@@ -9,28 +9,68 @@
 
 [node name="Ui" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_xwl0a")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="BottomContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-offset_right = 648.0
-offset_bottom = 648.0
+offset_top = 952.0
+offset_right = 488.0
+offset_bottom = 1080.0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="NextLevelButton" type="TextureButton" parent="BottomContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+texture_normal = ExtResource("5_nexth")
+texture_pressed = ExtResource("6_31pmf")
+texture_hover = ExtResource("6_31pmf")
 
-[node name="ClearButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="BottomContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 356
+
+[node name="CenterContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+offset_top = 340.0
+offset_right = 650.0
+offset_bottom = 740.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CenterContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
+theme_override_font_sizes/normal_font_size = 36
+bbcode_enabled = true
+text = "Scale up and down the blocks and cover all the tiles as many times is requested to complete the level.
+
+Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero."
+
+[node name="TopContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+offset_right = 748.0
+offset_bottom = 128.0
+
+[node name="ClearButton" type="TextureButton" parent="TopContainer"]
 layout_mode = 2
 texture_normal = ExtResource("1_qtyoq")
 texture_pressed = ExtResource("2_m21px")
 texture_hover = ExtResource("2_m21px")
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="TopContainer"]
 layout_mode = 2
 texture = ExtResource("3_dxsx7")
 
-[node name="Timer" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Timer" type="Label" parent="TopContainer/TextureRect"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -48,53 +88,10 @@ theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/font_size = 48
 text = "00:00"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="TopContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 theme_override_constants/separation = 356
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 128
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/MarginContainer"]
-layout_mode = 2
-theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "Scale up and down the blocks and cover all the tiles as many times is requested to complete the level.
-
-Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero."
-fit_content = true
-
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 128
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-
-[node name="NextLevelButton" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-texture_normal = ExtResource("5_nexth")
-texture_pressed = ExtResource("6_31pmf")
-texture_hover = ExtResource("6_31pmf")
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 356
-
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer2/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="BottomContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="TopContainer/ClearButton" to="." method="_on_clear_button_pressed"]

@@ -5,9 +5,13 @@ var _total_seconds: int
 
 @onready var timer_txt: Label = %Timer
 @onready var next_level_button: TextureButton = %NextLevelButton
+@onready var center_container = $CenterContainer
+@onready var bottom_container = $BottomContainer
 
 
 func _ready() -> void:
+	get_viewport().size_changed.connect(_update_ui_disposition)
+	_update_ui_disposition()
 	_timer = Timer.new()
 	_timer.wait_time = 1.0
 	_timer.timeout.connect(_increment_seconds)
@@ -45,3 +49,13 @@ func _on_next_level_button_pressed() -> void:
 
 func _on_clear_button_pressed() -> void:
 	GameManager.load_level()
+	
+func _update_ui_disposition() -> void:
+	var v_size = get_viewport_rect().size
+	center_container.position.y = v_size.y / 2 - center_container.size.y / 2
+	bottom_container.position.y = v_size.y - bottom_container.size.y
+	var x_size: float
+	x_size = v_size.x - GameManager.level_size
+	center_container.size.x = clamp(x_size, GlobalConst.UI_MIN_WIDTH, GlobalConst.UI_MAX_WIDTH)
+	center_container.visible = x_size > GlobalConst.UI_MIN_WIDTH
+	

@@ -1,8 +1,6 @@
 class_name ScalableArea
 extends Node2D
 
-const CELL_SIZE: float = 128
-const START_SIZE: float = 10
 
 var is_scaling: bool
 var _is_horizontal: bool
@@ -23,7 +21,7 @@ func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile]) 
 	_is_horizontal = is_horizontal
 	_extend_limit = extend_limit
 	_reachable_tiles = reachable_tiles
-	min_scale = START_SIZE / CELL_SIZE
+	min_scale = GlobalConst.HANDLE_SIZE / GlobalConst.CELL_SIZE
 
 	if _is_horizontal:
 		if _extend_limit < 0:
@@ -40,7 +38,7 @@ func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile]) 
 			area_limit = Vector2i(0, _extend_limit)
 
 	area.scale = Vector2(min_scale, 1)
-	area.position.x = -START_SIZE / 2
+	area.position.x = -GlobalConst.HANDLE_SIZE / 2
 
 
 func _process(_delta: float) -> void:
@@ -49,9 +47,9 @@ func _process(_delta: float) -> void:
 	if is_scaling:
 		var tile_distance: float
 		if _is_horizontal:
-			tile_distance = (get_global_mouse_position().x - global_position.x) / CELL_SIZE
+			tile_distance = (get_global_mouse_position().x - global_position.x) / GlobalConst.CELL_SIZE
 		else:
-			tile_distance = (get_global_mouse_position().y - global_position.y) / CELL_SIZE
+			tile_distance = (get_global_mouse_position().y - global_position.y) / GlobalConst.CELL_SIZE
 
 		target_scale = abs(clamp(tile_distance, area_limit.x, area_limit.y))
 		fixed_scale = round(target_scale)
@@ -84,7 +82,7 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 func _apply_scaling(_new_scale: float) -> void:
 	area.scale.x = min_scale + _new_scale
-	area.position.x = -START_SIZE / 2 + _new_scale / 2 * CELL_SIZE
+	area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
 
 
 func _on_area_2d_mouse_entered() -> void:
