@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=7 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="1_qtyoq"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_xwl0a"]
 [ext_resource type="Texture2D" uid="uid://d3pc0tot7kej7" path="res://assets/ui/button_hover.png" id="2_m21px"]
 [ext_resource type="Texture2D" uid="uid://dqpsj2ht1hsak" path="res://assets/ui/container.png" id="3_dxsx7"]
+[ext_resource type="Texture2D" uid="uid://0kdv1pp5886o" path="res://assets/ui/next_level.png" id="5_nexth"]
+[ext_resource type="Texture2D" uid="uid://dyj3jffvvwfvf" path="res://assets/ui/next_level_hover.png" id="6_31pmf"]
 
 [node name="Ui" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_xwl0a")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -16,7 +20,7 @@ offset_bottom = 648.0
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+[node name="ClearButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("1_qtyoq")
 texture_pressed = ExtResource("2_m21px")
@@ -26,7 +30,8 @@ texture_hover = ExtResource("2_m21px")
 layout_mode = 2
 texture = ExtResource("3_dxsx7")
 
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect"]
+[node name="Timer" type="Label" parent="VBoxContainer/HBoxContainer/TextureRect"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -46,7 +51,7 @@ text = "00:00"
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_constants/separation = 256
+theme_override_constants/separation = 356
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -69,3 +74,27 @@ text = "Scale up and down the blocks and cover all the tiles as requested to com
 
 Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis."
 fit_content = true
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NextLevelButton" type="TextureButton" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("5_nexth")
+texture_pressed = ExtResource("6_31pmf")
+texture_hover = ExtResource("6_31pmf")
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer2"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 356
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/NextLevelButton" to="." method="_on_next_level_button_pressed"]

@@ -14,7 +14,7 @@ var _current_scale: int
 var _reachable_tiles: Array[Tile]
 
 signal clicked(me: ScalableArea)
-signal scale_changed()
+signal scale_changed
 
 @onready var area = $Area
 
@@ -70,7 +70,7 @@ func _process(_delta: float) -> void:
 func _update_changed_tiles(fixed_scale: int) -> void:
 	if fixed_scale != _current_scale:
 		var changing_tile: Tile
-		
+
 		if fixed_scale > _current_scale:
 			while _current_scale < fixed_scale:
 				_current_scale += 1
@@ -81,7 +81,7 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 				changing_tile = _reachable_tiles[_current_scale - 1]
 				_current_scale -= 1
 				changing_tile.alter_value(1)
-				
+
 
 func _apply_scaling(_new_scale: float) -> void:
 	area.scale.x = min_scale + _new_scale

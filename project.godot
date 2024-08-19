@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="gmtk-2024"
+config/name="Doku Scale"
 run/main_scene="res://scenes/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/game/logo.png"
