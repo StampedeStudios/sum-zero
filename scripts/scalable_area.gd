@@ -53,11 +53,10 @@ func _process(_delta: float) -> void:
 		else:
 			tile_distance = (get_global_mouse_position().y - global_position.y) / CELL_SIZE
 
-		if tile_distance >= area_limit.x and tile_distance <= area_limit.y:
-			target_scale = abs(tile_distance)
-			fixed_scale = round(target_scale)
-			_apply_scaling(target_scale)
-			_update_changed_tiles(fixed_scale)
+		target_scale = abs(clamp(tile_distance,area_limit.x,area_limit.y))
+		fixed_scale = round(target_scale)
+		_apply_scaling(target_scale)
+		_update_changed_tiles(fixed_scale)
 
 	# smetto di scalare e imposto la scala al piu vicino snap
 	if is_scaling and Input.is_action_just_released("click"):
