@@ -16,7 +16,7 @@ func _ready() -> void:
 		level_data.append(load(LEVEL_FOLDER_PATH + file))
 
 
-func on_level_complete() ->void:
+func level_complete() ->void:
 	level_end.emit()
 	current_level += 1	
 	

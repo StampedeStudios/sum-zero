@@ -13,6 +13,7 @@ var grid_tiles: Array[Tile]
 
 func _ready() -> void:
 	GameManager.level_loading.connect(init)
+	GameManager.level_end.connect(on_level_complete)
 	GameManager.load_level()
 	
 	
@@ -93,6 +94,7 @@ func init(current_level: LevelData) -> void:
 		sc_instance.position = Vector2(x_pos,y_pos)
 		sc_instance.init(is_horizontal,extend_limit, reachable_tiles)
 		sc_instance.clicked.connect(_on_scalable_area_clicked)
+		sc_instance.scale_changed.connect(check_grid)
 					
 	get_viewport().size_changed.connect(_on_size_changed)
 	_on_size_changed()
@@ -113,3 +115,19 @@ func _on_scalable_area_clicked(ref:ScalableArea) -> void:
 		handled_area = ref
 		handled_area.is_scaling = true		
 	
+
+func check_grid() -> void:
+	var level_complete: bool
+	
+	for tile in grid_tiles:
+		if tile.value == 0:
+			level_complete = true
+		else:
+			level_complete = false
+			break
+			
+	if level_complete: 
+		GameManager.level_complete()	
+		
+func on_level_complete() -> void:
+	print("Complete")	

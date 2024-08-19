@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_b3qmw")
-cells_values = Array[Array]([[1, 1, 1, 0, 2], [0, 1, 1, 0, 0], [0, 0, 2, 2, 0], [0, 1, 0, 2, 0], [1, 1, 1, 0, 0]])
-handles_positions = Array[int]([2, 7, 12, 18])
+cells_values = Array[Array]([[0, 1], [0, 1]])
+handles_positions = Array[int]([2])
