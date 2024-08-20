@@ -15,7 +15,9 @@ var grid_tiles: Array[Tile]
 func _ready() -> void:
 	GameManager.level_loading.connect(init)
 	GameManager.level_end.connect(on_level_complete)
-	GameManager.toggle_level_visibility.connect(func (visibility: bool)->void: grid.visible = visibility)
+	GameManager.toggle_level_visibility.connect(
+		func(visibility: bool) -> void: grid.visible = visibility
+	)
 	GameManager.load_level()
 
 	get_viewport().size_changed.connect(_on_size_changed)
@@ -25,11 +27,11 @@ func _ready() -> void:
 func init(current_level: LevelData) -> void:
 	_clear()
 
-	var level_size: Vector2i 
+	var level_size: Vector2i
 	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
 
 	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
-	
+
 	# placing tiles
 	for row in range(0, level_size.y):
 		var row_cells: Array = current_level.cells_values[row]
@@ -70,16 +72,27 @@ func init(current_level: LevelData) -> void:
 			extend_limit = -level_size.x
 			is_horizontal = true
 			x_pos = half_grid_size.x
-			y_pos = -half_grid_size.y - GlobalConst.CELL_SIZE / 2 + GlobalConst.CELL_SIZE * (sc_index - level_size.x)
+			y_pos = (
+				-half_grid_size.y
+				- GlobalConst.CELL_SIZE / 2
+				+ GlobalConst.CELL_SIZE * (sc_index - level_size.x)
+			)
 
 			temp = level_size.x * (sc_index - level_size.x) - 1
 			for i in range(temp, temp - level_size.x, -1):
 				reachable_tiles.append(grid_tiles[i])
 
-		elif (sc_index > (level_size.x + level_size.y) and sc_index <= (level_size.x * 2 + level_size.y)):
+		elif (
+			sc_index > (level_size.x + level_size.y)
+			and sc_index <= (level_size.x * 2 + level_size.y)
+		):
 			extend_limit = -level_size.y
 			is_horizontal = false
-			x_pos = (half_grid_size.x + GlobalConst.CELL_SIZE / 2 - GlobalConst.CELL_SIZE * (sc_index - level_size.x - level_size.y)			)
+			x_pos = (
+				half_grid_size.x
+				+ GlobalConst.CELL_SIZE / 2
+				- GlobalConst.CELL_SIZE * (sc_index - level_size.x - level_size.y)
+			)
 			y_pos = half_grid_size.y
 
 			temp = grid_tiles.size() - (sc_index - level_size.x - level_size.y)
@@ -91,7 +104,11 @@ func init(current_level: LevelData) -> void:
 			extend_limit = level_size.x
 			is_horizontal = true
 			x_pos = -half_grid_size.x
-			y_pos = (half_grid_size.y + GlobalConst.CELL_SIZE / 2 - GlobalConst.CELL_SIZE * (sc_index - level_size.x * 2 - level_size.y)			)
+			y_pos = (
+				half_grid_size.y
+				+ GlobalConst.CELL_SIZE / 2
+				- GlobalConst.CELL_SIZE * (sc_index - level_size.x * 2 - level_size.y)
+			)
 
 			temp = grid_tiles.size() - (sc_index - level_size.x * 2 - level_size.y) * level_size.x
 			for i in range(temp, temp + level_size.x):
@@ -113,7 +130,7 @@ func _process(_delta: float) -> void:
 	if is_handled and Input.is_action_just_released("click"):
 		is_handled = false
 		selected_area.release_handle()
-				
+
 
 func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
@@ -128,77 +145,77 @@ func _on_click() -> void:
 
 func _on_tile_enter(tile: Tile, area: ScalableArea) -> void:
 	if !is_handled:
-		if selected_tile == null: # entro dal vuoto o da un handle
+		if selected_tile == null:  # entro dal vuoto o da un handle
 			selected_tile = tile
-			if selected_area == null: # entro dal vuoto in una cella
-				if area != null: # entro in una cella attiva
+			if selected_area == null:  # entro dal vuoto in una cella
+				if area != null:  # entro in una cella attiva
 					selected_area = area
 					selected_area.toggle_highlight(true)
-			else: # entro da un handle in una cella
-				if area == null: # entro in una cella non attiva
+			else:  # entro da un handle in una cella
+				if area == null:  # entro in una cella non attiva
 					selected_area.toggle_highlight(false)
 					selected_area = null
-				else: # entro in una cella attiva
+				else:  # entro in una cella attiva
 					if area != selected_area:
 						selected_area.toggle_highlight(false)
 						selected_area = area
 						selected_area.toggle_highlight(true)
-		else: # entro da una cella adiacente
+		else:  # entro da una cella adiacente
 			selected_tile = tile
-			if selected_area == null: # entro da una cella non attiva
-				if area != null: # entro in una cella attiva
+			if selected_area == null:  # entro da una cella non attiva
+				if area != null:  # entro in una cella attiva
 					selected_area = area
 					selected_area.toggle_highlight(true)
-			else: # entro da una cella attiva
-				if area == null: # entro in una cella non attiva
+			else:  # entro da una cella attiva
+				if area == null:  # entro in una cella non attiva
 					selected_area.toggle_highlight(false)
 					selected_area = null
-				else: # entro in una cella attiva
+				else:  # entro in una cella attiva
 					if area != selected_area:
 						selected_area.toggle_highlight(false)
 						selected_area = area
 						selected_area.toggle_highlight(true)
-						
+
 
 func _on_tile_exit(tile: Tile) -> void:
 	if !is_handled:
-		if tile == selected_tile: # esco nel vuoto o su un handle
+		if tile == selected_tile:  # esco nel vuoto o su un handle
 			if selected_area != null:
 				selected_area.toggle_highlight(false)
 				selected_area = null
-				selected_tile = null		
+				selected_tile = null
 
 
 func _on_handle_enter(handle: ScalableArea) -> void:
 	if !is_handled:
-		if selected_tile == null: # entro dal vuoto o da un handle adiacente
-			if selected_area == null: # entro dal vuoto
+		if selected_tile == null:  # entro dal vuoto o da un handle adiacente
+			if selected_area == null:  # entro dal vuoto
 				selected_area = handle
 				selected_area.toggle_highlight(true)
-			else: # entro da un handle adiacente
+			else:  # entro da un handle adiacente
 				selected_area.toggle_highlight(false)
 				selected_area = handle
 				selected_area.toggle_highlight(true)
-		else: # entro da una cella adiacente
+		else:  # entro da una cella adiacente
 			selected_tile = null
-			if selected_area == null: # entro da cella non attiva
+			if selected_area == null:  # entro da cella non attiva
 				selected_area = handle
 				selected_area.toggle_highlight(true)
-			else: # entro da cella attiva
+			else:  # entro da cella attiva
 				if handle != selected_area:
 					selected_area.toggle_highlight(false)
 					selected_area = handle
-					selected_area.toggle_highlight(true)				
+					selected_area.toggle_highlight(true)
 
 
 func _on_handle_exit(handle: ScalableArea) -> void:
 	if !is_handled:
-		if selected_tile == null: # esco nel vuoto o un handle adiacente
-			if selected_area == handle: # esco nel vuoto
+		if selected_tile == null:  # esco nel vuoto o un handle adiacente
+			if selected_area == handle:  # esco nel vuoto
 				selected_area.toggle_highlight(false)
 				selected_area = null
-			
-							
+
+
 func _clear() -> void:
 	for child in grid.get_children():
 		child.queue_free()
@@ -207,6 +224,7 @@ func _clear() -> void:
 	selected_area = null
 	selected_tile = null
 	is_handled = false
+
 
 func check_grid() -> void:
 	var level_complete: bool
@@ -224,4 +242,3 @@ func check_grid() -> void:
 
 func on_level_complete() -> void:
 	print("Complete")
-	

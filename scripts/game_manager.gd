@@ -17,14 +17,15 @@ func level_complete() -> void:
 	level_end.emit()
 	get_tree().paused = true
 
+
 func load_next_level() -> void:
 	current_level += 1
 	load_level()
-	
-	
+
+
 func toggle_level(visibilty: bool) -> void:
-	toggle_level_visibility.emit(visibilty) 
-	
+	toggle_level_visibility.emit(visibilty)
+
 
 func load_level() -> void:
 	get_tree().paused = false

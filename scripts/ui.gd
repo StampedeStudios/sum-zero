@@ -51,17 +51,16 @@ func _on_next_level_button_pressed() -> void:
 func _on_clear_button_pressed() -> void:
 	center_container.visible = false
 	GameManager.load_level()
-	
-	
+
+
 func _update_ui_disposition() -> void:
 	var v_size = get_viewport_rect().size
 	center_container.position = v_size / 2 - center_container.size / 2
-	bottom_left_container.position = Vector2(0,v_size.y-bottom_left_container.size.y)
+	bottom_left_container.position = Vector2(0, v_size.y - bottom_left_container.size.y)
 	bottom_right_container.position = v_size - bottom_right_container.size
-	
+
 
 func _on_info_button_pressed():
 	center_container.visible = !center_container.visible
 	GameManager.toggle_level(!center_container.visible)
 	_timer.paused = center_container.visible
-	

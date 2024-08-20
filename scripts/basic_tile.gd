@@ -20,7 +20,7 @@ var color_palette: Dictionary = {
 
 signal enter(tile: Tile, area: ScalableArea)
 signal exit(tile: Tile)
-signal click()
+signal click
 
 
 func _ready() -> void:
@@ -60,7 +60,7 @@ func _update() -> void:
 
 
 func _on_area_2d_mouse_entered():
-	enter.emit(self,get_top_handle())
+	enter.emit(self, get_top_handle())
 
 
 func _on_area_2d_mouse_exited():

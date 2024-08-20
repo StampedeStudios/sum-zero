@@ -1,7 +1,6 @@
 class_name ScalableArea
 extends Node2D
 
-
 var is_scaling: bool
 var _is_horizontal: bool
 var _extend_limit: int
@@ -12,10 +11,10 @@ var fixed_scale: int
 var _current_scale: int
 var _reachable_tiles: Array[Tile]
 
-signal click()
+signal click
 signal enter(me: ScalableArea)
 signal exit(me: ScalableArea)
-signal scale_change()
+signal scale_change
 
 @onready var area = $Area
 @onready var handle = $Handle
@@ -40,7 +39,7 @@ func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile]) 
 		else:
 			rotation_degrees = 90
 			area_limit = Vector2i(0, _extend_limit)
-	
+
 	handle.scale = Vector2(min_scale, 1)
 	handle.position.x = -GlobalConst.HANDLE_SIZE / 2
 	area.scale = Vector2(min_scale, 1)
@@ -52,9 +51,13 @@ func _process(_delta: float) -> void:
 	if is_scaling:
 		var tile_distance: float
 		if _is_horizontal:
-			tile_distance = (get_global_mouse_position().x - global_position.x) / GlobalConst.CELL_SIZE
+			tile_distance = (
+				(get_global_mouse_position().x - global_position.x) / GlobalConst.CELL_SIZE
+			)
 		else:
-			tile_distance = (get_global_mouse_position().y - global_position.y) / GlobalConst.CELL_SIZE
+			tile_distance = (
+				(get_global_mouse_position().y - global_position.y) / GlobalConst.CELL_SIZE
+			)
 
 		target_scale = abs(clamp(tile_distance, area_limit.x, area_limit.y))
 		fixed_scale = round(target_scale)
@@ -63,10 +66,10 @@ func _process(_delta: float) -> void:
 
 
 func release_handle() -> void:
-		is_scaling = false
-		_apply_scaling(fixed_scale)
-		_update_changed_tiles()
-		scale_change.emit()
+	is_scaling = false
+	_apply_scaling(fixed_scale)
+	_update_changed_tiles()
+	scale_change.emit()
 
 
 func _update_changed_tiles() -> void:
@@ -91,7 +94,7 @@ func _apply_scaling(_new_scale: float) -> void:
 
 
 func toggle_highlight(is_on: bool) -> void:
-	area.material.set_shader_parameter("is_hovered", is_on)	
+	area.material.set_shader_parameter("is_hovered", is_on)
 
 
 func _on_handle_mouse_exited():
