@@ -6,7 +6,8 @@ var _total_seconds: int
 @onready var timer_txt: Label = %Timer
 @onready var next_level_button: TextureButton = %NextLevelButton
 @onready var center_container = $CenterContainer
-@onready var bottom_container = $BottomContainer
+@onready var bottom_right_container = $BottomRightContainer
+@onready var bottom_left_container = $BottomLeftContainer
 
 
 func _ready() -> void:
@@ -44,18 +45,23 @@ func _spawn_next_level_button() -> void:
 
 
 func _on_next_level_button_pressed() -> void:
-	GameManager.load_level()
+	GameManager.load_next_level()
 
 
 func _on_clear_button_pressed() -> void:
+	center_container.visible = false
 	GameManager.load_level()
+	
 	
 func _update_ui_disposition() -> void:
 	var v_size = get_viewport_rect().size
-	center_container.position.y = v_size.y / 2 - center_container.size.y / 2
-	bottom_container.position.y = v_size.y - bottom_container.size.y
-	var x_size: float
-	x_size = v_size.x - GameManager.level_size
-	center_container.size.x = clamp(x_size, GlobalConst.UI_MIN_WIDTH, GlobalConst.UI_MAX_WIDTH)
-	center_container.visible = x_size > GlobalConst.UI_MIN_WIDTH
+	center_container.position = v_size / 2 - center_container.size / 2
+	bottom_left_container.position = Vector2(0,v_size.y-bottom_left_container.size.y)
+	bottom_right_container.position = v_size - bottom_right_container.size
+	
+
+func _on_info_button_pressed():
+	center_container.visible = !center_container.visible
+	GameManager.toggle_level(!center_container.visible)
+	_timer.paused = center_container.visible
 	

@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://duesynrrx521y" path="res://assets/ui/question_hover.png" id="8_mxcwg"]
 
 [node name="Ui" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,32 +19,49 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xwl0a")
 
-[node name="BottomContainer" type="HBoxContainer" parent="."]
+[node name="BottomRightContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-offset_top = 952.0
-offset_right = 488.0
-offset_bottom = 1080.0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -260.0
+offset_top = -128.0
+grow_horizontal = 0
+grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
+alignment = 2
 
-[node name="NextLevelButton" type="TextureButton" parent="BottomContainer"]
+[node name="NextLevelButton" type="TextureButton" parent="BottomRightContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("5_nexth")
 texture_pressed = ExtResource("6_31pmf")
 texture_hover = ExtResource("6_31pmf")
 
-[node name="VSeparator" type="VSeparator" parent="BottomContainer"]
-modulate = Color(1, 1, 1, 0)
+[node name="ClearButton" type="TextureButton" parent="BottomRightContainer"]
 layout_mode = 2
-theme_override_constants/separation = 356
+texture_normal = ExtResource("1_qtyoq")
+texture_pressed = ExtResource("2_m21px")
+texture_hover = ExtResource("2_m21px")
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
-offset_top = 340.0
-offset_right = 650.0
-offset_bottom = 740.0
-theme_override_constants/margin_left = 20
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -325.0
+offset_top = -200.0
+offset_right = 325.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
@@ -57,22 +75,20 @@ text = "Scale up and down the blocks and cover all the tiles as many times is re
 
 Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero."
 
-[node name="TopContainer" type="HBoxContainer" parent="."]
-layout_mode = 2
-offset_right = 748.0
-offset_bottom = 128.0
+[node name="BottomLeftContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -128.0
+offset_right = 388.0
+grow_vertical = 0
 
-[node name="ClearButton" type="TextureButton" parent="TopContainer"]
-layout_mode = 2
-texture_normal = ExtResource("1_qtyoq")
-texture_pressed = ExtResource("2_m21px")
-texture_hover = ExtResource("2_m21px")
-
-[node name="TextureRect" type="TextureRect" parent="TopContainer"]
+[node name="TextureRect" type="TextureRect" parent="BottomLeftContainer"]
 layout_mode = 2
 texture = ExtResource("3_dxsx7")
 
-[node name="Timer" type="Label" parent="TopContainer/TextureRect"]
+[node name="Timer" type="Label" parent="BottomLeftContainer/TextureRect"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -80,31 +96,22 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
+offset_left = -61.5
+offset_top = -33.5
+offset_right = 61.5
+offset_bottom = 33.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/font_size = 48
 text = "00:00"
 
-[node name="VSeparator2" type="VSeparator" parent="TopContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 128
-
-[node name="InfoButton" type="TextureButton" parent="TopContainer"]
+[node name="InfoButton" type="TextureButton" parent="BottomLeftContainer"]
 layout_mode = 2
 texture_normal = ExtResource("7_ullyv")
 texture_pressed = ExtResource("8_mxcwg")
 texture_hover = ExtResource("8_mxcwg")
 
-[node name="VSeparator" type="VSeparator" parent="TopContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 356
-
-[connection signal="pressed" from="BottomContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
-[connection signal="pressed" from="TopContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="BottomRightContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
+[connection signal="pressed" from="BottomRightContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="BottomLeftContainer/InfoButton" to="." method="_on_info_button_pressed"]

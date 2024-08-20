@@ -15,6 +15,7 @@ var grid_tiles: Array[Tile]
 func _ready() -> void:
 	GameManager.level_loading.connect(init)
 	GameManager.level_end.connect(on_level_complete)
+	GameManager.toggle_level_visibility.connect(func (visibility: bool)->void: grid.visible = visibility)
 	GameManager.load_level()
 
 	get_viewport().size_changed.connect(_on_size_changed)
@@ -116,7 +117,7 @@ func _process(_delta: float) -> void:
 
 func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
-	grid.position = Vector2(viewport_size.x - max(GameManager.level_size / 2, (viewport_size.x - GlobalConst.UI_MAX_WIDTH) / 2) , viewport_size.y / 2)
+	grid.position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
 
 
 func _on_click() -> void:

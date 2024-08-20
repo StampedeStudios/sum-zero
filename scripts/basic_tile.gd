@@ -35,10 +35,10 @@ func alter_value(stack_variation: ScalableArea) -> void:
 			sc_stack.remove_at(i)
 			break
 	if is_exist:
-		value -= 1
+		value += 1
 	else:
 		sc_stack.append(stack_variation)
-		value += 1
+		value -= 1
 	_update()
 
 
