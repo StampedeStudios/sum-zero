@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=9 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="1_qtyoq"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_xwl0a"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dqpsj2ht1hsak" path="res://assets/ui/container.png" id="3_dxsx7"]
 [ext_resource type="Texture2D" uid="uid://0kdv1pp5886o" path="res://assets/ui/next_level.png" id="5_nexth"]
 [ext_resource type="Texture2D" uid="uid://dyj3jffvvwfvf" path="res://assets/ui/next_level_hover.png" id="6_31pmf"]
+[ext_resource type="Texture2D" uid="uid://bow5b8wwyeu8v" path="res://assets/ui/question.png" id="7_ullyv"]
+[ext_resource type="Texture2D" uid="uid://duesynrrx521y" path="res://assets/ui/question_hover.png" id="8_mxcwg"]
 
 [node name="Ui" type="Control"]
 layout_mode = 3
@@ -87,6 +89,17 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/font_size = 48
 text = "00:00"
+
+[node name="VSeparator2" type="VSeparator" parent="TopContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 128
+
+[node name="InfoButton" type="TextureButton" parent="TopContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_ullyv")
+texture_pressed = ExtResource("8_mxcwg")
+texture_hover = ExtResource("8_mxcwg")
 
 [node name="VSeparator" type="VSeparator" parent="TopContainer"]
 modulate = Color(1, 1, 1, 0)
