@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpr74i8ln7erw"]
+[gd_scene load_steps=7 format=3 uid="uid://bpr74i8ln7erw"]
 
 [ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/tile.png" id="1_l8avl"]
 [ext_resource type="Script" path="res://scripts/basic_tile.gd" id="1_wt3ii"]
@@ -11,6 +11,9 @@ shader_parameter/base_color = Vector4(0, 0.6, 0, 0)
 
 [sub_resource type="Theme" id="Theme_aebv0"]
 default_font_size = 64
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
+size = Vector2(128, 128)
 
 [node name="BasicTile" type="Node2D"]
 script = ExtResource("1_wt3ii")
@@ -33,3 +36,13 @@ theme_override_colors/font_color = Color(0.341176, 0.65098, 0.368627, 1)
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="Sprite2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
+position = Vector2(64, 64)
+shape = SubResource("RectangleShape2D_qn0yb")
+
+[connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_exited"]

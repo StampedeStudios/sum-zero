@@ -13,7 +13,7 @@ shader_parameter/glow_intensity = 1.0
 shader_parameter/hover_glow_multiplier = 2.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bx6b5"]
-size = Vector2(136, 136)
+size = Vector2(127, 128)
 
 [node name="ScalableArea" type="Node2D"]
 script = ExtResource("2_f08w0")
@@ -22,11 +22,12 @@ script = ExtResource("2_f08w0")
 material = SubResource("ShaderMaterial_gx784")
 texture = ExtResource("3_wrmo2")
 
-[node name="Area2D" type="Area2D" parent="Area"]
+[node name="Handle" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
+position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_bx6b5")
 
-[connection signal="input_event" from="Area/Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Area/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Area/Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="input_event" from="Handle" to="." method="_on_handle_input_event"]
+[connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
+[connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]

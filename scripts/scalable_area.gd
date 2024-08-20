@@ -8,13 +8,17 @@ var _extend_limit: int
 var min_scale: float
 var area_limit: Vector2i
 var target_scale: float
+var fixed_scale: int
 var _current_scale: int
 var _reachable_tiles: Array[Tile]
 
-signal clicked(me: ScalableArea)
-signal scale_changed
+signal click()
+signal enter(me: ScalableArea)
+signal exit(me: ScalableArea)
+signal scale_change()
 
 @onready var area = $Area
+@onready var handle = $Handle
 
 
 func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile]) -> void:
@@ -36,13 +40,14 @@ func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile]) 
 		else:
 			rotation_degrees = 90
 			area_limit = Vector2i(0, _extend_limit)
-
+	
+	handle.scale = Vector2(min_scale, 1)
+	handle.position.x = -GlobalConst.HANDLE_SIZE / 2
 	area.scale = Vector2(min_scale, 1)
 	area.position.x = -GlobalConst.HANDLE_SIZE / 2
 
 
 func _process(_delta: float) -> void:
-	var fixed_scale: int
 	# inizio a scalare mentre il mouse è premuto
 	if is_scaling:
 		var tile_distance: float
@@ -54,17 +59,17 @@ func _process(_delta: float) -> void:
 		target_scale = abs(clamp(tile_distance, area_limit.x, area_limit.y))
 		fixed_scale = round(target_scale)
 		_apply_scaling(target_scale)
-		_update_changed_tiles(fixed_scale)
+		_update_changed_tiles()
 
-	# smetto di scalare e imposto la scala al piu vicino snap
-	if is_scaling and Input.is_action_just_released("click"):
-		clicked.emit(self)
+
+func release_handle() -> void:
+		is_scaling = false
 		_apply_scaling(fixed_scale)
-		_update_changed_tiles(fixed_scale)
-		scale_changed.emit()
+		_update_changed_tiles()
+		scale_change.emit()
 
 
-func _update_changed_tiles(fixed_scale: int) -> void:
+func _update_changed_tiles() -> void:
 	if fixed_scale != _current_scale:
 		var changing_tile: Tile
 
@@ -72,12 +77,12 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 			while _current_scale < fixed_scale:
 				_current_scale += 1
 				changing_tile = _reachable_tiles[_current_scale - 1]
-				changing_tile.alter_value(-1)
+				changing_tile.alter_value(self)
 		else:
 			while _current_scale > fixed_scale:
 				changing_tile = _reachable_tiles[_current_scale - 1]
 				_current_scale -= 1
-				changing_tile.alter_value(1)
+				changing_tile.alter_value(self)
 
 
 func _apply_scaling(_new_scale: float) -> void:
@@ -85,15 +90,19 @@ func _apply_scaling(_new_scale: float) -> void:
 	area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
 
 
-func _on_area_2d_mouse_entered() -> void:
-	area.material.set_shader_parameter("is_hovered", true)
+func toggle_highlight(is_on: bool) -> void:
+	area.material.set_shader_parameter("is_hovered", is_on)	
 
 
-func _on_area_2d_mouse_exited() -> void:
-	area.material.set_shader_parameter("is_hovered", false)
+func _on_handle_mouse_exited():
+	exit.emit(self)
 
 
-func _on_area_2d_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
+func _on_handle_mouse_entered():
+	enter.emit(self)
+
+
+func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
 		if _event.is_action_pressed("click"):
-			clicked.emit(self)
+			click.emit()
