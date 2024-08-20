@@ -49,7 +49,6 @@ texture_pressed = ExtResource("2_m21px")
 texture_hover = ExtResource("2_m21px")
 
 [node name="CenterContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,14 +67,13 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="InfoText" type="RichTextLabel" parent="CenterContainer"]
-visible = false
 layout_mode = 2
 theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
 theme_override_font_sizes/normal_font_size = 36
 bbcode_enabled = true
-text = "Scale up and down the blocks and cover all the tiles as many times is requested to complete the level.
+text = "Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero.
 
-Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero."
+Pay attention to symbols ([img]res://assets/ui/minus.png[/img], [img]res://assets/ui/plus.png[/img]) as they tell what's the effect on tiles."
 
 [node name="EndScreen" type="AspectRatioContainer" parent="CenterContainer"]
 visible = false
