@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3 uid="uid://dus5unkju8ayb"]
+
+[ext_resource type="Script" path="res://scripts/level_data.gd" id="1_gm7a5"]
+
+[resource]
+script = ExtResource("1_gm7a5")
+cells_values = Array[Array]([[0, 0, 0, 1, 0], [1, 1, 1, 4, 1], [1, 1, 1, 3, 0], [0, 0, 0, 1, 0]])
+handles_positions = Array[int]([4, 7, 11, 16, 17])
