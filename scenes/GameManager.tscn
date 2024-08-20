@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cx3a8j50nwxxr"]
+[gd_scene load_steps=11 format=3 uid="uid://cx3a8j50nwxxr"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_tgd8e"]
 [ext_resource type="Script" path="res://scripts/level_data.gd" id="2_2qdvc"]
@@ -7,14 +7,13 @@
 [ext_resource type="Resource" uid="uid://dvldd5gluq2t7" path="res://assets/resources/level3.tres" id="5_wbjok"]
 [ext_resource type="Resource" uid="uid://b61npao3hu3lt" path="res://assets/resources/level4.tres" id="6_r3mtk"]
 [ext_resource type="Resource" uid="uid://dus5unkju8ayb" path="res://assets/resources/level5.tres" id="8_l3cj1"]
-[ext_resource type="Resource" path="res://assets/resources/level_finale.tres" id="9_dhqp3"]
 [ext_resource type="AudioStream" uid="uid://b5ulaepsvvb4a" path="res://assets/sfx/snap.wav" id="9_gwv8s"]
 [ext_resource type="Resource" path="res://assets/resources/level6.tres" id="9_oht7r"]
 [ext_resource type="Resource" path="res://assets/resources/level7.tres" id="10_kppo6"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_tgd8e")
-level_data = Array[ExtResource("2_2qdvc")]([ExtResource("3_ibrv1"), ExtResource("4_fwxrq"), ExtResource("5_wbjok"), ExtResource("6_r3mtk"), ExtResource("8_l3cj1"), ExtResource("9_oht7r"), ExtResource("10_kppo6"), ExtResource("9_dhqp3")])
+level_data = Array[ExtResource("2_2qdvc")]([ExtResource("3_ibrv1"), ExtResource("4_fwxrq"), ExtResource("5_wbjok"), ExtResource("6_r3mtk"), ExtResource("8_l3cj1"), ExtResource("9_oht7r"), ExtResource("10_kppo6")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_gwv8s")

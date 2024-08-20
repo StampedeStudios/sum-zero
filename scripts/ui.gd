@@ -6,8 +6,10 @@ var _total_seconds: int
 @onready var timer_txt: Label = %Timer
 @onready var next_level_button: TextureButton = %NextLevelButton
 @onready var center_container = $CenterContainer
+@onready var info_text: RichTextLabel = $CenterContainer/InfoText
 @onready var bottom_right_container = $BottomRightContainer
 @onready var bottom_left_container = $BottomLeftContainer
+@onready var end_screen: AspectRatioContainer = $CenterContainer/EndScreen
 
 
 func _ready() -> void:
@@ -20,6 +22,7 @@ func _ready() -> void:
 	add_child(_timer)
 	GameManager.level_start.connect(_start_timer)
 	GameManager.level_end.connect(_spawn_next_level_button)
+	GameManager.game_ended.connect(_on_game_ended)
 
 
 func _start_timer() -> void:
@@ -49,6 +52,7 @@ func _on_next_level_button_pressed() -> void:
 
 
 func _on_clear_button_pressed() -> void:
+	info_text.visible = false
 	center_container.visible = false
 	GameManager.load_level()
 
@@ -62,5 +66,15 @@ func _update_ui_disposition() -> void:
 
 func _on_info_button_pressed():
 	center_container.visible = !center_container.visible
-	GameManager.toggle_level(!center_container.visible)
-	_timer.paused = center_container.visible
+	info_text.visible = !info_text.visible
+	GameManager.toggle_level(!info_text.visible)
+	_timer.paused = info_text.visible
+
+
+func _on_game_ended() -> void:
+	center_container.visible = true
+	bottom_right_container.visible = false
+	bottom_left_container.visible = false
+	end_screen.visible = true
+	GameManager.toggle_level(false)
+	_timer.paused = true

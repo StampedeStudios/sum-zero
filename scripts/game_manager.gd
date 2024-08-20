@@ -9,6 +9,7 @@ signal level_loading(level_data: LevelData)
 signal level_start
 signal level_end
 signal toggle_level_visibility(visibility: bool)
+signal game_ended()
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -33,3 +34,5 @@ func load_level() -> void:
 		audio_stream_player_2d.play()
 		level_loading.emit(level_data[current_level])
 		level_start.emit()
+	else:
+		game_ended.emit()
