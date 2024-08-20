@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene load_steps=7 format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Shader" path="res://shaders/ScalableArea.gdshader" id="1_cfxa8"]
 [ext_resource type="Script" path="res://scripts/scalable_area.gd" id="2_f08w0"]
 [ext_resource type="Texture2D" uid="uid://bb6hgd3i624hv" path="res://assets/square.png" id="3_wrmo2"]
+[ext_resource type="Texture2D" uid="uid://7bec7q7w10gl" path="res://assets/ui/minus.png" id="4_gjuxb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gx784"]
 resource_local_to_scene = true
@@ -27,6 +28,9 @@ texture = ExtResource("3_wrmo2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_bx6b5")
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture = ExtResource("4_gjuxb")
 
 [connection signal="input_event" from="Handle" to="." method="_on_handle_input_event"]
 [connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]

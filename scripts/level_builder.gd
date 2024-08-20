@@ -15,6 +15,7 @@ var cells_values: Dictionary
 var cells_list: Array[Array]
 var handles_value: Dictionary
 var handles_list: Array
+var counter_list: Array
 
 func _ready() -> void:
 	var level_size: Vector2i
@@ -100,9 +101,18 @@ func _ready() -> void:
 		handles_list.append(sc_instance)
 		handles_value[sc_instance] = 0
 		sc_instance.position = Vector2(x_pos, y_pos)		
-		sc_instance.init(is_horizontal, extend_limit, arr)
+		sc_instance.init(is_horizontal, extend_limit, arr, false)
 		sc_instance.enter.connect(_handle_select)
 		sc_instance.exit.connect(_handle_deselect)
+		var counter: Label = Label.new()
+		counter.text = "0"
+		counter.add_theme_font_size_override("font_size", 32)
+		counter.add_theme_color_override("font_color",Color.BLACK)	
+		counter.position = Vector2(-50,0)
+		counter.size = Vector2(30,30)
+		counter_list.append(counter)
+		sc_instance.add_child(counter)
+		counter.rotation -= sc_instance.rotation
 
 
 func _process(_delta) -> void:
@@ -133,10 +143,12 @@ func _handle_deselect(handle: ScalableArea) -> void:
 	if selected_handle == handle:
 		selected_handle = null
 
+
 func _create_resource() -> void:
 	var new_resource = LevelData.new()
 	new_resource.cells_values = _get_cells()
 	new_resource.handles_positions = _get_handle()
+	new_resource.handles_increment = _get_increment()
 	var save_result = ResourceSaver.save(new_resource, RESOURCE_PATH + String.num(level_index) + ".tres")
 	if save_result != OK:
 		print(save_result)
@@ -154,14 +166,27 @@ func _get_cells() -> Array[Array]:
 func _get_handle() -> Array[int]:
 	var result: Array[int]
 	for i in range(0,handles_list.size()):
-		if handles_value.get(handles_list[i]) > 0:
+		if handles_value.get(handles_list[i]) != 0:
 			result.append(i+1)
 	return result
 
+func _get_increment() -> Array[bool]:
+	var result: Array[bool]
+	for i in range(0,counter_list.size()):
+		if handles_value.get(handles_list[i]) > 0:
+			result.append(true)
+		elif handles_value.get(handles_list[i]) < 0:
+			result.append(false)
+	return result
+	
+	
 func _increment() -> void:
 	if selected_handle != null:
-		selected_handle.toggle_highlight(true)
-		handles_value[selected_handle] = 1
+		handles_value[selected_handle] += 1
+		selected_handle.toggle_highlight(handles_value[selected_handle] != 0)
+		for i in range(0, handles_list.size()):
+			if handles_list[i] == selected_handle:
+				counter_list[i].text = String.num(handles_value[selected_handle])
 		
 	if selected_tile != null:
 		selected_tile.value +=1
@@ -171,8 +196,11 @@ func _increment() -> void:
 
 func _decrement() -> void:
 	if selected_handle != null:
-		selected_handle.toggle_highlight(false)
-		handles_value[selected_handle] = 0
+		handles_value[selected_handle] -= 1
+		selected_handle.toggle_highlight(handles_value[selected_handle] != 0)
+		for i in range(0, handles_list.size()):
+			if handles_list[i] == selected_handle:
+				counter_list[i].text = String.num(handles_value[selected_handle])
 		
 	if selected_tile != null:
 		selected_tile.value -=1

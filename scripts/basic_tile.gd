@@ -25,22 +25,19 @@ signal exit(tile: Tile)
 signal click
 
 
-func _ready() -> void:
-	pass
-
-
-func alter_value(stack_variation: ScalableArea) -> void:
+func alter_value(stack_variation: ScalableArea, is_increment: bool) -> void:
 	var is_exist: bool
+	
 	for i in range(0, sc_stack.size()):
 		if sc_stack[i] == stack_variation:
 			is_exist = true
 			sc_stack.remove_at(i)
 			break
 	if is_exist:
-		value += 1
+		value -= 1 if is_increment else -1
 	else:
 		sc_stack.append(stack_variation)
-		value -= 1
+		value += 1 if is_increment else -1
 	_update()
 
 

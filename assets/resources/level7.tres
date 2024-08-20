@@ -6,3 +6,4 @@
 script = ExtResource("1_3sspi")
 cells_values = Array[Array]([[1, 1, 1, 0, 0], [1, 1, 1, 0, 0], [1, 2, 4, 1, 1], [1, 1, 1, 0, 0], [1, 1, 1, 0, 0]])
 handles_positions = Array[int]([1, 2, 3, 8, 13, 14, 15, 16, 17, 18, 19, 20])
+handles_increment = Array[bool]([false, false, false, false, false, false, false, false, false, false, false, false, false])

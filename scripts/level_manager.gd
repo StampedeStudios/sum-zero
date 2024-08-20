@@ -49,7 +49,8 @@ func init(current_level: LevelData) -> void:
 			tile_instance.click.connect(_on_click)
 
 	# placing scalable areas clockwise
-	for sc_index in current_level.handles_positions:
+	for index in range(0, current_level.handles_positions.size()):
+		var sc_index: int = current_level.handles_positions[index]
 		var x_pos: float
 		var y_pos: float
 		var is_horizontal: bool
@@ -117,7 +118,7 @@ func init(current_level: LevelData) -> void:
 		var sc_instance = SCALABLE_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
-		sc_instance.init(is_horizontal, extend_limit, reachable_tiles)
+		sc_instance.init(is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index])
 		sc_instance.click.connect(_on_click)
 		sc_instance.scale_change.connect(check_grid)
 		sc_instance.enter.connect(_on_handle_enter)
