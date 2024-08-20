@@ -4,5 +4,5 @@
 
 [node name="LevelBuilder" type="Node2D"]
 script = ExtResource("1_tn3c0")
-level_width = 4
+level_width = 5
 level_height = 5

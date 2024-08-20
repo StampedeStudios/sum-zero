@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/level_data.gd" id="1_kbpw2"]
+
+[resource]
+script = ExtResource("1_kbpw2")
+cells_values = Array[Array]([[-1, 0, 0], [0, 1, 1], [-1, 0, 0]])
+handles_positions = Array[int]([1, 5])
+handles_increment = Array[bool]([true, false])
