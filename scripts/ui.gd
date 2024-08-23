@@ -69,6 +69,7 @@ func _on_info_button_pressed():
 	info_text.visible = !info_text.visible
 	GameManager.toggle_level(!info_text.visible)
 	_timer.paused = info_text.visible
+	bottom_right_container.visible = !center_container.visible
 
 
 func _on_game_ended() -> void:
