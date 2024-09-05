@@ -4,9 +4,9 @@ const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
 const SCALABLE_AREA = preload("res://scenes/ScalableArea.tscn")
 const RESOURCE_PATH = "res://assets/resources/level"
 
-@export_range(2,5) var level_width: int = 2
-@export_range(2,5) var level_height: int = 2
-@export_range(0,100) var level_index: int
+@export_range(2, 5) var level_width: int = 2
+@export_range(2, 5) var level_height: int = 2
+@export_range(0, 100) var level_index: int
 
 var selected_tile: Tile
 var selected_handle: ScalableArea
@@ -17,22 +17,22 @@ var handles_value: Dictionary
 var handles_list: Array
 var counter_list: Array
 
+
 func _ready() -> void:
 	var level_size: Vector2i
 	level_size = Vector2i(level_height, level_width)
-	
+
 	var grid = Node2D.new()
 	self.add_child(grid)
-	
-	grid.position = get_viewport_rect().get_center()
 
+	grid.position = get_viewport_rect().get_center()
 
 	var half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
 
 	# placing tiles
 	for row in range(0, level_size.y):
 		var row_cells: Array
-		
+
 		for column in range(0, level_size.x):
 			var tile_instance := BASIC_TILE.instantiate()
 			var tile_x_pos := (column - float(level_size.x) / 2) * GlobalConst.CELL_SIZE
@@ -44,9 +44,8 @@ func _ready() -> void:
 			cells_values[tile_instance] = 0
 			tile_instance.enter.connect(_tile_select)
 			tile_instance.exit.connect(_tile_deselect)
-			
-		cells_list.append(row_cells)
 
+		cells_list.append(row_cells)
 
 	# placing scalable areas clockwise
 	for sc_index in range(1, level_height * 2 + level_width * 2 + 1):
@@ -60,7 +59,6 @@ func _ready() -> void:
 			is_horizontal = false
 			x_pos = -half_grid_size.x - GlobalConst.CELL_SIZE / 2 + GlobalConst.CELL_SIZE * sc_index
 			y_pos = -half_grid_size.y
-
 
 		elif sc_index > level_size.x and sc_index <= (level_size.x + level_size.y):
 			extend_limit = -level_size.x
@@ -100,16 +98,16 @@ func _ready() -> void:
 		grid.add_child(sc_instance)
 		handles_list.append(sc_instance)
 		handles_value[sc_instance] = 0
-		sc_instance.position = Vector2(x_pos, y_pos)		
+		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.init(is_horizontal, extend_limit, arr, false)
 		sc_instance.enter.connect(_handle_select)
 		sc_instance.exit.connect(_handle_deselect)
 		var counter: Label = Label.new()
 		counter.text = "0"
 		counter.add_theme_font_size_override("font_size", 32)
-		counter.add_theme_color_override("font_color",Color.BLACK)	
-		counter.position = Vector2(-50,0)
-		counter.size = Vector2(30,30)
+		counter.add_theme_color_override("font_color", Color.BLACK)
+		counter.position = Vector2(-50, 0)
+		counter.size = Vector2(30, 30)
 		counter_list.append(counter)
 		sc_instance.add_child(counter)
 		counter.rotation -= sc_instance.rotation
@@ -118,13 +116,13 @@ func _ready() -> void:
 func _process(_delta) -> void:
 	if Input.is_action_just_pressed("crea"):
 		_create_resource()
-	
+
 	if Input.is_action_just_pressed("click"):
 		_increment()
-		
+
 	if Input.is_action_just_pressed("click_dx"):
 		_decrement()
-	
+
 
 func _tile_select(tile: Tile, _handle: ScalableArea) -> void:
 	selected_tile = tile
@@ -133,7 +131,7 @@ func _tile_select(tile: Tile, _handle: ScalableArea) -> void:
 func _tile_deselect(tile: Tile) -> void:
 	if selected_tile == tile:
 		selected_tile = null
-	
+
 
 func _handle_select(handle: ScalableArea) -> void:
 	selected_handle = handle
@@ -149,7 +147,9 @@ func _create_resource() -> void:
 	new_resource.cells_values = _get_cells()
 	new_resource.handles_positions = _get_handle()
 	new_resource.handles_increment = _get_increment()
-	var save_result = ResourceSaver.save(new_resource, RESOURCE_PATH + String.num(level_index) + ".tres")
+	var save_result = ResourceSaver.save(
+		new_resource, RESOURCE_PATH + String.num(level_index) + ".tres"
+	)
 	if save_result != OK:
 		print(save_result)
 
@@ -165,21 +165,22 @@ func _get_cells() -> Array[Array]:
 
 func _get_handle() -> Array[int]:
 	var result: Array[int]
-	for i in range(0,handles_list.size()):
+	for i in range(0, handles_list.size()):
 		if handles_value.get(handles_list[i]) != 0:
-			result.append(i+1)
+			result.append(i + 1)
 	return result
+
 
 func _get_increment() -> Array[bool]:
 	var result: Array[bool]
-	for i in range(0,counter_list.size()):
+	for i in range(0, counter_list.size()):
 		if handles_value.get(handles_list[i]) > 0:
 			result.append(true)
 		elif handles_value.get(handles_list[i]) < 0:
 			result.append(false)
 	return result
-	
-	
+
+
 func _increment() -> void:
 	if selected_handle != null:
 		handles_value[selected_handle] += 1
@@ -187,10 +188,10 @@ func _increment() -> void:
 		for i in range(0, handles_list.size()):
 			if handles_list[i] == selected_handle:
 				counter_list[i].text = String.num(handles_value[selected_handle])
-		
+
 	if selected_tile != null:
-		selected_tile.value +=1
-		selected_tile._update()
+		selected_tile.value += 1
+		selected_tile.update()
 		cells_values[selected_tile] = selected_tile.value
 
 
@@ -201,9 +202,8 @@ func _decrement() -> void:
 		for i in range(0, handles_list.size()):
 			if handles_list[i] == selected_handle:
 				counter_list[i].text = String.num(handles_value[selected_handle])
-		
+
 	if selected_tile != null:
-		selected_tile.value -=1
-		selected_tile._update()
+		selected_tile.value -= 1
+		selected_tile.update()
 		cells_values[selected_tile] = selected_tile.value
-		

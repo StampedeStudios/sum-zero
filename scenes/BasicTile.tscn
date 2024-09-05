@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpr74i8ln7erw"]
+[gd_scene load_steps=10 format=3 uid="uid://bpr74i8ln7erw"]
 
 [ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/tile.png" id="1_l8avl"]
 [ext_resource type="Script" path="res://scripts/basic_tile.gd" id="1_wt3ii"]
 [ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_w2njh"]
+[ext_resource type="Shader" path="res://shaders/Led.gdshader" id="4_7g07l"]
+[ext_resource type="Texture2D" uid="uid://cxftc31clsb7d" path="res://assets/leds.png" id="4_lrd63"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2y5"]
 resource_local_to_scene = true
@@ -13,21 +15,34 @@ shader_parameter/base_color = Vector4(0, 0.6, 0, 0)
 default_font_size = 64
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
-size = Vector2(128, 128)
+size = Vector2(256, 256)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_is17t"]
+resource_local_to_scene = true
+shader = ExtResource("4_7g07l")
+shader_parameter/color = Vector4(1, 1, 1, 1)
+shader_parameter/is_top = false
+shader_parameter/is_right = false
+shader_parameter/is_bottom = false
+shader_parameter/is_left = false
 
 [node name="BasicTile" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_wt3ii")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Tile" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_tc2y5")
 texture = ExtResource("1_l8avl")
-centered = false
 
-[node name="TargetValueTxt" type="Label" parent="Sprite2D"]
+[node name="TargetValueTxt" type="Label" parent="Tile"]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
@@ -37,12 +52,15 @@ text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Area2D" type="Area2D" parent="Sprite2D"]
+[node name="Area2D" type="Area2D" parent="Tile"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
-position = Vector2(64, 64)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tile/Area2D"]
 shape = SubResource("RectangleShape2D_qn0yb")
 
-[connection signal="input_event" from="Sprite2D/Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_mouse_exited"]
+[node name="Led" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_is17t")
+texture = ExtResource("4_lrd63")
+
+[connection signal="input_event" from="Tile/Area2D" to="." method="_on_area_2d_input_event"]
+[connection signal="mouse_entered" from="Tile/Area2D" to="." method="_on_area_2d_mouse_entered"]
+[connection signal="mouse_exited" from="Tile/Area2D" to="." method="_on_area_2d_mouse_exited"]

@@ -37,8 +37,13 @@ func init(current_level: LevelData) -> void:
 		var row_cells: Array = current_level.cells_values[row]
 		for column in range(0, level_size.x):
 			var tile_instance := BASIC_TILE.instantiate()
-			var tile_x_pos := (column - float(level_size.x) / 2) * GlobalConst.CELL_SIZE
-			var tile_y_pos := (row - float(level_size.y) / 2) * GlobalConst.CELL_SIZE
+			var tile_x_pos := (
+				(column - float(level_size.x) / 2) * GlobalConst.CELL_SIZE
+				+ GlobalConst.CELL_SIZE / 2
+			)
+			var tile_y_pos := (
+				(row - float(level_size.y) / 2) * GlobalConst.CELL_SIZE + GlobalConst.CELL_SIZE / 2
+			)
 
 			tile_instance.position = Vector2(tile_x_pos, tile_y_pos)
 			grid.add_child(tile_instance)
@@ -118,7 +123,9 @@ func init(current_level: LevelData) -> void:
 		var sc_instance = SCALABLE_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
-		sc_instance.init(is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index])
+		sc_instance.init(
+			is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index]
+		)
 		sc_instance.click.connect(_on_click)
 		sc_instance.scale_change.connect(check_grid)
 		sc_instance.enter.connect(_on_handle_enter)

@@ -1,31 +1,33 @@
 class_name ScalableArea
 extends Node2D
 
-const MINUS = preload("res://assets/ui/minus.png")
-const PLUS = preload("res://assets/ui/plus.png")
-
-var is_scaling: bool
-var _is_horizontal: bool
-var _extend_limit: int
-var min_scale: float
-var area_limit: Vector2i
-var target_scale: float
-var fixed_scale: int
-var _current_scale: int
-var _reachable_tiles: Array[Tile]
-var _area_increment: bool
-
 signal click
 signal enter(me: ScalableArea)
 signal exit(me: ScalableArea)
 signal scale_change
+
+const MINUS = preload("res://assets/ui/minus.png")
+const PLUS = preload("res://assets/ui/plus.png")
+
+var min_scale: float
+var area_limit: Vector2i
+var target_scale: float
+var fixed_scale: int
+var is_scaling: bool
+var _is_horizontal: bool
+var _extend_limit: int
+var _current_scale: int
+var _reachable_tiles: Array[Tile]
+var _area_increment: bool
 
 @onready var area = $Area
 @onready var handle = $Handle
 @onready var icon = $Icon
 
 
-func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile], area_increment: bool) -> void:
+func init(
+	is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile], area_increment: bool
+) -> void:
 	_is_horizontal = is_horizontal
 	_extend_limit = extend_limit
 	_reachable_tiles = reachable_tiles
@@ -53,6 +55,7 @@ func init(is_horizontal: bool, extend_limit: int, reachable_tiles: Array[Tile], 
 	icon.position.x = -GlobalConst.HANDLE_SIZE / 2
 	icon.rotation_degrees = 90
 	icon.texture = PLUS if area_increment else MINUS
+
 
 func _process(_delta: float) -> void:
 	# inizio a scalare mentre il mouse è premuto

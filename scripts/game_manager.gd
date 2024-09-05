@@ -1,15 +1,15 @@
 extends Node
 
-const LEVEL_FOLDER_PATH := "res://assets/resources/"
-
-@export var level_data: Array[LevelData]
-var current_level: int
-
 signal level_loading(level_data: LevelData)
 signal level_start
 signal level_end
 signal toggle_level_visibility(visibility: bool)
-signal game_ended()
+signal game_ended
+
+const LEVEL_FOLDER_PATH := "res://assets/resources/"
+
+@export var level_data: Array[LevelData]
+var current_level: int
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
