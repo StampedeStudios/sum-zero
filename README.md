@@ -6,8 +6,8 @@
 - [x] Gestire provenienza slider su tile (led ai 4 lati);
 - [x] Gestire sovrapposizione sliders usando contorno invece della tinta;
 - [x] Rimuovere highlight in hover (su mobile non ha senso);
-- [-] Gli slider devono essere sovrapposti rispettando un ordine in modo da mantenerlo quando vengono afferrati;
-- [ ] Gli slider devono essere afferrabili solo dall'estremità finale;
+- [x] Gli slider devono essere afferrabili solo dall'estremità finale;
+- [-] Adattamento alle varie risoluzioni degli smartphone;
 - [ ] Rimuovere timer e how-to-play dal livello;
 - [ ] Aggiungere numero di mosse rimanenti (numero massimo per ottenere una stella);
 - [ ] Aggiungere menu selezione livello e how-to-play;

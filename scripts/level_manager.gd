@@ -49,9 +49,6 @@ func init(current_level: LevelData) -> void:
 			grid.add_child(tile_instance)
 			tile_instance.init(row_cells[column])
 			grid_tiles.append(tile_instance)
-			tile_instance.enter.connect(_on_tile_enter)
-			tile_instance.exit.connect(_on_tile_exit)
-			tile_instance.click.connect(_on_click)
 
 	# placing scalable areas clockwise
 	for index in range(0, current_level.handles_positions.size()):
@@ -126,10 +123,7 @@ func init(current_level: LevelData) -> void:
 		sc_instance.init(
 			is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index]
 		)
-		sc_instance.click.connect(_on_click)
 		sc_instance.scale_change.connect(check_grid)
-		sc_instance.enter.connect(_on_handle_enter)
-		sc_instance.exit.connect(_on_handle_exit)
 
 	_on_size_changed()
 
@@ -143,85 +137,6 @@ func _process(_delta: float) -> void:
 func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
 	grid.position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
-
-
-func _on_click() -> void:
-	if selected_area:
-		is_handled = true
-		selected_area.is_scaling = true
-
-
-func _on_tile_enter(tile: Tile, area: ScalableArea) -> void:
-	if !is_handled:
-		if selected_tile == null:  # entro dal vuoto o da un handle
-			selected_tile = tile
-			if selected_area == null:  # entro dal vuoto in una cella
-				if area != null:  # entro in una cella attiva
-					selected_area = area
-					selected_area.toggle_highlight(true)
-			else:  # entro da un handle in una cella
-				if area == null:  # entro in una cella non attiva
-					selected_area.toggle_highlight(false)
-					selected_area = null
-				else:  # entro in una cella attiva
-					if area != selected_area:
-						selected_area.toggle_highlight(false)
-						selected_area = area
-						selected_area.toggle_highlight(true)
-		else:  # entro da una cella adiacente
-			selected_tile = tile
-			if selected_area == null:  # entro da una cella non attiva
-				if area != null:  # entro in una cella attiva
-					selected_area = area
-					selected_area.toggle_highlight(true)
-			else:  # entro da una cella attiva
-				if area == null:  # entro in una cella non attiva
-					selected_area.toggle_highlight(false)
-					selected_area = null
-				else:  # entro in una cella attiva
-					if area != selected_area:
-						selected_area.toggle_highlight(false)
-						selected_area = area
-						selected_area.toggle_highlight(true)
-
-
-func _on_tile_exit(tile: Tile) -> void:
-	if !is_handled:
-		if tile == selected_tile:  # esco nel vuoto o su un handle
-			if selected_area != null:
-				selected_area.toggle_highlight(false)
-				selected_area = null
-				selected_tile = null
-
-
-func _on_handle_enter(handle: ScalableArea) -> void:
-	if !is_handled:
-		if selected_tile == null:  # entro dal vuoto o da un handle adiacente
-			if selected_area == null:  # entro dal vuoto
-				selected_area = handle
-				selected_area.toggle_highlight(true)
-			else:  # entro da un handle adiacente
-				selected_area.toggle_highlight(false)
-				selected_area = handle
-				selected_area.toggle_highlight(true)
-		else:  # entro da una cella adiacente
-			selected_tile = null
-			if selected_area == null:  # entro da cella non attiva
-				selected_area = handle
-				selected_area.toggle_highlight(true)
-			else:  # entro da cella attiva
-				if handle != selected_area:
-					selected_area.toggle_highlight(false)
-					selected_area = handle
-					selected_area.toggle_highlight(true)
-
-
-func _on_handle_exit(handle: ScalableArea) -> void:
-	if !is_handled:
-		if selected_tile == null:  # esco nel vuoto o un handle adiacente
-			if selected_area == handle:  # esco nel vuoto
-				selected_area.toggle_highlight(false)
-				selected_area = null
 
 
 func _clear() -> void:

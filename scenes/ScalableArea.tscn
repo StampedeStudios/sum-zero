@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene load_steps=6 format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Shader" path="res://shaders/ScalableArea.gdshader" id="1_cfxa8"]
 [ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/slider.png" id="2_bpwpr"]
@@ -6,37 +6,34 @@
 [ext_resource type="Texture2D" uid="uid://7bec7q7w10gl" path="res://assets/ui/minus.png" id="4_gjuxb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
+resource_local_to_scene = true
 shader = ExtResource("1_cfxa8")
-shader_parameter/base_color = Color(0, 0, 0, 1)
-shader_parameter/glow_intensity = 1.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bx6b5"]
-size = Vector2(128, 128)
+shader_parameter/base_color = Color(0.0847556, 0.298363, 0.16214, 1)
+shader_parameter/is_selected = false
+shader_parameter/glow_intensity = 4.0
 
 [node name="ScalableArea" type="Node2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("2_f08w0")
-
-[node name="Area" type="NinePatchRect" parent="."]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_4iu34")
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-texture = ExtResource("2_bpwpr")
-patch_margin_left = 24
-patch_margin_top = 24
-patch_margin_right = 24
-patch_margin_bottom = 24
-
-[node name="Handle" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Handle"]
-shape = SubResource("RectangleShape2D_bx6b5")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("4_gjuxb")
 
+[node name="Area" type="NinePatchRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_4iu34")
+offset_left = -128.0
+offset_top = -128.0
+offset_bottom = 128.0
+texture = ExtResource("2_bpwpr")
+patch_margin_left = 36
+patch_margin_top = 36
+patch_margin_right = 36
+patch_margin_bottom = 36
+
+[node name="Handle" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Handle"]
+polygon = PackedVector2Array(0, -128, 0, 128, -128, 0)
+
 [connection signal="input_event" from="Handle" to="." method="_on_handle_input_event"]
-[connection signal="mouse_entered" from="Handle" to="." method="_on_handle_mouse_entered"]
-[connection signal="mouse_exited" from="Handle" to="." method="_on_handle_mouse_exited"]
