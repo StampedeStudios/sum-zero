@@ -20,7 +20,7 @@ var _current_scale: int
 var _reachable_tiles: Array[Tile]
 var _area_increment: bool
 
-@onready var area = $Area
+@onready var area: NinePatchRect = $Area
 @onready var handle = $Handle
 @onready var icon = $Icon
 
@@ -50,8 +50,8 @@ func init(
 
 	handle.scale = Vector2(min_scale, 1)
 	handle.position.x = -GlobalConst.HANDLE_SIZE / 2
-	area.scale = Vector2(min_scale, 1)
-	area.position.x = -GlobalConst.HANDLE_SIZE / 2
+	area.size = Vector2(min_scale * 128, 128)
+	area.position.x = -GlobalConst.HANDLE_SIZE
 	icon.position.x = -GlobalConst.HANDLE_SIZE / 2
 	icon.rotation_degrees = 90
 	icon.texture = PLUS if area_increment else MINUS
@@ -100,12 +100,13 @@ func _update_changed_tiles() -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area.scale.x = min_scale + _new_scale
-	area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
+	area.size.x = min_scale * 128 + _new_scale * 128
+	# area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
 
 
 func toggle_highlight(is_on: bool) -> void:
-	area.material.set_shader_parameter("is_hovered", is_on)
+	print("FIX ME")
+	# area.material.set_shader_parameter("is_hovered", is_on)
 
 
 func _on_handle_mouse_exited():
