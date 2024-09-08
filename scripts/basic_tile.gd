@@ -1,10 +1,6 @@
 class_name Tile
 extends Node2D
 
-signal enter(tile: Tile, area: ScalableArea)
-signal exit(tile: Tile)
-signal click
-
 var value: int = 0
 var sc_stack: Array[ScalableArea]
 var color_palette: Dictionary = {
@@ -60,20 +56,6 @@ func init(cell_value: int) -> void:
 func update() -> void:
 	target_value_txt.text = String.num(value)
 	sprite_2d.material.set_shader_parameter("base_color", color_palette.get(value))
-
-
-func _on_area_2d_mouse_entered():
-	enter.emit(self, get_top_handle())
-
-
-func _on_area_2d_mouse_exited():
-	exit.emit(self)
-
-
-func _on_area_2d_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
-	if _event is InputEventMouse:
-		if _event.is_action_pressed("click"):
-			click.emit()
 
 
 func _update_led(slider_direction: Vector2, is_on: bool):

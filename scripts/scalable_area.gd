@@ -1,9 +1,6 @@
 class_name ScalableArea
 extends Node2D
 
-signal click
-signal enter(me: ScalableArea)
-signal exit(me: ScalableArea)
 signal scale_change
 
 const MINUS = preload("res://assets/ui/minus.png")
@@ -19,6 +16,7 @@ var _extend_limit: int
 var _current_scale: int
 var _reachable_tiles: Array[Tile]
 var _area_increment: bool
+var _last_scale: int
 
 @onready var area: NinePatchRect = $Area
 @onready var handle = $Handle
@@ -48,12 +46,6 @@ func init(
 			rotation_degrees = 90
 			area_limit = Vector2i(0, _extend_limit)
 
-	handle.scale = Vector2(min_scale, 1)
-	handle.position.x = -GlobalConst.HANDLE_SIZE / 2
-	area.size = Vector2(min_scale * 128, 128)
-	area.position.x = -GlobalConst.HANDLE_SIZE
-	icon.position.x = -GlobalConst.HANDLE_SIZE / 2
-	icon.rotation_degrees = 90
 	icon.texture = PLUS if area_increment else MINUS
 
 
@@ -63,11 +55,11 @@ func _process(_delta: float) -> void:
 		var tile_distance: float
 		if _is_horizontal:
 			tile_distance = (
-				(get_global_mouse_position().x - global_position.x) / GlobalConst.CELL_SIZE
+				(get_global_mouse_position().x - global_position.x) / GameManager.CELL_SIZE
 			)
 		else:
 			tile_distance = (
-				(get_global_mouse_position().y - global_position.y) / GlobalConst.CELL_SIZE
+				(get_global_mouse_position().y - global_position.y) / GameManager.CELL_SIZE
 			)
 
 		target_scale = abs(clamp(tile_distance, area_limit.x, area_limit.y))
@@ -75,12 +67,18 @@ func _process(_delta: float) -> void:
 		_apply_scaling(target_scale)
 		_update_changed_tiles()
 
+		if Input.is_action_just_released("click"):
+			release_handle()
+
 
 func release_handle() -> void:
+	if _current_scale != _last_scale:
+		Ui.consume_move()
+
 	is_scaling = false
 	_apply_scaling(fixed_scale)
-	_update_changed_tiles()
 	scale_change.emit()
+	area.material.set_shader_parameter("is_selected", false)
 
 
 func _update_changed_tiles() -> void:
@@ -100,24 +98,13 @@ func _update_changed_tiles() -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area.size.x = min_scale * 128 + _new_scale * 128
-	# area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
-
-
-func toggle_highlight(is_on: bool) -> void:
-	print("FIX ME")
-	# area.material.set_shader_parameter("is_hovered", is_on)
-
-
-func _on_handle_mouse_exited():
-	exit.emit(self)
-
-
-func _on_handle_mouse_entered():
-	enter.emit(self)
+	area.size.x = (min_scale + _new_scale) * GlobalConst.CELL_SIZE
+	handle.position.x = _new_scale * GlobalConst.CELL_SIZE
 
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
 		if _event.is_action_pressed("click"):
-			click.emit()
+			area.material.set_shader_parameter("is_selected", true)
+			is_scaling = true
+			_last_scale = _current_scale

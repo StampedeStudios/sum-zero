@@ -58,9 +58,6 @@ vertical_alignment = 1
 shape = SubResource("RectangleShape2D_qn0yb")
 
 [node name="Led" type="Sprite2D" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_is17t")
 texture = ExtResource("4_lrd63")
-
-[connection signal="input_event" from="Tile/Area2D" to="." method="_on_area_2d_input_event"]
-[connection signal="mouse_entered" from="Tile/Area2D" to="." method="_on_area_2d_mouse_entered"]
-[connection signal="mouse_exited" from="Tile/Area2D" to="." method="_on_area_2d_mouse_exited"]

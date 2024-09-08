@@ -7,3 +7,4 @@ script = ExtResource("1_ptgm1")
 cells_values = Array[Array]([[0, -1, 1, 1, 1], [0, -1, 1, 1, 1], [-1, -4, -2, 0, 0], [0, -1, 0, 0, 0], [1, 0, 0, 0, 0]])
 handles_positions = Array[int]([2, 3, 4, 5, 8, 14, 16, 18])
 handles_increment = Array[bool]([true, false, false, false, true, true, false, true])
+moves_left = 11

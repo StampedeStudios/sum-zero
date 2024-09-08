@@ -7,3 +7,4 @@ script = ExtResource("1_5lfu1")
 cells_values = Array[Array]([[1, 1, 1, 2, 2], [1, 1, 1, 2, 2], [0, 0, 0, 1, 1], [1, 1, 1, 2, 2], [1, 1, 1, 2, 2]])
 handles_positions = Array[int]([4, 5, 16, 17, 18, 19, 20])
 handles_increment = Array[int]([false, false, false, false, false, false, false])
+moves_left = 9

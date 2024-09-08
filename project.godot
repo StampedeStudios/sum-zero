@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="Doku Scale"
+config/name="Sum Zero"
+config/version="0.1.0s"
 run/main_scene="res://scenes/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/game/logo.png"
@@ -18,11 +19,13 @@ config/icon="res://assets/game/logo.png"
 [autoload]
 
 GameManager="*res://scenes/GameManager.tscn"
+Ui="*res://scenes/UI.tscn"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=960
+window/size/viewport_height=1280
+window/handheld/orientation=1
 
 [input]
 
