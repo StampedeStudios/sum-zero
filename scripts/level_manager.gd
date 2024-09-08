@@ -1,12 +1,9 @@
 extends Node2D
 
 const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
-const SCALABLE_AREA = preload("res://scenes/ScalableArea.tscn")
+const SLIDER_AREA = preload("res://scenes/SliderArea.tscn")
 
 var half_grid_size: Vector2
-var selected_area: ScalableArea = null
-var selected_tile: Tile = null
-var is_handled: bool
 var grid_tiles: Array[Tile]
 
 @onready var grid: Node2D = $Grid
@@ -121,7 +118,7 @@ func init(current_level: LevelData) -> void:
 			for i in range(temp, temp + level_size.x):
 				reachable_tiles.append(grid_tiles[i])
 
-		var sc_instance = SCALABLE_AREA.instantiate()
+		var sc_instance = SLIDER_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
@@ -142,11 +139,7 @@ func _on_size_changed() -> void:
 func _clear() -> void:
 	for child in grid.get_children():
 		child.queue_free()
-
 	grid_tiles = []
-	selected_area = null
-	selected_tile = null
-	is_handled = false
 
 
 func check_grid() -> void:

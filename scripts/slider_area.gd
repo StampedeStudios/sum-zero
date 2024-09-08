@@ -1,10 +1,10 @@
-class_name ScalableArea
+class_name SliderArea
 extends Node2D
 
 signal scale_change
 
-const MINUS = preload("res://assets/ui/minus.png")
-const PLUS = preload("res://assets/ui/plus.png")
+const MINUS = preload("res://assets/scenes/minus.png")
+const PLUS = preload("res://assets/scenes/plus.png")
 
 var target_scale: float
 var fixed_scale: int
