@@ -45,6 +45,11 @@ click_dx={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="ScalableArea"
+2d_physics/layer_2="Tile"
+
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
