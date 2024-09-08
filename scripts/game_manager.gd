@@ -10,7 +10,7 @@ const LEVEL_FOLDER_PATH := "res://assets/resources/"
 
 @export var level_data: Array[LevelData]
 var current_level: int
-var CELL_SIZE: float
+var cell_size: float
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -18,7 +18,7 @@ var CELL_SIZE: float
 func _ready() -> void:
 	var screen_side_shorter: float
 	screen_side_shorter = min(get_viewport().size.x, get_viewport().size.y)
-	CELL_SIZE = screen_side_shorter / 7
+	cell_size = screen_side_shorter / 7
 
 
 func level_complete() -> void:

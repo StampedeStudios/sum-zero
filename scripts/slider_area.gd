@@ -21,8 +21,8 @@ var _orientation: Vector2
 @onready var handle = $Handle
 @onready var icon = $Icon
 @onready var ray = $Ray
-	
-	
+
+
 func init(is_horizontal: bool, reachable_tiles: Array[Tile], area_increment: bool) -> void:
 	_is_horizontal = is_horizontal
 	_reachable_tiles = reachable_tiles
@@ -30,7 +30,8 @@ func init(is_horizontal: bool, reachable_tiles: Array[Tile], area_increment: boo
 
 	icon.texture = PLUS if area_increment else MINUS
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
-	
+
+
 func _process(_delta: float) -> void:
 	# inizio a scalare mentre il mouse è premuto
 	if is_scaling:
@@ -42,12 +43,12 @@ func _process(_delta: float) -> void:
 		else:
 			tile_distance = get_global_mouse_position().y - global_position.y
 			drag_direction = Vector2(0, tile_distance).normalized()
-		
+
 		if drag_direction == _orientation:
 			tile_distance = abs(tile_distance / GameManager.CELL_SIZE)
 		else:
 			tile_distance = 0
-			
+
 		target_scale = clamp(tile_distance, 0, _moves)
 		fixed_scale = round(target_scale)
 		_apply_scaling(target_scale)
@@ -104,8 +105,8 @@ func _check_limit() -> void:
 		var tile: Tile = ray.get_collider().owner
 		if !tile.is_blocked:
 			_moves += 1
-			ray.add_exception( ray.get_collider() )
+			ray.add_exception(ray.get_collider())
 			ray.force_raycast_update()
 		else:
-			break 		
+			break
 	ray.clear_exceptions()
