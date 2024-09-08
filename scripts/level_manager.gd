@@ -60,12 +60,12 @@ func init(current_level: LevelData) -> void:
 		var x_pos: float
 		var y_pos: float
 		var is_horizontal: bool
-		var extend_limit: int
 		var reachable_tiles: Array[Tile]
 		var temp: int
+		var angle: float
 
 		if sc_index > 0 and sc_index <= level_size.x:
-			extend_limit = level_size.y
+			angle = 90
 			is_horizontal = false
 			x_pos = -half_grid_size.x -  GameManager.CELL_SIZE / 2 +  GameManager.CELL_SIZE * sc_index
 			y_pos = -half_grid_size.y
@@ -76,7 +76,7 @@ func init(current_level: LevelData) -> void:
 				temp += level_size.x
 
 		elif sc_index > level_size.x and sc_index <= (level_size.x + level_size.y):
-			extend_limit = -level_size.x
+			angle = 180
 			is_horizontal = true
 			x_pos = half_grid_size.x
 			y_pos = (
@@ -93,7 +93,7 @@ func init(current_level: LevelData) -> void:
 			sc_index > (level_size.x + level_size.y)
 			and sc_index <= (level_size.x * 2 + level_size.y)
 		):
-			extend_limit = -level_size.y
+			angle = 270
 			is_horizontal = false
 			x_pos = (
 				half_grid_size.x
@@ -108,7 +108,7 @@ func init(current_level: LevelData) -> void:
 				temp -= level_size.x
 
 		elif sc_index > (level_size.x * 2 + level_size.y):
-			extend_limit = level_size.x
+			angle = 0
 			is_horizontal = true
 			x_pos = -half_grid_size.x
 			y_pos = (
@@ -124,19 +124,14 @@ func init(current_level: LevelData) -> void:
 		var sc_instance = SCALABLE_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
+		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale,cell_scale)
 		sc_instance.init(
-			is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index]
+			is_horizontal, reachable_tiles, current_level.handles_increment[index]
 		)
 		sc_instance.scale_change.connect(check_grid)
 
 	_on_size_changed()
-
-
-func _process(_delta: float) -> void:
-	if is_handled and Input.is_action_just_released("click"):
-		is_handled = false
-		selected_area.release_handle()
 
 
 func _on_size_changed() -> void:

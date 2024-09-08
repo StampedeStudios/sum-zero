@@ -1,6 +1,7 @@
 class_name Tile
 extends Node2D
 
+var is_blocked: bool = false
 var value: int = 0
 var sc_stack: Array[ScalableArea]
 var color_palette: Dictionary = {
