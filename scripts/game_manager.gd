@@ -10,10 +10,17 @@ const LEVEL_FOLDER_PATH := "res://assets/resources/"
 
 @export var level_data: Array[LevelData]
 var current_level: int
+var CELL_SIZE: float
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 
+func _ready() -> void:
+	var screen_side_shorter: float
+	screen_side_shorter = min(get_viewport().size.x, get_viewport().size.y)
+	CELL_SIZE = screen_side_shorter / 7
+	
+	
 func level_complete() -> void:
 	level_end.emit()
 	get_tree().paused = true

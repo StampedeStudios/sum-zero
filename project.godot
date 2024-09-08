@@ -23,7 +23,7 @@ GameManager="*res://scenes/GameManager.tscn"
 [display]
 
 window/size/viewport_width=960
-window/size/viewport_height=1440
+window/size/viewport_height=1280
 window/handheld/orientation=1
 
 [input]

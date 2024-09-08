@@ -54,11 +54,11 @@ func _process(_delta: float) -> void:
 		var tile_distance: float
 		if _is_horizontal:
 			tile_distance = (
-				(get_global_mouse_position().x - global_position.x) / GlobalConst.CELL_SIZE
+				(get_global_mouse_position().x - global_position.x) / GameManager.CELL_SIZE
 			)
 		else:
 			tile_distance = (
-				(get_global_mouse_position().y - global_position.y) / GlobalConst.CELL_SIZE
+				(get_global_mouse_position().y - global_position.y) / GameManager.CELL_SIZE
 			)
 
 		target_scale = abs(clamp(tile_distance, area_limit.x, area_limit.y))
@@ -95,9 +95,8 @@ func _update_changed_tiles() -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area.size.x = (min_scale + _new_scale) * GlobalConst.CELL_SIZE * 2
-	handle.position.x = _new_scale * GlobalConst.CELL_SIZE * 2
-	# area.position.x = -GlobalConst.HANDLE_SIZE / 2 + _new_scale / 2 * GlobalConst.CELL_SIZE
+	area.size.x = (min_scale + _new_scale) * GlobalConst.CELL_SIZE 
+	handle.position.x = _new_scale * GlobalConst.CELL_SIZE 
 
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:

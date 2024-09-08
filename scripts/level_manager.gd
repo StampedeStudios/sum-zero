@@ -29,8 +29,11 @@ func init(current_level: LevelData) -> void:
 
 	var level_size: Vector2i
 	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
-
-	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
+	
+	var cell_scale: float
+	cell_scale = GameManager.CELL_SIZE / GlobalConst.CELL_SIZE
+	
+	half_grid_size = level_size * GameManager.CELL_SIZE / 2
 
 	# placing tiles
 	for row in range(0, level_size.y):
@@ -38,15 +41,16 @@ func init(current_level: LevelData) -> void:
 		for column in range(0, level_size.x):
 			var tile_instance := BASIC_TILE.instantiate()
 			var tile_x_pos := (
-				(column - float(level_size.x) / 2) * GlobalConst.CELL_SIZE
-				+ GlobalConst.CELL_SIZE / 2
+				(column - float(level_size.x) / 2) *  GameManager.CELL_SIZE
+				+  GameManager.CELL_SIZE / 2
 			)
 			var tile_y_pos := (
-				(row - float(level_size.y) / 2) * GlobalConst.CELL_SIZE + GlobalConst.CELL_SIZE / 2
+				(row - float(level_size.y) / 2) *  GameManager.CELL_SIZE +  GameManager.CELL_SIZE / 2
 			)
 
-			tile_instance.position = Vector2(tile_x_pos, tile_y_pos)
 			grid.add_child(tile_instance)
+			tile_instance.position = Vector2(tile_x_pos, tile_y_pos)
+			tile_instance.scale = Vector2(cell_scale,cell_scale)
 			tile_instance.init(row_cells[column])
 			grid_tiles.append(tile_instance)
 
@@ -63,7 +67,7 @@ func init(current_level: LevelData) -> void:
 		if sc_index > 0 and sc_index <= level_size.x:
 			extend_limit = level_size.y
 			is_horizontal = false
-			x_pos = -half_grid_size.x - GlobalConst.CELL_SIZE / 2 + GlobalConst.CELL_SIZE * sc_index
+			x_pos = -half_grid_size.x -  GameManager.CELL_SIZE / 2 +  GameManager.CELL_SIZE * sc_index
 			y_pos = -half_grid_size.y
 
 			temp = sc_index - 1
@@ -77,8 +81,8 @@ func init(current_level: LevelData) -> void:
 			x_pos = half_grid_size.x
 			y_pos = (
 				-half_grid_size.y
-				- GlobalConst.CELL_SIZE / 2
-				+ GlobalConst.CELL_SIZE * (sc_index - level_size.x)
+				-  GameManager.CELL_SIZE / 2
+				+  GameManager.CELL_SIZE * (sc_index - level_size.x)
 			)
 
 			temp = level_size.x * (sc_index - level_size.x) - 1
@@ -93,8 +97,8 @@ func init(current_level: LevelData) -> void:
 			is_horizontal = false
 			x_pos = (
 				half_grid_size.x
-				+ GlobalConst.CELL_SIZE / 2
-				- GlobalConst.CELL_SIZE * (sc_index - level_size.x - level_size.y)
+				+  GameManager.CELL_SIZE / 2
+				-  GameManager.CELL_SIZE * (sc_index - level_size.x - level_size.y)
 			)
 			y_pos = half_grid_size.y
 
@@ -109,8 +113,8 @@ func init(current_level: LevelData) -> void:
 			x_pos = -half_grid_size.x
 			y_pos = (
 				half_grid_size.y
-				+ GlobalConst.CELL_SIZE / 2
-				- GlobalConst.CELL_SIZE * (sc_index - level_size.x * 2 - level_size.y)
+				+  GameManager.CELL_SIZE / 2
+				-  GameManager.CELL_SIZE * (sc_index - level_size.x * 2 - level_size.y)
 			)
 
 			temp = grid_tiles.size() - (sc_index - level_size.x * 2 - level_size.y) * level_size.x
@@ -120,6 +124,7 @@ func init(current_level: LevelData) -> void:
 		var sc_instance = SCALABLE_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
+		sc_instance.scale = Vector2(cell_scale,cell_scale)
 		sc_instance.init(
 			is_horizontal, extend_limit, reachable_tiles, current_level.handles_increment[index]
 		)

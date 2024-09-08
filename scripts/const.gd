@@ -1,4 +1,4 @@
 class_name GlobalConst
 
-const CELL_SIZE: float = 128
-const HANDLE_SIZE: float = 64
+const CELL_SIZE: float = 256
+const HANDLE_SIZE: float = 128
