@@ -19,8 +19,8 @@ func _ready() -> void:
 	var screen_side_shorter: float
 	screen_side_shorter = min(get_viewport().size.x, get_viewport().size.y)
 	CELL_SIZE = screen_side_shorter / 7
-	
-	
+
+
 func level_complete() -> void:
 	level_end.emit()
 	get_tree().paused = true
@@ -38,8 +38,10 @@ func toggle_level(visibilty: bool) -> void:
 func load_level() -> void:
 	get_tree().paused = false
 	if current_level < level_data.size():
+		var level_info: LevelData = level_data[current_level]
 		audio_stream_player_2d.play()
-		level_loading.emit(level_data[current_level])
+		Ui.moves_left = level_info.moves_left
+		level_loading.emit(level_info)
 		level_start.emit()
 	else:
 		game_ended.emit()

@@ -7,3 +7,4 @@ script = ExtResource("1_kbpw2")
 cells_values = Array[Array]([[-1, 0, 0], [0, 1, 1], [-1, 0, 0]])
 handles_positions = Array[int]([1, 5])
 handles_increment = Array[bool]([true, false])
+moves_left = 5

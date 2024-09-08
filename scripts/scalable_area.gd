@@ -16,6 +16,7 @@ var _extend_limit: int
 var _current_scale: int
 var _reachable_tiles: Array[Tile]
 var _area_increment: bool
+var _last_scale: int
 
 @onready var area: NinePatchRect = $Area
 @onready var handle = $Handle
@@ -71,9 +72,11 @@ func _process(_delta: float) -> void:
 
 
 func release_handle() -> void:
+	if _current_scale != _last_scale:
+		Ui.consume_move()
+
 	is_scaling = false
 	_apply_scaling(fixed_scale)
-	_update_changed_tiles()
 	scale_change.emit()
 	area.material.set_shader_parameter("is_selected", false)
 
@@ -95,8 +98,8 @@ func _update_changed_tiles() -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area.size.x = (min_scale + _new_scale) * GlobalConst.CELL_SIZE 
-	handle.position.x = _new_scale * GlobalConst.CELL_SIZE 
+	area.size.x = (min_scale + _new_scale) * GlobalConst.CELL_SIZE
+	handle.position.x = _new_scale * GlobalConst.CELL_SIZE
 
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
@@ -104,3 +107,4 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 		if _event.is_action_pressed("click"):
 			area.material.set_shader_parameter("is_selected", true)
 			is_scaling = true
+			_last_scale = _current_scale

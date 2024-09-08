@@ -1,14 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=6 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="1_qtyoq"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_xwl0a"]
 [ext_resource type="Texture2D" uid="uid://d3pc0tot7kej7" path="res://assets/ui/button_hover.png" id="2_m21px"]
-[ext_resource type="Texture2D" uid="uid://dqpsj2ht1hsak" path="res://assets/ui/container.png" id="3_dxsx7"]
 [ext_resource type="Texture2D" uid="uid://0kdv1pp5886o" path="res://assets/ui/next_level.png" id="5_nexth"]
 [ext_resource type="Texture2D" uid="uid://dyj3jffvvwfvf" path="res://assets/ui/next_level_hover.png" id="6_31pmf"]
-[ext_resource type="Texture2D" uid="uid://dmymosahy8rxw" path="res://assets/game/stampede_logo.png" id="6_lf4ql"]
-[ext_resource type="Texture2D" uid="uid://bow5b8wwyeu8v" path="res://assets/ui/question.png" id="7_ullyv"]
-[ext_resource type="Texture2D" uid="uid://duesynrrx521y" path="res://assets/ui/question_hover.png" id="8_mxcwg"]
 
 [node name="Ui" type="Control"]
 process_mode = 3
@@ -18,7 +14,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("1_xwl0a")
+
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MovesLeft" type="Label" parent="BoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
+theme_override_font_sizes/font_size = 72
+text = "13"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -37,6 +53,7 @@ alignment = 2
 
 [node name="NextLevelButton" type="TextureButton" parent="BottomRightContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 texture_normal = ExtResource("5_nexth")
 texture_pressed = ExtResource("6_31pmf")
@@ -48,95 +65,5 @@ texture_normal = ExtResource("1_qtyoq")
 texture_pressed = ExtResource("2_m21px")
 texture_hover = ExtResource("2_m21px")
 
-[node name="CenterContainer" type="MarginContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -325.0
-offset_top = -200.0
-offset_right = 325.0
-offset_bottom = 200.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="InfoText" type="RichTextLabel" parent="CenterContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/default_color = Color(0.239216, 0.341176, 0.239216, 1)
-theme_override_font_sizes/normal_font_size = 36
-bbcode_enabled = true
-text = "Use the mouse left button ([img]res://assets/ui/mouse_sx.png[/img]) to scale boxes along the [color=red]X[/color] and the [color=green]Y[/color] axis to turn each number to zero.
-
-Pay attention to symbols ([img]res://assets/ui/minus.png[/img], [img]res://assets/ui/plus.png[/img]) as they tell what's the effect on tiles."
-
-[node name="EndScreen" type="AspectRatioContainer" parent="CenterContainer"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/EndScreen"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CenterContainer/EndScreen/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
-theme_override_font_sizes/font_size = 64
-text = "Thanks for playing!"
-
-[node name="HSeparator" type="HSeparator" parent="CenterContainer/EndScreen/VBoxContainer"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/EndScreen/VBoxContainer"]
-layout_mode = 2
-texture = ExtResource("6_lf4ql")
-
-[node name="BottomLeftContainer" type="BoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_top = -128.0
-offset_right = 388.0
-grow_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="BottomLeftContainer"]
-layout_mode = 2
-texture = ExtResource("3_dxsx7")
-
-[node name="Timer" type="Label" parent="BottomLeftContainer/TextureRect"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -61.5
-offset_top = -33.5
-offset_right = 61.5
-offset_bottom = 33.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
-theme_override_font_sizes/font_size = 48
-text = "00:00"
-
-[node name="InfoButton" type="TextureButton" parent="BottomLeftContainer"]
-layout_mode = 2
-texture_normal = ExtResource("7_ullyv")
-texture_pressed = ExtResource("8_mxcwg")
-texture_hover = ExtResource("8_mxcwg")
-
 [connection signal="pressed" from="BottomRightContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
 [connection signal="pressed" from="BottomRightContainer/ClearButton" to="." method="_on_clear_button_pressed"]
-[connection signal="pressed" from="BottomLeftContainer/InfoButton" to="." method="_on_info_button_pressed"]
