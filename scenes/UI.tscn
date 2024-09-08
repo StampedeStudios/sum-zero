@@ -53,7 +53,6 @@ alignment = 2
 
 [node name="NextLevelButton" type="TextureButton" parent="BottomRightContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 texture_normal = ExtResource("5_nexth")
 texture_pressed = ExtResource("6_31pmf")
