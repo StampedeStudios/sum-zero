@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxftc31clsb7d"
-path="res://.godot/imported/leds.png-96cdc868d4bafa3186b70c4d2810a0f6.ctex"
+uid="uid://7bec7q7w10gl"
+path="res://.godot/imported/minus.png-8f78d9df9e0ddef0656de84b52b81fe6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/leds.png"
-dest_files=["res://.godot/imported/leds.png-96cdc868d4bafa3186b70c4d2810a0f6.ctex"]
+source_file="res://assets/scenes/minus.png"
+dest_files=["res://.godot/imported/minus.png-8f78d9df9e0ddef0656de84b52b81fe6.ctex"]
 
 [params]
 

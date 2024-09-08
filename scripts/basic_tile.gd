@@ -3,7 +3,7 @@ extends Node2D
 
 var is_blocked: bool = false
 var value: int = 0
-var sc_stack: Array[ScalableArea]
+var sc_stack: Array[SliderArea]
 var color_palette: Dictionary = {
 	-4: Vector4(0.49, 0.76, 0.24, 1),
 	-3: Vector4(0.56, 0.8, 0.39, 1),
@@ -21,7 +21,7 @@ var color_palette: Dictionary = {
 @onready var led: Sprite2D = $Led
 
 
-func alter_value(stack_variation: ScalableArea, is_increment: bool) -> void:
+func alter_value(stack_variation: SliderArea, is_increment: bool) -> void:
 	var is_exist: bool
 	var slider_direction: Vector2 = (
 		(self.global_position - stack_variation.global_position).normalized()
@@ -42,8 +42,8 @@ func alter_value(stack_variation: ScalableArea, is_increment: bool) -> void:
 	update()
 
 
-func get_top_handle() -> ScalableArea:
-	var top: ScalableArea = null
+func get_top_handle() -> SliderArea:
+	var top: SliderArea = null
 	if sc_stack.size() > 0:
 		top = sc_stack[sc_stack.size() - 1]
 	return top

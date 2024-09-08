@@ -1,13 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://ce6hhyfbr036r"]
 
-[ext_resource type="Shader" path="res://shaders/ScalableArea.gdshader" id="1_cfxa8"]
-[ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/slider.png" id="2_bpwpr"]
-[ext_resource type="Script" path="res://scripts/scalable_area.gd" id="2_f08w0"]
-[ext_resource type="Texture2D" uid="uid://7bec7q7w10gl" path="res://assets/ui/minus.png" id="4_gjuxb"]
+[ext_resource type="Script" path="res://scripts/slider_area.gd" id="1_xjbxd"]
+[ext_resource type="Texture2D" uid="uid://7bec7q7w10gl" path="res://assets/scenes/minus.png" id="2_rp6mv"]
+[ext_resource type="Shader" path="res://shaders/ScalableArea.gdshader" id="3_qs1jk"]
+[ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes/slider.png" id="4_yil1j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
 resource_local_to_scene = true
-shader = ExtResource("1_cfxa8")
+shader = ExtResource("3_qs1jk")
 shader_parameter/base_color = Color(0.0847556, 0.298363, 0.16214, 1)
 shader_parameter/is_selected = false
 shader_parameter/glow_intensity = 4.0
@@ -15,10 +15,10 @@ shader_parameter/glow_intensity = 4.0
 [node name="ScalableArea" type="Node2D"]
 position = Vector2(454, 665)
 scale = Vector2(0.5, 0.5)
-script = ExtResource("2_f08w0")
+script = ExtResource("1_xjbxd")
 
 [node name="Icon" type="Sprite2D" parent="."]
-texture = ExtResource("4_gjuxb")
+texture = ExtResource("2_rp6mv")
 
 [node name="Area" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
@@ -26,7 +26,7 @@ material = SubResource("ShaderMaterial_4iu34")
 offset_left = -128.0
 offset_top = -128.0
 offset_bottom = 128.0
-texture = ExtResource("2_bpwpr")
+texture = ExtResource("4_yil1j")
 patch_margin_left = 36
 patch_margin_top = 36
 patch_margin_right = 36

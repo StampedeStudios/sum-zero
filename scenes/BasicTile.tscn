@@ -1,10 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://bpr74i8ln7erw"]
 
-[ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/tile.png" id="1_l8avl"]
+[ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/scenes/tile.png" id="1_l8avl"]
 [ext_resource type="Script" path="res://scripts/basic_tile.gd" id="1_wt3ii"]
 [ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_w2njh"]
 [ext_resource type="Shader" path="res://shaders/Led.gdshader" id="4_7g07l"]
-[ext_resource type="Texture2D" uid="uid://cxftc31clsb7d" path="res://assets/leds.png" id="4_lrd63"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2y5"]
 resource_local_to_scene = true
@@ -22,6 +21,9 @@ shader_parameter/is_top = false
 shader_parameter/is_right = false
 shader_parameter/is_bottom = false
 shader_parameter/is_left = false
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eqy5y"]
+load_path = "res://.godot/imported/leds.png-96cdc868d4bafa3186b70c4d2810a0f6.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
 size = Vector2(256, 256)
@@ -56,7 +58,7 @@ vertical_alignment = 1
 [node name="Led" type="Sprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_is17t")
-texture = ExtResource("4_lrd63")
+texture = SubResource("CompressedTexture2D_eqy5y")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 2
