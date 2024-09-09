@@ -28,21 +28,21 @@ func init(current_level: LevelData) -> void:
 	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
 
 	var cell_scale: float
-	cell_scale = GameManager.CELL_SIZE / GlobalConst.CELL_SIZE
+	cell_scale = GameManager.cell_size / GlobalConst.CELL_SIZE
 
-	half_grid_size = level_size * GameManager.CELL_SIZE / 2
+	half_grid_size = level_size * GameManager.cell_size / 2
 
 	# placing tiles
 	for row in range(0, level_size.y):
 		var row_cells: Array = current_level.cells_values[row]
 		for column in range(0, level_size.x):
 			var tile_instance := BASIC_TILE.instantiate()
-			var tile_x_pos := (
-				(column - float(level_size.x) / 2) * GameManager.CELL_SIZE
-				+ GameManager.CELL_SIZE / 2
+			var tile_x_pos: float = (
+				(column - float(level_size.x) / 2) * GameManager.cell_size
+				+ GameManager.cell_size / 2
 			)
-			var tile_y_pos := (
-				(row - float(level_size.y) / 2) * GameManager.CELL_SIZE + GameManager.CELL_SIZE / 2
+			var tile_y_pos: float = (
+				(row - float(level_size.y) / 2) * GameManager.cell_size + GameManager.cell_size / 2
 			)
 
 			grid.add_child(tile_instance)
@@ -64,7 +64,7 @@ func init(current_level: LevelData) -> void:
 		if sc_index > 0 and sc_index <= level_size.x:
 			angle = 90
 			is_horizontal = false
-			x_pos = -half_grid_size.x - GameManager.CELL_SIZE / 2 + GameManager.CELL_SIZE * sc_index
+			x_pos = -half_grid_size.x - GameManager.cell_size / 2 + GameManager.cell_size * sc_index
 			y_pos = -half_grid_size.y
 
 			temp = sc_index - 1
@@ -78,8 +78,8 @@ func init(current_level: LevelData) -> void:
 			x_pos = half_grid_size.x
 			y_pos = (
 				-half_grid_size.y
-				- GameManager.CELL_SIZE / 2
-				+ GameManager.CELL_SIZE * (sc_index - level_size.x)
+				- GameManager.cell_size / 2
+				+ GameManager.cell_size * (sc_index - level_size.x)
 			)
 
 			temp = level_size.x * (sc_index - level_size.x) - 1
@@ -94,8 +94,8 @@ func init(current_level: LevelData) -> void:
 			is_horizontal = false
 			x_pos = (
 				half_grid_size.x
-				+ GameManager.CELL_SIZE / 2
-				- GameManager.CELL_SIZE * (sc_index - level_size.x - level_size.y)
+				+ GameManager.cell_size / 2
+				- GameManager.cell_size * (sc_index - level_size.x - level_size.y)
 			)
 			y_pos = half_grid_size.y
 
@@ -110,8 +110,8 @@ func init(current_level: LevelData) -> void:
 			x_pos = -half_grid_size.x
 			y_pos = (
 				half_grid_size.y
-				+ GameManager.CELL_SIZE / 2
-				- GameManager.CELL_SIZE * (sc_index - level_size.x * 2 - level_size.y)
+				+ GameManager.cell_size / 2
+				- GameManager.cell_size * (sc_index - level_size.x * 2 - level_size.y)
 			)
 
 			temp = grid_tiles.size() - (sc_index - level_size.x * 2 - level_size.y) * level_size.x

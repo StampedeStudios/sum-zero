@@ -45,7 +45,7 @@ func _process(_delta: float) -> void:
 			drag_direction = Vector2(0, tile_distance).normalized()
 
 		if drag_direction == _orientation:
-			tile_distance = abs(tile_distance / GameManager.CELL_SIZE)
+			tile_distance = abs(tile_distance / GameManager.cell_size)
 		else:
 			tile_distance = 0
 
