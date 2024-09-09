@@ -23,7 +23,6 @@ shader_parameter/is_bottom = false
 shader_parameter/is_left = false
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_eqy5y"]
-load_path = "res://.godot/imported/leds.png-96cdc868d4bafa3186b70c4d2810a0f6.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
 size = Vector2(256, 256)
