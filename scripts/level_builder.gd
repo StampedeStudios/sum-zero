@@ -1,7 +1,7 @@
 extends Node2D
 
 const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
-const SCALABLE_AREA = preload("res://scenes/ScalableArea.tscn")
+const SCALABLE_AREA = preload("res://scenes/SliderArea.tscn")
 const RESOURCE_PATH = "res://assets/resources/level"
 
 @export_range(2, 5) var level_width: int = 2
@@ -9,7 +9,7 @@ const RESOURCE_PATH = "res://assets/resources/level"
 @export_range(0, 100) var level_index: int
 
 var selected_tile: Tile
-var selected_handle: ScalableArea
+var selected_handle: SliderArea
 
 var cells_values: Dictionary
 var cells_list: Array[Array]
@@ -124,7 +124,7 @@ func _process(_delta) -> void:
 		_decrement()
 
 
-func _tile_select(tile: Tile, _handle: ScalableArea) -> void:
+func _tile_select(tile: Tile, _handle: SliderArea) -> void:
 	selected_tile = tile
 
 
@@ -133,11 +133,11 @@ func _tile_deselect(tile: Tile) -> void:
 		selected_tile = null
 
 
-func _handle_select(handle: ScalableArea) -> void:
+func _handle_select(handle: SliderArea) -> void:
 	selected_handle = handle
 
 
-func _handle_deselect(handle: ScalableArea) -> void:
+func _handle_deselect(handle: SliderArea) -> void:
 	if selected_handle == handle:
 		selected_handle = null
 

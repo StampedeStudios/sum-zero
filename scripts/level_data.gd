@@ -1,6 +1,9 @@
-class_name LevelData extends Resource
+class_name LevelData 
+extends Resource
 
-@export var cells_values: Array[Array]
-@export var handles_positions: Array[int]
-@export var handles_increment: Array[bool]
-@export var moves_left: int = 1
+var cells_values: Array[Array]
+var handles_positions: Array[int]
+var handles_increment: Array[bool]
+## key: slider position, value: slider data 
+var slider_position: Dictionary
+var moves_left: int = 1
