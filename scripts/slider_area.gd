@@ -3,11 +3,6 @@ extends Node2D
 
 signal scale_change
 
-const MINUS = preload("res://assets/scenes/minus.png")
-const PLUS = preload("res://assets/scenes/plus.png")
-
-var target_scale: float
-var fixed_scale: int
 var is_scaling: bool
 var _is_horizontal: bool
 var _current_scale: int
@@ -16,20 +11,22 @@ var _area_increment: bool
 var _last_scale: int
 var _moves: int
 var _orientation: Vector2
+var _area_effect: GlobalConst.AreaEffect
+var _area_behavior: GlobalConst.AreaBehavior
 
 @onready var area: NinePatchRect = $Area
-@onready var handle = $Handle
-@onready var icon = $Icon
-@onready var ray = $Ray
+@onready var handle: Area2D = $Handle
+@onready var icon: Sprite2D = $Icon
+@onready var ray: RayCast2D = $Ray
 
 
-func init(is_horizontal: bool, reachable_tiles: Array[Tile], area_increment: bool) -> void:
-	_is_horizontal = is_horizontal
-	_reachable_tiles = reachable_tiles
-	_area_increment = area_increment
-
-	icon.texture = PLUS if area_increment else MINUS
+func init(slider_data: SliderData) -> void:
+	icon.texture = slider_data.area_effect_texture
+	
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
+	_is_horizontal = _orientation.y == 0
+	_area_effect = slider_data.area_effect
+	_area_behavior = slider_data.area_behavior
 
 
 func _process(_delta: float) -> void:
@@ -37,6 +34,7 @@ func _process(_delta: float) -> void:
 	if is_scaling:
 		var tile_distance: float
 		var drag_direction: Vector2
+		
 		if _is_horizontal:
 			tile_distance = get_global_mouse_position().x - global_position.x
 			drag_direction = Vector2(tile_distance, 0).normalized()
@@ -48,11 +46,11 @@ func _process(_delta: float) -> void:
 			tile_distance = abs(tile_distance / GameManager.cell_size)
 		else:
 			tile_distance = 0
-
+			
+		var target_scale: float
 		target_scale = clamp(tile_distance, 0, _moves)
-		fixed_scale = round(target_scale)
 		_apply_scaling(target_scale)
-		_update_changed_tiles()
+		_update_changed_tiles(round(target_scale))
 
 		if Input.is_action_just_released("click"):
 			release_handle()
@@ -63,12 +61,12 @@ func release_handle() -> void:
 		Ui.consume_move()
 
 	is_scaling = false
-	_apply_scaling(fixed_scale)
+	_apply_scaling(_current_scale)
 	scale_change.emit()
 	area.material.set_shader_parameter("is_selected", false)
 
 
-func _update_changed_tiles() -> void:
+func _update_changed_tiles(fixed_scale: int) -> void:
 	if fixed_scale != _current_scale:
 		var changing_tile: Tile
 
@@ -100,11 +98,13 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 
 func _check_limit() -> void:
 	_moves = 0
+	_reachable_tiles.clear()
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		var tile: Tile = ray.get_collider().owner
 		if !tile.is_blocked:
 			_moves += 1
+			_reachable_tiles.append(tile)
 			ray.add_exception(ray.get_collider())
 			ray.force_raycast_update()
 		else:

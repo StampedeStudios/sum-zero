@@ -3,7 +3,6 @@ extends Node2D
 const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
 const SLIDER_AREA = preload("res://scenes/SliderArea.tscn")
 
-var half_grid_size: Vector2
 var grid_tiles: Array[Tile]
 
 @onready var grid: Node2D = $Grid
@@ -23,13 +22,12 @@ func _ready() -> void:
 # Called when the node enters the scene tree for the first time.
 func init(current_level: LevelData) -> void:
 	_clear()
-
+	var half_grid_size: Vector2
 	var level_size: Vector2i
-	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
-
 	var cell_scale: float
+	
+	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
 	cell_scale = GameManager.cell_size / GlobalConst.CELL_SIZE
-
 	half_grid_size = level_size * GameManager.cell_size / 2
 
 	# placing tiles
@@ -56,25 +54,16 @@ func init(current_level: LevelData) -> void:
 		var sc_index: int = current_level.handles_positions[index]
 		var x_pos: float
 		var y_pos: float
-		var is_horizontal: bool
-		var reachable_tiles: Array[Tile]
 		var temp: int
 		var angle: float
 
 		if sc_index > 0 and sc_index <= level_size.x:
 			angle = 90
-			is_horizontal = false
 			x_pos = -half_grid_size.x - GameManager.cell_size / 2 + GameManager.cell_size * sc_index
 			y_pos = -half_grid_size.y
 
-			temp = sc_index - 1
-			while temp < grid_tiles.size():
-				reachable_tiles.append(grid_tiles[temp])
-				temp += level_size.x
-
 		elif sc_index > level_size.x and sc_index <= (level_size.x + level_size.y):
 			angle = 180
-			is_horizontal = true
 			x_pos = half_grid_size.x
 			y_pos = (
 				-half_grid_size.y
@@ -82,16 +71,11 @@ func init(current_level: LevelData) -> void:
 				+ GameManager.cell_size * (sc_index - level_size.x)
 			)
 
-			temp = level_size.x * (sc_index - level_size.x) - 1
-			for i in range(temp, temp - level_size.x, -1):
-				reachable_tiles.append(grid_tiles[i])
-
 		elif (
 			sc_index > (level_size.x + level_size.y)
 			and sc_index <= (level_size.x * 2 + level_size.y)
 		):
 			angle = 270
-			is_horizontal = false
 			x_pos = (
 				half_grid_size.x
 				+ GameManager.cell_size / 2
@@ -99,14 +83,8 @@ func init(current_level: LevelData) -> void:
 			)
 			y_pos = half_grid_size.y
 
-			temp = grid_tiles.size() - (sc_index - level_size.x - level_size.y)
-			while temp > 0:
-				reachable_tiles.append(grid_tiles[temp])
-				temp -= level_size.x
-
 		elif sc_index > (level_size.x * 2 + level_size.y):
 			angle = 0
-			is_horizontal = true
 			x_pos = -half_grid_size.x
 			y_pos = (
 				half_grid_size.y
@@ -114,16 +92,12 @@ func init(current_level: LevelData) -> void:
 				- GameManager.cell_size * (sc_index - level_size.x * 2 - level_size.y)
 			)
 
-			temp = grid_tiles.size() - (sc_index - level_size.x * 2 - level_size.y) * level_size.x
-			for i in range(temp, temp + level_size.x):
-				reachable_tiles.append(grid_tiles[i])
-
 		var sc_instance = SLIDER_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale, cell_scale)
-		sc_instance.init(is_horizontal, reachable_tiles, current_level.handles_increment[index])
+		sc_instance.init(current_level.handles_increment[index])
 		sc_instance.scale_change.connect(check_grid)
 
 	_on_size_changed()
@@ -132,7 +106,6 @@ func init(current_level: LevelData) -> void:
 func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
 	grid.position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
-
 
 func _clear() -> void:
 	for child in grid.get_children():
