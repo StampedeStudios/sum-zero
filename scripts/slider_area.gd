@@ -3,10 +3,10 @@ extends Node2D
 
 signal scale_change
 
-var is_scaling: bool
+var _is_scaling: bool
 var _is_horizontal: bool
 var _current_scale: int
-var _reachable_tiles: Array[Tile]
+var _reachable_cells: Array[Cell]
 var _area_increment: bool
 var _last_scale: int
 var _moves: int
@@ -31,19 +31,19 @@ func init(slider_data: SliderData) -> void:
 
 func _process(_delta: float) -> void:
 	# inizio a scalare mentre il mouse è premuto
-	if is_scaling:
+	if _is_scaling:
 		var tile_distance: float
 		var drag_direction: Vector2
 		
 		if _is_horizontal:
-			tile_distance = get_global_mouse_position().x - global_position.x
+			tile_distance = get_global_mouse_position().x - ray.global_position.x
 			drag_direction = Vector2(tile_distance, 0).normalized()
 		else:
-			tile_distance = get_global_mouse_position().y - global_position.y
+			tile_distance = get_global_mouse_position().y - ray.global_position.y
 			drag_direction = Vector2(0, tile_distance).normalized()
 
 		if drag_direction == _orientation:
-			tile_distance = abs(tile_distance / GameManager.cell_size)
+			tile_distance = abs(tile_distance) / GameManager.cell_size
 		else:
 			tile_distance = 0
 			
@@ -60,7 +60,7 @@ func release_handle() -> void:
 	if _current_scale != _last_scale:
 		Ui.consume_move()
 
-	is_scaling = false
+	_is_scaling = false
 	_apply_scaling(_current_scale)
 	scale_change.emit()
 	area.material.set_shader_parameter("is_selected", false)
@@ -68,23 +68,23 @@ func release_handle() -> void:
 
 func _update_changed_tiles(fixed_scale: int) -> void:
 	if fixed_scale != _current_scale:
-		var changing_tile: Tile
+		var changing_cell: Cell
 
 		if fixed_scale > _current_scale:
 			while _current_scale < fixed_scale:
 				_current_scale += 1
-				changing_tile = _reachable_tiles[_current_scale - 1]
-				changing_tile.alter_value(self, _area_increment)
+				changing_cell = _reachable_cells[_current_scale - 1]
+				changing_cell.alter_value(self, _area_effect)
 		else:
 			while _current_scale > fixed_scale:
-				changing_tile = _reachable_tiles[_current_scale - 1]
+				changing_cell = _reachable_cells[_current_scale - 1]
 				_current_scale -= 1
-				changing_tile.alter_value(self, _area_increment)
+				changing_cell.alter_value(self, _area_effect)
 
 
 func _apply_scaling(_new_scale: float) -> void:
 	area.size.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
-	handle.position.x = _new_scale * GlobalConst.CELL_SIZE
+	handle.position.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
 
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
@@ -93,18 +93,19 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 			area.material.set_shader_parameter("is_selected", true)
 			_check_limit()
 			_last_scale = _current_scale
-			is_scaling = true
+			_is_scaling = true
 
 
 func _check_limit() -> void:
 	_moves = 0
-	_reachable_tiles.clear()
+	_reachable_cells.clear()
 	ray.force_raycast_update()
 	while ray.is_colliding():
-		var tile: Tile = ray.get_collider().owner
-		if !tile.is_blocked:
+		ray.target_position.x += GlobalConst.CELL_SIZE
+		var cell: Cell = ray.get_collider().owner
+		if !cell.is_blocked:
 			_moves += 1
-			_reachable_tiles.append(tile)
+			_reachable_cells.append(cell)
 			ray.add_exception(ray.get_collider())
 			ray.force_raycast_update()
 		else:

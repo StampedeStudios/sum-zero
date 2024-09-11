@@ -1,9 +1,9 @@
 extends Node2D
 
-const BASIC_TILE = preload("res://scenes/BasicTile.tscn")
+const BASIC_CELL = preload("res://scenes/BasicCell.tscn")
 const SLIDER_AREA = preload("res://scenes/SliderArea.tscn")
 
-var grid_tiles: Array[Tile]
+var grid_cells: Array[Cell]
 
 @onready var grid: Node2D = $Grid
 
@@ -22,49 +22,41 @@ func _ready() -> void:
 # Called when the node enters the scene tree for the first time.
 func init(current_level: LevelData) -> void:
 	_clear()
-	var half_grid_size: Vector2
 	var level_size: Vector2i
+	var half_grid_size: Vector2
 	var cell_scale: float
 	
-	level_size = Vector2i(current_level.cells_values[0].size(), current_level.cells_values.size())
+	level_size = Vector2i(current_level.width, current_level.height)
 	cell_scale = GameManager.cell_size / GlobalConst.CELL_SIZE
 	half_grid_size = level_size * GameManager.cell_size / 2
 
-	# placing tiles
-	for row in range(0, level_size.y):
-		var row_cells: Array = current_level.cells_values[row]
-		for column in range(0, level_size.x):
-			var tile_instance := BASIC_TILE.instantiate()
-			var tile_x_pos: float = (
-				(column - float(level_size.x) / 2) * GameManager.cell_size
-				+ GameManager.cell_size / 2
-			)
-			var tile_y_pos: float = (
-				(row - float(level_size.y) / 2) * GameManager.cell_size + GameManager.cell_size / 2
-			)
+	# placing cells
+	for cell in current_level.cells_list:
+		var cell_instance := BASIC_CELL.instantiate()
+		var relative_pos:= Vector2(cell.column, cell.row) * GameManager.cell_size
+		var cell_offset:= Vector2.ONE * GameManager.cell_size / 2
+		
+		grid.add_child(cell_instance)
+		cell_instance.position = -half_grid_size + cell_offset + relative_pos 
+		cell_instance.scale = Vector2(cell_scale, cell_scale)
+		cell_instance.init(cell.value, cell.is_blocked)
+		grid_cells.append(cell_instance)
+		
 
-			grid.add_child(tile_instance)
-			tile_instance.position = Vector2(tile_x_pos, tile_y_pos)
-			tile_instance.scale = Vector2(cell_scale, cell_scale)
-			tile_instance.init(row_cells[column])
-			grid_tiles.append(tile_instance)
-
-	# placing scalable areas clockwise
-	for index in range(0, current_level.handles_positions.size()):
-		var sc_index: int = current_level.handles_positions[index]
+	# placing slider areas clockwise
+	for sc_index in current_level.slider_position.keys():
 		var x_pos: float
 		var y_pos: float
-		var temp: int
 		var angle: float
 
 		if sc_index > 0 and sc_index <= level_size.x:
 			angle = 90
 			x_pos = -half_grid_size.x - GameManager.cell_size / 2 + GameManager.cell_size * sc_index
-			y_pos = -half_grid_size.y
+			y_pos = -half_grid_size.y - GameManager.cell_size / 2
 
 		elif sc_index > level_size.x and sc_index <= (level_size.x + level_size.y):
 			angle = 180
-			x_pos = half_grid_size.x
+			x_pos = half_grid_size.x + GameManager.cell_size / 2
 			y_pos = (
 				-half_grid_size.y
 				- GameManager.cell_size / 2
@@ -81,11 +73,11 @@ func init(current_level: LevelData) -> void:
 				+ GameManager.cell_size / 2
 				- GameManager.cell_size * (sc_index - level_size.x - level_size.y)
 			)
-			y_pos = half_grid_size.y
+			y_pos = half_grid_size.y + GameManager.cell_size / 2
 
 		elif sc_index > (level_size.x * 2 + level_size.y):
 			angle = 0
-			x_pos = -half_grid_size.x
+			x_pos = -half_grid_size.x - GameManager.cell_size / 2
 			y_pos = (
 				half_grid_size.y
 				+ GameManager.cell_size / 2
@@ -97,7 +89,7 @@ func init(current_level: LevelData) -> void:
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale, cell_scale)
-		sc_instance.init(current_level.handles_increment[index])
+		sc_instance.init(current_level.slider_position.get(sc_index))
 		sc_instance.scale_change.connect(check_grid)
 
 	_on_size_changed()
@@ -110,14 +102,14 @@ func _on_size_changed() -> void:
 func _clear() -> void:
 	for child in grid.get_children():
 		child.queue_free()
-	grid_tiles = []
+	grid_cells = []
 
 
 func check_grid() -> void:
 	var level_complete: bool
 
-	for tile in grid_tiles:
-		if tile.value == 0:
+	for tile in grid_cells:
+		if tile.get_cell_value() == 0:
 			level_complete = true
 		else:
 			level_complete = false

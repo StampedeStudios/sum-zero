@@ -19,12 +19,13 @@ script = ExtResource("1_xjbxd")
 
 [node name="Icon" type="Sprite2D" parent="."]
 texture = ExtResource("2_rp6mv")
+flip_h = true
 
 [node name="Area" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4iu34")
-offset_left = -128.0
 offset_top = -128.0
+offset_right = 128.0
 offset_bottom = 128.0
 texture = ExtResource("4_yil1j")
 patch_margin_left = 36
@@ -33,13 +34,15 @@ patch_margin_right = 36
 patch_margin_bottom = 36
 
 [node name="Handle" type="Area2D" parent="."]
+position = Vector2(128, 0)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Handle"]
 polygon = PackedVector2Array(0, -128, 0, 128, -128, 0)
 
 [node name="Ray" type="RayCast2D" parent="."]
+position = Vector2(128, 0)
 enabled = false
-target_position = Vector2(2000, 0)
+target_position = Vector2(128, 0)
 collision_mask = 2
 hit_from_inside = true
 collide_with_areas = true
