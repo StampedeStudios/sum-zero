@@ -61,6 +61,8 @@ func _update_value() -> void:
 				_value += 1
 			GlobalConst.AreaEffect.SUBTRACT:
 				_value -= 1
-				
+
 	target_value_txt.text = String.num(_value)
-	sprite_2d.material.set_shader_parameter("base_color", _color_palette.get(_value))
+	sprite_2d.material.set_shader_parameter(
+		Literals.Parameters.BASE_COLOR, _color_palette.get(_value)
+	)

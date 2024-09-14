@@ -25,7 +25,7 @@ func init(current_level: LevelData) -> void:
 	var level_size: Vector2i
 	var half_grid_size: Vector2
 	var cell_scale: float
-	
+
 	level_size = Vector2i(current_level.width, current_level.height)
 	cell_scale = GameManager.cell_size / GlobalConst.CELL_SIZE
 	half_grid_size = level_size * GameManager.cell_size / 2
@@ -33,15 +33,14 @@ func init(current_level: LevelData) -> void:
 	# placing cells
 	for cell in current_level.cells_list:
 		var cell_instance := BASIC_CELL.instantiate()
-		var relative_pos:= Vector2(cell.column, cell.row) * GameManager.cell_size
-		var cell_offset:= Vector2.ONE * GameManager.cell_size / 2
-		
+		var relative_pos := Vector2(cell.column, cell.row) * GameManager.cell_size
+		var cell_offset := Vector2.ONE * GameManager.cell_size / 2
+
 		grid.add_child(cell_instance)
-		cell_instance.position = -half_grid_size + cell_offset + relative_pos 
+		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.scale = Vector2(cell_scale, cell_scale)
 		cell_instance.init(cell.value, cell.is_blocked)
 		grid_cells.append(cell_instance)
-		
 
 	# placing slider areas clockwise
 	for sc_index in current_level.slider_position.keys():
@@ -98,6 +97,7 @@ func init(current_level: LevelData) -> void:
 func _on_size_changed() -> void:
 	var viewport_size = get_viewport_rect().size
 	grid.position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
+
 
 func _clear() -> void:
 	for child in grid.get_children():

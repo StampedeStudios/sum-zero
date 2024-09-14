@@ -7,7 +7,6 @@ var _is_scaling: bool
 var _is_horizontal: bool
 var _current_scale: int
 var _reachable_cells: Array[Cell]
-var _area_increment: bool
 var _last_scale: int
 var _moves: int
 var _orientation: Vector2
@@ -22,7 +21,7 @@ var _area_behavior: GlobalConst.AreaBehavior
 
 func init(slider_data: SliderData) -> void:
 	icon.texture = slider_data.area_effect_texture
-	
+
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
 	_area_effect = slider_data.area_effect
@@ -30,11 +29,10 @@ func init(slider_data: SliderData) -> void:
 
 
 func _process(_delta: float) -> void:
-	# inizio a scalare mentre il mouse è premuto
 	if _is_scaling:
 		var tile_distance: float
 		var drag_direction: Vector2
-		
+
 		if _is_horizontal:
 			tile_distance = get_global_mouse_position().x - ray.global_position.x
 			drag_direction = Vector2(tile_distance, 0).normalized()
@@ -46,13 +44,13 @@ func _process(_delta: float) -> void:
 			tile_distance = abs(tile_distance) / GameManager.cell_size
 		else:
 			tile_distance = 0
-			
+
 		var target_scale: float
 		target_scale = clamp(tile_distance, 0, _moves)
 		_apply_scaling(target_scale)
 		_update_changed_tiles(round(target_scale))
 
-		if Input.is_action_just_released("click"):
+		if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
 			release_handle()
 
 
@@ -63,7 +61,7 @@ func release_handle() -> void:
 	_is_scaling = false
 	_apply_scaling(_current_scale)
 	scale_change.emit()
-	area.material.set_shader_parameter("is_selected", false)
+	area.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
 
 func _update_changed_tiles(fixed_scale: int) -> void:
@@ -89,8 +87,8 @@ func _apply_scaling(_new_scale: float) -> void:
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
-		if _event.is_action_pressed("click"):
-			area.material.set_shader_parameter("is_selected", true)
+		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			area.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
 			_check_limit()
 			_last_scale = _current_scale
 			_is_scaling = true
