@@ -1,4 +1,4 @@
-class_name SliderData 
+class_name SliderData
 extends Resource
 
 @export var name: String
