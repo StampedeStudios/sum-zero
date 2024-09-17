@@ -1,72 +1,72 @@
 [gd_resource type="Resource" script_class="LevelData" load_steps=14 format=3 uid="uid://bq7dbbg62q8tw"]
 
 [ext_resource type="Script" path="res://scripts/level_data.gd" id="1_jva30"]
-[ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="1_mwg2s"]
 [ext_resource type="Script" path="res://scripts/cell-data.gd" id="1_o7a0q"]
-[ext_resource type="Resource" uid="uid://h6r8roepo5k4" path="res://assets/resources/sliders/plus_bystep.tres" id="4_oarrj"]
+[ext_resource type="Resource" uid="uid://ck2spptn2fx5p" path="res://assets/resources/sliders/block_bystep.tres" id="3_2rc6s"]
+[ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="3_81ya6"]
 
 [sub_resource type="Resource" id="Resource_3cy2x"]
 script = ExtResource("1_o7a0q")
 row = 0
 column = 0
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_23pv8"]
 script = ExtResource("1_o7a0q")
 row = 0
 column = 1
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_mhl80"]
 script = ExtResource("1_o7a0q")
 row = 0
 column = 2
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_5p362"]
 script = ExtResource("1_o7a0q")
 row = 1
 column = 0
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_fibc8"]
 script = ExtResource("1_o7a0q")
 row = 1
 column = 1
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_jer6r"]
 script = ExtResource("1_o7a0q")
 row = 1
 column = 2
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_7jxss"]
 script = ExtResource("1_o7a0q")
 row = 2
 column = 0
 is_blocked = false
-value = 0
+value = 1
 
 [sub_resource type="Resource" id="Resource_j4pbm"]
 script = ExtResource("1_o7a0q")
 row = 2
 column = 1
 is_blocked = false
-value = 0
+value = 2
 
 [sub_resource type="Resource" id="Resource_twmjw"]
 script = ExtResource("1_o7a0q")
 row = 2
 column = 2
 is_blocked = false
-value = 0
+value = 1
 
 [resource]
 script = ExtResource("1_jva30")
@@ -74,8 +74,8 @@ width = 3
 height = 3
 cells_list = Array[ExtResource("1_o7a0q")]([SubResource("Resource_3cy2x"), SubResource("Resource_23pv8"), SubResource("Resource_mhl80"), SubResource("Resource_5p362"), SubResource("Resource_fibc8"), SubResource("Resource_jer6r"), SubResource("Resource_7jxss"), SubResource("Resource_j4pbm"), SubResource("Resource_twmjw")])
 slider_position = {
-3: ExtResource("1_mwg2s"),
-6: ExtResource("4_oarrj"),
-10: ExtResource("1_mwg2s")
+3: ExtResource("3_81ya6"),
+6: ExtResource("3_2rc6s"),
+10: ExtResource("3_2rc6s")
 }
 moves_left = 1

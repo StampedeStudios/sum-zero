@@ -7,6 +7,6 @@
 script = ExtResource("1_b3qmw")
 width = 2
 height = 2
-cells_values = Array[ExtResource("1_mtr33")]([])
+cells_list = Array[ExtResource("1_mtr33")]([])
 slider_position = {}
 moves_left = 4

@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_fv78l")
-name = "Minus By Step"
+name = "Plus By Step"
 area_effect_texture = ExtResource("1_wxb55")
 area_behavior_texture = ExtResource("1_wxb55")
 area_effect = 0
