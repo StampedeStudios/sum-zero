@@ -44,10 +44,11 @@ func init(new_value: int, blocked: bool) -> void:
 	_value = _start_value
 	_update_value()
 
+
 func get_cell_value() -> int:
 	return 0 if is_blocked else _value
-	
-	
+
+
 func is_occupied() -> bool:
 	return _slider_stack.size() > 0
 
@@ -66,9 +67,9 @@ func _calculate_effect() -> void:
 			GlobalConst.AreaEffect.BLOCK:
 				_value = 0
 				is_blocked = true
-	
 
-func _update_value() -> void:	
+
+func _update_value() -> void:
 	target_value_txt.text = String.num(_value)
 	sprite_2d.material.set_shader_parameter(
 		Literals.Parameters.BASE_COLOR, _color_palette.get(_value)

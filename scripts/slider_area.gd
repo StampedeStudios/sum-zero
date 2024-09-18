@@ -3,6 +3,7 @@ extends Node2D
 
 signal scale_change
 
+var _target_scale: float
 var _is_scaling: bool
 var _is_horizontal: bool
 var _current_scale: int
@@ -15,8 +16,6 @@ var _area_behavior: GlobalConst.AreaBehavior
 var _new_cell_size: float = GameManager.cell_size
 var _is_manually_controlled: bool = false
 var _is_extended: bool = false
-var target_scale: float
-
 
 @onready var area: NinePatchRect = $Area
 @onready var handle: Area2D = $Handle
@@ -32,13 +31,14 @@ func init(slider_data: SliderData) -> void:
 	_area_effect = slider_data.area_effect
 	_area_behavior = slider_data.area_behavior
 
+
 func _process(_delta: float) -> void:
 	if _is_scaling:
 		if _is_manually_controlled:
 			if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
 				release_handle()
 				return
-				
+
 			var drag_direction: Vector2
 			var tile_distance: float
 
@@ -53,22 +53,22 @@ func _process(_delta: float) -> void:
 				tile_distance = abs(tile_distance) / _new_cell_size
 			else:
 				tile_distance = 0
-			
-			target_scale = clamp(tile_distance, 0, _moves)
+
+			_target_scale = clamp(tile_distance, 0, _moves)
 		else:
 			if _is_extended:
-				target_scale += 10 * _delta
-				if target_scale >= _moves:
+				_target_scale += 10 * _delta
+				if _target_scale >= _moves:
 					release_handle()
 					return
 			else:
-				target_scale -= 10 * _delta
-				if target_scale <= 0:
+				_target_scale -= 10 * _delta
+				if _target_scale <= 0:
 					release_handle()
 					return
-				
-		_apply_scaling(target_scale)
-		_update_changed_tiles(round(target_scale))
+
+		_apply_scaling(_target_scale)
+		_update_changed_tiles(round(_target_scale))
 
 
 func release_handle() -> void:
@@ -126,12 +126,12 @@ func _check_limit() -> void:
 	var is_obstacle_slider: bool = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
 	_reachable_cells.clear()
-	
+
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		ray.target_position.x += GlobalConst.CELL_SIZE
 		var cell: Cell = ray.get_collider().owner
-		
+
 		if !cell.is_blocked:
 			# self is obstacle area and the cell is occupied by another slider
 			if is_obstacle_slider and cell.is_occupied():
@@ -142,12 +142,12 @@ func _check_limit() -> void:
 			ray.force_raycast_update()
 		else:
 			# self is obstacle area and the evaluated cell is blocked by the area itself
-			if (is_obstacle_slider and _moves < _current_scale):
+			if is_obstacle_slider and _moves < _current_scale:
 				_moves += 1
 				_reachable_cells.append(cell)
 				ray.add_exception(ray.get_collider())
 				ray.force_raycast_update()
 			else:
 				break
-				
+
 	ray.clear_exceptions()
