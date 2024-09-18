@@ -1,2 +1,2 @@
 # Ensure all text files use CRLF line endings
-* text eol=crlf
+# * text eol=crlf
