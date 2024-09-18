@@ -6,16 +6,16 @@ var _start_value: int = 0
 var _value: int
 var _slider_stack: Array[SliderArea]
 var _effect_stack: Array[GlobalConst.AreaEffect]
-var _color_palette: Dictionary = {
-	-4: Vector4(0.49, 0.76, 0.24, 1),
-	-3: Vector4(0.56, 0.8, 0.39, 1),
-	-2: Vector4(0.36, 0.6, 0.196, 1),
-	-1: Vector4(0.51, 0.78, 0.32, 1),
-	0: Vector4(0.67, 0.89, 0.57, 1),
-	1: Vector4(0.84, 0.93, 0.77, 1),
-	2: Vector4(0.62, 0.68, 0.36, 1),
-	3: Vector4(0.74, 0.15, 0.15, 1),
-	4: Vector4(1, 0.4, 0.7, 1)
+@export var _color_palette: Dictionary = {
+	-4: Color(0.56, 0.8, 0.39, 1),
+	-3: Color(0.56, 0.8, 0.39, 1),
+	-2: Color(0.56, 0.8, 0.39, 1),
+	-1: Color(0.56, 0.8, 0.39, 1),
+	0: Color(0.56, 0.8, 0.39, 1),
+	1: Color(0.56, 0.8, 0.39, 1),
+	2: Color(0.56, 0.8, 0.39, 1),
+	3: Color(0.56, 0.8, 0.39, 1),
+	4: Color(0.56, 0.8, 0.39, 1),
 }
 
 @onready var target_value_txt: Label = %TargetValueTxt

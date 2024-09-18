@@ -2,23 +2,31 @@
 
 [ext_resource type="Script" path="res://scripts/basic_cell.gd" id="1_f46k4"]
 [ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_453u2"]
-[ext_resource type="Texture2D" uid="uid://q8mudge7jpsc" path="res://assets/scenes/tile.png" id="3_xrc0q"]
+[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes/tile.png" id="3_xrc0q"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="4_y5cwc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2y5"]
 resource_local_to_scene = true
 shader = ExtResource("2_453u2")
-shader_parameter/base_color = Vector4(0, 0.6, 0, 0)
-
-[sub_resource type="Theme" id="Theme_aebv0"]
-default_font_size = 64
+shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
 size = Vector2(256, 256)
 
 [node name="BasicTile" type="Node2D"]
 position = Vector2(490, 587)
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_f46k4")
+_color_palette = {
+-4: Color(0.972549, 0.635294, 0.388235, 1),
+-3: Color(0.972549, 0.823529, 0.388235, 1),
+-2: Color(0.921569, 0.972549, 0.388235, 1),
+-1: Color(0.737255, 0.972549, 0.388235, 1),
+0: Color(0.533333, 0.972549, 0.388235, 1),
+1: Color(0.388235, 0.972549, 0.631373, 1),
+2: Color(0.388235, 0.972549, 0.827451, 1),
+3: Color(0.388235, 0.921569, 0.972549, 1),
+4: Color(0.388235, 0.729412, 0.972549, 1)
+}
 
 [node name="Tile" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_tc2y5")
@@ -36,8 +44,9 @@ offset_bottom = -128.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 1
-theme = SubResource("Theme_aebv0")
-theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
+theme = ExtResource("4_y5cwc")
+theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+theme_override_font_sizes/font_size = 128
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -49,4 +58,5 @@ input_pickable = false
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("RectangleShape2D_qn0yb")

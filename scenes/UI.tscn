@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=7 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="1_qtyoq"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_xwl0a"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="2_iclks"]
 [ext_resource type="Texture2D" uid="uid://d3pc0tot7kej7" path="res://assets/ui/button_hover.png" id="2_m21px"]
 [ext_resource type="Texture2D" uid="uid://0kdv1pp5886o" path="res://assets/ui/next_level.png" id="5_nexth"]
 [ext_resource type="Texture2D" uid="uid://dyj3jffvvwfvf" path="res://assets/ui/next_level_hover.png" id="6_31pmf"]
@@ -28,12 +29,13 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
+theme = ExtResource("2_iclks")
 
 [node name="MovesLeft" type="Label" parent="BoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.239216, 0.341176, 0.239216, 1)
-theme_override_font_sizes/font_size = 72
+theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+theme_override_font_sizes/font_size = 128
 text = "13"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="."]

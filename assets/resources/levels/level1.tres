@@ -1,12 +1,84 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=3 format=3 uid="uid://cy3yqsyubwqqs"]
+[gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3 uid="uid://cy3yqsyubwqqs"]
 
 [ext_resource type="Script" path="res://scripts/level_data.gd" id="1_b3qmw"]
 [ext_resource type="Script" path="res://scripts/cell-data.gd" id="1_mtr33"]
+[ext_resource type="Resource" uid="uid://h6r8roepo5k4" path="res://assets/resources/sliders/plus_bystep.tres" id="3_wx2tl"]
+[ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="4_mu7w7"]
+[ext_resource type="Resource" uid="uid://ck2spptn2fx5p" path="res://assets/resources/sliders/block_bystep.tres" id="5_wtmhg"]
+[ext_resource type="Resource" uid="uid://chwrlgknvpemn" path="res://assets/resources/sliders/invert_bystep.tres" id="6_ju0lh"]
+
+[sub_resource type="Resource" id="Resource_rqsc5"]
+script = ExtResource("1_mtr33")
+row = 0
+column = 0
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_lqtk6"]
+script = ExtResource("1_mtr33")
+row = 0
+column = 1
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_mq5ll"]
+script = ExtResource("1_mtr33")
+row = 0
+column = 2
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_34r15"]
+script = ExtResource("1_mtr33")
+row = 1
+column = 0
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_h0ad8"]
+script = ExtResource("1_mtr33")
+row = 1
+column = 1
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_7cf40"]
+script = ExtResource("1_mtr33")
+row = 1
+column = 2
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_is8ek"]
+script = ExtResource("1_mtr33")
+row = 2
+column = 0
+is_blocked = true
+value = 0
+
+[sub_resource type="Resource" id="Resource_5l1m0"]
+script = ExtResource("1_mtr33")
+row = 2
+column = 1
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_c1a4o"]
+script = ExtResource("1_mtr33")
+row = 2
+column = 2
+is_blocked = false
+value = 1
 
 [resource]
 script = ExtResource("1_b3qmw")
-width = 2
-height = 2
-cells_list = Array[ExtResource("1_mtr33")]([])
-slider_position = {}
+width = 3
+height = 3
+cells_list = Array[ExtResource("1_mtr33")]([SubResource("Resource_rqsc5"), SubResource("Resource_lqtk6"), SubResource("Resource_mq5ll"), SubResource("Resource_34r15"), SubResource("Resource_h0ad8"), SubResource("Resource_7cf40"), SubResource("Resource_is8ek"), SubResource("Resource_5l1m0"), SubResource("Resource_c1a4o")])
+slider_position = {
+1: ExtResource("3_wx2tl"),
+3: ExtResource("4_mu7w7"),
+6: ExtResource("5_wtmhg"),
+11: ExtResource("6_ju0lh")
+}
 moves_left = 4
