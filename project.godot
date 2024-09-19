@@ -53,4 +53,4 @@ click_dx={
 [rendering]
 
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.983195, 0.920752, 0.834598, 1)
+environment/defaults/default_clear_color=Color(0.827451, 0.913725, 0.823529, 1)

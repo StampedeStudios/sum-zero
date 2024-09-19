@@ -1,5 +1,18 @@
 [gd_resource type="Resource" script_class="SliderData" load_steps=3 format=3 uid="uid://h6r8roepo5k4"]
 
+[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="1_wxb55"]
+[ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_fv78l"]
+
+[resource]
+script = ExtResource("2_fv78l")
+name = "Plus By Step"
+area_effect_texture = ExtResource("1_wxb55")
+area_behavior_texture = ExtResource("1_wxb55")
+area_effect = 0
+area_behavior = 0
+=======
+[gd_resource type="Resource" script_class="SliderData" load_steps=3 format=3 uid="uid://h6r8roepo5k4"]
+
 [ext_resource type="Texture2D" uid="uid://dktfrqrj62axo" path="res://assets/scenes/plus.png" id="1_wxb55"]
 [ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_fv78l"]
 

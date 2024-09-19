@@ -3,6 +3,9 @@ extends Node2D
 
 signal scale_change
 
+@export var block_texture: Texture
+@export var block_shader: Shader
+
 var _target_scale: float
 var _is_scaling: bool
 var _is_horizontal: bool
@@ -16,6 +19,7 @@ var _area_behavior: GlobalConst.AreaBehavior
 var _new_cell_size: float = GameManager.cell_size
 var _is_manually_controlled: bool = false
 var _is_extended: bool = false
+var _blocking_sprite: Array[Sprite2D]
 
 @onready var area: NinePatchRect = $Area
 @onready var handle: Area2D = $Handle
@@ -30,6 +34,22 @@ func init(slider_data: SliderData) -> void:
 	_is_horizontal = _orientation.y == 0
 	_area_effect = slider_data.area_effect
 	_area_behavior = slider_data.area_behavior
+
+	await get_tree().physics_frame
+	if _area_effect == GlobalConst.AreaEffect.BLOCK:
+		_check_limit()
+		for i in range(0, _moves):
+			var sprite := Sprite2D.new()
+			sprite.texture = block_texture
+			sprite.material = ShaderMaterial.new()
+			sprite.material.shader = block_shader
+			sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
+			add_child(sprite)
+			_blocking_sprite.append(sprite)
+
+
+func _ready() -> void:
+	GameManager.reset.connect(_reset)
 
 
 func _process(_delta: float) -> void:
@@ -99,6 +119,11 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 func _apply_scaling(_new_scale: float) -> void:
 	area.size.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
+	if _area_effect == GlobalConst.AreaEffect.BLOCK:
+		# var index: int = floor(_new_scale)
+		for i in range(0, _blocking_sprite.size()):
+			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
+
 	if _is_manually_controlled:
 		handle.position.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
 
@@ -151,3 +176,12 @@ func _check_limit() -> void:
 				break
 
 	ray.clear_exceptions()
+
+
+func _reset() -> void:
+	_reachable_cells.clear()
+	_target_scale = 0
+	_current_scale = 0
+	_last_scale = 0
+	_is_extended = false
+	_apply_scaling(_current_scale)

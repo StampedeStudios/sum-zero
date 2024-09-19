@@ -32,4 +32,4 @@ func _on_next_level_button_pressed() -> void:
 
 
 func _on_clear_button_pressed() -> void:
-	GameManager.load_level()
+	GameManager.reset_level()

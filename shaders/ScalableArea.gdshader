@@ -15,4 +15,3 @@ void fragment() {
 
     COLOR = color * current_glow * base_color;
 }
-

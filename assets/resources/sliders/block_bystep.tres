@@ -1,5 +1,18 @@
 [gd_resource type="Resource" script_class="SliderData" load_steps=3 format=3 uid="uid://ck2spptn2fx5p"]
 
+[ext_resource type="Texture2D" uid="uid://dq8m5vlnucqdo" path="res://assets/scenes/block.png" id="1_i4wpn"]
+[ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_foij0"]
+
+[resource]
+script = ExtResource("2_foij0")
+name = "Block By Step"
+area_effect_texture = ExtResource("1_i4wpn")
+area_behavior_texture = ExtResource("1_i4wpn")
+area_effect = 3
+area_behavior = 0
+=======
+[gd_resource type="Resource" script_class="SliderData" load_steps=3 format=3 uid="uid://ck2spptn2fx5p"]
+
 [ext_resource type="Texture2D" uid="uid://dktfrqrj62axo" path="res://assets/scenes/plus.png" id="1_olaj8"]
 [ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_foij0"]
 

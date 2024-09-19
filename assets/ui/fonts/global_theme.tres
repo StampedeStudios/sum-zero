@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://d018ofb37nf7u"]
+
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="1_kkbt3"]
+
+[resource]
+default_font = ExtResource("1_kkbt3")
+default_font_size = 48

@@ -5,6 +5,7 @@ signal level_start
 signal level_end
 signal toggle_level_visibility(visibility: bool)
 signal game_ended
+signal reset
 
 const LEVEL_FOLDER_PATH := "res://assets/resources/"
 
@@ -45,3 +46,9 @@ func load_level() -> void:
 		level_start.emit()
 	else:
 		game_ended.emit()
+
+
+func reset_level() -> void:
+	var level_info: LevelData = level_data[current_level]
+	Ui.moves_left = level_info.moves_left
+	reset.emit()
