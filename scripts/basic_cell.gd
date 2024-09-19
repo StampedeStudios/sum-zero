@@ -1,11 +1,6 @@
 class_name Cell
 extends Node2D
 
-var is_blocked: bool = false
-var _start_value: int = 0
-var _value: int
-var _slider_stack: Array[SliderArea]
-var _effect_stack: Array[GlobalConst.AreaEffect]
 @export var _color_palette: Dictionary = {
 	-4: Color(0.56, 0.8, 0.39, 1),
 	-3: Color(0.56, 0.8, 0.39, 1),
@@ -17,6 +12,12 @@ var _effect_stack: Array[GlobalConst.AreaEffect]
 	3: Color(0.56, 0.8, 0.39, 1),
 	4: Color(0.56, 0.8, 0.39, 1),
 }
+
+var is_blocked: bool = false
+var _start_value: int = 0
+var _value: int
+var _slider_stack: Array[SliderArea]
+var _effect_stack: Array[GlobalConst.AreaEffect]
 
 @onready var target_value_txt: Label = %TargetValueTxt
 @onready var sprite_2d: Sprite2D = $Tile
@@ -53,6 +54,10 @@ func is_occupied() -> bool:
 	return _slider_stack.size() > 0
 
 
+func _ready() -> void:
+	GameManager.reset.connect(_reset)
+
+
 func _calculate_effect() -> void:
 	_value = _start_value
 	is_blocked = false
@@ -74,3 +79,11 @@ func _update_value() -> void:
 	sprite_2d.material.set_shader_parameter(
 		Literals.Parameters.BASE_COLOR, _color_palette.get(_value)
 	)
+
+
+func _reset() -> void:
+	_value = _start_value
+	is_blocked = is_blocked and _slider_stack.size() == 0
+	_slider_stack.clear()
+	_effect_stack.clear()
+	_update_value()

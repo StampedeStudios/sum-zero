@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene load_steps=8 format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Script" path="res://scripts/slider_area.gd" id="1_xjbxd"]
 [ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="2_rp6mv"]
+[ext_resource type="Shader" path="res://shaders/Block.gdshader" id="2_uw1fh"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="3_e6fhw"]
 [ext_resource type="Shader" path="res://shaders/ScalableArea.gdshader" id="3_qs1jk"]
 [ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes/slider.png" id="4_yil1j"]
 
@@ -15,6 +17,8 @@ shader_parameter/glow_intensity = 4.0
 [node name="ScalableArea" type="Node2D"]
 position = Vector2(454, 665)
 script = ExtResource("1_xjbxd")
+block_texture = ExtResource("3_e6fhw")
+block_shader = ExtResource("2_uw1fh")
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(64, 0)
