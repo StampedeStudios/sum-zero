@@ -1,0 +1,116 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwy42e2etcl7x"]
+
+[ext_resource type="Script" path="res://scripts/buider_cell.gd" id="1_bah0f"]
+[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes/tile.png" id="2_srl0q"]
+[ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_sryqp"]
+[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="3_q63ci"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="4_w7k74"]
+[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="4_wfip2"]
+[ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="5_aipfo"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="6_pjrwq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42k15"]
+resource_local_to_scene = true
+shader = ExtResource("2_sryqp")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
+size = Vector2(256, 256)
+
+[node name="BuilderCell" type="Node2D"]
+position = Vector2(514, 625)
+script = ExtResource("1_bah0f")
+
+[node name="Cell" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_42k15")
+texture = ExtResource("2_srl0q")
+
+[node name="TargetValueTxt" type="Label" parent="Cell"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = -128.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme = ExtResource("4_w7k74")
+theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+theme_override_font_sizes/font_size = 128
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Collision" type="Area2D" parent="Cell"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cell/Collision"]
+shape = SubResource("RectangleShape2D_x3468")
+
+[node name="Block" type="Sprite2D" parent="Cell"]
+unique_name_in_owner = true
+texture = ExtResource("6_pjrwq")
+
+[node name="HUD" type="Control" parent="."]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control" type="Control" parent="HUD"]
+unique_name_in_owner = true
+z_index = 20
+anchors_preset = 0
+
+[node name="Minus" type="TextureRect" parent="HUD/Control"]
+layout_mode = 2
+offset_left = -384.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = 128.0
+texture = ExtResource("3_q63ci")
+stretch_mode = 3
+
+[node name="Plus" type="TextureRect" parent="HUD/Control"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = -128.0
+offset_right = 384.0
+offset_bottom = 128.0
+texture = ExtResource("4_wfip2")
+stretch_mode = 3
+
+[node name="Remove" type="TextureRect" parent="HUD/Control"]
+layout_mode = 2
+offset_left = -128.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 384.0
+texture = ExtResource("5_aipfo")
+
+[node name="Block" type="TextureRect" parent="HUD/Control"]
+layout_mode = 2
+offset_left = -128.0
+offset_top = -384.0
+offset_right = 128.0
+offset_bottom = -128.0
+texture = ExtResource("6_pjrwq")
+
+[connection signal="input_event" from="Cell/Collision" to="." method="_on_collision_input_event"]
+[connection signal="gui_input" from="HUD/Panel" to="." method="_on_panel_gui_input"]
+[connection signal="gui_input" from="HUD/Control/Minus" to="." method="_on_minus_gui_input"]
+[connection signal="gui_input" from="HUD/Control/Plus" to="." method="_on_plus_gui_input"]
+[connection signal="gui_input" from="HUD/Control/Remove" to="." method="_on_remove_gui_input"]
+[connection signal="gui_input" from="HUD/Control/Block" to="." method="_on_block_gui_input"]

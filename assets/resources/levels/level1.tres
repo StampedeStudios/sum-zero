@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="LevelData" load_steps=16 format=3 uid="uid://cy3yqsyubwqqs"]
 
 [ext_resource type="Script" path="res://scripts/level_data.gd" id="1_b3qmw"]
-[ext_resource type="Script" path="res://scripts/cell-data.gd" id="1_mtr33"]
+[ext_resource type="Script" path="res://scripts/cell_data.gd" id="1_mtr33"]
 [ext_resource type="Resource" uid="uid://h6r8roepo5k4" path="res://assets/resources/sliders/plus_bystep.tres" id="3_wx2tl"]
 [ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="4_mu7w7"]
 [ext_resource type="Resource" uid="uid://ck2spptn2fx5p" path="res://assets/resources/sliders/block_bystep.tres" id="5_wtmhg"]

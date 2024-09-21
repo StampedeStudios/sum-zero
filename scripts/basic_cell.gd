@@ -1,19 +1,9 @@
 class_name Cell
 extends Node2D
 
-@export var _color_palette: Dictionary = {
-	-4: Color(0.56, 0.8, 0.39, 1),
-	-3: Color(0.56, 0.8, 0.39, 1),
-	-2: Color(0.56, 0.8, 0.39, 1),
-	-1: Color(0.56, 0.8, 0.39, 1),
-	0: Color(0.56, 0.8, 0.39, 1),
-	1: Color(0.56, 0.8, 0.39, 1),
-	2: Color(0.56, 0.8, 0.39, 1),
-	3: Color(0.56, 0.8, 0.39, 1),
-	4: Color(0.56, 0.8, 0.39, 1),
-}
 
 var is_blocked: bool = false
+var _palette: ColorPalette
 var _start_value: int = 0
 var _value: int
 var _slider_stack: Array[SliderArea]
@@ -56,6 +46,7 @@ func is_occupied() -> bool:
 
 func _ready() -> void:
 	GameManager.reset.connect(_reset)
+	_palette = GameManager.palette
 
 
 func _calculate_effect() -> void:
@@ -77,7 +68,7 @@ func _calculate_effect() -> void:
 func _update_value() -> void:
 	target_value_txt.text = String.num(_value)
 	sprite_2d.material.set_shader_parameter(
-		Literals.Parameters.BASE_COLOR, _color_palette.get(_value)
+		Literals.Parameters.BASE_COLOR, _palette.cell_color.get(_value)
 	)
 
 
