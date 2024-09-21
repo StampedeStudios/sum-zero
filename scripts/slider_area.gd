@@ -97,7 +97,7 @@ func release_handle() -> void:
 	area.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
 	if _current_scale != _last_scale:
-		Ui.consume_move()
+		GameManager.user_interface.consume_move()
 		scale_change.emit()
 
 

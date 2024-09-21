@@ -5,3 +5,9 @@ enum AreaBehavior { BY_STEP, FULL }
 
 const CELL_SIZE: float = 256
 const HANDLE_SIZE: float = 128
+
+const MIN_LEVEL_SIZE: int = 2
+const MAX_LEVEL_SIZE: int = 5
+
+const MIN_CELL_VALUE: int = -4
+const MAX_CELL_VALUE: int = 4
