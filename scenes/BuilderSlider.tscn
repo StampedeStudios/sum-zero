@@ -1,0 +1,81 @@
+[gd_scene load_steps=15 format=3 uid="uid://dnf8fupbfsi08"]
+
+[ext_resource type="Script" path="res://scripts/builder_slider.gd" id="1_l1yij"]
+[ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_a2aal"]
+[ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_ndq7t"]
+[ext_resource type="Resource" uid="uid://ck2spptn2fx5p" path="res://assets/resources/sliders/block_bystep.tres" id="3_4v72j"]
+[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes/tile.png" id="3_rkxty"]
+[ext_resource type="Resource" uid="uid://chwrlgknvpemn" path="res://assets/resources/sliders/invert_bystep.tres" id="4_qa2pb"]
+[ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="5_m1r5v"]
+[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="6_f8ewn"]
+[ext_resource type="Resource" uid="uid://h6r8roepo5k4" path="res://assets/resources/sliders/plus_bystep.tres" id="6_t7y7l"]
+[ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="8_3w4pm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_42k15"]
+resource_local_to_scene = true
+shader = ExtResource("2_ndq7t")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
+size = Vector2(256, 256)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fjvrk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n412o"]
+
+[node name="BuilderSlider" type="Node2D"]
+position = Vector2(514, 625)
+script = ExtResource("1_l1yij")
+remove_icon = ExtResource("8_3w4pm")
+sliders_list = Array[ExtResource("2_a2aal")]([ExtResource("3_4v72j"), ExtResource("4_qa2pb"), ExtResource("5_m1r5v"), ExtResource("6_t7y7l")])
+
+[node name="Slider" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_42k15")
+texture = ExtResource("3_rkxty")
+offset = Vector2(64, 0)
+region_enabled = true
+region_rect = Rect2(133, 0, 123, 256)
+
+[node name="Collision" type="Area2D" parent="Slider"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slider/Collision"]
+shape = SubResource("RectangleShape2D_x3468")
+
+[node name="SliderEffect" type="Sprite2D" parent="."]
+texture = ExtResource("6_f8ewn")
+offset = Vector2(64, 0)
+
+[node name="HUD" type="Control" parent="."]
+top_level = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemList" type="ItemList" parent="HUD"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 768.0
+offset_bottom = 488.0
+theme_override_font_sizes/font_size = 48
+theme_override_styles/focus = SubResource("StyleBoxEmpty_fjvrk")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_n412o")
+max_columns = 3
+same_column_width = true
+fixed_icon_size = Vector2i(256, 256)
+
+[connection signal="input_event" from="Slider/Collision" to="." method="_on_collision_input_event"]
+[connection signal="gui_input" from="HUD/Panel" to="." method="_on_panel_gui_input"]
+[connection signal="empty_clicked" from="HUD/ItemList" to="." method="_on_item_list_empty_clicked"]
+[connection signal="item_selected" from="HUD/ItemList" to="." method="_on_item_list_item_selected"]

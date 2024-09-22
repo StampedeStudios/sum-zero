@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_ilp6y")
-name = "Plus By Step"
+name = "Invert By Step"
 area_effect_texture = ExtResource("1_ognxe")
 area_behavior_texture = ExtResource("1_ognxe")
 area_effect = 2

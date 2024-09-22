@@ -27,8 +27,7 @@ func _ready():
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse:
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			hud.visible = true
-			_toggle_priority(true)
+			_toggle_hud(true)
 						
 
 func _on_minus_gui_input(_event):
@@ -74,13 +73,13 @@ func _on_block_gui_input(_event):
 func _on_panel_gui_input(_event):
 	if _event is InputEventMouse:
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			hud.visible = false
-			_toggle_priority(false)
+			_toggle_hud(false)
 
 
 func _change_color(new_color: Color) -> void:
 	cell.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, new_color)
 
 
-func _toggle_priority(is_selected: bool) -> void:
-	self.z_index = 10 if is_selected else 0
+func _toggle_hud(is_visible: bool) -> void:
+	hud.visible = is_visible
+	self.z_index = 10 if is_visible else 0
