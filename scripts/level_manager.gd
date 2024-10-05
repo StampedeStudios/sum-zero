@@ -31,64 +31,53 @@ func init(current_level: LevelData) -> void:
 	half_grid_size = level_size * GameManager.cell_size / 2
 
 	# placing cells
-	for cell in current_level.cells_list:
-		var cell_instance := BASIC_CELL.instantiate()
-		var relative_pos := Vector2(cell.column, cell.row) * GameManager.cell_size
-		var cell_offset := Vector2.ONE * GameManager.cell_size / 2
+	for coord in current_level.cells_list.keys():
+		var cell_instance:= BASIC_CELL.instantiate()
+		var relative_pos: Vector2 = coord * GameManager.cell_size
+		var cell_offset:= Vector2.ONE * GameManager.cell_size / 2
 
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.scale = Vector2(cell_scale, cell_scale)
-		cell_instance.init(cell.value, cell.is_blocked)
+		cell_instance.init(current_level.cells_list.get(coord))
 		grid_cells.append(cell_instance)
 
 	# placing slider areas clockwise
-	for sc_index in current_level.slider_position.keys():
+	for coord in current_level.slider_position.keys():
+		var edge: int = coord.x
+		var dist: int = coord.y * GameManager.cell_size
 		var x_pos: float
 		var y_pos: float
 		var angle: float
-
-		if sc_index > 0 and sc_index <= level_size.x:
-			angle = 90
-			x_pos = -half_grid_size.x - GameManager.cell_size / 2 + GameManager.cell_size * sc_index
-			y_pos = -half_grid_size.y - GameManager.cell_size / 2
-
-		elif sc_index > level_size.x and sc_index <= (level_size.x + level_size.y):
-			angle = 180
-			x_pos = half_grid_size.x + GameManager.cell_size / 2
-			y_pos = (
-				-half_grid_size.y
-				- GameManager.cell_size / 2
-				+ GameManager.cell_size * (sc_index - level_size.x)
-			)
-
-		elif (
-			sc_index > (level_size.x + level_size.y)
-			and sc_index <= (level_size.x * 2 + level_size.y)
-		):
-			angle = 270
-			x_pos = (
-				half_grid_size.x
-				+ GameManager.cell_size / 2
-				- GameManager.cell_size * (sc_index - level_size.x - level_size.y)
-			)
-			y_pos = half_grid_size.y + GameManager.cell_size / 2
-
-		elif sc_index > (level_size.x * 2 + level_size.y):
-			angle = 0
-			x_pos = -half_grid_size.x - GameManager.cell_size / 2
-			y_pos = (
-				half_grid_size.y
-				+ GameManager.cell_size / 2
-				- GameManager.cell_size * (sc_index - level_size.x * 2 - level_size.y)
-			)
+		
+		match edge:
+			# TOP
+			0:
+				angle = 90
+				x_pos = -half_grid_size.x - GameManager.cell_size / 2 + dist
+				y_pos = -half_grid_size.y - GameManager.cell_size / 2
+			# LEFT
+			1:
+				angle = 180
+				x_pos = half_grid_size.x + GameManager.cell_size / 2 
+				y_pos = -half_grid_size.y - GameManager.cell_size / 2 + dist
+			# BOTTOM
+			2:				
+				angle = 270
+				x_pos = -half_grid_size.x - GameManager.cell_size / 2 + dist
+				y_pos = half_grid_size.y + GameManager.cell_size / 2
+			# RIGHT	
+			3:
+				angle = 0
+				x_pos = -half_grid_size.x - GameManager.cell_size / 2
+				y_pos = -half_grid_size.y - GameManager.cell_size / 2 + dist
 
 		var sc_instance = SLIDER_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale, cell_scale)
-		sc_instance.init(current_level.slider_position.get(sc_index))
+		sc_instance.init(current_level.slider_position.get(coord))
 		sc_instance.scale_change.connect(check_grid)
 
 	_on_size_changed()

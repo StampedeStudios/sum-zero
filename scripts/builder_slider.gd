@@ -5,8 +5,7 @@ const remove_name: String = "REMOVE"
 @export var standard_color: Color = Color.GRAY
 @export var remove_icon: Texture2D
 @export var sliders_list: Array[SliderData]
-var _slider_data: SliderData
-var _selected_slider_name: String
+var slider_index: int
 
 @onready var item_list = %ItemList
 @onready var slider = $Slider
@@ -17,13 +16,15 @@ var _selected_slider_name: String
 func _ready():
 	hud.visible = false
 	slider_effect.visible = false
+	slider_index = -1
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, standard_color)
 	item_list.add_item(remove_name,remove_icon)
 	for slider_item in sliders_list:
 		item_list.add_item(slider_item.name,slider_item.area_effect_texture)
-	_set_item_list_position()
+	set_item_list_position()
 
-func _set_item_list_position() -> void:
+
+func set_item_list_position() -> void:
 	var offset: Vector2
 	item_list.size.y = item_list.item_count * item_list.fixed_icon_size.y + 20
 	match int(self.rotation_degrees):
@@ -45,27 +46,24 @@ func _set_item_list_position() -> void:
 		
 
 func _on_item_list_item_selected(index):	
+	var _selected_slider_name: String	
 	_selected_slider_name = item_list.get_item_text(index)
-	_update_slider_effect()
+	
+	if _selected_slider_name == remove_name:
+		clear_slider()
+	else:
+		for i in range(0, sliders_list.size()):
+			if sliders_list[i].name == _selected_slider_name:
+				slider_effect.texture = sliders_list[i].area_effect_texture
+				slider_effect.visible = true
+				slider_index = i
+				break
 
 
 func _on_item_list_empty_clicked(_at_position, _mouse_button_index):
 	item_list.deselect_all()
 	_toggle_hud(false)
 	
-	
-func _update_slider_effect() -> void:
-	if _selected_slider_name == remove_name:
-		slider_effect.visible = false
-		_slider_data = null
-	else:
-		for slider_item in sliders_list:
-			if slider_item.name == _selected_slider_name:
-				_slider_data = slider_item
-				slider_effect.texture = slider_item.area_effect_texture
-				slider_effect.visible = true
-				break
-
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse:
@@ -82,3 +80,15 @@ func _on_panel_gui_input(_event):
 func _toggle_hud(hud_visibility: bool) -> void:
 	hud.visible = hud_visibility
 	self.z_index = 10 if hud_visibility else 0
+	
+
+func clear_slider() -> void:
+	slider_effect.visible = false
+	slider_index = -1
+	
+
+func get_slider_data() -> SliderData:
+	if slider_index < 0:
+		return null
+	else:
+		return sliders_list[slider_index]

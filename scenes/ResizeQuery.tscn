@@ -1,0 +1,129 @@
+[gd_scene load_steps=6 format=3 uid="uid://vvet7yb7thao"]
+
+[ext_resource type="Script" path="res://scripts/resize_query.gd" id="1_1u8ky"]
+[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_m0kci"]
+[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="2_dqltn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
+bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hql63"]
+bg_color = Color(0.47916, 0.610677, 0.475911, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.25098, 0.184314, 0.105882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="LevelInfoQuery" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1u8ky")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikv7t")
+
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -361.5
+offset_top = -164.0
+offset_right = 361.5
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hql63")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.5
+offset_top = -139.0
+offset_right = 336.5
+offset_bottom = 139.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WidthContainer" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="WidthName" type="Label" parent="Background/Panel/VBoxContainer/WidthContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "WIDTH
+"
+
+[node name="MinusWidth" type="TextureRect" parent="Background/Panel/VBoxContainer/WidthContainer"]
+layout_mode = 2
+texture = ExtResource("1_m0kci")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="WidthValue" type="Label" parent="Background/Panel/VBoxContainer/WidthContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "0
+"
+
+[node name="PlusWidth" type="TextureRect" parent="Background/Panel/VBoxContainer/WidthContainer"]
+layout_mode = 2
+texture = ExtResource("2_dqltn")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HeightContainer" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HeightName" type="Label" parent="Background/Panel/VBoxContainer/HeightContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "HEIGHT
+"
+
+[node name="MinusHeight" type="TextureRect" parent="Background/Panel/VBoxContainer/HeightContainer"]
+layout_mode = 2
+texture = ExtResource("1_m0kci")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HeightValue" type="Label" parent="Background/Panel/VBoxContainer/HeightContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "0
+"
+
+[node name="PlusHeight" type="TextureRect" parent="Background/Panel/VBoxContainer/HeightContainer"]
+layout_mode = 2
+texture = ExtResource("2_dqltn")
+expand_mode = 2
+stretch_mode = 5
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="gui_input" from="Background/Panel/VBoxContainer/WidthContainer/MinusWidth" to="." method="_on_minus_width_gui_input"]
+[connection signal="gui_input" from="Background/Panel/VBoxContainer/WidthContainer/PlusWidth" to="." method="_on_plus_width_gui_input"]
+[connection signal="gui_input" from="Background/Panel/VBoxContainer/HeightContainer/MinusHeight" to="." method="_on_minus_height_gui_input"]
+[connection signal="gui_input" from="Background/Panel/VBoxContainer/HeightContainer/PlusHeight" to="." method="_on_plus_height_gui_input"]

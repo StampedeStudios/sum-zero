@@ -1,0 +1,115 @@
+[gd_scene load_steps=4 format=3 uid="uid://devm2geibslsw"]
+
+[ext_resource type="Script" path="res://scripts/save_query.gd" id="1_bggib"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
+bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xtc7"]
+bg_color = Color(0.47916, 0.610677, 0.475911, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.25098, 0.184314, 0.105882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SaveQuery" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bggib")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r00fw")
+
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -361.5
+offset_top = -164.0
+offset_right = 361.5
+offset_bottom = 386.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5xtc7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.5
+offset_top = -250.0
+offset_right = 336.5
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelName" type="TextEdit" parent="Background/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_5xtc7")
+placeholder_text = "NAME"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="Moves" type="TextEdit" parent="Background/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_5xtc7")
+placeholder_text = "MOVES"
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+middle_mouse_paste_enabled = false
+
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ExitBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "EXIT"
+
+[node name="SaveBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "SAVE"
+
+[connection signal="text_changed" from="Background/Panel/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
+[connection signal="text_changed" from="Background/Panel/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
