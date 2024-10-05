@@ -29,9 +29,9 @@ func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 	_update_value()
 
 
-func init(new_value: int, blocked: bool) -> void:
-	is_blocked = blocked
-	_start_value = new_value
+func init(data: CellData) -> void:
+	is_blocked = data.is_blocked
+	_start_value = data.value
 	_value = _start_value
 	_update_value()
 
