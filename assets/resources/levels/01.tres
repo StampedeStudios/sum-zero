@@ -1,0 +1,70 @@
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3 uid="uid://ewh2ihq3jg7r"]
+
+[ext_resource type="Script" path="res://scripts/cell_data.gd" id="1_jcb8b"]
+[ext_resource type="Script" path="res://scripts/level_data.gd" id="2_222us"]
+[ext_resource type="Resource" uid="uid://c6lkgpp0jadv5" path="res://assets/resources/sliders/minus_bystep.tres" id="3_ljvi8"]
+
+[sub_resource type="Resource" id="Resource_dsib7"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_hqsvy"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_ai240"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_7uv5v"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_kvf4y"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_6mtjw"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_wtplc"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_fx4fj"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_3dit7"]
+script = ExtResource("1_jcb8b")
+is_blocked = false
+value = 1
+
+[resource]
+script = ExtResource("2_222us")
+width = 3
+height = 3
+cells_list = {
+Vector2i(0, 0): SubResource("Resource_dsib7"),
+Vector2i(0, 1): SubResource("Resource_hqsvy"),
+Vector2i(0, 2): SubResource("Resource_ai240"),
+Vector2i(1, 0): SubResource("Resource_7uv5v"),
+Vector2i(1, 1): SubResource("Resource_kvf4y"),
+Vector2i(1, 2): SubResource("Resource_6mtjw"),
+Vector2i(2, 0): SubResource("Resource_wtplc"),
+Vector2i(2, 1): SubResource("Resource_fx4fj"),
+Vector2i(2, 2): SubResource("Resource_3dit7")
+}
+slider_position = {
+Vector2i(0, 2): ExtResource("3_ljvi8")
+}
+moves_left = 4
