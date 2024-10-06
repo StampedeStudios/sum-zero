@@ -14,7 +14,7 @@ const UI = preload("res://scenes/UI.tscn")
 @export var level_data: Array[LevelData]
 var current_level: int
 var cell_size: float
-var user_interface 
+var user_interface
 
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
@@ -42,8 +42,8 @@ func toggle_level(visibilty: bool) -> void:
 func load_level() -> void:
 	if !user_interface:
 		user_interface = UI.instantiate()
-		get_tree().root.add_child.call_deferred(user_interface)	
-	
+		get_tree().root.add_child.call_deferred(user_interface)
+
 	if current_level < level_data.size():
 		var level_info: LevelData = level_data[current_level]
 		audio_stream_player_2d.play()
@@ -51,7 +51,7 @@ func load_level() -> void:
 		level_start.emit()
 	else:
 		game_ended.emit()
-		
+
 	get_tree().paused = false
 
 

@@ -32,9 +32,9 @@ func init(current_level: LevelData) -> void:
 
 	# placing cells
 	for coord in current_level.cells_list.keys():
-		var cell_instance:= BASIC_CELL.instantiate()
+		var cell_instance := BASIC_CELL.instantiate()
 		var relative_pos: Vector2 = coord * GameManager.cell_size
-		var cell_offset:= Vector2.ONE * GameManager.cell_size / 2
+		var cell_offset := Vector2.ONE * GameManager.cell_size / 2
 
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
@@ -44,12 +44,13 @@ func init(current_level: LevelData) -> void:
 
 	# placing slider areas clockwise
 	for coord in current_level.slider_position.keys():
+		print(coord)
 		var edge: int = coord.x
-		var dist: int = coord.y * GameManager.cell_size
+		var dist: int = (coord.y + 1) * GameManager.cell_size
 		var x_pos: float
 		var y_pos: float
 		var angle: float
-		
+
 		match edge:
 			# TOP
 			0:
@@ -59,14 +60,14 @@ func init(current_level: LevelData) -> void:
 			# LEFT
 			1:
 				angle = 180
-				x_pos = half_grid_size.x + GameManager.cell_size / 2 
+				x_pos = half_grid_size.x + GameManager.cell_size / 2
 				y_pos = -half_grid_size.y - GameManager.cell_size / 2 + dist
 			# BOTTOM
-			2:				
+			2:
 				angle = 270
 				x_pos = -half_grid_size.x - GameManager.cell_size / 2 + dist
 				y_pos = half_grid_size.y + GameManager.cell_size / 2
-			# RIGHT	
+			# RIGHT
 			3:
 				angle = 0
 				x_pos = -half_grid_size.x - GameManager.cell_size / 2

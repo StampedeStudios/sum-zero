@@ -11,7 +11,7 @@ var moves_left: int:
 
 func _ready() -> void:
 	GameManager.level_end.connect(_spawn_next_level_button)
-	GameManager.level_start.connect(func (): set_moves_left(GameManager.get_move_left()))
+	GameManager.level_start.connect(func(): set_moves_left(GameManager.get_move_left()))
 	set_moves_left(GameManager.get_move_left())
 
 

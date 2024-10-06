@@ -13,10 +13,12 @@ var _invalid_moves: bool
 @onready var moves = %Moves
 @onready var save_btn = %SaveBtn
 
+
 func _ready():
 	_invalid_moves = true
 	_invalid_name = true
 	_check_valid_info()
+
 
 func _on_exit_btn_pressed():
 	on_query_close.emit(false, "", -1)
@@ -26,46 +28,45 @@ func _on_exit_btn_pressed():
 func _on_save_btn_pressed():
 	on_query_close.emit(true, level_name.text, int(moves.text))
 	self.queue_free()
-	
+
 
 func _on_moves_text_changed():
 	var text: String = moves.text
-	var filtered_text:= ""
-	
+	var filtered_text := ""
+
 	for char_index in range(0, min(text.length(), MAX_MOVES_CHAR)):
 		if text[char_index].is_valid_int():
 			filtered_text += text[char_index]
-	
+
 	if filtered_text != text:
-		text = filtered_text	
+		text = filtered_text
 		moves.text = text
 		moves.set_caret_column(text.length())
-			
+
 	_invalid_moves = text.is_empty()
 	_check_valid_info()
-	
+
 
 func _on_level_name_text_changed():
 	var text: String = level_name.text
 	var filtered_text: String
 	var regex = RegEx.new()
-	
+
 	regex.compile("\\w+")
-	var result:= regex.search(text)
+	var result := regex.search(text)
 	if result:
 		filtered_text = result.get_string().substr(0, min(text.length(), MAX_NAME_CHAR))
 	else:
 		filtered_text = ""
-		
+
 	if filtered_text != text:
-		text = filtered_text	
+		text = filtered_text
 		level_name.text = text
 		level_name.set_caret_column(text.length())
-		
+
 	_invalid_name = text.is_empty()
 	_check_valid_info()
 
 
 func _check_valid_info() -> void:
 	save_btn.disabled = _invalid_moves or _invalid_name
-	
