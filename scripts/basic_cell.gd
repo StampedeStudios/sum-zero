@@ -1,7 +1,6 @@
 class_name Cell
 extends Node2D
 
-
 var is_blocked: bool = false
 var _palette: ColorPalette
 var _start_value: int = 0

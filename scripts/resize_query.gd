@@ -15,30 +15,30 @@ func init_query(width: int, height: int):
 	_height = height
 	width_value.text = String.num(_width)
 	height_value.text = String.num(_height)
-	
+
 
 func _on_minus_width_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_width = clamp(_width - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
-			_update_width()
+		_width = clamp(_width - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		_update_width()
 
 
 func _on_plus_width_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_width = clamp(_width + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)			
-			_update_width()
+		_width = clamp(_width + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		_update_width()
 
 
 func _on_minus_height_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_height = clamp(_height - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
-			_update_height()
+		_height = clamp(_height - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		_update_height()
 
 
 func _on_plus_height_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_height = clamp(_height + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
-			_update_height()
+		_height = clamp(_height + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		_update_height()
 
 
 func _update_width() -> void:
@@ -53,4 +53,4 @@ func _update_height() -> void:
 
 func _on_background_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			self.queue_free()
+		self.queue_free()
