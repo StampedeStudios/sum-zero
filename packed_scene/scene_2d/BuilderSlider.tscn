@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://dnf8fupbfsi08"]
 
-[ext_resource type="Script" path="res://scripts/builder_slider.gd" id="1_l1yij"]
-[ext_resource type="Script" path="res://scripts/slider_data.gd" id="2_a2aal"]
-[ext_resource type="Shader" path="res://shaders/BasicTile.gdshader" id="2_ndq7t"]
+[ext_resource type="Script" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
+[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="2_a2aal"]
+[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
 [ext_resource type="Resource" uid="uid://ck2spptn2fx5p" path="res://assets/resources/sliders/block_bystep.tres" id="3_4v72j"]
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes/tile.png" id="3_rkxty"]
 [ext_resource type="Resource" uid="uid://chwrlgknvpemn" path="res://assets/resources/sliders/invert_bystep.tres" id="4_qa2pb"]

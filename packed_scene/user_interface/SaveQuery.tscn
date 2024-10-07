@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://devm2geibslsw"]
 
-[ext_resource type="Script" path="res://scripts/save_query.gd" id="1_bggib"]
+[ext_resource type="Script" path="res://scripts/user_interface/save_query.gd" id="1_bggib"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
 bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)

@@ -12,19 +12,27 @@ config_version=5
 
 config/name="Sum Zero"
 config/version="0.1.0s"
-run/main_scene="res://scenes/LevelManager.tscn"
+run/main_scene="res://packed_scene/scene_2d/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/game/logo.png"
 
 [autoload]
 
-GameManager="*res://scenes/GameManager.tscn"
+GameManager="*res://packed_scene/scene_2d/GameManager.tscn"
 
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=1280
 window/handheld/orientation=1
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://packed_scene/": "yellow",
+"res://scripts/": "blue"
+}
 
 [input]
 

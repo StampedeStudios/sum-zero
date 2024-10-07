@@ -9,4 +9,4 @@ extends Resource
 ## KEY: Slider coordinate (edge, dist) [br]VALUE: Slider data
 @export var slider_position: Dictionary
 ## Moves to complete including the three extra ones to get the stars
-@export var moves_left: int = 1
+@export var moves_left: int = 0
