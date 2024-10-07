@@ -38,6 +38,12 @@ This document represent a sharable roadmap that contains all main activities and
 	- [x] Level reset;
 	- [ ] Player levels saving;
 	- [ ] QRCode generation for local share;
+- [ ] UI elements
+	- Texture blocked tile;
+	- Resize window;
+	x Resize icon;
+	- Level menu;
+
 
 ## Level design
 Having four main mechanics, following the truth table to estimate the number of levels for each mechanic combiation considering that there are more seconday mechanics that can help to break the monotony. 
