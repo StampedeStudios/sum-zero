@@ -7,8 +7,7 @@ signal toggle_level_visibility(visibility: bool)
 signal game_ended
 signal reset
 
-const LEVEL_FOLDER_PATH := "res://assets/resources/"
-const UI = preload("res://scenes/UI.tscn")
+const UI = preload("res://packed_scene/user_interface/UI.tscn")
 
 @export var palette: ColorPalette
 @export var level_data: Array[LevelData]

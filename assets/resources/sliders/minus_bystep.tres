@@ -1,7 +1,8 @@
 [gd_resource type="Resource" script_class="SliderData" load_steps=3 format=3 uid="uid://c6lkgpp0jadv5"]
 
 [ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_modp6"]
-[ext_resource type="Script" path="res://scripts/slider_data.gd" id="1_xnk26"]
+[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="1_xnk26"]
+
 
 [resource]
 script = ExtResource("1_xnk26")

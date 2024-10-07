@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cx3a8j50nwxxr"]
 
-[ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_tgd8e"]
-[ext_resource type="Script" path="res://scripts/level_data.gd" id="2_2qdvc"]
+[ext_resource type="Script" path="res://scripts/scene_2d/game_manager.gd" id="1_tgd8e"]
+[ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_2qdvc"]
 [ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/color_palette/rainbow.tres" id="2_wd6nv"]
 [ext_resource type="Resource" uid="uid://ewh2ihq3jg7r" path="res://assets/resources/levels/01.tres" id="4_2g7ks"]
 [ext_resource type="Resource" uid="uid://oft6bkpca7n1" path="res://assets/resources/levels/02.tres" id="4_7bj76"]

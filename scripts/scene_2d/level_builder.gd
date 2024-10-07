@@ -1,15 +1,18 @@
 extends Control
 
-const CELL := preload("res://scenes/BuilderCell.tscn")
-const SLIDER := preload("res://scenes/BuilderSlider.tscn")
-const LEVEL_INFO_QUERY := preload("res://scenes/ResizeQuery.tscn")
-const SAVE_QUERY = preload("res://scenes/SaveQuery.tscn")
+const CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
+const SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
+const LEVEL_INFO_QUERY := preload("res://packed_scene/user_interface/ResizeQuery.tscn")
+const SAVE_QUERY = preload("res://packed_scene/user_interface/SaveQuery.tscn")
+const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 
 var cell_collection: Dictionary
 var slider_collection: Dictionary
 
 var _level_width: int = 3
 var _level_height: int = 3
+var _level_data := LevelData.new()
+var _valid_level: bool = false
 
 @onready var grid = %Grid
 @onready var reset_btn = %ResetBtn
@@ -175,8 +178,13 @@ func _on_resize_btn_pressed():
 
 
 func _on_play_btn_pressed():
-	pass  # Replace with function body.
-
+	var level: LevelManager = LEVEL_MANAGER.instantiate()
+	get_tree().root.add_child(level)
+	if !_valid_level:
+		_compose_level()
+	level.init(_level_data)
+	self.visible = false
+	
 
 func _on_save_btn_pressed():
 	var query: SaveQuery = SAVE_QUERY.instantiate()
@@ -191,26 +199,30 @@ func _on_save_query_received(validation: bool, level_name: String, level_moves: 
 		if OS.has_feature("debug"):
 			var dir := "res://assets/resources/levels/"
 			var path := dir + level_name + ".tres"
-			var level_data := LevelData.new()
-			level_data.moves_left = level_moves + 3
-			level_data.width = _level_width
-			level_data.height = _level_height
-
-			for coord in cell_collection.keys():
-				var data: CellData = cell_collection[coord].get_cell_data()
-				if data:
-					level_data.cells_list[coord] = data
-
-			for coord in slider_collection.keys():
-				var data: SliderData = slider_collection[coord].get_slider_data()
-				if data:
-					level_data.slider_position[coord] = data
-
-			ResourceSaver.save(level_data, path)
+			if !_valid_level:
+				_compose_level()
+			_level_data.moves_left = level_moves + 3
+			ResourceSaver.save(_level_data, path)
 			get_tree().quit()
 		else:
 			#TODO: aggiungere al salvataggio del giocatore
 			print("build game")
+
+
+func _compose_level() -> void:
+	_level_data.width = _level_width
+	_level_data.height = _level_height
+
+	for coord in cell_collection.keys():
+		var data: CellData = cell_collection[coord].get_cell_data()
+		if data:
+			_level_data.cells_list[coord] = data
+
+	for coord in slider_collection.keys():
+		var data: SliderData = slider_collection[coord].get_slider_data()
+		if data:
+			_level_data.slider_position[coord] = data
+	_valid_level = true
 
 
 func _on_width_change(new_width: int) -> void:
