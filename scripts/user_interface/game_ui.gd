@@ -1,5 +1,4 @@
-class_name UserInteface
-extends Control
+class_name GameUI extends Control
 
 var moves_left: int:
 	set = set_moves_left

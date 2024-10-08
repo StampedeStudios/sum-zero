@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://vvet7yb7thao"]
 
-[ext_resource type="Script" path="res://scripts/user_interface/resize_query.gd" id="1_1u8ky"]
+[ext_resource type="Script" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
 [ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_m0kci"]
 [ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="2_dqltn"]
 

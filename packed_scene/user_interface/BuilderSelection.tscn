@@ -1,0 +1,61 @@
+[gd_scene load_steps=6 format=3 uid="uid://di2d17ii3aqn8"]
+
+[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_63o7c"]
+[ext_resource type="Script" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
+[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="2_fjv1i"]
+[ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="3_yjgnh"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="4_f2ayk"]
+
+[node name="BuilderSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bawj5")
+
+[node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Control" type="Control" parent="."]
+unique_name_in_owner = true
+z_index = 20
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Minus" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_left = -384.0
+offset_top = -128.0
+offset_right = -128.0
+offset_bottom = 128.0
+texture = ExtResource("1_63o7c")
+stretch_mode = 3
+
+[node name="Plus" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_left = 128.0
+offset_top = -128.0
+offset_right = 384.0
+offset_bottom = 128.0
+texture = ExtResource("2_fjv1i")
+stretch_mode = 3
+
+[node name="Remove" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_left = -128.0
+offset_top = 128.0
+offset_right = 128.0
+offset_bottom = 384.0
+texture = ExtResource("3_yjgnh")
+
+[node name="Block" type="TextureRect" parent="Control"]
+layout_mode = 2
+offset_left = -128.0
+offset_top = -384.0
+offset_right = 128.0
+offset_bottom = -128.0
+texture = ExtResource("4_f2ayk")

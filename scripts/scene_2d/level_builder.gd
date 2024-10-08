@@ -2,8 +2,8 @@ extends Control
 
 const CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
 const SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
-const LEVEL_INFO_QUERY := preload("res://packed_scene/user_interface/ResizeQuery.tscn")
-const SAVE_QUERY = preload("res://packed_scene/user_interface/SaveQuery.tscn")
+const LEVEL_INFO_QUERY := preload("res://packed_scene/user_interface/BuilderResize.tscn")
+const SAVE_QUERY = preload("res://packed_scene/user_interface/BuilderSave.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 
 var cell_collection: Dictionary
@@ -170,7 +170,7 @@ func _on_reset_btn_pressed():
 
 
 func _on_resize_btn_pressed():
-	var query: ResizeQuery = LEVEL_INFO_QUERY.instantiate()
+	var query: BuilderResize = LEVEL_INFO_QUERY.instantiate()
 	get_tree().root.add_child(query)
 	query.init_query(_level_width, _level_height)
 	query.on_width_change.connect(_on_width_change)
@@ -187,7 +187,7 @@ func _on_play_btn_pressed():
 	
 
 func _on_save_btn_pressed():
-	var query: SaveQuery = SAVE_QUERY.instantiate()
+	var query: BuilderSave = SAVE_QUERY.instantiate()
 	get_tree().root.add_child(query)
 	query.on_query_close.connect(_on_save_query_received)
 
