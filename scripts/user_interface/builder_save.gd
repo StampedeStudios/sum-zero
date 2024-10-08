@@ -14,19 +14,41 @@ var _invalid_moves: bool
 
 
 func _ready():
+	GameManager.on_state_change.connect(_on_state_change)
 	_invalid_moves = true
 	_invalid_name = true
 	_check_valid_info()
+	
+
+func _on_state_change(new_state: GlobalConst.GameState) -> void:
+	match new_state:
+		GlobalConst.GameState.MAIN_MENU:
+			self.queue_free.call_deferred()
+			
+		GlobalConst.GameState.BUILDER_IDLE:
+			self.visible = false
+			
+		GlobalConst.GameState.BUILDER_SELECTION:
+			self.visible = false
+			
+		GlobalConst.GameState.BUILDER_SAVE:
+			self.visible = true
+			
+		GlobalConst.GameState.BUILDER_TEST:
+			self.visible = false
+			
+		GlobalConst.GameState.BUILDER_RESIZE:
+			self.visible = false
 
 
 func _on_exit_btn_pressed():
 	on_query_close.emit(false, "", -1)
-	self.queue_free()
-
+	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	
 
 func _on_save_btn_pressed():
 	on_query_close.emit(true, level_name.text, int(moves.text))
-	self.queue_free()
+	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_moves_text_changed():

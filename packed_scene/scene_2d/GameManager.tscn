@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cx3a8j50nwxxr"]
+[gd_scene load_steps=9 format=3 uid="uid://cx3a8j50nwxxr"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/game_manager.gd" id="1_tgd8e"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_2qdvc"]
-[ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/color_palette/rainbow.tres" id="2_wd6nv"]
+[ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/utility/rainbow_palette.tres" id="2_wd6nv"]
+[ext_resource type="Resource" uid="uid://b7l0sgcymgm1h" path="res://assets/resources/utility/slider_collection.tres" id="3_lx543"]
 [ext_resource type="Resource" uid="uid://ewh2ihq3jg7r" path="res://assets/resources/levels/01.tres" id="4_2g7ks"]
 [ext_resource type="Resource" uid="uid://oft6bkpca7n1" path="res://assets/resources/levels/02.tres" id="4_7bj76"]
 [ext_resource type="Resource" uid="uid://cllwoy6gx7huv" path="res://assets/resources/levels/03.tres" id="5_ohri8"]
@@ -11,6 +12,7 @@
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_tgd8e")
 palette = ExtResource("2_wd6nv")
+slider_collection = ExtResource("3_lx543")
 level_data = Array[ExtResource("2_2qdvc")]([ExtResource("4_2g7ks"), ExtResource("4_7bj76"), ExtResource("5_ohri8")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

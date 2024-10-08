@@ -9,7 +9,8 @@ var grid_cells: Array[Cell]
 
 
 func _ready() -> void:
-	GameManager.level_loading.connect(init)
+	GameManager.on_state_change.connect(_on_state_change)
+	GameManager.level_loading.connect(init_level)
 	GameManager.level_end.connect(on_level_complete)
 	GameManager.toggle_level_visibility.connect(
 		func(visibility: bool) -> void: grid.visible = visibility
@@ -19,8 +20,34 @@ func _ready() -> void:
 	get_viewport().size_changed.connect(_on_size_changed)
 
 
-# Called when the node enters the scene tree for the first time.
-func init(current_level: LevelData) -> void:
+func _on_state_change(new_state: GlobalConst.GameState) -> void:
+	match new_state:
+		GlobalConst.GameState.MAIN_MENU:
+			self.queue_free.call_deferred()
+		
+		GlobalConst.GameState.LEVEL_START:
+			self.visible = true
+			
+		GlobalConst.GameState.LEVEL_END:
+			self.visible = true
+		
+		GlobalConst.GameState.BUILDER_IDLE:
+			self.visible = false		
+		
+		GlobalConst.GameState.BUILDER_TEST:
+			self.visible = true
+		
+		GlobalConst.GameState.BUILDER_SELECTION:
+			self.visible = false
+		
+		GlobalConst.GameState.BUILDER_SAVE:
+			self.visible = false
+		
+		GlobalConst.GameState.BUILDER_RESIZE:
+			self.visible = false				
+
+
+func init_level(current_level: LevelData) -> void:
 	_clear()
 	var level_size: Vector2i
 	var half_grid_size: Vector2
@@ -39,7 +66,7 @@ func init(current_level: LevelData) -> void:
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.scale = Vector2(cell_scale, cell_scale)
-		cell_instance.init(current_level.cells_list.get(coord))
+		cell_instance.init_cell(current_level.cells_list.get(coord))
 		grid_cells.append(cell_instance)
 
 	# placing slider areas clockwise
@@ -77,7 +104,7 @@ func init(current_level: LevelData) -> void:
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale, cell_scale)
-		sc_instance.init(current_level.slider_position.get(coord))
+		sc_instance.init_slider(current_level.slider_position.get(coord))
 		sc_instance.scale_change.connect(check_grid)
 
 	_on_size_changed()

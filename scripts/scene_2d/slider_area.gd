@@ -21,35 +21,30 @@ var _is_manually_controlled: bool = false
 var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
 
-@onready var area: NinePatchRect = $Area
-@onready var handle: Area2D = $Handle
-@onready var icon: Sprite2D = $Icon
-@onready var ray: RayCast2D = $Ray
-
-
-func init(slider_data: SliderData) -> void:
-	icon.texture = slider_data.area_effect_texture
-
-	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
-	_is_horizontal = _orientation.y == 0
-	_area_effect = slider_data.area_effect
-	_area_behavior = slider_data.area_behavior
-
-	await get_tree().physics_frame
-	if _area_effect == GlobalConst.AreaEffect.BLOCK:
-		_check_limit()
-		for i in range(0, _moves):
-			var sprite := Sprite2D.new()
-			sprite.texture = block_texture
-			sprite.material = ShaderMaterial.new()
-			sprite.material.shader = block_shader
-			sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
-			add_child(sprite)
-			_blocking_sprite.append(sprite)
+@onready var area_outline: NinePatchRect = %AreaOutline
+@onready var handle: Area2D = %Handle
+@onready var area_effect: Sprite2D = %AreaEffect
+@onready var area_behavior = %AreaBehavior
+@onready var ray: RayCast2D = %Ray
 
 
 func _ready() -> void:
 	GameManager.reset.connect(_reset)
+	
+
+func init_slider(data: SliderData) -> void:
+	var collection := GameManager.slider_collection
+	area_effect.texture = collection.get_effect_texture(data.area_effect)
+	area_behavior.texture = collection.get_behavior_texture(data.area_behavior)
+	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
+	_is_horizontal = _orientation.y == 0
+	_area_effect = data.area_effect
+	_area_behavior = data.area_behavior
+
+	await get_tree().physics_frame
+	if _area_effect == GlobalConst.AreaEffect.BLOCK:
+		_check_limit.call_deferred()
+		_create_blocked_cell.call_deferred()
 
 
 func _process(_delta: float) -> void:
@@ -94,11 +89,22 @@ func _process(_delta: float) -> void:
 func release_handle() -> void:
 	_is_scaling = false
 	_apply_scaling(_current_scale)
-	area.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
+	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
 	if _current_scale != _last_scale:
-		GameManager.user_interface.consume_move()
+	#	GameManager.user_interface.consume_move()
 		scale_change.emit()
+
+
+func _create_blocked_cell() -> void:
+		for i in range(0, _moves):
+			var sprite := Sprite2D.new()
+			sprite.texture = block_texture
+			sprite.material = ShaderMaterial.new()
+			sprite.material.shader = block_shader
+			sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
+			add_child.call_deferred(sprite)
+			_blocking_sprite.append(sprite)	
 
 
 func _update_changed_tiles(fixed_scale: int) -> void:
@@ -118,14 +124,14 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area.size.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
+	area_outline.size.x = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
 		# var index: int = floor(_new_scale)
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
 
 	if _is_manually_controlled:
-		handle.position.x = GlobalConst.HANDLE_SIZE + _new_scale * GlobalConst.CELL_SIZE
+		handle.position.x = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
 
 
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
@@ -134,7 +140,7 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 			match _area_behavior:
 				# move the area handle manually with your finger
 				GlobalConst.AreaBehavior.BY_STEP:
-					area.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
+					area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
 					_check_limit()
 					_last_scale = _current_scale
 					_is_manually_controlled = true
@@ -174,7 +180,6 @@ func _check_limit() -> void:
 				ray.force_raycast_update()
 			else:
 				break
-
 	ray.clear_exceptions()
 
 

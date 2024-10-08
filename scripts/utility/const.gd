@@ -10,10 +10,10 @@ enum GameState {
 	BUILDER_SELECTION,
 	BUILDER_SAVE,
 	BUILDER_TEST,
-	BUILDER_SIZE }
+	BUILDER_RESIZE }
 
 const CELL_SIZE: float = 256
-const HANDLE_SIZE: float = 128
+const SLIDER_SIZE: float = 128
 
 const MIN_LEVEL_SIZE: int = 2
 const MAX_LEVEL_SIZE: int = 5
