@@ -1,94 +1,108 @@
-extends Node2D
+class_name BuilderSlider extends Node2D
 
-const REMOVE_NAME: String = "REMOVE"
+signal on_slider_change(ref: BuilderSlider, data: SliderData)
 
-@export var standard_color: Color = Color.GRAY
-@export var remove_icon: Texture2D
-@export var sliders_list: Array[SliderData]
+const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
-var slider_index: int
+var _is_valid: bool = false
+var _data: SliderData
 
-@onready var item_list = %ItemList
-@onready var slider = $Slider
-@onready var slider_effect = $SliderEffect
-@onready var hud = $HUD
+@onready var slider = %Slider
+@onready var slider_effect = %SliderEffect
+@onready var slider_behavior = %SliderBehavior
 
 
 func _ready():
-	hud.visible = false
+	_data = SliderData.new()
 	slider_effect.visible = false
-	slider_index = -1
-	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, standard_color)
-	item_list.add_item(REMOVE_NAME, remove_icon)
-	for slider_item in sliders_list:
-		item_list.add_item(slider_item.name, slider_item.area_effect_texture)
-	set_item_list_position()
-
-
-func set_item_list_position() -> void:
-	var offset: Vector2
-	item_list.size.y = item_list.item_count * item_list.fixed_icon_size.y + 20
-	match int(self.rotation_degrees):
-		0:
-			offset.x = GameManager.cell_size / 2
-			offset.y = -item_list.size.y / 2 * self.scale.y
-		90:
-			offset.x = -item_list.size.x / 2 * self.scale.x
-			offset.y = GameManager.cell_size / 2
-		180:
-			offset.x = -item_list.size.x * self.scale.x - GameManager.cell_size / 2
-			offset.y = -item_list.size.y / 2 * self.scale.y
-		270:
-			offset.x = -item_list.size.x / 2 * self.scale.x
-			offset.y = -item_list.size.y * self.scale.y - GameManager.cell_size / 2
-
-	item_list.position = self.global_position + offset
-	item_list.scale = self.scale
-
-
-func _on_item_list_item_selected(index):
-	var selected_slider_name: String = item_list.get_item_text(index)
-
-	if selected_slider_name == REMOVE_NAME:
-		clear_slider()
-	else:
-		for i in range(0, sliders_list.size()):
-			if sliders_list[i].name == selected_slider_name:
-				slider_effect.texture = sliders_list[i].area_effect_texture
-				slider_effect.visible = true
-				slider_index = i
-				break
-
-
-func _on_item_list_empty_clicked(_at_position, _mouse_button_index):
-	item_list.deselect_all()
-	_toggle_hud(false)
+	slider_behavior.visible = false
+	var shader_param := Literals.Parameters.BASE_COLOR
+	var color := GameManager.palette.builder_slider_color
+	slider.material.set_shader_parameter(shader_param, color)
 
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_toggle_hud(true)
+		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):			
+			GameManager.on_state_change.connect(_on_state_change)
+			GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
 
 
-func _on_panel_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_toggle_hud(false)
+func _on_state_change(new_state: GlobalConst.GameState) -> void:
+	match new_state:			
+		GlobalConst.GameState.BUILDER_IDLE:
+			self.z_index = 0
+			_toggle_ui.call_deferred(false)
+			
+		GlobalConst.GameState.BUILDER_SELECTION:
+			if !GameManager.builder_selection:
+				var builder_selection: BuilderSelection 
+				builder_selection = BUILDER_SELECTION.instantiate()
+				get_tree().root.add_child.call_deferred(builder_selection)
+				GameManager.builder_selection = builder_selection
+			self.z_index = 10
+			_toggle_ui.call_deferred(true)
 
 
-func _toggle_hud(hud_visibility: bool) -> void:
-	hud.visible = hud_visibility
-	self.z_index = 10 if hud_visibility else 0
+func _toggle_ui(ui_visible: bool) -> void:
+	if ui_visible:
+		GameManager.builder_selection.backward_action.connect(_previous_effect)
+		GameManager.builder_selection.forward_action.connect(_next_effect)
+		GameManager.builder_selection.special_action.connect(_next_behavior)
+		GameManager.builder_selection.remove_action.connect(clear_slider)
+		GameManager.builder_selection.init_selection(false, self)
+	else:
+		GameManager.on_state_change.disconnect(_on_state_change)
+		GameManager.builder_selection.backward_action.disconnect(_previous_effect)
+		GameManager.builder_selection.forward_action.disconnect(_next_effect)
+		GameManager.builder_selection.special_action.disconnect(_next_behavior)
+		GameManager.builder_selection.remove_action.disconnect(clear_slider)
 
+
+func _previous_effect() -> void:
+	var i: int
+	i = _data.area_effect 
+	i -= 1
+	if i < 0:
+		i = GlobalConst.AreaEffect.size() - 1
+	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+	_change_aspect()	
+	on_slider_change.emit(self, _data)
+	
+
+func _next_effect() -> void:
+	var i: int
+	i = _data.area_effect 
+	i += 1
+	if i > GlobalConst.AreaEffect.size() - 1:
+		i = 0
+	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+	_change_aspect()	
+	on_slider_change.emit(self, _data)
+
+
+func _next_behavior() -> void:
+	var i: int
+	i = _data.area_behavior 
+	i += 1
+	if i > GlobalConst.AreaBehavior.size() - 1:
+		i = 0
+	_data.area_behavior = GlobalConst.AreaBehavior.values()[i]
+	_change_aspect()	
+	on_slider_change.emit(self, _data)
+	
+
+func _change_aspect() -> void:
+	_is_valid = true
+	slider_effect.visible = true
+	slider_behavior.visible = true
+	var collection := GameManager.slider_collection
+	slider_effect.texture = collection.get_effect_texture(_data.area_effect)
+	slider_behavior.texture = collection.get_behavior_texture(_data.area_behavior)
+		
 
 func clear_slider() -> void:
 	slider_effect.visible = false
-	slider_index = -1
-
-
-func get_slider_data() -> SliderData:
-	if slider_index < 0:
-		return null
-
-	return sliders_list[slider_index]
+	slider_behavior.visible = false
+	_is_valid = false
+	on_slider_change.emit(self, null)

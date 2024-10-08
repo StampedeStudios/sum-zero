@@ -1,108 +1,102 @@
-extends Node2D
+class_name BuilderCell extends Node2D
 
-@export var standard_color: Color = Color.GRAY
+signal on_cell_change(ref: BuilderCell, data: CellData)
 
-var data: CellData
-var _palette: ColorPalette
-var _is_valid: bool = false
+const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
+
+var _data: CellData
 
 @onready var cell = $Cell
-@onready var cell_value = %TargetValueTxt
+@onready var target_value_txt = %TargetValueTxt
 @onready var block = %Block
-@onready var hud = $HUD
-@onready var panel = %Panel
-@onready var control = %Control
-
 
 func _ready():
-	data = CellData.new()
-	_palette = GameManager.palette
+	_data = CellData.new()
 	block.visible = false
-	hud.visible = false
-	cell_value.visible = false
-	panel.size = get_viewport_rect().size
-	_change_color(standard_color)
-
-
-func redraw_ui() -> void:
-	control.scale = self.scale
-	control.position = self.global_position
+	target_value_txt.visible = false
+	_change_color(GameManager.palette.builder_cell_color)
 
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_toggle_hud(true)
+	if _event is InputEventMouse and _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			GameManager.on_state_change.connect(_on_state_change)
+			GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+		
+
+func _on_state_change(new_state: GlobalConst.GameState) -> void:
+	match new_state:			
+		GlobalConst.GameState.BUILDER_IDLE:
+			self.z_index = 0
+			_toggle_ui.call_deferred(false)
+			
+		GlobalConst.GameState.BUILDER_SELECTION:
+			if !GameManager.builder_selection:
+				var builder_selection: BuilderSelection 
+				builder_selection = BUILDER_SELECTION.instantiate()
+				get_tree().root.add_child.call_deferred(builder_selection)
+				GameManager.builder_selection = builder_selection
+			self.z_index = 10
+			_toggle_ui.call_deferred(true)
 
 
-func _on_minus_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !data.is_blocked:
-			_is_valid = true
-			if cell_value.visible:
-				data.value = clamp(
-					data.value - 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE
-				)
-			else:
-				cell_value.visible = true
-			cell_value.text = String.num(data.value)
-			_change_color(_palette.cell_color.get(data.value))
+func _toggle_ui(ui_visible: bool) -> void:
+	if ui_visible:
+		GameManager.builder_selection.backward_action.connect(_decrease_value)
+		GameManager.builder_selection.forward_action.connect(_increase_value)
+		GameManager.builder_selection.special_action.connect(_block_cell)
+		GameManager.builder_selection.remove_action.connect(clear_cell)
+		GameManager.builder_selection.init_selection(true, self)
+	else:
+		GameManager.on_state_change.disconnect(_on_state_change)
+		GameManager.builder_selection.backward_action.disconnect(_decrease_value)
+		GameManager.builder_selection.forward_action.disconnect(_increase_value)
+		GameManager.builder_selection.special_action.disconnect(_block_cell)
+		GameManager.builder_selection.remove_action.disconnect(clear_cell)
 
 
-func _on_plus_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !data.is_blocked:
-			_is_valid = true
-			if cell_value.visible:
-				data.value = clamp(
-					data.value + 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE
-				)
-			else:
-				cell_value.visible = true
-			cell_value.text = String.num(data.value)
-			_change_color(_palette.cell_color.get(data.value))
+func _decrease_value():
+	var value = _data.value
+	value = clamp(_data.value - 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	_change_value(value)
 
 
-func _on_remove_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			clear_cell()
+func _increase_value():
+	var value = _data.value
+	value = clamp(_data.value + 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	_change_value(value)
 
 
-func _on_block_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			data.is_blocked = !data.is_blocked
-			block.visible = data.is_blocked
-			_is_valid = true
+func _change_value(new_value: int) -> void:
+	if new_value == _data.value and !_data.is_blocked:
+		return
+	_data.value = new_value
+	_data.is_blocked = false
+	_change_aspect()
+	on_cell_change.emit(self, _data)
 
 
-func _on_panel_gui_input(_event):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			_toggle_hud(false)
+func _block_cell():
+	_data.is_blocked = !_data.is_blocked
+	_change_aspect()
+	on_cell_change.emit(self, _data)
 
+
+func _change_aspect() -> void:
+	block.visible = _data.is_blocked
+	target_value_txt.visible = !_data.is_blocked
+	if !_data.is_blocked:
+		target_value_txt.text = String.num(_data.value)
+		_change_color(GameManager.palette.cell_color.get(_data.value))
+	
 
 func _change_color(new_color: Color) -> void:
 	cell.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, new_color)
 
 
-func _toggle_hud(hud_visibility: bool) -> void:
-	hud.visible = hud_visibility
-	self.z_index = 10 if hud_visibility else 0
-
-
 func clear_cell() -> void:
-	_is_valid = true
-	data.value = 0
-	cell_value.visible = false
-	data.is_blocked = false
+	_data.value = 0
+	target_value_txt.visible = false
+	_data.is_blocked = false
 	block.visible = false
-	_change_color(standard_color)
-
-
-func get_cell_data() -> CellData:
-	if _is_valid:
-		return data
-
-	return null
+	_change_color(GameManager.palette.builder_cell_color)
+	on_cell_change.emit(self, null)

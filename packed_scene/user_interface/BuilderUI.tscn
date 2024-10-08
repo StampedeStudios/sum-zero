@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
 
-[node name="LevelBuilderUI" type="Control"]
+[node name="BuilderUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_w1118")
 
 [node name="BottomContainer" type="HBoxContainer" parent="."]
@@ -71,3 +72,9 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 50
 text = "EXIT"
+
+[connection signal="pressed" from="BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
+[connection signal="pressed" from="BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://di2d17ii3aqn8"]
+[gd_scene load_steps=7 format=3 uid="uid://di2d17ii3aqn8"]
 
-[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_63o7c"]
 [ext_resource type="Script" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
-[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="2_fjv1i"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes/minus_icon.png" id="2_wtxap"]
+[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes/plus_icon.png" id="3_d11u8"]
 [ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="3_yjgnh"]
 [ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="4_f2ayk"]
+[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes/invert_icon.png" id="5_ycfuk"]
 
 [node name="BuilderSelection" type="Control"]
 layout_mode = 3
@@ -14,9 +15,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bawj5")
+backward_cell_texture = ExtResource("2_wtxap")
+forward_cell_texture = ExtResource("3_d11u8")
+special_cell_texture = ExtResource("4_f2ayk")
+backward_slider_texture = ExtResource("2_wtxap")
+forward_slider_texture = ExtResource("3_d11u8")
+special_slider_texture = ExtResource("5_ycfuk")
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
@@ -26,36 +34,47 @@ z_index = 20
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Minus" type="TextureRect" parent="Control"]
+[node name="Backward" type="TextureButton" parent="Control"]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = -384.0
 offset_top = -128.0
 offset_right = -128.0
 offset_bottom = 128.0
-texture = ExtResource("1_63o7c")
-stretch_mode = 3
+texture_normal = ExtResource("2_wtxap")
+stretch_mode = 0
 
-[node name="Plus" type="TextureRect" parent="Control"]
+[node name="Forward" type="TextureButton" parent="Control"]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = 128.0
 offset_top = -128.0
 offset_right = 384.0
 offset_bottom = 128.0
-texture = ExtResource("2_fjv1i")
-stretch_mode = 3
+texture_normal = ExtResource("3_d11u8")
+stretch_mode = 0
 
-[node name="Remove" type="TextureRect" parent="Control"]
+[node name="Remove" type="TextureButton" parent="Control"]
 layout_mode = 2
 offset_left = -128.0
 offset_top = 128.0
 offset_right = 128.0
 offset_bottom = 384.0
-texture = ExtResource("3_yjgnh")
+texture_normal = ExtResource("3_yjgnh")
+stretch_mode = 0
 
-[node name="Block" type="TextureRect" parent="Control"]
+[node name="Special" type="TextureButton" parent="Control"]
+unique_name_in_owner = true
 layout_mode = 2
 offset_left = -128.0
 offset_top = -384.0
 offset_right = 128.0
 offset_bottom = -128.0
-texture = ExtResource("4_f2ayk")
+texture_normal = ExtResource("5_ycfuk")
+stretch_mode = 0
+
+[connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
+[connection signal="pressed" from="Control/Backward" to="." method="_on_backward_pressed"]
+[connection signal="pressed" from="Control/Forward" to="." method="_on_forward_pressed"]
+[connection signal="pressed" from="Control/Remove" to="." method="_on_remove_pressed"]
+[connection signal="pressed" from="Control/Special" to="." method="_on_special_pressed"]
