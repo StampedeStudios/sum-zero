@@ -1,5 +1,4 @@
-class_name SaveQuery
-extends Control
+class_name BuilderSave extends Control
 
 signal on_query_close(validation: bool, level_name: String, level_moves: int)
 

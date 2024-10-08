@@ -1,4 +1,4 @@
-class_name ResizeQuery extends Control
+class_name BuilderResize extends Control
 
 signal on_width_change(new_width: int)
 signal on_height_change(new_height: int)

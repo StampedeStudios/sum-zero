@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpri6h0m2juyf"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
+
+[node name="LevelBuilderUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w1118")
+
+[node name="BottomContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -120.0
+offset_right = 64.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ResetBtn" type="Button" parent="BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "RESET
+"
+
+[node name="ResizeBtn" type="Button" parent="BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "RESIZE
+"
+
+[node name="PlayBtn" type="Button" parent="BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "PLAY
+"
+
+[node name="SaveBtn" type="Button" parent="BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "SAVE"
+
+[node name="TopContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 120.0
+
+[node name="ExitBtn" type="Button" parent="TopContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 50
+text = "EXIT"
