@@ -44,7 +44,7 @@ func is_occupied() -> bool:
 
 
 func _ready() -> void:
-	GameManager.reset.connect(_reset)
+	GameManager.reset.connect(reset)
 	_palette = GameManager.palette
 
 
@@ -71,7 +71,7 @@ func _update_value() -> void:
 	)
 
 
-func _reset() -> void:
+func reset() -> void:
 	_value = _start_value
 	is_blocked = is_blocked and _slider_stack.size() == 0
 	_slider_stack.clear()

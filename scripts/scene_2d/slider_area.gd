@@ -29,7 +29,7 @@ var _blocking_sprite: Array[Sprite2D]
 
 
 func _ready() -> void:
-	GameManager.reset.connect(_reset)
+	GameManager.reset.connect(reset)
 	
 
 func init_slider(data: SliderData) -> void:
@@ -157,7 +157,8 @@ func _check_limit() -> void:
 	var is_obstacle_slider: bool = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
 	_reachable_cells.clear()
-
+	ray.target_position.x = GlobalConst.CELL_SIZE / 2
+	
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		ray.target_position.x += GlobalConst.CELL_SIZE
@@ -183,7 +184,7 @@ func _check_limit() -> void:
 	ray.clear_exceptions()
 
 
-func _reset() -> void:
+func reset() -> void:
 	_reachable_cells.clear()
 	_target_scale = 0
 	_current_scale = 0
