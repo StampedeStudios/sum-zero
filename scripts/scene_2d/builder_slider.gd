@@ -5,7 +5,7 @@ signal on_slider_change(ref: BuilderSlider, data: SliderData)
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
 var _is_valid: bool = false
-var _data: SliderData
+var data: SliderData
 
 @onready var slider = %Slider
 @onready var slider_effect = %SliderEffect
@@ -13,7 +13,7 @@ var _data: SliderData
 
 
 func _ready():
-	_data = SliderData.new()
+	data = SliderData.new()
 	slider_effect.visible = false
 	slider_behavior.visible = false
 	var shader_param := Literals.Parameters.BASE_COLOR
@@ -61,35 +61,35 @@ func _toggle_ui(ui_visible: bool) -> void:
 
 func _previous_effect() -> void:
 	var i: int
-	i = _data.area_effect 
+	i = data.area_effect 
 	i -= 1
 	if i < 0:
 		i = GlobalConst.AreaEffect.size() - 1
-	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+	data.area_effect = GlobalConst.AreaEffect.values()[i]
 	_change_aspect()	
-	on_slider_change.emit(self, _data)
+	on_slider_change.emit(self, data)
 	
 
 func _next_effect() -> void:
 	var i: int
-	i = _data.area_effect 
+	i = data.area_effect 
 	i += 1
 	if i > GlobalConst.AreaEffect.size() - 1:
 		i = 0
-	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+	data.area_effect = GlobalConst.AreaEffect.values()[i]
 	_change_aspect()	
-	on_slider_change.emit(self, _data)
+	on_slider_change.emit(self, data)
 
 
 func _next_behavior() -> void:
 	var i: int
-	i = _data.area_behavior 
+	i = data.area_behavior 
 	i += 1
 	if i > GlobalConst.AreaBehavior.size() - 1:
 		i = 0
-	_data.area_behavior = GlobalConst.AreaBehavior.values()[i]
+	data.area_behavior = GlobalConst.AreaBehavior.values()[i]
 	_change_aspect()	
-	on_slider_change.emit(self, _data)
+	on_slider_change.emit(self, data)
 	
 
 func _change_aspect() -> void:
@@ -97,8 +97,8 @@ func _change_aspect() -> void:
 	slider_effect.visible = true
 	slider_behavior.visible = true
 	var collection := GameManager.slider_collection
-	slider_effect.texture = collection.get_effect_texture(_data.area_effect)
-	slider_behavior.texture = collection.get_behavior_texture(_data.area_behavior)
+	slider_effect.texture = collection.get_effect_texture(data.area_effect)
+	slider_behavior.texture = collection.get_behavior_texture(data.area_behavior)
 		
 
 func clear_slider() -> void:

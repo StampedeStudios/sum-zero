@@ -24,6 +24,7 @@ func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
 	grid.position = get_viewport_rect().get_center()
 	grid.scale = GameManager.level_scale
+	_level_data = LevelData.new()
 	_construct_level()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 	
@@ -56,17 +57,17 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			
 		GlobalConst.GameState.BUILDER_TEST:
 			self.visible = false
+			if !GameManager.builder_test:
+				var builder_test: BuilderTest
+				builder_test = BUILDER_TEST.instantiate()
+				get_tree().root.add_child.call_deferred(builder_test)
+				GameManager.builder_test = builder_test
 			if !_level_test:
 				_level_test = LEVEL_MANAGER.instantiate()
 				get_tree().root.add_child.call_deferred(_level_test)
 			_level_data.height = _level_height
 			_level_data.width = _level_width
 			_level_test.init_level.call_deferred(_level_data)
-			if !GameManager.builder_test:
-				var builder_test: BuilderTest
-				builder_test = BUILDER_TEST.instantiate()
-				get_tree().root.add_child.call_deferred(builder_test)
-				GameManager.builder_test = builder_test
 			
 		GlobalConst.GameState.BUILDER_RESIZE:			
 			self.visible = true
@@ -83,6 +84,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 func _construct_level() -> void:
 	var half_grid := Vector2(_level_width, _level_height) * GlobalConst.CELL_SIZE / 2
 	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
+	var erased_coord: Vector2i
 
 	# add cell space
 	for columun in range(0, _level_width):
@@ -102,16 +104,20 @@ func _construct_level() -> void:
 			cell.position = -half_grid + half_cell + cell_pos
 
 	for row in range(0, _level_height + 1):
-		if cell_collection.has(Vector2i(_level_width, row)):
-			var cell: Node = cell_collection.get(Vector2i(_level_width, row))
+		erased_coord = Vector2i(_level_width, row)
+		if cell_collection.has(erased_coord):
+			var cell: Node = cell_collection.get(erased_coord)
+			_level_data.cells_list.erase(erased_coord)
 			cell.queue_free()
-			cell_collection.erase(Vector2i(_level_width, row))
+			cell_collection.erase(erased_coord)
 
 	for column in range(0, _level_height + 1):
-		if cell_collection.has(Vector2i(column, _level_height)):
-			var cell: Node = cell_collection.get(Vector2i(column, _level_height))
+		erased_coord = Vector2i(column, _level_height)
+		if cell_collection.has(erased_coord):
+			var cell: Node = cell_collection.get(erased_coord)
+			_level_data.cells_list.erase(erased_coord)
 			cell.queue_free()
-			cell_collection.erase(Vector2i(column, _level_height))
+			cell_collection.erase(erased_coord)
 
 	# add slider space
 	var half_slider := Vector2.ONE * GlobalConst.SLIDER_SIZE / 2
@@ -120,14 +126,14 @@ func _construct_level() -> void:
 	var slider: BuilderSlider
 	# TOP
 	for column in range(0, _level_width):
-		var id := Vector2i(0, column)
-		if slider_collection.has(id):
-			slider = slider_collection.get(id)
+		var slider_coord := Vector2i(0, column)
+		if slider_collection.has(slider_coord):
+			slider = slider_collection.get(slider_coord)
 		else:
 			slider = SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[id] = slider
+			slider_collection[slider_coord] = slider
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -136,20 +142,22 @@ func _construct_level() -> void:
 		slider.position = edge_start_pos + slider_pos
 		slider.rotation_degrees = 90
 
-	if slider_collection.has(Vector2i(0, _level_width)):
-		slider = slider_collection.get(Vector2i(0, _level_width))
+	erased_coord = Vector2i(0, _level_width)
+	if slider_collection.has(erased_coord):
+		slider = slider_collection.get(erased_coord)
+		_level_data.slider_list.erase(erased_coord)
 		slider.queue_free()
-		slider_collection.erase(Vector2i(0, _level_width))
+		slider_collection.erase(erased_coord)
 	# RIGHT
 	for row in range(0, _level_height):
-		var id := Vector2i(1, row)
-		if slider_collection.has(id):
-			slider = slider_collection.get(id)
+		var slider_coord := Vector2i(1, row)
+		if slider_collection.has(slider_coord):
+			slider = slider_collection.get(slider_coord)
 		else:
 			slider = SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[id] = slider
+			slider_collection[slider_coord] = slider
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -158,20 +166,22 @@ func _construct_level() -> void:
 		slider.position = edge_start_pos + slider_pos
 		slider.rotation_degrees = 180
 
-	if slider_collection.has(Vector2i(1, _level_height)):
-		slider = slider_collection.get(Vector2i(1, _level_height))
+	erased_coord = Vector2i(1, _level_height)
+	if slider_collection.has(erased_coord):
+		slider = slider_collection.get(erased_coord)
+		_level_data.slider_list.erase(erased_coord)
 		slider.queue_free()
-		slider_collection.erase(Vector2i(1, _level_height))
+		slider_collection.erase(erased_coord)
 	# BOTTOM
 	for column in range(0, _level_width):
-		var id := Vector2i(2, column)
-		if slider_collection.has(id):
-			slider = slider_collection.get(id)
+		var slider_coord := Vector2i(2, column)
+		if slider_collection.has(slider_coord):
+			slider = slider_collection.get(slider_coord)
 		else:
 			slider = SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[id] = slider
+			slider_collection[slider_coord] = slider
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -179,21 +189,23 @@ func _construct_level() -> void:
 		edge_start_pos.y = half_grid.y + half_slider.y
 		slider.position = edge_start_pos + slider_pos
 		slider.rotation_degrees = 270
-
-	if slider_collection.has(Vector2i(2, _level_width)):
-		slider = slider_collection.get(Vector2i(2, _level_width))
+	
+	erased_coord = Vector2i(2, _level_width)
+	if slider_collection.has(erased_coord):
+		slider = slider_collection.get(erased_coord)
+		_level_data.slider_list.erase(erased_coord)
 		slider.queue_free()
-		slider_collection.erase(Vector2i(2, _level_width))
+		slider_collection.erase(erased_coord)
 	# LEFT
 	for row in range(0, _level_height):
-		var id := Vector2i(3, row)
-		if slider_collection.has(id):
-			slider = slider_collection.get(id)
+		var slider_coord := Vector2i(3, row)
+		if slider_collection.has(slider_coord):
+			slider = slider_collection.get(slider_coord)
 		else:
 			slider = SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[id] = slider
+			slider_collection[slider_coord] = slider
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -202,28 +214,30 @@ func _construct_level() -> void:
 		slider.position = edge_start_pos + slider_pos
 		slider.rotation_degrees = 0
 
-	if slider_collection.has(Vector2i(3, _level_height)):
-		slider = slider_collection.get(Vector2i(3, _level_height))
+	erased_coord = Vector2i(3, _level_height)
+	if slider_collection.has(erased_coord):
+		slider = slider_collection.get(erased_coord)
+		_level_data.slider_list.erase(erased_coord)
 		slider.queue_free()
-		slider_collection.erase(Vector2i(3, _level_height))
+		slider_collection.erase(erased_coord)
 
 
 func _on_cell_change(ref: BuilderCell, data: CellData) -> void:
 	for key in cell_collection.keys():
 		if ref == cell_collection.get(key):
 			if data:
-				cell_collection[key] = data
+				_level_data.cells_list[key] = data
 			else:
-				cell_collection.erase(key)
+				_level_data.cells_list.erase(key)
 
 
 func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 	for key in slider_collection.keys():
 		if ref == slider_collection.get(key):
 			if data:
-				slider_collection[key] = data
+				_level_data.slider_list[key] = data
 			else:
-				slider_collection.erase(key)
+				_level_data.slider_list.erase(key)
 	
 	
 func _on_save_query_received(validation: bool, level_name: String, level_moves: int):
@@ -248,7 +262,7 @@ func _reset_builder_grid():
 		cell.clear_cell()
 	for slider in slider_collection.values():
 		slider.clear_slider()
-		
+	_level_data = LevelData.new()
 
 func _on_width_change(new_width: int) -> void:
 	_level_width = new_width

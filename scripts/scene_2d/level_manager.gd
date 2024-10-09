@@ -10,14 +10,13 @@ var grid_cells: Array[Cell]
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	GameManager.level_loading.connect(init_level)
-	GameManager.level_end.connect(on_level_complete)
-	GameManager.toggle_level_visibility.connect(
-		func(visibility: bool) -> void: grid.visible = visibility
-	)
-	GameManager.load_level()
-
-	get_viewport().size_changed.connect(_on_size_changed)
+	grid.position = get_viewport_rect().get_center()
+	#GameManager.level_loading.connect(init_level)
+	#GameManager.level_end.connect(on_level_complete)
+	#GameManager.toggle_level_visibility.connect(
+		#func(visibility: bool) -> void: grid.visible = visibility
+	#)
+	#GameManager.load_level()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -27,6 +26,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
+			if GameManager.builder_test:
+				GameManager.builder_test.reset_test_level.connect(_reset_level)
 			
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = true
@@ -70,7 +71,7 @@ func init_level(current_level: LevelData) -> void:
 		grid_cells.append(cell_instance)
 
 	# placing slider areas clockwise
-	for coord in current_level.slider_position.keys():
+	for coord in current_level.slider_list.keys():
 		var edge: int = coord.x
 		var dist: int = coord.y * GameManager.cell_size
 		var x_pos: float
@@ -104,15 +105,9 @@ func init_level(current_level: LevelData) -> void:
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.scale = Vector2(cell_scale, cell_scale)
-		sc_instance.init_slider(current_level.slider_position.get(coord))
+		sc_instance.init_slider(current_level.slider_list.get(coord))
 		sc_instance.scale_change.connect(check_grid)
-
-	_on_size_changed()
-
-
-func _on_size_changed() -> void:
-	var viewport_size = get_viewport_rect().size
-	grid.position = Vector2(viewport_size.x / 2, viewport_size.y / 2)
+		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
 func _clear() -> void:
@@ -123,16 +118,19 @@ func _clear() -> void:
 
 func check_grid() -> void:
 	var level_complete: bool
-
-	for tile in grid_cells:
-		if tile.get_cell_value() == 0:
+	for cell in grid_cells:
+		if cell.get_cell_value() == 0:
 			level_complete = true
 		else:
 			level_complete = false
 			break
-
 	if level_complete:
 		GameManager.level_complete()
+
+
+func _reset_level() -> void:
+	for child in grid.get_children():
+		child.reset()	
 
 
 func on_level_complete() -> void:

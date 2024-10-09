@@ -7,6 +7,6 @@ extends Resource
 ## [br]NB: if the cells do not complete the grid, intentional holes are created
 @export var cells_list: Dictionary
 ## KEY: Slider coordinate (edge, dist) [br]VALUE: Slider data
-@export var slider_position: Dictionary
+@export var slider_list: Dictionary
 ## Moves to complete including the three extra ones to get the stars
 @export var moves_left: int = 0
