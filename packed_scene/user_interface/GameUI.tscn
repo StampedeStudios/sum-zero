@@ -1,13 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=3 format=3 uid="uid://drgb25lub04ll"]
 
-[ext_resource type="Texture2D" uid="uid://3we73st13wre" path="res://assets/ui/button.png" id="1_qtyoq"]
 [ext_resource type="Script" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="2_iclks"]
-[ext_resource type="Texture2D" uid="uid://d3pc0tot7kej7" path="res://assets/ui/button_hover.png" id="2_m21px"]
-[ext_resource type="Texture2D" uid="uid://0kdv1pp5886o" path="res://assets/ui/next_level.png" id="5_nexth"]
-[ext_resource type="Texture2D" uid="uid://dyj3jffvvwfvf" path="res://assets/ui/next_level_hover.png" id="6_31pmf"]
 
-[node name="Ui" type="Control"]
+[node name="GameUI" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -40,31 +36,29 @@ text = "13"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -260.0
+offset_left = -136.0
 offset_top = -128.0
-grow_horizontal = 0
+offset_right = 136.0
+grow_horizontal = 2
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 alignment = 2
 
-[node name="NextLevelButton" type="TextureButton" parent="BottomRightContainer"]
-unique_name_in_owner = true
+[node name="ExitBtn" type="Button" parent="BottomRightContainer"]
 layout_mode = 2
-texture_normal = ExtResource("5_nexth")
-texture_pressed = ExtResource("6_31pmf")
-texture_hover = ExtResource("6_31pmf")
+theme_override_font_sizes/font_size = 100
+text = "EXIT"
 
-[node name="ClearButton" type="TextureButton" parent="BottomRightContainer"]
+[node name="ResetBtn" type="Button" parent="BottomRightContainer"]
 layout_mode = 2
-texture_normal = ExtResource("1_qtyoq")
-texture_pressed = ExtResource("2_m21px")
-texture_hover = ExtResource("2_m21px")
+theme_override_font_sizes/font_size = 100
+text = "RESET"
 
-[connection signal="pressed" from="BottomRightContainer/NextLevelButton" to="." method="_on_next_level_button_pressed"]
-[connection signal="pressed" from="BottomRightContainer/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]

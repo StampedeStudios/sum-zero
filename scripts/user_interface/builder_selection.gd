@@ -79,4 +79,3 @@ func _on_special_pressed():
 func _on_panel_gui_input(event):	
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
-	

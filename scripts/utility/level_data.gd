@@ -8,5 +8,5 @@ extends Resource
 @export var cells_list: Dictionary
 ## KEY: Slider coordinate (edge, dist) [br]VALUE: Slider data
 @export var slider_list: Dictionary
-## Moves to complete including the three extra ones to get the stars
+## Moves to complete level and get three stars
 @export var moves_left: int = 0
