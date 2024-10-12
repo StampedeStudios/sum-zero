@@ -28,12 +28,8 @@ var _blocking_sprite: Array[Sprite2D]
 @onready var ray: RayCast2D = %Ray
 
 
-func _ready() -> void:
-	GameManager.reset.connect(reset)
-	
-
 func init_slider(data: SliderData) -> void:
-	var collection := GameManager.slider_collection
+	var collection : SliderCollection = GameManager.slider_collection
 	area_effect.texture = collection.get_effect_texture(data.area_effect)
 	area_behavior.texture = collection.get_behavior_texture(data.area_behavior)
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))

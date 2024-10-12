@@ -6,3 +6,4 @@
 script = ExtResource("1_lxew3")
 
 [node name="Grid" type="Node2D" parent="."]
+unique_name_in_owner = true

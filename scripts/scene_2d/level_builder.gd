@@ -1,10 +1,8 @@
-extends Node2D
+class_name LevelBuilder extends Node2D
 
-const CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
-const SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
-const SAVE_QUERY = preload("res://packed_scene/user_interface/BuilderSave.tscn")
+const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
+const BUILDER_SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
-const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const BUILDER_RESIZE = preload("res://packed_scene/user_interface/BuilderResize.tscn")
 const BUILDER_SAVE = preload("res://packed_scene/user_interface/BuilderSave.tscn")
 const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn")
@@ -13,20 +11,20 @@ var cell_collection: Dictionary
 var slider_collection: Dictionary
 
 var _level_test: LevelManager
+var _level_data: LevelData
 var _level_width: int = 3
 var _level_height: int = 3
-var _level_data: LevelData
 
 @onready var grid = %Grid
 
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
+	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
 	grid.position = get_viewport_rect().get_center()
 	grid.scale = GameManager.level_scale
 	_level_data = LevelData.new()
-	_construct_level()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	_construct_level()	
 	
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -36,13 +34,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.visible = true
-			if !GameManager.builder_ui:
-				var builder_ui: BuilderUI 
-				builder_ui = BUILDER_UI.instantiate()
-				get_tree().root.add_child.call_deferred(builder_ui)
-				builder_ui.reset_builder_level.connect(_reset_builder_grid)
-				GameManager.builder_ui = builder_ui	
-				
+			
 		GlobalConst.GameState.BUILDER_SELECTION:
 			pass
 			
@@ -60,8 +52,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			if !GameManager.builder_test:
 				var builder_test: BuilderTest
 				builder_test = BUILDER_TEST.instantiate()
-				get_tree().root.add_child.call_deferred(builder_test)
 				GameManager.builder_test = builder_test
+				get_tree().root.add_child.call_deferred(builder_test)
 			if !_level_test:
 				_level_test = LEVEL_MANAGER.instantiate()
 				get_tree().root.add_child.call_deferred(_level_test)
@@ -96,7 +88,7 @@ func _construct_level() -> void:
 			if cell_collection.has(cell_coord):
 				cell = cell_collection.get(cell_coord)
 			else:
-				cell = CELL.instantiate()
+				cell = BUILDER_CELL.instantiate()
 				grid.add_child(cell)
 				cell.on_cell_change.connect(_on_cell_change)
 				cell_collection[cell_coord] = cell
@@ -130,7 +122,7 @@ func _construct_level() -> void:
 		if slider_collection.has(slider_coord):
 			slider = slider_collection.get(slider_coord)
 		else:
-			slider = SLIDER.instantiate()
+			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			slider_collection[slider_coord] = slider
@@ -154,7 +146,7 @@ func _construct_level() -> void:
 		if slider_collection.has(slider_coord):
 			slider = slider_collection.get(slider_coord)
 		else:
-			slider = SLIDER.instantiate()
+			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			slider_collection[slider_coord] = slider
@@ -178,7 +170,7 @@ func _construct_level() -> void:
 		if slider_collection.has(slider_coord):
 			slider = slider_collection.get(slider_coord)
 		else:
-			slider = SLIDER.instantiate()
+			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			slider_collection[slider_coord] = slider
@@ -202,7 +194,7 @@ func _construct_level() -> void:
 		if slider_collection.has(slider_coord):
 			slider = slider_collection.get(slider_coord)
 		else:
-			slider = SLIDER.instantiate()
+			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			slider_collection[slider_coord] = slider
@@ -249,7 +241,7 @@ func _on_save_query_received(validation: bool, level_name: String, level_moves: 
 			var path := dir + level_name + ".tres"
 			_level_data.height = _level_height
 			_level_data.width = _level_width
-			_level_data.moves_left = level_moves + 3
+			_level_data.moves_left = level_moves
 			ResourceSaver.save(_level_data, path)
 			get_tree().quit()
 		else:

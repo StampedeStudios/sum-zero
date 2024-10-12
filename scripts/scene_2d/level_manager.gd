@@ -5,45 +5,35 @@ const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
 
 var grid_cells: Array[Cell]
 
-@onready var grid: Node2D = $Grid
+@onready var grid = %Grid
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	grid.position = get_viewport_rect().get_center()
-	#GameManager.level_loading.connect(init_level)
-	#GameManager.level_end.connect(on_level_complete)
-	#GameManager.toggle_level_visibility.connect(
-		#func(visibility: bool) -> void: grid.visible = visibility
-	#)
-	#GameManager.load_level()
+
+	if GameManager.builder_test != null:
+		GameManager.builder_test.reset_test_level.connect(_reset_level)
+	if GameManager.game_ui != null:
+		GameManager.game_ui.reset_level.connect(_reset_level)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()
-		
+			self.queue_free.call_deferred()		
 		GlobalConst.GameState.LEVEL_START:
-			self.visible = true
-			if GameManager.builder_test:
-				GameManager.builder_test.reset_test_level.connect(_reset_level)
-			
+			self.visible = true			
 		GlobalConst.GameState.LEVEL_END:
-			self.visible = true
-		
+			self.visible = true		
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.visible = false		
-		
 		GlobalConst.GameState.BUILDER_TEST:
-			self.visible = true
-		
+			self.visible = true		
 		GlobalConst.GameState.BUILDER_SELECTION:
-			self.visible = false
-		
+			self.visible = false		
 		GlobalConst.GameState.BUILDER_SAVE:
-			self.visible = false
-		
+			self.visible = false		
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = false				
 
@@ -61,9 +51,10 @@ func init_level(current_level: LevelData) -> void:
 	# placing cells
 	for coord in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
-		var relative_pos: Vector2 = coord * GameManager.cell_size
-		var cell_offset := Vector2.ONE * GameManager.cell_size / 2
-
+		var relative_pos: Vector2 
+		var cell_offset: Vector2
+		relative_pos = coord * GameManager.cell_size
+		cell_offset = Vector2.ONE * GameManager.cell_size / 2
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.scale = Vector2(cell_scale, cell_scale)
@@ -125,7 +116,7 @@ func check_grid() -> void:
 			level_complete = false
 			break
 	if level_complete:
-		GameManager.level_complete()
+		print("level complete")
 
 
 func _reset_level() -> void:

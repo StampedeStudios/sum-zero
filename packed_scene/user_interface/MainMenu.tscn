@@ -1,0 +1,94 @@
+[gd_scene load_steps=4 format=3 uid="uid://hqw2wppscbvl"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
+bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xtc7"]
+bg_color = Color(0.47916, 0.610677, 0.475911, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.25098, 0.184314, 0.105882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wcv12")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_r00fw")
+
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -361.5
+offset_top = -321.0
+offset_right = 361.5
+offset_bottom = 321.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5xtc7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.5
+offset_top = -296.0
+offset_right = 336.5
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "PLAY"
+
+[node name="LevelBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "LEVELS"
+
+[node name="EditorBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "EDITOR"
+
+[node name="QuitBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "QUIT"
+
+[connection signal="pressed" from="Background/Panel/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

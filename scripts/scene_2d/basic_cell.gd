@@ -44,7 +44,6 @@ func is_occupied() -> bool:
 
 
 func _ready() -> void:
-	GameManager.reset.connect(reset)
 	_palette = GameManager.palette
 
 

@@ -13,12 +13,12 @@ var data: SliderData
 
 
 func _ready():
+	var color: Color
+	color = GameManager.palette.builder_slider_color
 	data = SliderData.new()
 	slider_effect.visible = false
 	slider_behavior.visible = false
-	var shader_param := Literals.Parameters.BASE_COLOR
-	var color := GameManager.palette.builder_slider_color
-	slider.material.set_shader_parameter(shader_param, color)
+	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
@@ -93,10 +93,11 @@ func _next_behavior() -> void:
 	
 
 func _change_aspect() -> void:
+	var collection : SliderCollection 
+	collection = GameManager.slider_collection
 	_is_valid = true
 	slider_effect.visible = true
 	slider_behavior.visible = true
-	var collection := GameManager.slider_collection
 	slider_effect.texture = collection.get_effect_texture(data.area_effect)
 	slider_behavior.texture = collection.get_behavior_texture(data.area_behavior)
 		
