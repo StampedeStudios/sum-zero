@@ -9,7 +9,6 @@ var moves_left: int
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	_reset_moves_left()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -17,13 +16,17 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()						
 		GlobalConst.GameState.LEVEL_START:
+			_reset_moves_left()
 			self.visible = true		
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false
-						
+			GameManager.level_end.update_score(moves_left)
+		_:
+			self.visible = false
+			
 
 func _reset_moves_left():
-	moves_left = GameManager.get_move_left()
+	moves_left = GameManager.get_active_level().moves_left
 	_update_moves()
 	
 

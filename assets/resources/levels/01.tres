@@ -67,4 +67,4 @@ Vector2i(2, 2): SubResource("Resource_3dit7")
 slider_list = {
 Vector2i(0, 2): ExtResource("3_2x5m3")
 }
-moves_left = 4
+moves_left = 1

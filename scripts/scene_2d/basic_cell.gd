@@ -1,15 +1,16 @@
 class_name Cell
 extends Node2D
 
-var is_blocked: bool = false
-var _start_value: int = 0
-var _value: int
+const BLOCKED_TILE = preload("res://assets/scenes/blocked_tile.png")
+
+var _origin_data: CellData
+var _current_data: CellData
 var _slider_stack: Array[SliderArea]
 var _effect_stack: Array[GlobalConst.AreaEffect]
 
 @onready var target_value_txt: Label = %TargetValueTxt
-@onready var sprite_2d: Sprite2D = $Tile
-
+@onready var tile: Sprite2D = %Tile
+@onready var area_2d = %Area2D
 
 func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 	# remove slider and effect
@@ -28,14 +29,27 @@ func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 
 
 func init_cell(data: CellData) -> void:
-	is_blocked = data.is_blocked
-	_start_value = data.value
-	_value = _start_value
-	_update_value()
+	_origin_data = data
+	if _origin_data.is_blocked:
+		tile.texture = BLOCKED_TILE
+		target_value_txt.visible = false
+		area_2d.queue_free()
+	else:
+		_current_data = CellData.new()
+		_current_data.is_blocked = _origin_data.is_blocked
+		_current_data.value = _origin_data.value
+		_update_value()
 
 
 func get_cell_value() -> int:
-	return 0 if is_blocked else _value
+	if _current_data.is_blocked:
+		return 0
+	else:
+		return _current_data.value
+
+
+func is_cell_blocked() -> bool:
+	return _current_data.is_blocked
 
 
 func is_occupied() -> bool:
@@ -43,31 +57,31 @@ func is_occupied() -> bool:
 
 
 func _calculate_effect() -> void:
-	_value = _start_value
-	is_blocked = false
+	_current_data.value = _origin_data.value
+	_current_data.is_blocked = false
 	for effect in _effect_stack:
 		match effect:
 			GlobalConst.AreaEffect.ADD:
-				_value += 1
+				_current_data.value += 1
 			GlobalConst.AreaEffect.SUBTRACT:
-				_value -= 1
+				_current_data.value -= 1
 			GlobalConst.AreaEffect.CHANGE_SIGN:
-				_value *= -1
+				_current_data.value *= -1
 			GlobalConst.AreaEffect.BLOCK:
-				_value = 0
-				is_blocked = true
+				_current_data.value = 0
+				_current_data.is_blocked = true
 
 
 func _update_value() -> void:
 	var color: Color
-	color = GameManager.palette.cell_color.get(_value)
-	sprite_2d.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
-	target_value_txt.text = String.num(_value)
+	color = GameManager.palette.cell_color.get(_current_data.value)
+	tile.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	target_value_txt.text = String.num(_current_data.value)
 
 
 func reset() -> void:
-	_value = _start_value
-	is_blocked = is_blocked and _slider_stack.size() == 0
+	_current_data.value = _origin_data.value
+	_current_data.is_blocked = _origin_data.is_blocked
 	_slider_stack.clear()
 	_effect_stack.clear()
 	_update_value()
