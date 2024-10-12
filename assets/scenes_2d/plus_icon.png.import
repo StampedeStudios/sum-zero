@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5l2edgnwsn1i"
-path="res://.godot/imported/blocked_tile.png-e5f4edaaeef10629503b5821314edd4c.ctex"
+uid="uid://b82n071mbtjlh"
+path="res://.godot/imported/plus_icon.png-bc3a23da4498acc8c8783cf54f373c76.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/scenes/blocked_tile.png"
-dest_files=["res://.godot/imported/blocked_tile.png-e5f4edaaeef10629503b5821314edd4c.ctex"]
+source_file="res://assets/scenes_2d/plus_icon.png"
+dest_files=["res://.godot/imported/plus_icon.png-bc3a23da4498acc8c8783cf54f373c76.ctex"]
 
 [params]
 

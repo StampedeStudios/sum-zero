@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
-[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes/minus_icon.png" id="9_fh68b"]
-[ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes/slider.png" id="9_sippf"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes/invert_icon.png" id="10_57cju"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="9_fh68b"]
+[ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="9_sippf"]
+[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="10_57cju"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_42k15"]
 resource_local_to_scene = true

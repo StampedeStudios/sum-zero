@@ -1,11 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=6 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
-[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="2_aqciy"]
-[ext_resource type="Texture2D" uid="uid://bow5b8wwyeu8v" path="res://assets/ui/question.png" id="2_ns747"]
-[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes/minus_icon.png" id="3_mqy45"]
-[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes/plus_icon.png" id="4_w1xhn"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes/invert_icon.png" id="5_6vh2e"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes_2d/blocked_tile.png" id="2_aqciy"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="3_mqy45"]
+[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes_2d/plus_icon.png" id="4_w1xhn"]
+[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="5_6vh2e"]
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -42,7 +41,6 @@ anchor_left = 0.5
 anchor_right = 0.5
 offset_bottom = 40.0
 grow_horizontal = 2
-texture = ExtResource("2_ns747")
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 1
