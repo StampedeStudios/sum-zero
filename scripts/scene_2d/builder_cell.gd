@@ -10,6 +10,7 @@ var _data: CellData
 @onready var target_value_txt = %TargetValueTxt
 @onready var block = %Block
 
+
 func _ready():
 	_data = CellData.new()
 	block.visible = false
@@ -19,19 +20,19 @@ func _ready():
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse and _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			GameManager.on_state_change.connect(_on_state_change)
-			GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
-		
+		GameManager.on_state_change.connect(_on_state_change)
+		GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:			
+	match new_state:
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.z_index = 0
 			_toggle_ui.call_deferred(false)
-			
+
 		GlobalConst.GameState.BUILDER_SELECTION:
 			if !GameManager.builder_selection:
-				var builder_selection: BuilderSelection 
+				var builder_selection: BuilderSelection
 				builder_selection = BUILDER_SELECTION.instantiate()
 				get_tree().root.add_child.call_deferred(builder_selection)
 				GameManager.builder_selection = builder_selection
@@ -87,7 +88,7 @@ func _change_aspect() -> void:
 	if !_data.is_blocked:
 		target_value_txt.text = String.num(_data.value)
 		_change_color(GameManager.palette.cell_color.get(_data.value))
-	
+
 
 func _change_color(new_color: Color) -> void:
 	cell.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, new_color)

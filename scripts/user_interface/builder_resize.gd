@@ -10,9 +10,10 @@ var _scale: float
 
 @onready var control = %Control
 
+
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
-	
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
@@ -22,7 +23,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 		_:
 			self.visible = false
-		
+
 
 func init_query(width: int, height: int):
 	_width = width
@@ -33,7 +34,7 @@ func init_query(width: int, height: int):
 
 func _on_minus_width_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		var	new_width: int
+		var new_width: int
 		new_width = clamp(_width - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
 		_update_width(new_width)
 
@@ -71,15 +72,16 @@ func _update_height(new_height: int) -> void:
 		_height = new_height
 		_update_zoom()
 		on_height_change.emit(_height)
-		
+
+
 func _update_zoom() -> void:
 	var new_scale: float
 	var max_size := maxi(_width, _height) + 2
 	new_scale = control.size.x / GlobalConst.CELL_SIZE / max_size
 	if new_scale != _scale:
 		_scale = new_scale
-		on_zoom_change.emit(Vector2(_scale, _scale))	
-		
+		on_zoom_change.emit(Vector2(_scale, _scale))
+
 
 func _on_background_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):

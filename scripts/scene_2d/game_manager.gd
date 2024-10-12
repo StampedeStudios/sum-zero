@@ -33,20 +33,20 @@ func _ready() -> void:
 	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
 	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
 	_load_levels()
-	
+
 	main_menu = MAIN_MENU.instantiate()
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
-	
-	
+
+
 func _load_levels() -> void:
-	var levels_dir := "res://assets/resources/_levels/"
+	var levels_dir := "res://assets/resources/levels/"
 	var dir := DirAccess.open(levels_dir)
 	for file_name in dir.get_files():
 		var resource: Resource
 		resource = ResourceLoader.load(levels_dir + file_name)
 		_levels.append(resource)
-			
+
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	match new_state:
@@ -62,7 +62,7 @@ func _set_next_level_index() -> void:
 
 func get_active_level() -> LevelData:
 	return _levels[_active_level_index]
-	
+
 
 func get_next_level() -> LevelData:
 	_active_level_index = _next_level_index

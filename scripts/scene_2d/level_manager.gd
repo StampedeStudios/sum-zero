@@ -27,11 +27,11 @@ func set_manager_mode(is_test_mode: bool) -> void:
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()		
+			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
-			self.visible = true			
+			self.visible = true
 		_:
-			self.visible = false				
+			self.visible = false
 
 
 func init_level(current_level: LevelData) -> void:
@@ -45,7 +45,7 @@ func init_level(current_level: LevelData) -> void:
 	# placing cells
 	for coord in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
-		var relative_pos: Vector2 
+		var relative_pos: Vector2
 		var cell_offset: Vector2
 		relative_pos = coord * GlobalConst.CELL_SIZE
 		cell_offset = Vector2.ONE * GlobalConst.CELL_SIZE / 2
@@ -118,4 +118,4 @@ func check_grid() -> void:
 
 func _reset_level() -> void:
 	for child in grid.get_children():
-		child.reset()	
+		child.reset()

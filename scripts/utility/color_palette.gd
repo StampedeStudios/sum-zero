@@ -11,6 +11,6 @@ extends Resource
 	2: Color(0, 0, 0, 1),
 	3: Color(0, 0, 0, 1),
 	4: Color(0, 0, 0, 1)
-	}
-@export var builder_cell_color: Color 
-@export var builder_slider_color: Color 
+}
+@export var builder_cell_color: Color
+@export var builder_slider_color: Color
