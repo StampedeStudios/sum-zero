@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SliderData" load_steps=2 format=3 uid="uid://cwnnpnmdglih5"]
+
+[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="1_rarfn"]
+
+[resource]
+script = ExtResource("1_rarfn")
+area_effect = 0
+area_behavior = 0

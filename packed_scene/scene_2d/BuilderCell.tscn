@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://dwy42e2etcl7x"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/builder_cell.gd" id="1_bah0f"]
-[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes/tile.png" id="2_srl0q"]
+[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="2_srl0q"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_sryqp"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="4_w7k74"]
-[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="6_pjrwq"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes_2d/blocked_tile.png" id="6_pjrwq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_42k15"]
 resource_local_to_scene = true

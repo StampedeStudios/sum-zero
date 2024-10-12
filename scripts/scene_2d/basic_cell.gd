@@ -1,7 +1,7 @@
 class_name Cell
 extends Node2D
 
-const BLOCKED_TILE = preload("res://assets/scenes/blocked_tile.png")
+const BLOCKED_TILE = preload("res://assets/scenes_2d/blocked_tile.png")
 
 var _origin_data: CellData
 var _current_data: CellData

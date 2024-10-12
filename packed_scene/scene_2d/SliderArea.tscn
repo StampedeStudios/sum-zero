@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://scripts/scene_2d/slider_area.gd" id="1_xjbxd"]
 [ext_resource type="Shader" path="res://scripts/shaders/Block.gdshader" id="2_uw1fh"]
-[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="3_e6fhw"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes_2d/blocked_tile.png" id="3_e6fhw"]
 [ext_resource type="Shader" path="res://scripts/shaders/ScalableArea.gdshader" id="3_qs1jk"]
-[ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes/slider.png" id="4_yil1j"]
-[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes/minus_icon.png" id="5_3db0q"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes/invert_icon.png" id="6_1h1ae"]
-[ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes/slider_outline.png" id="8_hrofw"]
+[ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="4_yil1j"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="5_3db0q"]
+[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="6_1h1ae"]
+[ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes_2d/slider_outline.png" id="8_hrofw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
 resource_local_to_scene = true

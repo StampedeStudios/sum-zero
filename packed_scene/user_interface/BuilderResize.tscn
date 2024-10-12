@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://vvet7yb7thao"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
-[ext_resource type="Texture2D" uid="uid://3pa7rasuahih" path="res://assets/scenes/minus.png" id="1_m0kci"]
-[ext_resource type="Texture2D" uid="uid://d2o30sudsvfdm" path="res://assets/scenes/plus.png" id="2_dqltn"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="2_m1uk2"]
+[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes_2d/plus_icon.png" id="3_3jhcg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
 bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
@@ -44,37 +44,37 @@ grow_vertical = 2
 layout_mode = 0
 offset_left = -128.0
 offset_top = 172.0
-offset_bottom = 428.0
+offset_bottom = 300.0
 mouse_filter = 0
-texture = ExtResource("1_m0kci")
+texture = ExtResource("2_m1uk2")
 
 [node name="PlusWidth" type="TextureRect" parent="Background/Control"]
 layout_mode = 0
 offset_left = 600.0
 offset_top = 172.0
 offset_right = 728.0
-offset_bottom = 428.0
+offset_bottom = 300.0
 mouse_filter = 0
-texture = ExtResource("2_dqltn")
+texture = ExtResource("3_3jhcg")
 
 [node name="MinusHeight" type="TextureRect" parent="Background/Control"]
 layout_mode = 0
 offset_left = 172.0
 offset_right = 300.0
-offset_bottom = 256.0
+offset_bottom = 128.0
 rotation = 4.71239
 mouse_filter = 0
-texture = ExtResource("1_m0kci")
+texture = ExtResource("2_m1uk2")
 
 [node name="PlusHeight" type="TextureRect" parent="Background/Control"]
 layout_mode = 0
 offset_left = 172.0
 offset_top = 728.0
-offset_right = 300.0
-offset_bottom = 984.0
+offset_right = 172.0
+offset_bottom = 728.0
 rotation = 4.71239
 mouse_filter = 0
-texture = ExtResource("2_dqltn")
+texture = ExtResource("3_3jhcg")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="gui_input" from="Background/Control" to="." method="_on_control_gui_input"]
