@@ -2,12 +2,13 @@ class_name BuilderResize extends Control
 
 signal on_width_change(new_width: int)
 signal on_height_change(new_height: int)
+signal on_zoom_change(new_scale: Vector2)
 
 var _width: int
 var _height: int
+var _scale: float
 
-@onready var width_value = %WidthValue
-@onready var height_value = %HeightValue
+@onready var control = %Control
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
@@ -17,28 +18,17 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-			
-		GlobalConst.GameState.BUILDER_IDLE:
-			self.visible = false
-			
-		GlobalConst.GameState.BUILDER_SELECTION:
-			self.visible = false
-			
-		GlobalConst.GameState.BUILDER_SAVE:
-			self.visible = false
-			
-		GlobalConst.GameState.BUILDER_TEST:
-			self.visible = false
-			
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
+		_:
+			self.visible = false
 		
 
 func init_query(width: int, height: int):
 	_width = width
 	_height = height
-	width_value.text = String.num(_width)
-	height_value.text = String.num(_height)
+	_scale = 0
+	_update_zoom()
 
 
 func _on_minus_width_gui_input(event):
@@ -72,17 +62,30 @@ func _on_plus_height_gui_input(event):
 func _update_width(new_width: int) -> void:
 	if new_width != _width:
 		_width = new_width
-		width_value.text = String.num(_width)
+		_update_zoom()
 		on_width_change.emit(_width)
 
 
 func _update_height(new_height: int) -> void:
 	if new_height != _height:
 		_height = new_height
-		height_value.text = String.num(_height)
+		_update_zoom()
 		on_height_change.emit(_height)
-
+		
+func _update_zoom() -> void:
+	var new_scale: float
+	var max_size := maxi(_width, _height) + 2
+	new_scale = control.size.x / GlobalConst.CELL_SIZE / max_size
+	if new_scale != _scale:
+		_scale = new_scale
+		on_zoom_change.emit(Vector2(_scale, _scale))	
+		
 
 func _on_background_gui_input(event):
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+
+
+func _on_control_gui_input(event):
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)

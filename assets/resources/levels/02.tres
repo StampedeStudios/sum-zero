@@ -1,67 +1,81 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=12 format=3 uid="uid://oft6bkpca7n1"]
+[gd_resource type="Resource" script_class="LevelData" load_steps=15 format=3 uid="uid://oft6bkpca7n1"]
 
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="1_aewvg"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_y2ixr"]
+[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_36rqa"]
 
-[sub_resource type="Resource" id="Resource_uflpo"]
+[sub_resource type="Resource" id="Resource_gqf8b"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ygkii"]
+[sub_resource type="Resource" id="Resource_kffg3"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_vi8do"]
+[sub_resource type="Resource" id="Resource_r2ywg"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_617cw"]
+[sub_resource type="Resource" id="Resource_mvici"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_88g54"]
+[sub_resource type="Resource" id="Resource_ac2ji"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_dosmi"]
+[sub_resource type="Resource" id="Resource_3kee6"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_dlgdh"]
+[sub_resource type="Resource" id="Resource_1kgae"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_qv1an"]
+[sub_resource type="Resource" id="Resource_te8mw"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_x8578"]
+[sub_resource type="Resource" id="Resource_5l28b"]
 script = ExtResource("1_aewvg")
 is_blocked = false
 value = 0
+
+[sub_resource type="Resource" id="Resource_4hr82"]
+script = ExtResource("3_36rqa")
+area_effect = 1
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_xh6jd"]
+script = ExtResource("3_36rqa")
+area_effect = 1
+area_behavior = 0
 
 [resource]
 script = ExtResource("2_y2ixr")
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_uflpo"),
-Vector2i(0, 1): SubResource("Resource_ygkii"),
-Vector2i(0, 2): SubResource("Resource_vi8do"),
-Vector2i(1, 0): SubResource("Resource_617cw"),
-Vector2i(1, 1): SubResource("Resource_88g54"),
-Vector2i(1, 2): SubResource("Resource_dosmi"),
-Vector2i(2, 0): SubResource("Resource_dlgdh"),
-Vector2i(2, 1): SubResource("Resource_qv1an"),
-Vector2i(2, 2): SubResource("Resource_x8578")
+Vector2i(0, 0): SubResource("Resource_gqf8b"),
+Vector2i(0, 1): SubResource("Resource_kffg3"),
+Vector2i(0, 2): SubResource("Resource_r2ywg"),
+Vector2i(1, 0): SubResource("Resource_mvici"),
+Vector2i(1, 1): SubResource("Resource_ac2ji"),
+Vector2i(1, 2): SubResource("Resource_3kee6"),
+Vector2i(2, 0): SubResource("Resource_1kgae"),
+Vector2i(2, 1): SubResource("Resource_te8mw"),
+Vector2i(2, 2): SubResource("Resource_5l28b")
 }
-slider_list = {}
-moves_left = 5
+slider_list = {
+Vector2i(0, 1): SubResource("Resource_4hr82"),
+Vector2i(1, 1): SubResource("Resource_xh6jd")
+}
+moves_left = 2

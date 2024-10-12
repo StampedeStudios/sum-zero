@@ -164,7 +164,7 @@ func _check_limit() -> void:
 		ray.target_position.x += GlobalConst.CELL_SIZE
 		var cell: Cell = ray.get_collider().owner
 
-		if !cell.is_blocked:
+		if !cell.is_cell_blocked():
 			# self is obstacle area and the cell is occupied by another slider
 			if is_obstacle_slider and cell.is_occupied():
 				break

@@ -18,6 +18,7 @@ position = Vector2(490, 587)
 script = ExtResource("1_f46k4")
 
 [node name="Tile" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tc2y5")
 texture = ExtResource("3_xrc0q")
 
@@ -42,6 +43,7 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
+unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 2
 input_pickable = false

@@ -1,0 +1,73 @@
+[gd_scene load_steps=7 format=3 uid="uid://bbbdwisd4p364"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
+[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes/blocked_tile.png" id="2_aqciy"]
+[ext_resource type="Texture2D" uid="uid://bow5b8wwyeu8v" path="res://assets/ui/question.png" id="2_ns747"]
+[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes/minus_icon.png" id="3_mqy45"]
+[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes/plus_icon.png" id="4_w1xhn"]
+[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes/invert_icon.png" id="5_6vh2e"]
+
+[node name="LevelEnd" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_2umli")
+zero_star = ExtResource("2_aqciy")
+one_star = ExtResource("3_mqy45")
+two_star = ExtResource("4_w1xhn")
+three_star = ExtResource("5_6vh2e")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelScoreImg" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = 40.0
+grow_horizontal = 2
+texture = ExtResource("2_ns747")
+
+[node name="BottomRightContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -145.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+alignment = 2
+
+[node name="ReplayBtn" type="Button" parent="Panel/BottomRightContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "REPLAY"
+
+[node name="NextBtn" type="Button" parent="Panel/BottomRightContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 100
+text = "NEXT"
+
+[connection signal="pressed" from="Panel/BottomRightContainer/ReplayBtn" to="." method="_on_replay_btn_pressed"]
+[connection signal="pressed" from="Panel/BottomRightContainer/NextBtn" to="." method="_on_next_btn_pressed"]

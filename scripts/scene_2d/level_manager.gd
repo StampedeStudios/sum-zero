@@ -2,8 +2,10 @@ class_name LevelManager extends Node2D
 
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
+const LEVEL_END = preload("res://packed_scene/user_interface/LevelEnd.tscn")
 
 var grid_cells: Array[Cell]
+var _is_test_mode: bool
 
 @onready var grid = %Grid
 
@@ -13,9 +15,12 @@ func _ready() -> void:
 	grid.position = get_viewport_rect().get_center()
 	grid.scale = GameManager.level_scale
 
-	if GameManager.builder_test != null:
+
+func set_manager_mode(is_test_mode: bool) -> void:
+	_is_test_mode = is_test_mode
+	if _is_test_mode:
 		GameManager.builder_test.reset_test_level.connect(_reset_level)
-	if GameManager.game_ui != null:
+	else:
 		GameManager.game_ui.reset_level.connect(_reset_level)
 
 
@@ -25,17 +30,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.queue_free.call_deferred()		
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true			
-		GlobalConst.GameState.LEVEL_END:
-			self.visible = true		
-		GlobalConst.GameState.BUILDER_IDLE:
-			self.visible = false		
-		GlobalConst.GameState.BUILDER_TEST:
-			self.visible = true		
-		GlobalConst.GameState.BUILDER_SELECTION:
-			self.visible = false		
-		GlobalConst.GameState.BUILDER_SAVE:
-			self.visible = false		
-		GlobalConst.GameState.BUILDER_RESIZE:
+		_:
 			self.visible = false				
 
 
@@ -112,14 +107,15 @@ func check_grid() -> void:
 		else:
 			level_complete = false
 			break
-	if level_complete:
-		print("level complete")
+	if level_complete and !_is_test_mode:
+		if GameManager.level_end == null:
+			var level_end := LEVEL_END.instantiate()
+			get_tree().root.add_child.call_deferred(level_end)
+			level_end.restart_level.connect(_reset_level)
+			GameManager.level_end = level_end
+		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 
 
 func _reset_level() -> void:
 	for child in grid.get_children():
 		child.reset()	
-
-
-func on_level_complete() -> void:
-	print("Complete")
