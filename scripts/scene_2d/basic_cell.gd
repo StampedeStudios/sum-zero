@@ -2,7 +2,6 @@ class_name Cell
 extends Node2D
 
 var is_blocked: bool = false
-var _palette: ColorPalette
 var _start_value: int = 0
 var _value: int
 var _slider_stack: Array[SliderArea]
@@ -43,10 +42,6 @@ func is_occupied() -> bool:
 	return _slider_stack.size() > 0
 
 
-func _ready() -> void:
-	_palette = GameManager.palette
-
-
 func _calculate_effect() -> void:
 	_value = _start_value
 	is_blocked = false
@@ -64,10 +59,10 @@ func _calculate_effect() -> void:
 
 
 func _update_value() -> void:
+	var color: Color
+	color = GameManager.palette.cell_color.get(_value)
+	sprite_2d.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	target_value_txt.text = String.num(_value)
-	sprite_2d.material.set_shader_parameter(
-		Literals.Parameters.BASE_COLOR, _palette.cell_color.get(_value)
-	)
 
 
 func reset() -> void:
