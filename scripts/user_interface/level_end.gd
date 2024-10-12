@@ -12,7 +12,7 @@ signal restart_level
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
-	
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
@@ -35,12 +35,12 @@ func update_score(score: int) -> void:
 		level_score_img.texture = one_star
 	else:
 		level_score_img.texture = zero_star
-		
-		
+
+
 func _on_replay_btn_pressed():
 	restart_level.emit()
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
-	
+
 
 func _on_next_btn_pressed():
 	var level: LevelData

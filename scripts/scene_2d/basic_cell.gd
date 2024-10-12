@@ -12,6 +12,7 @@ var _effect_stack: Array[GlobalConst.AreaEffect]
 @onready var tile: Sprite2D = %Tile
 @onready var area_2d = %Area2D
 
+
 func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 	# remove slider and effect
 	for i in range(0, _slider_stack.size()):
@@ -42,10 +43,10 @@ func init_cell(data: CellData) -> void:
 
 
 func get_cell_value() -> int:
-	if _current_data.is_blocked:
+	if _origin_data.is_blocked or _current_data.is_blocked:
 		return 0
-	else:
-		return _current_data.value
+
+	return _current_data.value
 
 
 func is_cell_blocked() -> bool:
@@ -80,8 +81,9 @@ func _update_value() -> void:
 
 
 func reset() -> void:
-	_current_data.value = _origin_data.value
-	_current_data.is_blocked = _origin_data.is_blocked
-	_slider_stack.clear()
-	_effect_stack.clear()
-	_update_value()
+	if !_origin_data.is_blocked:
+		_current_data.value = _origin_data.value
+		_current_data.is_blocked = _origin_data.is_blocked
+		_slider_stack.clear()
+		_effect_stack.clear()
+		_update_value()

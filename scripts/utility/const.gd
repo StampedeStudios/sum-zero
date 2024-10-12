@@ -2,7 +2,7 @@ class_name GlobalConst
 
 enum AreaEffect { ADD, SUBTRACT, CHANGE_SIGN, BLOCK }
 enum AreaBehavior { BY_STEP, FULL }
-enum GameState { 
+enum GameState {
 	MAIN_MENU,
 	LEVEL_START,
 	LEVEL_END,
@@ -10,7 +10,8 @@ enum GameState {
 	BUILDER_SELECTION,
 	BUILDER_SAVE,
 	BUILDER_TEST,
-	BUILDER_RESIZE }
+	BUILDER_RESIZE
+}
 
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128

@@ -29,7 +29,7 @@ var _blocking_sprite: Array[Sprite2D]
 
 
 func init_slider(data: SliderData) -> void:
-	var collection : SliderCollection = GameManager.slider_collection
+	var collection: SliderCollection = GameManager.slider_collection
 	area_effect.texture = collection.get_effect_texture(data.area_effect)
 	area_behavior.texture = collection.get_behavior_texture(data.area_behavior)
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
@@ -96,14 +96,14 @@ func release_handle() -> void:
 
 
 func _create_blocked_cell() -> void:
-		for i in range(0, _moves):
-			var sprite := Sprite2D.new()
-			sprite.texture = block_texture
-			sprite.material = ShaderMaterial.new()
-			sprite.material.shader = block_shader
-			sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
-			add_child.call_deferred(sprite)
-			_blocking_sprite.append(sprite)	
+	for i in range(0, _moves):
+		var sprite := Sprite2D.new()
+		sprite.texture = block_texture
+		sprite.material = ShaderMaterial.new()
+		sprite.material.shader = block_shader
+		sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
+		add_child.call_deferred(sprite)
+		_blocking_sprite.append(sprite)
 
 
 func _update_changed_tiles(fixed_scale: int) -> void:
@@ -139,7 +139,9 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 			match _area_behavior:
 				# move the area handle manually with your finger
 				GlobalConst.AreaBehavior.BY_STEP:
-					area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
+					area_outline.material.set_shader_parameter(
+						Literals.Parameters.IS_SELECTED, true
+					)
 					_check_limit()
 					_last_scale = _current_scale
 					_is_manually_controlled = true
@@ -153,12 +155,12 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 
 
 func _check_limit() -> void:
-	var is_obstacle_slider: bool 
+	var is_obstacle_slider: bool
 	is_obstacle_slider = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
 	_reachable_cells.clear()
 	ray.target_position.x = GlobalConst.CELL_SIZE / 2
-	
+
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		ray.target_position.x += GlobalConst.CELL_SIZE

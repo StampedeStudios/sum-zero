@@ -14,26 +14,26 @@ func _ready() -> void:
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()						
+			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
 			_reset_moves_left()
-			self.visible = true		
+			self.visible = true
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false
 			GameManager.level_end.update_score(moves_left)
 		_:
 			self.visible = false
-			
+
 
 func _reset_moves_left():
 	moves_left = GameManager.get_active_level().moves_left
 	_update_moves()
-	
+
 
 func consume_move() -> void:
 	moves_left -= 1
 	_update_moves()
-	
+
 
 func _on_exit_btn_pressed():
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
@@ -42,7 +42,7 @@ func _on_exit_btn_pressed():
 func _on_reset_btn_pressed():
 	_reset_moves_left()
 	reset_level.emit()
-	
-	
-func _update_moves() -> void:	
+
+
+func _update_moves() -> void:
 	moves_left_txt.text = "%s" % String.num(moves_left)

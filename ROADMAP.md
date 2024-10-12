@@ -28,19 +28,19 @@ This document represent a sharable roadmap that contains all main activities and
 - [ ] Main menu;
 - [ ] SFX;
 - [ ] Graphic effects;
-- [ ] Sandbox with sharable custom levels;
+- [x] Sandbox with sharable custom levels;
 	- [x] Level resizing;
 	- [x] Tile setup;
 	- [x] Basic slider setup;
-	- [ ] Quick slider setup;
-	- [ ] On the fly play mode;
+	- [x] Quick slider setup;
+	- [x] On the fly play mode;
 	- [x] Level data persistence;
 	- [x] Level reset;
 	- [ ] Player levels saving;
 	- [ ] QRCode generation for local share;
+	- [ ] Load level in builder;
 - [ ] UI elements
 	- Texture blocked tile;
-	- Resize window;
 	x Resize icon;
 	- Level menu;
 
@@ -72,4 +72,8 @@ Secondary mechanics are:
 |  14   | true  | true   | true   | false |     3    |
 |  15   | true  | true   | true   | true  |     5    |
 | TOTAL | ----- | ------ | ------ | ----- |     29   |
+
+## Issues
+- [ ] [Level builder] Move grid to left or right to make space for UI elemetns when updating side sliders;
+- [ ] [Level builder] Adjust tile selector to show zero as first result in both directions;
 

@@ -8,7 +8,7 @@ const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
-	
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
@@ -18,8 +18,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 		_:
 			self.visible = false
-		
-	
+
+
 func _on_reset_btn_pressed():
 	reset_builder_level.emit()
 
@@ -39,7 +39,7 @@ func _on_play_btn_pressed():
 		get_tree().root.add_child.call_deferred(level_test)
 		level_test.set_manager_mode.call_deferred(true)
 		GameManager.level_manager = level_test
-	
+
 	GameManager.level_manager.init_level.call_deferred(GameManager.level_builder.get_level_data())
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
