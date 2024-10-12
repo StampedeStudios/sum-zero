@@ -11,6 +11,7 @@ var grid_cells: Array[Cell]
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	grid.position = get_viewport_rect().get_center()
+	grid.scale = GameManager.level_scale
 
 	if GameManager.builder_test != null:
 		GameManager.builder_test.reset_test_level.connect(_reset_level)
@@ -42,29 +43,26 @@ func init_level(current_level: LevelData) -> void:
 	_clear()
 	var level_size: Vector2i
 	var half_grid_size: Vector2
-	var cell_scale: float
 
 	level_size = Vector2i(current_level.width, current_level.height)
-	cell_scale = GameManager.cell_size / GlobalConst.CELL_SIZE
-	half_grid_size = level_size * GameManager.cell_size / 2
+	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
 
 	# placing cells
 	for coord in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
 		var relative_pos: Vector2 
 		var cell_offset: Vector2
-		relative_pos = coord * GameManager.cell_size
-		cell_offset = Vector2.ONE * GameManager.cell_size / 2
+		relative_pos = coord * GlobalConst.CELL_SIZE
+		cell_offset = Vector2.ONE * GlobalConst.CELL_SIZE / 2
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
-		cell_instance.scale = Vector2(cell_scale, cell_scale)
 		cell_instance.init_cell(current_level.cells_list.get(coord))
 		grid_cells.append(cell_instance)
 
 	# placing slider areas clockwise
 	for coord in current_level.slider_list.keys():
 		var edge: int = coord.x
-		var dist: int = coord.y * GameManager.cell_size
+		var dist: int = coord.y * GlobalConst.CELL_SIZE
 		var x_pos: float
 		var y_pos: float
 		var angle: float
@@ -73,29 +71,28 @@ func init_level(current_level: LevelData) -> void:
 			# TOP
 			0:
 				angle = 90
-				x_pos = -half_grid_size.x + GameManager.cell_size / 2 + dist
-				y_pos = -half_grid_size.y - GameManager.cell_size / 2
+				x_pos = -half_grid_size.x + GlobalConst.CELL_SIZE / 2 + dist
+				y_pos = -half_grid_size.y - GlobalConst.CELL_SIZE / 2
 			# LEFT
 			1:
 				angle = 180
-				x_pos = half_grid_size.x + GameManager.cell_size / 2
-				y_pos = -half_grid_size.y + GameManager.cell_size / 2 + dist
+				x_pos = half_grid_size.x + GlobalConst.CELL_SIZE / 2
+				y_pos = -half_grid_size.y + GlobalConst.CELL_SIZE / 2 + dist
 			# BOTTOM
 			2:
 				angle = 270
-				x_pos = -half_grid_size.x + GameManager.cell_size / 2 + dist
-				y_pos = half_grid_size.y + GameManager.cell_size / 2
+				x_pos = -half_grid_size.x + GlobalConst.CELL_SIZE / 2 + dist
+				y_pos = half_grid_size.y + GlobalConst.CELL_SIZE / 2
 			# RIGHT
 			3:
 				angle = 0
-				x_pos = -half_grid_size.x - GameManager.cell_size / 2
-				y_pos = -half_grid_size.y + GameManager.cell_size / 2 + dist
+				x_pos = -half_grid_size.x - GlobalConst.CELL_SIZE / 2
+				y_pos = -half_grid_size.y + GlobalConst.CELL_SIZE / 2 + dist
 
 		var sc_instance = SLIDER_AREA.instantiate()
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
-		sc_instance.scale = Vector2(cell_scale, cell_scale)
 		sc_instance.init_slider(current_level.slider_list.get(coord))
 		sc_instance.scale_change.connect(check_grid)
 		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)

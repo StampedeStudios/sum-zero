@@ -88,7 +88,10 @@ func release_handle() -> void:
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
 	if _current_scale != _last_scale:
-	#	GameManager.user_interface.consume_move()
+		if GameManager.game_ui != null:
+			GameManager.game_ui.consume_move()
+		if GameManager.builder_test != null:
+			GameManager.builder_test.add_move()
 		scale_change.emit()
 
 
@@ -150,7 +153,8 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 
 
 func _check_limit() -> void:
-	var is_obstacle_slider: bool = _area_effect == GlobalConst.AreaEffect.BLOCK
+	var is_obstacle_slider: bool 
+	is_obstacle_slider = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
 	_reachable_cells.clear()
 	ray.target_position.x = GlobalConst.CELL_SIZE / 2
