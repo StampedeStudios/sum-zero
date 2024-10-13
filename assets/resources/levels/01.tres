@@ -1,8 +1,13 @@
-[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="LevelData" load_steps=13 format=3 uid="uid://dw4otmwx8xu0a"]
 
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="1_vd065"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_xdxo6"]
 [ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_td1in"]
+
+[sub_resource type="Resource" id="Resource_2t6jm"]
+script = ExtResource("1_vd065")
+is_blocked = false
+value = 1
 
 [sub_resource type="Resource" id="Resource_e6nu4"]
 script = ExtResource("1_vd065")
@@ -14,32 +19,22 @@ script = ExtResource("1_vd065")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_2t6jm"]
+[sub_resource type="Resource" id="Resource_j43te"]
 script = ExtResource("1_vd065")
 is_blocked = false
-value = 1
+value = -1
 
 [sub_resource type="Resource" id="Resource_2lhjm"]
 script = ExtResource("1_vd065")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_j43te"]
-script = ExtResource("1_vd065")
-is_blocked = false
-value = -1
+[sub_resource type="Resource" id="Resource_1xigj"]
+script = ExtResource("3_td1in")
+area_effect = 1
+area_behavior = 0
 
 [sub_resource type="Resource" id="Resource_fjqeb"]
-script = ExtResource("3_td1in")
-area_effect = 1
-area_behavior = 0
-
-[sub_resource type="Resource" id="Resource_3fwjk"]
-script = ExtResource("3_td1in")
-area_effect = 1
-area_behavior = 0
-
-[sub_resource type="Resource" id="Resource_1xigj"]
 script = ExtResource("3_td1in")
 area_effect = 1
 area_behavior = 0
@@ -47,6 +42,11 @@ area_behavior = 0
 [sub_resource type="Resource" id="Resource_4fm0x"]
 script = ExtResource("3_td1in")
 area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_3fwjk"]
+script = ExtResource("3_td1in")
+area_effect = 1
 area_behavior = 0
 
 [resource]
