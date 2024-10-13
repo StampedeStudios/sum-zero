@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpri6h0m2juyf"]
+[gd_scene load_steps=8 format=3 uid="uid://bpri6h0m2juyf"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_0xa7q"]
+[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_8n2no"]
+[ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="3_34h8o"]
+[ext_resource type="Texture2D" uid="uid://bx5rrmh1alb5g" path="res://assets/ui/resize_icon.png" id="4_5ca4s"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_05dex"]
+[ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="5_e30bv"]
 
 [node name="BuilderUI" type="Control"]
 layout_mode = 3
@@ -12,69 +18,95 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_w1118")
 
-[node name="BottomContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -120.0
-offset_right = 64.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="ResetBtn" type="Button" parent="BottomContainer"]
+[node name="TopContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
-text = "RESET
-"
+icon = ExtResource("3_8n2no")
 
-[node name="ResizeBtn" type="Button" parent="BottomContainer"]
+[node name="BottomContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+alignment = 1
+
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
-text = "RESIZE
-"
+icon = ExtResource("3_34h8o")
 
-[node name="PlayBtn" type="Button" parent="BottomContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/BottomContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ResizeBtn" type="Button" parent="MarginContainer/BottomContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
-text = "PLAY
-"
+icon = ExtResource("4_5ca4s")
 
-[node name="SaveBtn" type="Button" parent="BottomContainer"]
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/BottomContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="PlayBtn" type="Button" parent="MarginContainer/BottomContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
-text = "SAVE"
+icon = ExtResource("5_05dex")
 
-[node name="TopContainer" type="HBoxContainer" parent="."]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 120.0
+[node name="VSeparator3" type="VSeparator" parent="MarginContainer/BottomContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="ExitBtn" type="Button" parent="TopContainer"]
+[node name="SaveBtn" type="Button" parent="MarginContainer/BottomContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
-text = "EXIT"
+icon = ExtResource("5_e30bv")
 
-[connection signal="pressed" from="BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="pressed" from="BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
-[connection signal="pressed" from="BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
-[connection signal="pressed" from="TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]

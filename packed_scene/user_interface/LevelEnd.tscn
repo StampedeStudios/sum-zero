@@ -1,10 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=13 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
-[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes_2d/blocked_tile.png" id="2_aqciy"]
-[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="3_mqy45"]
-[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes_2d/plus_icon.png" id="4_w1xhn"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="5_6vh2e"]
+[ext_resource type="Shader" path="res://scripts/shaders/LinedPattern.gdshader" id="2_8i536"]
+[ext_resource type="Texture2D" uid="uid://b4dx4tbrh58mu" path="res://assets/ui/block_pattern.png" id="3_urbhk"]
+[ext_resource type="Texture2D" uid="uid://2recusvuaajn" path="res://assets/ui/stars.png" id="7_djh55"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="7_dngta"]
+[ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="8_6w3sr"]
+[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/MenuButton.tres" id="8_10k43"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="8_ku3mw"]
+[ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/MenuButtonHover.tres" id="9_xhkh3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sdamf"]
+shader = ExtResource("2_8i536")
+shader_parameter/speed = -0.15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eh3ea"]
+bg_color = Color(0.658824, 0.835294, 0.654902, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hocxu"]
+shader = ExtResource("8_6w3sr")
+shader_parameter/baseColor = Color(0.992157, 0.937255, 0.768627, 1)
+shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
+shader_parameter/percentage = 0.0
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -17,55 +34,99 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_2umli")
-zero_star = ExtResource("2_aqciy")
-one_star = ExtResource("3_mqy45")
-two_star = ExtResource("4_w1xhn")
-three_star = ExtResource("5_6vh2e")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_sdamf")
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -250.0
-offset_bottom = 250.0
+offset_top = -300.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
+texture = ExtResource("3_urbhk")
+stretch_mode = 1
 
-[node name="LevelScoreImg" type="TextureRect" parent="Panel"]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_bottom = 40.0
-grow_horizontal = 2
-
-[node name="BottomRightContainer" type="HBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -145.0
 grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 0
-size_flags_vertical = 8
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="TextureRect/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eh3ea")
+
+[node name="MarginContainer" type="MarginContainer" parent="TextureRect/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect/MarginContainer/Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme = ExtResource("7_dngta")
+text = "Level complete!"
+
+[node name="LevelScoreImg" type="TextureRect" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_hocxu")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("7_djh55")
+
+[node name="HSeparator" type="HSeparator" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="BottomRightContainer" type="HBoxContainer" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 alignment = 2
 
-[node name="ReplayBtn" type="Button" parent="Panel/BottomRightContainer"]
+[node name="ReplayBtn" type="Button" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "REPLAY"
+focus_mode = 0
+theme = ExtResource("7_dngta")
+theme_type_variation = &"FlatButton"
+text = "Play again"
+flat = true
 
-[node name="NextBtn" type="Button" parent="Panel/BottomRightContainer"]
+[node name="NextBtn" type="Button" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "NEXT"
+focus_mode = 0
+theme = ExtResource("7_dngta")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover_pressed = ExtResource("8_10k43")
+theme_override_styles/hover = ExtResource("9_xhkh3")
+theme_override_styles/pressed = ExtResource("9_xhkh3")
+theme_override_styles/normal = ExtResource("8_10k43")
+text = " Next"
+icon = ExtResource("8_ku3mw")
+alignment = 0
+icon_alignment = 2
 
-[connection signal="pressed" from="Panel/BottomRightContainer/ReplayBtn" to="." method="_on_replay_btn_pressed"]
-[connection signal="pressed" from="Panel/BottomRightContainer/NextBtn" to="." method="_on_next_btn_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer/BottomRightContainer/ReplayBtn" to="." method="_on_replay_btn_pressed"]
+[connection signal="pressed" from="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer/BottomRightContainer/NextBtn" to="." method="_on_next_btn_pressed"]

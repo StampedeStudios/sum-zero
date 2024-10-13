@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=5 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/ui/fonts/global_theme.tres" id="2_iclks"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_iclks"]
+[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_aeg1p"]
+[ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -15,49 +17,59 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_xwl0a")
 
-[node name="BoxContainer" type="BoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BoxContainer" type="BoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
 theme = ExtResource("2_iclks")
 
-[node name="MovesLeft" type="Label" parent="BoxContainer"]
+[node name="MovesLeft" type="Label" parent="MarginContainer/BoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 theme_override_font_sizes/font_size = 128
 text = "13"
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -136.0
-offset_top = -128.0
-offset_right = 136.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 0
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 8
 alignment = 2
 
-[node name="ExitBtn" type="Button" parent="BottomRightContainer"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "EXIT"
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_iclks")
+theme_type_variation = &"Square"
+icon = ExtResource("3_aeg1p")
 
-[node name="ResetBtn" type="Button" parent="BottomRightContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/BottomRightContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "RESET"
+theme_override_constants/separation = 20
 
-[connection signal="pressed" from="BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_iclks")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("4_vhyu8")
+
+[connection signal="pressed" from="MarginContainer/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]

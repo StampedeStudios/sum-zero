@@ -1,21 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://hqw2wppscbvl"]
+[gd_scene load_steps=12 format=3 uid="uid://hqw2wppscbvl"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_152qj"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="3_gcpbi"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
+[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/MenuButton.tres" id="4_vg1ss"]
+[ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/MenuButtonHover.tres" id="5_6t3t8"]
+[ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="5_anua8"]
+[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_io541"]
+[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="7_g7qxx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
 bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xtc7"]
-bg_color = Color(0.47916, 0.610677, 0.475911, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awjbt"]
+bg_color = Color(0.25098, 0.184314, 0.105882, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0.25098, 0.184314, 0.105882, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -45,10 +53,10 @@ anchor_bottom = 0.5
 offset_left = -361.5
 offset_top = -321.0
 offset_right = 361.5
-offset_bottom = 321.0
+offset_bottom = 479.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5xtc7")
+theme_override_styles/panel = ExtResource("2_152qj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
 layout_mode = 1
@@ -57,9 +65,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -336.5
+offset_left = -300.0
 offset_top = -296.0
-offset_right = 336.5
+offset_right = 300.0
 offset_bottom = 296.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -67,26 +75,95 @@ grow_vertical = 2
 [node name="PlayBtn" type="Button" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "PLAY"
+size_flags_vertical = 3
+focus_mode = 0
+theme = ExtResource("3_gcpbi")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("5_6t3t8")
+theme_override_styles/pressed = ExtResource("5_6t3t8")
+theme_override_styles/normal = ExtResource("4_vg1ss")
+text = " Play"
+icon = ExtResource("4_1eqng")
+alignment = 0
+icon_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="Background/Panel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
 
 [node name="LevelBtn" type="Button" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "LEVELS"
+size_flags_vertical = 3
+focus_mode = 0
+theme = ExtResource("3_gcpbi")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("5_6t3t8")
+theme_override_styles/pressed = ExtResource("5_6t3t8")
+theme_override_styles/normal = ExtResource("4_vg1ss")
+text = " Levels"
+icon = ExtResource("5_anua8")
+alignment = 0
+icon_alignment = 2
+expand_icon = true
+
+[node name="HSeparator2" type="HSeparator" parent="Background/Panel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
 
 [node name="EditorBtn" type="Button" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "EDITOR"
+size_flags_vertical = 3
+focus_mode = 0
+theme = ExtResource("3_gcpbi")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("5_6t3t8")
+theme_override_styles/pressed = ExtResource("5_6t3t8")
+theme_override_styles/normal = ExtResource("4_vg1ss")
+text = " Editor"
+icon = ExtResource("6_io541")
+alignment = 0
+icon_alignment = 2
+expand_icon = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="HSeparator3" type="HSeparator" parent="Background/Panel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 100
+theme_override_styles/separator = SubResource("StyleBoxFlat_awjbt")
 
 [node name="QuitBtn" type="Button" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "QUIT"
+size_flags_vertical = 3
+focus_mode = 0
+theme = ExtResource("3_gcpbi")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("5_6t3t8")
+theme_override_styles/pressed = ExtResource("5_6t3t8")
+theme_override_styles/normal = ExtResource("4_vg1ss")
+text = " Quit"
+icon = ExtResource("7_g7qxx")
+alignment = 0
+icon_alignment = 2
+expand_icon = true
 
 [connection signal="pressed" from="Background/Panel/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]

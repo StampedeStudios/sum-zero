@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="SliderCollection" load_steps=6 format=3 uid="uid://b7l0sgcymgm1h"]
+[gd_resource type="Resource" script_class="SliderCollection" load_steps=7 format=3 uid="uid://b7l0sgcymgm1h"]
 
 [ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes_2d/plus_icon.png" id="1_bncg7"]
 [ext_resource type="Script" path="res://scripts/utility/slider_collection.gd" id="1_byvgh"]
 [ext_resource type="Texture2D" uid="uid://dq8m5vlnucqdo" path="res://assets/scenes_2d/block.png" id="2_lj7wl"]
 [ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="3_yrk72"]
+[ext_resource type="Texture2D" uid="uid://dn0wsqs1myawu" path="res://assets/scenes_2d/full_behavior_icon.png" id="4_ij7gp"]
 [ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="5_o52fq"]
 
 [resource]
@@ -12,4 +13,4 @@ add = ExtResource("1_bncg7")
 subtract = ExtResource("5_o52fq")
 change_sign = ExtResource("3_yrk72")
 block = ExtResource("2_lj7wl")
-full = ExtResource("3_yrk72")
+full = ExtResource("4_ij7gp")

@@ -1,7 +1,7 @@
 class_name Cell
 extends Node2D
 
-const BLOCKED_TILE = preload("res://assets/scenes_2d/blocked_tile.png")
+@export var blocked_tile: Texture2D
 
 var _origin_data: CellData
 var _current_data: CellData
@@ -32,7 +32,7 @@ func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 func init_cell(data: CellData) -> void:
 	_origin_data = data
 	if _origin_data.is_blocked:
-		tile.texture = BLOCKED_TILE
+		tile.texture = blocked_tile
 		target_value_txt.visible = false
 		area_2d.queue_free()
 	else:

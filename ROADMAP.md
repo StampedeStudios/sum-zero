@@ -25,7 +25,7 @@ This document represent a sharable roadmap that contains all main activities and
 - [x] Skip level;
 - [-] Level select menu;
 - [ ] How to play section in main menu;
-- [ ] Main menu;
+- [x] Main menu;
 - [ ] SFX;
 - [ ] Graphic effects;
 - [x] Sandbox with sharable custom levels;
@@ -39,9 +39,9 @@ This document represent a sharable roadmap that contains all main activities and
 	- [ ] Player levels saving;
 	- [ ] QRCode generation for local share;
 	- [ ] Load level in builder;
-- [ ] UI elements
+- [x] UI elements
 	- Texture blocked tile;
-	x Resize icon;
+	- Resize icon;
 	- Level menu;
 
 
@@ -76,4 +76,5 @@ Secondary mechanics are:
 ## Issues
 - [ ] [Level builder] Move grid to left or right to make space for UI elemetns when updating side sliders;
 - [ ] [Level builder] Adjust tile selector to show zero as first result in both directions;
+- [ ] [GameUI] Show stars when surpassing move limit;
 

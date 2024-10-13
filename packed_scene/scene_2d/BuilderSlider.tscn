@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
+[ext_resource type="Texture2D" uid="uid://dn0wsqs1myawu" path="res://assets/scenes_2d/full_behavior_icon.png" id="5_cuw4s"]
 [ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="9_fh68b"]
 [ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="9_sippf"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="10_57cju"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_42k15"]
 resource_local_to_scene = true
@@ -36,7 +36,6 @@ texture = ExtResource("9_fh68b")
 [node name="SliderBehavior" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-64, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("10_57cju")
+texture = ExtResource("5_cuw4s")
 
 [connection signal="input_event" from="Slider/Collision" to="." method="_on_collision_input_event"]

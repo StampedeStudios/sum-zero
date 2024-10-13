@@ -1,11 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://di2d17ii3aqn8"]
+[gd_scene load_steps=10 format=3 uid="uid://di2d17ii3aqn8"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
-[ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="2_wtxap"]
-[ext_resource type="Texture2D" uid="uid://b82n071mbtjlh" path="res://assets/scenes_2d/plus_icon.png" id="3_d11u8"]
-[ext_resource type="Texture2D" uid="uid://5l2edgnwsn1i" path="res://assets/scenes_2d/blocked_tile.png" id="4_f2ayk"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="5_ycfuk"]
-[ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="6_cgn7l"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_ya4n7"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="6_3iilm"]
+[ext_resource type="Texture2D" uid="uid://bltremx72y4lg" path="res://assets/ui/lightning_icon.png" id="6_lyil8"]
+[ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="7_0ydmo"]
+[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/BackDropPanel.tres" id="8_1aj5k"]
+[ext_resource type="Texture2D" uid="uid://bxsitj53044ol" path="res://assets/ui/plus_icon.png" id="8_ud0wv"]
+[ext_resource type="Texture2D" uid="uid://bs8543o34whrb" path="res://assets/ui/trash_icon.png" id="9_yyv7m"]
+[ext_resource type="Texture2D" uid="uid://saxmgl8f8ade" path="res://assets/ui/lock_icon.png" id="10_aav8u"]
 
 [node name="BuilderSelection" type="Control"]
 layout_mode = 3
@@ -15,18 +18,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bawj5")
-backward_cell_texture = ExtResource("2_wtxap")
-forward_cell_texture = ExtResource("3_d11u8")
-special_cell_texture = ExtResource("4_f2ayk")
-backward_slider_texture = ExtResource("2_wtxap")
-forward_slider_texture = ExtResource("3_d11u8")
-special_slider_texture = ExtResource("5_ycfuk")
+backward_cell_texture = ExtResource("7_0ydmo")
+forward_cell_texture = ExtResource("8_ud0wv")
+special_cell_texture = ExtResource("10_aav8u")
+backward_slider_texture = ExtResource("5_ya4n7")
+forward_slider_texture = ExtResource("5_ya4n7")
+special_slider_texture = ExtResource("6_lyil8")
+metadata/_edit_vertical_guides_ = [-1584.0]
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+theme_override_styles/panel = ExtResource("8_1aj5k")
 
 [node name="Control" type="Control" parent="."]
 unique_name_in_owner = true
@@ -34,44 +39,70 @@ z_index = 20
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Backward" type="TextureButton" parent="Control"]
+[node name="Backward" type="Button" parent="Control"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = -384.0
-offset_top = -128.0
-offset_right = -128.0
-offset_bottom = 128.0
-texture_normal = ExtResource("2_wtxap")
-stretch_mode = 0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = 74.0
+offset_bottom = 222.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 3.14159
+focus_mode = 0
+theme = ExtResource("6_3iilm")
+icon = ExtResource("7_0ydmo")
 
-[node name="Forward" type="TextureButton" parent="Control"]
+[node name="Forward" type="Button" parent="Control"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = 128.0
-offset_top = -128.0
-offset_right = 384.0
-offset_bottom = 128.0
-texture_normal = ExtResource("3_d11u8")
-stretch_mode = 0
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 138.0
+offset_top = -74.0
+offset_right = 286.0
+offset_bottom = 74.0
+grow_vertical = 2
+focus_mode = 0
+theme = ExtResource("6_3iilm")
+icon = ExtResource("8_ud0wv")
 
-[node name="Remove" type="TextureButton" parent="Control"]
-layout_mode = 2
-offset_left = -128.0
-offset_top = 128.0
-offset_right = 128.0
-offset_bottom = 384.0
-texture_normal = ExtResource("6_cgn7l")
-stretch_mode = 0
+[node name="Remove" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -74.0
+offset_top = 138.0
+offset_right = 74.0
+offset_bottom = 286.0
+grow_horizontal = 2
+focus_mode = 0
+theme = ExtResource("6_3iilm")
+icon = ExtResource("9_yyv7m")
 
-[node name="Special" type="TextureButton" parent="Control"]
+[node name="Special" type="Button" parent="Control"]
 unique_name_in_owner = true
-layout_mode = 2
-offset_left = -128.0
-offset_top = -384.0
-offset_right = 128.0
-offset_bottom = -128.0
-texture_normal = ExtResource("5_ycfuk")
-stretch_mode = 0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -74.0
+offset_top = -286.0
+offset_right = 74.0
+offset_bottom = -138.0
+grow_horizontal = 2
+grow_vertical = 0
+focus_mode = 0
+theme = ExtResource("6_3iilm")
+icon = ExtResource("10_aav8u")
 
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
 [connection signal="pressed" from="Control/Backward" to="." method="_on_backward_pressed"]
