@@ -235,5 +235,9 @@ func _on_height_change(new_height: int) -> void:
 	_construct_level()
 
 
+func move_grid(offset: Vector2) -> void:
+	grid.position = get_viewport_rect().get_center() + offset
+
+
 func get_level_data() -> LevelData:
 	return _level_data
