@@ -39,6 +39,7 @@ func _on_save_btn_pressed():
 	on_query_close.emit(true, level_name.text, int(moves.text))
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
+
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""
 
@@ -54,15 +55,15 @@ func _on_moves_text_changed(new_text: String) -> void:
 	_invalid_moves = new_text.is_empty()
 	_check_valid_info()
 
+
 func _check_valid_info() -> void:
 	save_btn.disabled = _invalid_moves or _invalid_name
 
 
 func _on_level_name_text_changed(new_text: String) -> void:
-	
 	var regex = RegEx.new()
 	regex.compile("\\w+")
-	
+
 	var result := regex.search(new_text)
 	if result:
 		level_name.text = result.get_string()
