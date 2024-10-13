@@ -5,9 +5,11 @@ signal reset_level
 var moves_left: int
 
 @onready var moves_left_txt: Label = %MovesLeft
+@onready var level_score_img: TextureRect = %LevelScoreImg
 
 
 func _ready() -> void:
+	level_score_img.visible = false
 	GameManager.on_state_change.connect(_on_state_change)
 
 
@@ -45,4 +47,12 @@ func _on_reset_btn_pressed():
 
 
 func _update_moves() -> void:
-	moves_left_txt.text = "%s" % String.num(moves_left)
+	if moves_left >= 0:
+		level_score_img.visible = false
+		moves_left_txt.visible = true
+		moves_left_txt.text = "%s" % String.num(moves_left)
+	else:
+		moves_left_txt.visible = false
+		level_score_img.visible = true
+		var percentage: float = 0.33 * (3 + moves_left)
+		level_score_img.material.set_shader_parameter("percentage", percentage)

@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=8 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_iclks"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_aeg1p"]
+[ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_gy4rm"]
+[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_7a7pi"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ecu83"]
+shader = ExtResource("3_gy4rm")
+shader_parameter/baseColor = Color(0.992157, 0.937255, 0.768627, 1)
+shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
+shader_parameter/percentage = 0.0
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -29,11 +37,12 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BoxContainer" type="BoxContainer" parent="MarginContainer"]
+[node name="BoxContainer" type="HBoxContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 theme = ExtResource("2_iclks")
+alignment = 1
 
 [node name="MovesLeft" type="Label" parent="MarginContainer/BoxContainer"]
 unique_name_in_owner = true
@@ -42,9 +51,18 @@ theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 theme_override_font_sizes/font_size = 128
 text = "13"
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="LevelScoreImg" type="TextureRect" parent="MarginContainer/BoxContainer"]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_ecu83")
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("4_7a7pi")
+expand_mode = 3
+
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
 size_flags_vertical = 8
 alignment = 2
 
