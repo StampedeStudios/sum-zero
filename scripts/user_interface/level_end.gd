@@ -2,11 +2,6 @@ class_name LevelEnd extends Control
 
 signal restart_level
 
-@export var zero_star: Texture2D
-@export var one_star: Texture2D
-@export var two_star: Texture2D
-@export var three_star: Texture2D
-
 @onready var level_score_img = %LevelScoreImg
 
 
@@ -25,16 +20,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func update_score(score: int) -> void:
-	if score > 0:
-		level_score_img.texture = three_star
-	elif score == 0:
-		level_score_img.texture = three_star
-	elif score == -1:
-		level_score_img.texture = two_star
-	elif score == -2:
-		level_score_img.texture = one_star
-	else:
-		level_score_img.texture = zero_star
+	var percentage: float = 0.33 * (3 + score)
+	level_score_img.material.set_shader_parameter("percentage", percentage)
 
 
 func _on_replay_btn_pressed():

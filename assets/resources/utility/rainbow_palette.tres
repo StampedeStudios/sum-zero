@@ -15,5 +15,5 @@ cell_color = {
 3: Color(0.388235, 0.921569, 0.972549, 1),
 4: Color(0.388235, 0.729412, 0.972549, 1)
 }
-builder_cell_color = Color(0.745098, 0.745098, 0.745098, 1)
-builder_slider_color = Color(0.745098, 0.745098, 0.745098, 1)
+builder_cell_color = Color(0.639216, 0.913725, 0.627451, 1)
+builder_slider_color = Color(0.384314, 0.745098, 0.364706, 1)

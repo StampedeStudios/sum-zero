@@ -100,9 +100,14 @@ func _change_aspect() -> void:
 	slider_behavior.visible = true
 	slider_effect.texture = collection.get_effect_texture(data.area_effect)
 	slider_behavior.texture = collection.get_behavior_texture(data.area_behavior)
+	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, Color.WHITE)
 
 
 func clear_slider() -> void:
+	var color: Color
+	color = GameManager.palette.builder_slider_color
+	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+
 	slider_effect.visible = false
 	slider_behavior.visible = false
 	_is_valid = false

@@ -1,21 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://devm2geibslsw"]
+[gd_scene load_steps=7 format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_q3qhm"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_qhpg7"]
+[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_blv7d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
 bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xtc7"]
-bg_color = Color(0.47916, 0.610677, 0.475911, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.25098, 0.184314, 0.105882, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ud3al"]
+load_path = "res://.godot/imported/save_icon.png-bb729b418ac7c5fcd58f67cd4ad6fc4c.ctex"
 
 [node name="SaveQuery" type="Control"]
 layout_mode = 3
@@ -42,13 +36,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -361.5
-offset_top = -275.0
-offset_right = 361.5
-offset_bottom = 275.0
+offset_left = -300.0
+offset_top = -325.0
+offset_right = 300.0
+offset_bottom = 325.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5xtc7")
+theme_override_styles/panel = ExtResource("2_qhpg7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
 layout_mode = 1
@@ -57,57 +51,74 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -336.5
+offset_left = -250.0
 offset_top = -250.0
-offset_right = 336.5
+offset_right = 250.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 
-[node name="LevelName" type="TextEdit" parent="Background/Panel/VBoxContainer"]
+[node name="LevelName" type="LineEdit" parent="Background/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxFlat_5xtc7")
-placeholder_text = "NAME"
+theme = ExtResource("2_q3qhm")
+placeholder_text = "Level name"
+alignment = 1
+max_length = 15
 context_menu_enabled = false
 shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
 selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-middle_mouse_paste_enabled = false
 
-[node name="Moves" type="TextEdit" parent="Background/Panel/VBoxContainer"]
+[node name="Moves" type="LineEdit" parent="Background/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 100
-theme_override_styles/normal = SubResource("StyleBoxFlat_5xtc7")
-placeholder_text = "MOVES"
+theme = ExtResource("2_q3qhm")
+placeholder_text = "Moves"
+alignment = 1
+max_length = 2
 context_menu_enabled = false
 shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
 selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-middle_mouse_paste_enabled = false
+
+[node name="HSeparator" type="HSeparator" parent="Background/Panel/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 30
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_horizontal = 4
+size_flags_vertical = 10
 
 [node name="ExitBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("2_q3qhm")
 theme_override_font_sizes/font_size = 100
-text = "EXIT"
+icon = ExtResource("3_blv7d")
+
+[node name="VSeparator" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="SaveBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 100
-text = "SAVE"
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("2_q3qhm")
+icon = SubResource("CompressedTexture2D_ud3al")
 
 [connection signal="text_changed" from="Background/Panel/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]

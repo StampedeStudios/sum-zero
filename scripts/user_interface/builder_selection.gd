@@ -37,13 +37,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func init_selection(is_cell: bool, selected_piece: Node2D) -> void:
 	if is_cell:
-		backward.texture_normal = backward_cell_texture
-		forward.texture_normal = forward_cell_texture
-		special.texture_normal = special_cell_texture
+		backward.icon = backward_cell_texture
+		forward.icon = forward_cell_texture
+		special.icon = special_cell_texture
 	else:
-		backward.texture_normal = backward_slider_texture
-		forward.texture_normal = forward_slider_texture
-		special.texture_normal = special_slider_texture
+		backward.icon = backward_slider_texture
+		forward.icon = forward_slider_texture
+		special.icon = special_slider_texture
 
 	control.global_position = selected_piece.global_position
 

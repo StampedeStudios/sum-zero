@@ -6,7 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shaders/ScalableArea.gdshader" id="3_qs1jk"]
 [ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="4_yil1j"]
 [ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="5_3db0q"]
-[ext_resource type="Texture2D" uid="uid://dlnvex8emrsfi" path="res://assets/scenes_2d/invert_icon.png" id="6_1h1ae"]
+[ext_resource type="Texture2D" uid="uid://dn0wsqs1myawu" path="res://assets/scenes_2d/full_behavior_icon.png" id="6_woupr"]
 [ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes_2d/slider_outline.png" id="8_hrofw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
@@ -31,12 +31,6 @@ unique_name_in_owner = true
 position = Vector2(64, 0)
 texture = ExtResource("5_3db0q")
 
-[node name="AreaBehavior" type="Sprite2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_1h1ae")
-
 [node name="AreaOutline" type="NinePatchRect" parent="."]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4iu34")
@@ -48,6 +42,11 @@ patch_margin_left = 36
 patch_margin_top = 36
 patch_margin_right = 36
 patch_margin_bottom = 36
+
+[node name="AreaBehavior" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -64)
+texture = ExtResource("6_woupr")
 
 [node name="Handle" type="Area2D" parent="."]
 unique_name_in_owner = true
