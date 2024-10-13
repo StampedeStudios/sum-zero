@@ -32,6 +32,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.z_index = 0
+			GameManager.level_builder.move_grid(Vector2.ZERO)
 			_toggle_ui.call_deferred(false)
 
 		GlobalConst.GameState.BUILDER_SELECTION:
@@ -41,7 +42,30 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				get_tree().root.add_child.call_deferred(builder_selection)
 				GameManager.builder_selection = builder_selection
 			self.z_index = 10
+			_check_screen_margin.call_deferred()
 			_toggle_ui.call_deferred(true)
+
+
+func _check_screen_margin() -> void:
+	var  margin: float
+	var offset: Vector2
+	var screen_size: Vector2
+	
+	margin = GlobalConst.HALF_BUILDER_SELECTION * GameManager.level_scale.x
+	screen_size = get_viewport_rect().size
+	# orizzontal check
+	if global_position.x < margin:
+		offset.x = margin - global_position.x
+	elif global_position.x > screen_size.x - margin:
+		offset.x = screen_size.x - margin - global_position.x
+	# vertical check	
+	if global_position.y < margin:
+		offset.y = margin - global_position.y
+	elif global_position.y > screen_size.y - margin:
+		offset.y = screen_size.y - margin - global_position.y
+	# valid offset
+	if offset != Vector2.ZERO:
+		GameManager.level_builder.move_grid(offset)
 
 
 func _toggle_ui(ui_visible: bool) -> void:

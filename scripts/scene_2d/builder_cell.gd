@@ -56,19 +56,27 @@ func _toggle_ui(ui_visible: bool) -> void:
 
 
 func _decrease_value():
-	var value = _data.value
-	value = clamp(_data.value - 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	var value: int
+	if target_value_txt.visible:
+		value = _data.value
+		value = clamp(_data.value - 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	else:
+		value = 0
 	_change_value(value)
 
 
 func _increase_value():
-	var value = _data.value
-	value = clamp(_data.value + 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	var value: int
+	if target_value_txt.visible:
+		value = _data.value
+		value = clamp(_data.value + 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+	else:
+		value = 0
 	_change_value(value)
 
 
 func _change_value(new_value: int) -> void:
-	if new_value == _data.value and !_data.is_blocked:
+	if new_value == _data.value and !_data.is_blocked and target_value_txt.visible:
 		return
 	_data.value = new_value
 	_data.is_blocked = false
@@ -78,6 +86,7 @@ func _change_value(new_value: int) -> void:
 
 func _block_cell():
 	_data.is_blocked = !_data.is_blocked
+	_data.value = 0
 	_change_aspect()
 	on_cell_change.emit(self, _data)
 

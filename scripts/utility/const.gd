@@ -21,3 +21,5 @@ const MAX_LEVEL_SIZE: int = 5
 
 const MIN_CELL_VALUE: int = -4
 const MAX_CELL_VALUE: int = 4
+
+const HALF_BUILDER_SELECTION: int = 300

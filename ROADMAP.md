@@ -74,7 +74,7 @@ Secondary mechanics are:
 | TOTAL | ----- | ------ | ------ | ----- |     29   |
 
 ## Issues
-- [ ] [Level builder] Move grid to left or right to make space for UI elemetns when updating side sliders;
-- [ ] [Level builder] Adjust tile selector to show zero as first result in both directions;
+- [x] [Level builder] Move grid to left or right to make space for UI elemetns when updating side sliders;
+- [x] [Level builder] Adjust tile selector to show zero as first result in both directions;
 - [ ] [GameUI] Show stars when surpassing move limit;
 
