@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="Shader" path="res://scripts/shaders/LinedPattern.gdshader" id="2_8i536"]
 [ext_resource type="Texture2D" uid="uid://b4dx4tbrh58mu" path="res://assets/ui/block_pattern.png" id="3_urbhk"]
-[ext_resource type="Texture2D" uid="uid://2recusvuaajn" path="res://assets/ui/stars.png" id="7_djh55"]
+[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="7_djh55"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="7_dngta"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="8_6w3sr"]
 [ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/MenuButton.tres" id="8_10k43"]
