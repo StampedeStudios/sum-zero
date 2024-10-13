@@ -1,14 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx3a8j50nwxxr"]
+[gd_scene load_steps=9 format=3 uid="uid://cx3a8j50nwxxr"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/game_manager.gd" id="1_tgd8e"]
 [ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/utility/rainbow_palette.tres" id="2_wd6nv"]
 [ext_resource type="Resource" uid="uid://b7l0sgcymgm1h" path="res://assets/resources/utility/slider_collection.tres" id="3_lx543"]
+[ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="4_lgbug"]
+[ext_resource type="Resource" uid="uid://dw4otmwx8xu0a" path="res://assets/resources/levels/01.tres" id="5_uisbc"]
+[ext_resource type="Resource" uid="uid://8paevfyahr5v" path="res://assets/resources/levels/02.tres" id="6_d2fiu"]
+[ext_resource type="Resource" uid="uid://fnvmk3lypiit" path="res://assets/resources/levels/03.tres" id="7_3s1wu"]
 [ext_resource type="AudioStream" uid="uid://b5ulaepsvvb4a" path="res://assets/sfx/snap.wav" id="9_gwv8s"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_tgd8e")
 palette = ExtResource("2_wd6nv")
 slider_collection = ExtResource("3_lx543")
+_levels = Array[ExtResource("4_lgbug")]([ExtResource("5_uisbc"), ExtResource("6_d2fiu"), ExtResource("7_3s1wu")])
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9_gwv8s")
