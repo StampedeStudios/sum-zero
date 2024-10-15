@@ -4,11 +4,18 @@ const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
 const BUILDER_SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
 const BUILDER_RESIZE = preload("res://packed_scene/user_interface/BuilderResize.tscn")
 const BUILDER_SAVE = preload("res://packed_scene/user_interface/BuilderSave.tscn")
-
-var cell_collection: Dictionary
-var slider_collection: Dictionary
+const PANEL = preload("res://assets/resources/themes/Panel.tres")
+const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
 var _level_data: LevelData
+var _cell_collection: Dictionary
+var _slider_collection: Dictionary
+var _multiselection_enabled: bool
+var _multiselection_start_pos: Vector2
+var _multiselection_panel: Panel
+var _multiselection_area: Area2D
+var _multiselection_coll: CollisionShape2D
+var _multiselection_cells: Array[BuilderCell]
 
 @onready var grid = %Grid
 
@@ -35,6 +42,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.visible = true
 			_on_scale_change(GameManager.level_scale)
+			_multiselection_cells.clear()
 
 		GlobalConst.GameState.BUILDER_SAVE:
 			self.visible = true
@@ -55,14 +63,42 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				builder_resize.on_width_change.connect(_on_width_change)
 				builder_resize.on_zoom_change.connect(_on_scale_change)
 				GameManager.builder_resize = builder_resize
-			GameManager.builder_resize.init_query.call_deferred(
-				_level_data.width, _level_data.height
-			)
-
-		GlobalConst.GameState.BUILDER_RESIZE:
-			self.visible = true
+			var	level_size: Vector2i
+			level_size.x = _level_data.width
+			level_size.y = _level_data.height
+			GameManager.builder_resize.init_query.call_deferred(level_size)
+		
 		GlobalConst.GameState.BUILDER_SELECTION:
 			self.visible = true
+			if _multiselection_cells.size() > 0:
+				if !GameManager.builder_selection:
+					var builder_selection: BuilderSelection
+					builder_selection = BUILDER_SELECTION.instantiate()
+					get_tree().root.add_child.call_deferred(builder_selection)
+					GameManager.builder_selection = builder_selection
+				var size: Vector2
+				var pos: Vector2
+				var top_left := _multiselection_cells[0].global_position
+				var bottom_right := top_left
+				for cell in _multiselection_cells:
+					cell.z_index = 10
+					cell.toggle_connection.call_deferred(true)
+					var cell_pos := cell.global_position
+					if cell_pos.x < top_left.x:
+						top_left.x = cell_pos.x
+					elif cell_pos.x > bottom_right.x:
+						bottom_right.x = cell_pos.x
+					if cell_pos.y < top_left.y:
+						top_left.y = cell_pos.y
+					elif cell_pos.y > bottom_right.y:
+						bottom_right.y = cell_pos.y
+				size = (bottom_right - top_left) / GameManager.level_scale
+				size += Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
+				pos = top_left + (bottom_right - top_left) / 2
+				GameManager.builder_selection.init_selection.call_deferred(true, pos, size)
+
+		GlobalConst.GameState.BUILDER_RESIZE:
+			self.visible = true			
 		_:
 			self.visible = false
 
@@ -73,31 +109,32 @@ func _construct_level() -> void:
 	var old_collection: Dictionary
 
 	# add cell space
-	old_collection = cell_collection.duplicate()
+	old_collection = _cell_collection.duplicate()
 	for columun in range(0, _level_data.width):
 		for row in range(0, _level_data.height):
 			var cell_coord := Vector2i(columun, row)
 			var cell_pos := cell_coord * GlobalConst.CELL_SIZE
 			var cell: BuilderCell
 
-			if cell_collection.has(cell_coord):
-				cell = cell_collection.get(cell_coord)
+			if _cell_collection.has(cell_coord):
+				cell = _cell_collection.get(cell_coord)
 				old_collection.erase(cell_coord)
 			else:
 				cell = BUILDER_CELL.instantiate()
 				grid.add_child(cell)
 				cell.on_cell_change.connect(_on_cell_change)
-				cell_collection[cell_coord] = cell
-
+				cell.start_multiselection.connect(_start_multiselection)
+				_cell_collection[cell_coord] = cell
+				
 			cell.position = -half_grid + half_cell + cell_pos
 
 	for coord in old_collection.keys():
-		cell_collection.erase(coord)
+		_cell_collection.erase(coord)
 		_level_data.cells_list.erase(coord)
 		old_collection.get(coord).queue_free()
 
 	# add slider space
-	old_collection = slider_collection.duplicate()
+	old_collection = _slider_collection.duplicate()
 	var half_slider := Vector2.ONE * GlobalConst.SLIDER_SIZE / 2
 	var slider_pos: Vector2
 	var edge_start_pos: Vector2
@@ -105,14 +142,14 @@ func _construct_level() -> void:
 	# TOP
 	for column in range(0, _level_data.width):
 		var slider_coord := Vector2i(0, column)
-		if slider_collection.has(slider_coord):
-			slider = slider_collection.get(slider_coord)
+		if _slider_collection.has(slider_coord):
+			slider = _slider_collection.get(slider_coord)
 			old_collection.erase(slider_coord)
 		else:
 			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[slider_coord] = slider
+			_slider_collection[slider_coord] = slider
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -124,14 +161,14 @@ func _construct_level() -> void:
 	# RIGHT
 	for row in range(0, _level_data.height):
 		var slider_coord := Vector2i(1, row)
-		if slider_collection.has(slider_coord):
-			slider = slider_collection.get(slider_coord)
+		if _slider_collection.has(slider_coord):
+			slider = _slider_collection.get(slider_coord)
 			old_collection.erase(slider_coord)
 		else:
 			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[slider_coord] = slider
+			_slider_collection[slider_coord] = slider
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -143,14 +180,14 @@ func _construct_level() -> void:
 	# BOTTOM
 	for column in range(0, _level_data.width):
 		var slider_coord := Vector2i(2, column)
-		if slider_collection.has(slider_coord):
-			slider = slider_collection.get(slider_coord)
+		if _slider_collection.has(slider_coord):
+			slider = _slider_collection.get(slider_coord)
 			old_collection.erase(slider_coord)
 		else:
 			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[slider_coord] = slider
+			_slider_collection[slider_coord] = slider
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -162,14 +199,14 @@ func _construct_level() -> void:
 	# LEFT
 	for row in range(0, _level_data.height):
 		var slider_coord := Vector2i(3, row)
-		if slider_collection.has(slider_coord):
-			slider = slider_collection.get(slider_coord)
+		if _slider_collection.has(slider_coord):
+			slider = _slider_collection.get(slider_coord)
 			old_collection.erase(slider_coord)
 		else:
 			slider = BUILDER_SLIDER.instantiate()
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
-			slider_collection[slider_coord] = slider
+			_slider_collection[slider_coord] = slider
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -179,14 +216,14 @@ func _construct_level() -> void:
 		slider.rotation_degrees = 0
 
 	for coord in old_collection.keys():
-		slider_collection.erase(coord)
+		_slider_collection.erase(coord)
 		_level_data.slider_list.erase(coord)
 		old_collection.get(coord).queue_free()
 
 
 func _on_cell_change(ref: BuilderCell, data: CellData) -> void:
-	for key in cell_collection.keys():
-		if ref == cell_collection.get(key):
+	for key in _cell_collection.keys():
+		if ref == _cell_collection.get(key):
 			if data:
 				_level_data.cells_list[key] = data
 			else:
@@ -194,8 +231,8 @@ func _on_cell_change(ref: BuilderCell, data: CellData) -> void:
 
 
 func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
-	for key in slider_collection.keys():
-		if ref == slider_collection.get(key):
+	for key in _slider_collection.keys():
+		if ref == _slider_collection.get(key):
 			if data:
 				_level_data.slider_list[key] = data
 			else:
@@ -217,10 +254,66 @@ func _on_save_query_received(validation: bool, level_name: String, level_moves: 
 			print("build game")
 
 
+func _start_multiselection() -> void:
+	_multiselection_start_pos = get_global_mouse_position()
+	_multiselection_panel = Panel.new()
+	_multiselection_panel.add_theme_stylebox_override("Panel", PANEL)
+	_multiselection_panel.global_position = _multiselection_start_pos
+	get_tree().root.add_child(_multiselection_panel)
+	_multiselection_area = Area2D.new()
+	_multiselection_area.area_entered.connect(on_multiselection_enter)
+	_multiselection_area.area_exited.connect(on_multiselection_exit)
+	_multiselection_area.global_position = _multiselection_start_pos
+	_multiselection_area.set_collision_layer_value(1, false)
+	_multiselection_area.set_collision_layer_value(3, true)
+	_multiselection_area.set_collision_mask_value(1, false)
+	_multiselection_area.set_collision_mask_value(3, true)
+	get_tree().root.add_child(_multiselection_area)
+	_multiselection_coll = CollisionShape2D.new()
+	_multiselection_coll.shape = RectangleShape2D.new()
+	_multiselection_area.add_child(_multiselection_coll)
+	_multiselection_enabled = true
+
+
+func _end_multiselection() -> void:
+	_multiselection_enabled = false
+	_multiselection_area.area_entered.disconnect(on_multiselection_enter)
+	_multiselection_area.area_exited.disconnect(on_multiselection_exit)
+	_multiselection_area.queue_free()
+	_multiselection_panel.queue_free()
+	GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+	
+	
+func _process(_delta: float) -> void:
+	if _multiselection_enabled:
+		if !Input.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			_end_multiselection()
+			return
+		var mouse_pos = get_global_mouse_position()
+		var size = mouse_pos - _multiselection_start_pos
+		_multiselection_panel.size = abs(size)
+		_multiselection_panel.global_position.x = minf(mouse_pos.x, _multiselection_start_pos.x)
+		_multiselection_panel.global_position.y = minf(mouse_pos.y, _multiselection_start_pos.y)
+		_multiselection_area.global_position = _multiselection_start_pos + size / 2
+		_multiselection_coll.shape.size = abs(size)
+		
+	
+func on_multiselection_enter(area: Area2D) -> void:
+	var cell: BuilderCell
+	cell = area.get_parent()
+	_multiselection_cells.append(cell)
+
+
+func on_multiselection_exit(area: Area2D) -> void:
+	var cell: BuilderCell
+	cell = area.get_parent()
+	_multiselection_cells.erase(cell)
+	
+
 func _reset_builder_grid():
-	for cell in cell_collection.values():
+	for cell in _cell_collection.values():
 		cell.clear_cell()
-	for slider in slider_collection.values():
+	for slider in _slider_collection.values():
 		slider.clear_slider()
 	_level_data = LevelData.new()
 

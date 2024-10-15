@@ -73,6 +73,7 @@ theme = ExtResource("6_3iilm")
 icon = ExtResource("8_ud0wv")
 
 [node name="Remove" type="Button" parent="Control"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5

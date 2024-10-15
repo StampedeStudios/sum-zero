@@ -164,6 +164,7 @@ func _check_limit() -> void:
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		ray.target_position.x += GlobalConst.CELL_SIZE
+		print(ray.get_collider().owner.name)
 		var cell: Cell = ray.get_collider().owner
 
 		if !cell.is_cell_blocked():

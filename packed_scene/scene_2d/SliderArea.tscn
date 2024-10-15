@@ -51,6 +51,8 @@ texture = ExtResource("6_woupr")
 [node name="Handle" type="Area2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(128, 0)
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Handle"]
 polygon = PackedVector2Array(0, -128, 0, 128, -128, 0)
@@ -60,7 +62,6 @@ unique_name_in_owner = true
 position = Vector2(128, 0)
 enabled = false
 target_position = Vector2(128, 0)
-collision_mask = 2
 hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
