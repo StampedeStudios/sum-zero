@@ -5,6 +5,8 @@ signal forward_action
 signal special_action
 signal remove_action
 
+const STD_SIZE := Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
+
 @export var backward_cell_texture: Texture2D
 @export var forward_cell_texture: Texture2D
 @export var special_cell_texture: Texture2D
@@ -12,11 +14,12 @@ signal remove_action
 @export var forward_slider_texture: Texture2D
 @export var special_slider_texture: Texture2D
 
-@onready var backward = %Backward
-@onready var forward = %Forward
-@onready var special = %Special
-@onready var control = %Control
-@onready var panel = %Panel
+@onready var backward: Button = %Backward
+@onready var forward: Button = %Forward
+@onready var special: Button = %Special
+@onready var remove: Button = %Remove
+@onready var control: Control = %Control
+@onready var panel: Panel = %Panel
 
 
 func _ready():
@@ -35,7 +38,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func init_selection(is_cell: bool, selected_piece: Node2D) -> void:
+func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
+	const AREA_DISTANCE: int = 16
 	if is_cell:
 		backward.icon = backward_cell_texture
 		forward.icon = forward_cell_texture
@@ -45,7 +49,11 @@ func init_selection(is_cell: bool, selected_piece: Node2D) -> void:
 		forward.icon = forward_slider_texture
 		special.icon = special_slider_texture
 
-	control.global_position = selected_piece.global_position
+	backward.position.x = -area_size.x / 2 - AREA_DISTANCE
+	forward.position.x = area_size.x / 2 + AREA_DISTANCE
+	special.position.y = -area_size.y / 2 - AREA_DISTANCE - remove.size.y
+	remove.position.y = area_size.y / 2 + AREA_DISTANCE
+	control.global_position = center
 
 
 func _on_backward_pressed():
@@ -65,5 +73,5 @@ func _on_special_pressed():
 
 
 func _on_panel_gui_input(event):
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+	if event is InputEventMouse and event.is_action_released(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)

@@ -1,6 +1,7 @@
 class_name BuilderCell extends Node2D
 
 signal on_cell_change(ref: BuilderCell, data: CellData)
+signal start_multiselection()
 
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
@@ -20,33 +21,23 @@ func _ready():
 
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse and _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		GameManager.on_state_change.connect(_on_state_change)
-		GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
-
-
+		start_multiselection.emit()
+		
+	
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.z_index = 0
-			_toggle_ui.call_deferred(false)
-
-		GlobalConst.GameState.BUILDER_SELECTION:
-			if !GameManager.builder_selection:
-				var builder_selection: BuilderSelection
-				builder_selection = BUILDER_SELECTION.instantiate()
-				get_tree().root.add_child.call_deferred(builder_selection)
-				GameManager.builder_selection = builder_selection
-			self.z_index = 10
-			_toggle_ui.call_deferred(true)
+			toggle_connection.call_deferred(false)
 
 
-func _toggle_ui(ui_visible: bool) -> void:
+func toggle_connection(ui_visible: bool) -> void:
 	if ui_visible:
+		GameManager.on_state_change.connect(_on_state_change)
 		GameManager.builder_selection.backward_action.connect(_decrease_value)
 		GameManager.builder_selection.forward_action.connect(_increase_value)
 		GameManager.builder_selection.special_action.connect(_block_cell)
 		GameManager.builder_selection.remove_action.connect(clear_cell)
-		GameManager.builder_selection.init_selection(true, self)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
 		GameManager.builder_selection.backward_action.disconnect(_decrease_value)

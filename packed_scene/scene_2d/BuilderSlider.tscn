@@ -25,6 +25,8 @@ texture = ExtResource("9_sippf")
 region_rect = Rect2(133, 0, 123, 256)
 
 [node name="Collision" type="Area2D" parent="Slider"]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slider/Collision"]
 shape = SubResource("RectangleShape2D_x3468")

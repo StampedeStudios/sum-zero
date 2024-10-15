@@ -16,8 +16,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_TEST:
-			self.visible = true
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
 		_:

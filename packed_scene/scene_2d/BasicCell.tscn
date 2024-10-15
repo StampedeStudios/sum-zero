@@ -14,7 +14,7 @@ shader_parameter/base_color = Color(1, 1, 1, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qn0yb"]
 size = Vector2(256, 256)
 
-[node name="BasicTile" type="Node2D"]
+[node name="BasicCell" type="Node2D"]
 position = Vector2(490, 587)
 script = ExtResource("1_f46k4")
 blocked_tile = ExtResource("2_yk2h2")
@@ -46,8 +46,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Area2D" type="Area2D" parent="."]
 unique_name_in_owner = true
-collision_layer = 2
-collision_mask = 2
 input_pickable = false
 monitoring = false
 

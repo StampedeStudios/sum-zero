@@ -25,9 +25,9 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func init_query(width: int, height: int):
-	_width = width
-	_height = height
+func init_query(level_size: Vector2i):
+	_width = level_size.x
+	_height = level_size.y
 	_scale = 0
 	_update_zoom()
 

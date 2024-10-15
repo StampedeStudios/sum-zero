@@ -54,8 +54,10 @@ click_dx={
 
 [layer_names]
 
-2d_physics/layer_1="ScalableArea"
-2d_physics/layer_2="Tile"
+2d_physics/layer_1="Cell"
+2d_physics/layer_2="Slider"
+2d_physics/layer_3="BuilderCell"
+2d_physics/layer_4="BuilderSlider"
 
 [rendering]
 

@@ -74,7 +74,12 @@ func _toggle_ui(ui_visible: bool) -> void:
 		GameManager.builder_selection.forward_action.connect(_next_effect)
 		GameManager.builder_selection.special_action.connect(_next_behavior)
 		GameManager.builder_selection.remove_action.connect(clear_slider)
-		GameManager.builder_selection.init_selection(false, self)
+		var size: Vector2
+		if int(rotation_degrees) == 0 or int(rotation_degrees) == 180:
+			size = Vector2(GlobalConst.SLIDER_SIZE, GlobalConst.CELL_SIZE)
+		else:
+			size = Vector2(GlobalConst.CELL_SIZE, GlobalConst.SLIDER_SIZE)			
+		GameManager.builder_selection.init_selection(false, self.global_position, size)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
 		GameManager.builder_selection.backward_action.disconnect(_previous_effect)
