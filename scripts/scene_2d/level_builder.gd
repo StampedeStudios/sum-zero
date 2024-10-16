@@ -63,11 +63,11 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				builder_resize.on_width_change.connect(_on_width_change)
 				builder_resize.on_zoom_change.connect(_on_scale_change)
 				GameManager.builder_resize = builder_resize
-			var	level_size: Vector2i
+			var level_size: Vector2i
 			level_size.x = _level_data.width
 			level_size.y = _level_data.height
 			GameManager.builder_resize.init_query.call_deferred(level_size)
-		
+
 		GlobalConst.GameState.BUILDER_SELECTION:
 			self.visible = true
 			if _multiselection_cells.size() > 0:
@@ -123,7 +123,7 @@ func _construct_level() -> void:
 				cell.on_cell_change.connect(_on_cell_change)
 				cell.start_multiselection.connect(_start_multiselection)
 				_cell_collection[cell_coord] = cell
-				
+
 			cell.position = -half_grid + half_cell + cell_pos
 
 	for coord in old_collection.keys():
@@ -280,8 +280,8 @@ func _end_multiselection() -> void:
 	_multiselection_area.queue_free()
 	_multiselection_panel.queue_free()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
-	
-	
+
+
 func _process(_delta: float) -> void:
 	if _multiselection_enabled:
 		if !Input.is_action_pressed(Literals.Inputs.LEFT_CLICK):
@@ -294,8 +294,8 @@ func _process(_delta: float) -> void:
 		_multiselection_panel.global_position.y = minf(mouse_pos.y, _multiselection_start_pos.y)
 		_multiselection_area.global_position = _multiselection_start_pos + size / 2
 		_multiselection_coll.shape.size = abs(size)
-		
-	
+
+
 func on_multiselection_enter(area: Area2D) -> void:
 	var cell: BuilderCell
 	cell = area.get_parent()
@@ -306,7 +306,7 @@ func on_multiselection_exit(area: Area2D) -> void:
 	var cell: BuilderCell
 	cell = area.get_parent()
 	_multiselection_cells.erase(cell)
-	
+
 
 func _reset_builder_grid():
 	for cell in _cell_collection.values():

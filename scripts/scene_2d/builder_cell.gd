@@ -1,7 +1,7 @@
 class_name BuilderCell extends Node2D
 
 signal on_cell_change(ref: BuilderCell, data: CellData)
-signal start_multiselection()
+signal start_multiselection
 
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
@@ -22,8 +22,8 @@ func _ready():
 func _on_collision_input_event(_viewport, _event, _shape_idx):
 	if _event is InputEventMouse and _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		start_multiselection.emit()
-		
-	
+
+
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.BUILDER_IDLE:
