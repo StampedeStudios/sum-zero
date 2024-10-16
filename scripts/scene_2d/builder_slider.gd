@@ -47,10 +47,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _check_screen_margin() -> void:
-	var  margin: float
+	var margin: float
 	var offset: Vector2
 	var screen_size: Vector2
-	
+
 	margin = GlobalConst.HALF_BUILDER_SELECTION * GameManager.level_scale.x
 	screen_size = get_viewport_rect().size
 	# orizzontal check
@@ -58,7 +58,7 @@ func _check_screen_margin() -> void:
 		offset.x = margin - global_position.x
 	elif global_position.x > screen_size.x - margin:
 		offset.x = screen_size.x - margin - global_position.x
-	# vertical check	
+	# vertical check
 	if global_position.y < margin:
 		offset.y = margin - global_position.y
 	elif global_position.y > screen_size.y - margin:
@@ -78,7 +78,7 @@ func _toggle_ui(ui_visible: bool) -> void:
 		if int(rotation_degrees) == 0 or int(rotation_degrees) == 180:
 			size = Vector2(GlobalConst.SLIDER_SIZE, GlobalConst.CELL_SIZE)
 		else:
-			size = Vector2(GlobalConst.CELL_SIZE, GlobalConst.SLIDER_SIZE)			
+			size = Vector2(GlobalConst.CELL_SIZE, GlobalConst.SLIDER_SIZE)
 		GameManager.builder_selection.init_selection(false, self.global_position, size)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
