@@ -125,7 +125,6 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 func _apply_scaling(_new_scale: float) -> void:
 	area_outline.size.x = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
-		# var index: int = floor(_new_scale)
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
 
@@ -164,7 +163,6 @@ func _check_limit() -> void:
 	ray.force_raycast_update()
 	while ray.is_colliding():
 		ray.target_position.x += GlobalConst.CELL_SIZE
-		print(ray.get_collider().owner.name)
 		var cell: Cell = ray.get_collider().owner
 
 		if !cell.is_cell_blocked():
