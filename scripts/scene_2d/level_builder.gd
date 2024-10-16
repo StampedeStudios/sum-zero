@@ -97,8 +97,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				pos = top_left + (bottom_right - top_left) / 2
 				GameManager.builder_selection.init_selection.call_deferred(true, pos, size)
 
-		GlobalConst.GameState.BUILDER_RESIZE:
-			self.visible = true			
 		_:
 			self.visible = false
 
