@@ -1,6 +1,7 @@
 class_name LevelData
 extends Resource
 
+@export var name: String
 @export_range(2, 5) var width: int = 3
 @export_range(2, 5) var height: int = 3
 ## KEY: Cell coordinate (column, row) [br]VALUE: Cell data
