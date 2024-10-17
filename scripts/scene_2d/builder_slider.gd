@@ -3,6 +3,7 @@ class_name BuilderSlider extends Node2D
 signal on_slider_change(ref: BuilderSlider, data: SliderData)
 
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
+const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
 
 var _data: SliderData
 var _is_valid: bool = false
@@ -124,13 +125,11 @@ func _next_behavior() -> void:
 
 
 func _change_aspect() -> void:
-	var collection: SliderCollection
-	collection = GameManager.slider_collection
 	_is_valid = true
 	slider_effect.visible = true
 	slider_behavior.visible = true
-	slider_effect.texture = collection.get_effect_texture(_data.area_effect)
-	slider_behavior.texture = collection.get_behavior_texture(_data.area_behavior)
+	slider_effect.texture = SLIDER_COLLECTION.get_effect_texture(_data.area_effect)
+	slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, Color.WHITE)
 
 

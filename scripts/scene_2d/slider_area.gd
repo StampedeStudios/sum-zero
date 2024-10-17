@@ -3,6 +3,8 @@ extends Node2D
 
 signal scale_change
 
+const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
+
 @export var block_texture: Texture
 @export var block_shader: Shader
 
@@ -29,9 +31,8 @@ var _blocking_sprite: Array[Sprite2D]
 
 
 func init_slider(data: SliderData) -> void:
-	var collection: SliderCollection = GameManager.slider_collection
-	area_effect.texture = collection.get_effect_texture(data.area_effect)
-	area_behavior.texture = collection.get_behavior_texture(data.area_behavior)
+	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
+	area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
 	_area_effect = data.area_effect

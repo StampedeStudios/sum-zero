@@ -239,17 +239,12 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 
 func _on_save_query_received(validation: bool, level_name: String, level_moves: int):
 	if validation:
-		# Se faccio partire da editor creo una nuova risorsa direttamente
-		# nella cartella dedicata alle risorse dei livelli
+		_level_data.moves_left = level_moves
+		_level_data.name = level_name
 		if OS.has_feature("debug"):
-			var dir := "res://assets/resources/levels/"
-			var path := dir + level_name + ".tres"
-			_level_data.moves_left = level_moves
-			ResourceSaver.save(_level_data, path)
-			get_tree().quit()
+			GameManager.save_persistent_level(_level_data)
 		else:
-			#TODO: aggiungere al salvataggio del giocatore
-			print("build game")
+			GameManager.save_custom_level(_level_data)
 
 
 func _start_multiselection() -> void:
