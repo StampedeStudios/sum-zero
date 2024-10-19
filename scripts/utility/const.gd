@@ -12,6 +12,7 @@ enum GameState {
 	BUILDER_TEST,
 	BUILDER_RESIZE
 }
+enum LevelGroup { CUSTOM, MAIN }
 
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
