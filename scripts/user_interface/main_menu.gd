@@ -4,6 +4,7 @@ const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
+const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 
 
 func _ready():
@@ -35,7 +36,11 @@ func _on_play_btn_pressed():
 
 
 func _on_level_btn_pressed():
-	print("open levels menu")
+	var level_ui: LevelUI
+	level_ui = LEVEL_UI.instantiate()
+	get_tree().root.add_child.call_deferred(level_ui)
+
+	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 
 
 func _on_editor_btn_pressed():
