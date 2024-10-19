@@ -245,6 +245,8 @@ func _on_save_query_received(validation: bool, level_name: String, level_moves: 
 		else:
 			GameManager.save_custom_level(level_name, _level_data)
 
+	_reset_builder_grid.call_deferred()
+
 
 func _start_multiselection() -> void:
 	_multiselection_start_pos = get_global_mouse_position()

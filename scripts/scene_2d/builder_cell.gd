@@ -69,6 +69,7 @@ func _increase_value():
 func _change_value(new_value: int) -> void:
 	if new_value == _data.value and !_data.is_blocked and target_value_txt.visible:
 		return
+
 	_data.value = new_value
 	_data.is_blocked = false
 	_change_aspect()
@@ -95,9 +96,8 @@ func _change_color(new_color: Color) -> void:
 
 
 func clear_cell() -> void:
-	_data.value = 0
+	_data = CellData.new()
 	target_value_txt.visible = false
-	_data.is_blocked = false
 	block.visible = false
 	_change_color(GameManager.palette.builder_cell_color)
 	on_cell_change.emit(self, null)

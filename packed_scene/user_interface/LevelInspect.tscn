@@ -1,0 +1,128 @@
+[gd_scene load_steps=11 format=3 uid="uid://dl8k8vj01hhjj"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_56b6k"]
+[ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="3_3an21"]
+[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_5ka5h"]
+[ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
+[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
+bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsgkt"]
+shader = ExtResource("3_2dflr")
+shader_parameter/baseColor = Color(0.992157, 0.937255, 0.768627, 1)
+shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
+shader_parameter/percentage = 0.0
+
+[node name="LevelInspect" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aoj50")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ikv7t")
+
+[node name="Panel" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -325.0
+offset_right = 300.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_56b6k")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="LevelName" type="Label" parent="Background/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_3an21")
+text = "Level 01"
+horizontal_alignment = 1
+
+[node name="LevelScoreImg" type="TextureRect" parent="Background/Panel/VBoxContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_wsgkt")
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+texture = ExtResource("4_5ka5h")
+expand_mode = 3
+
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="UnlockDeleteBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("3_3an21")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("4_hx5r7")
+
+[node name="VSeparator" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BuildBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("3_3an21")
+icon = ExtResource("5_rcr73")
+
+[node name="VSeparator2" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("3_3an21")
+icon = ExtResource("6_aqsoc")
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/UnlockDeleteBtn" to="." method="_on_unlock_delete_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/BuildBtn" to="." method="_on_build_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/PlayBtn" to="." method="_on_play_btn_pressed"]

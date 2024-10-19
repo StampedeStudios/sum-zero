@@ -26,7 +26,7 @@ func update_score(move_left: int) -> void:
 	level_score_img.material.set_shader_parameter("percentage", percentage)
 	if is_record:
 		print("NEW RECORD")
-	
+
 
 func _on_replay_btn_pressed():
 	restart_level.emit()

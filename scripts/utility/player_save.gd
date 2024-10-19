@@ -13,7 +13,11 @@ func initialize_persistent_progress(save: PersistentSave) -> void:
 
 
 func reset_custom_progress(level_name: String) -> void:
-	custom_progress[level_name] = LevelProgress.new()
+	var progress := LevelProgress.new()
+	progress.is_unlocked = true
+	progress.is_completed = true
+	progress.move_left = -100
+	custom_progress[level_name] = progress
 
 
 func reset_persistent_progress(level_name: String) -> void:
