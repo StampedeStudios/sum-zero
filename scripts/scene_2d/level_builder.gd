@@ -240,11 +240,10 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 func _on_save_query_received(validation: bool, level_name: String, level_moves: int):
 	if validation:
 		_level_data.moves_left = level_moves
-		_level_data.name = level_name
 		if OS.has_feature("debug"):
-			GameManager.save_persistent_level(_level_data)
+			GameManager.save_persistent_level(level_name, _level_data)
 		else:
-			GameManager.save_custom_level(_level_data)
+			GameManager.save_custom_level(level_name, _level_data)
 
 
 func _start_multiselection() -> void:

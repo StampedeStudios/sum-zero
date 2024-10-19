@@ -19,10 +19,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func update_score(score: int) -> void:
-	var percentage: float = 0.33 * (3 + score)
+func update_score(move_left: int) -> void:
+	var percentage: float = 0.33 * (3 + move_left)
+	var is_record: bool
+	is_record = GameManager.update_level_progress(move_left)
 	level_score_img.material.set_shader_parameter("percentage", percentage)
-
+	if is_record:
+		print("NEW RECORD")
+	
 
 func _on_replay_btn_pressed():
 	restart_level.emit()
