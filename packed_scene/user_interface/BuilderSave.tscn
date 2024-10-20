@@ -120,7 +120,22 @@ focus_mode = 0
 theme = ExtResource("2_q3qhm")
 icon = SubResource("CompressedTexture2D_ud3al")
 
+[node name="PersistBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("2_q3qhm")
+theme_override_colors/icon_normal_color = Color(0.784314, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0.784314, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+icon = SubResource("CompressedTexture2D_ud3al")
+
 [connection signal="text_changed" from="Background/Panel/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]

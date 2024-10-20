@@ -44,6 +44,7 @@ func _on_unlock_delete_btn_pressed() -> void:
 		pass
 		# TODO: Handle deletion
 	else:
+		GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
 		GameManager.unlock_level(_level_name)
 		_update_buttons(true)
 		level_unlocked.emit()
@@ -65,15 +66,10 @@ func _on_play_btn_pressed() -> void:
 	level_manager.set_manager_mode.call_deferred(false)
 	GameManager.level_manager = level_manager
 
-	var world := GlobalConst.LevelGroup.MAIN
-	if _is_custom:
-		world = GlobalConst.LevelGroup.CUSTOM
-
+	var group := GlobalConst.LevelGroup.CUSTOM if _is_custom else GlobalConst.LevelGroup.MAIN
+	GameManager.set_levels_context(group)
 	GameManager.active_level_name = _level_name
-	GameManager.active_world = world
 	level_manager.init_level.call_deferred(GameManager.get_active_level())
-
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
