@@ -18,16 +18,9 @@ This document represent a sharable roadmap that contains all main activities and
 	- Obstacles: tiles that stops sliders but are never meant to be altered as the value is already 0;
 	- Quick sliders: sliders that cannot be manually resized to a specific length but are always fully extended or not;
 	- Movable obstacles as sliders: sliders that make tiles blocked while setting their value to 0;
-- [ ] Extra mechanics:
-	- Add 2 (++);
-	- Remove 2 (--);
-- [ ] Persistent data saving;
+- [x] Persistent data saving;
 - [x] Skip level;
-- [-] Level select menu;
-- [ ] How to play section in main menu;
 - [x] Main menu;
-- [ ] SFX;
-- [ ] Graphic effects;
 - [x] Sandbox with sharable custom levels;
 	- [x] Level resizing;
 	- [x] Tile setup;
@@ -36,14 +29,18 @@ This document represent a sharable roadmap that contains all main activities and
 	- [x] On the fly play mode;
 	- [x] Level data persistence;
 	- [x] Level reset;
-	- [ ] Player levels saving;
+	- [x] Player levels saving;
 	- [ ] QRCode generation for local share;
-	- [ ] Load level in builder;
 - [x] UI elements
 	- Texture blocked tile;
 	- Resize icon;
 	- Level menu;
-
+- [-] Level select menu;
+	- Deletion;
+	- Load in editor;
+- [ ] Tutorial;
+- [-] SFX;
+- [-] Graphic effects;
 
 ## Level design
 Having four main mechanics, following the truth table to estimate the number of levels for each mechanic combiation considering that there are more seconday mechanics that can help to break the monotony. 
@@ -72,9 +69,4 @@ Secondary mechanics are:
 |  14   | true  | true   | true   | false |     3    |
 |  15   | true  | true   | true   | true  |     5    |
 | TOTAL | ----- | ------ | ------ | ----- |     29   |
-
-## Issues
-- [x] [Level builder] Move grid to left or right to make space for UI elemetns when updating side sliders;
-- [x] [Level builder] Adjust tile selector to show zero as first result in both directions;
-- [ ] [GameUI] Show stars when surpassing move limit;
 
