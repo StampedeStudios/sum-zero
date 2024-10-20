@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="7_djh55"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="7_dngta"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="8_6w3sr"]
-[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/MenuButton.tres" id="8_10k43"]
+[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="8_10k43"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="8_ku3mw"]
-[ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/MenuButtonHover.tres" id="9_xhkh3"]
+[ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/menu_button_hover.tres" id="9_xhkh3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sdamf"]
 shader = ExtResource("2_8i536")
@@ -124,7 +124,7 @@ theme_override_styles/hover_pressed = ExtResource("8_10k43")
 theme_override_styles/hover = ExtResource("9_xhkh3")
 theme_override_styles/pressed = ExtResource("9_xhkh3")
 theme_override_styles/normal = ExtResource("8_10k43")
-text = " Next"
+text = "Next"
 icon = ExtResource("8_ku3mw")
 alignment = 0
 icon_alignment = 2

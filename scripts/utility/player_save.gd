@@ -36,9 +36,9 @@ func reset_progress(group: GlobalConst.LevelGroup, level_name: String) -> void:
 			progress.move_left = -1000
 			custom_progress[level_name] = progress
 
-			
+
 func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
-	match group:	
+	match group:
 		GlobalConst.LevelGroup.MAIN:
 			persistent_progress.get(level_name).is_unlocked = true
 		GlobalConst.LevelGroup.CUSTOM:

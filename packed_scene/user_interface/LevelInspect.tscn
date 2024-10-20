@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
-[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_56b6k"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="3_3an21"]
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_5ka5h"]
@@ -44,9 +44,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -325.0
+offset_top = -300.0
 offset_right = 300.0
-offset_bottom = 325.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_56b6k")
@@ -58,9 +58,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
+offset_left = -263.5
 offset_top = -250.0
-offset_right = 250.0
+offset_right = 263.5
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -86,6 +86,7 @@ expand_mode = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_constants/separation = 20
 
 [node name="UnlockDeleteBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 unique_name_in_owner = true
@@ -96,11 +97,6 @@ theme = ExtResource("3_3an21")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_hx5r7")
 
-[node name="VSeparator" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
-
 [node name="BuildBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -108,11 +104,6 @@ size_flags_horizontal = 5
 focus_mode = 0
 theme = ExtResource("3_3an21")
 icon = ExtResource("5_rcr73")
-
-[node name="VSeparator2" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 unique_name_in_owner = true

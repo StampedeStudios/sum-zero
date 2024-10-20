@@ -27,4 +27,4 @@ func get_next_level(current_level_name: String) -> String:
 		if levels_order[name_index] == current_level_name:
 			if name_index + 1 < levels_order.size():
 				return levels_order[name_index + 1]
-	return ""		
+	return ""

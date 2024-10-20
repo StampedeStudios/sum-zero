@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_q3qhm"]
-[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_qhpg7"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_blv7d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
@@ -37,9 +37,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -325.0
+offset_top = -300.0
 offset_right = 300.0
-offset_bottom = 325.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_qhpg7")
@@ -98,6 +98,7 @@ theme_override_constants/separation = 30
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
+theme_override_constants/separation = 20
 
 [node name="ExitBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 layout_mode = 2
@@ -106,11 +107,6 @@ focus_mode = 0
 theme = ExtResource("2_q3qhm")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("3_blv7d")
-
-[node name="VSeparator" type="VSeparator" parent="Background/Panel/VBoxContainer/Controls"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="SaveBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
 unique_name_in_owner = true

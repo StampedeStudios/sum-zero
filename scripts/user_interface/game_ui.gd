@@ -9,7 +9,6 @@ var _has_next_level: bool
 @onready var moves_left_txt: Label = %MovesLeft
 @onready var level_score_img: TextureRect = %LevelScoreImg
 @onready var skip_btn: Button = %SkipBtn
-@onready var skip_separator: VSeparator = %SkipSeparator
 
 
 func _ready() -> void:
@@ -33,12 +32,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _initialize_ui():
 	moves_left = GameManager.get_active_level().moves_left
-	skip_separator.hide()
 	skip_btn.hide()
 	if GameManager.is_level_completed():
 		_has_next_level = GameManager.set_next_level()
 		if _has_next_level:
-			skip_separator.show()
 			skip_btn.show()
 	_update_moves()
 

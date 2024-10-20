@@ -44,19 +44,6 @@ text = "0"
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
-
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_0tpta")
-theme_override_font_sizes/font_size = 50
-icon = ExtResource("4_ks1t0")
-
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/BottomContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="ExitBtn" type="Button" parent="MarginContainer/BottomContainer"]
@@ -68,5 +55,14 @@ theme = ExtResource("2_0tpta")
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("3_rvsdw")
 
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0tpta")
+theme_override_font_sizes/font_size = 50
+icon = ExtResource("4_ks1t0")
+
 [connection signal="pressed" from="MarginContainer/BottomContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
