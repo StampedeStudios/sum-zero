@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://hqw2wppscbvl"]
+[gd_scene load_steps=11 format=3 uid="uid://hqw2wppscbvl"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
-[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/Panel.tres" id="2_152qj"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="3_gcpbi"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
 [ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/MenuButton.tres" id="4_vg1ss"]
@@ -43,36 +42,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_r00fw")
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -361.5
-offset_top = -400.0
-offset_right = 361.5
-offset_bottom = 400.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_152qj")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -296.0
-offset_right = 300.0
-offset_bottom = 296.0
+offset_left = -250.0
+offset_top = -331.5
+offset_right = 250.0
+offset_bottom = 331.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PlayBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+[node name="PlayBtn" type="Button" parent="Background/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -88,14 +72,14 @@ icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
-[node name="HSeparator" type="HSeparator" parent="Background/Panel/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Background/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="LevelBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+[node name="LevelBtn" type="Button" parent="Background/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -112,14 +96,14 @@ alignment = 0
 icon_alignment = 2
 expand_icon = true
 
-[node name="HSeparator2" type="HSeparator" parent="Background/Panel/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Background/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="EditorBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+[node name="EditorBtn" type="Button" parent="Background/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -136,19 +120,19 @@ alignment = 0
 icon_alignment = 2
 expand_icon = true
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="HSeparator3" type="HSeparator" parent="Background/Panel/VBoxContainer/MarginContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Background/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxFlat_awjbt")
 
-[node name="QuitBtn" type="Button" parent="Background/Panel/VBoxContainer"]
+[node name="QuitBtn" type="Button" parent="Background/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -165,7 +149,7 @@ alignment = 0
 icon_alignment = 2
 expand_icon = true
 
-[connection signal="pressed" from="Background/Panel/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

@@ -9,7 +9,8 @@ func initialize_persistent_progress(save: PersistentSave) -> void:
 	for name in save.levels.keys():
 		if !persistent_progress.has(name):
 			persistent_progress[name] = LevelProgress.new()
-	persistent_progress.values()[0].is_unlocked = true
+	if !persistent_progress.is_empty():
+		persistent_progress.values()[0].is_unlocked = true
 
 
 func reset_custom_progress(level_name: String) -> void:

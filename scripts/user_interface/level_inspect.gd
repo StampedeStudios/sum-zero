@@ -92,5 +92,5 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 
 func _update_buttons(is_unlocked: bool) -> void:
-	unlock_delete_btn.disabled = is_unlocked
+	unlock_delete_btn.disabled = is_unlocked if !_is_custom else false
 	play_btn.disabled = !is_unlocked
