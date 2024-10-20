@@ -25,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -48,52 +49,8 @@ icon = ExtResource("3_8n2no")
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
+theme_override_constants/separation = 20
 alignment = 1
-
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
-icon = ExtResource("3_34h8o")
-
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/BottomContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="ResizeBtn" type="Button" parent="MarginContainer/BottomContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
-icon = ExtResource("4_5ca4s")
-
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/BottomContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="PlayBtn" type="Button" parent="MarginContainer/BottomContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
-icon = ExtResource("5_05dex")
-
-[node name="VSeparator3" type="VSeparator" parent="MarginContainer/BottomContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
 
 [node name="SaveBtn" type="Button" parent="MarginContainer/BottomContainer"]
 unique_name_in_owner = true
@@ -105,8 +62,38 @@ theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_e30bv")
 
+[node name="ResizeBtn" type="Button" parent="MarginContainer/BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
+theme_override_font_sizes/font_size = 50
+icon = ExtResource("4_5ca4s")
+
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
+theme_override_font_sizes/font_size = 50
+icon = ExtResource("3_34h8o")
+
+[node name="PlayBtn" type="Button" parent="MarginContainer/BottomContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_0xa7q")
+theme_override_font_sizes/font_size = 50
+icon = ExtResource("5_05dex")
+
 [connection signal="pressed" from="MarginContainer/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]

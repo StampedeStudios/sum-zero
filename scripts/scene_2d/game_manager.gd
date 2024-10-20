@@ -30,6 +30,7 @@ var _active_level_name: String
 var _next_level_name: String
 var _context: GlobalConst.LevelGroup
 
+
 func _ready() -> void:
 	var screen_side_shorter: float
 	screen_side_shorter = min(get_viewport().size.x, get_viewport().size.y)
@@ -37,7 +38,7 @@ func _ready() -> void:
 	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
 	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
 	_load_saved_data()
-	
+
 	main_menu = MAIN_MENU.instantiate()
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
@@ -45,7 +46,7 @@ func _ready() -> void:
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
-	
+
 
 func _load_saved_data() -> void:
 	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
@@ -57,16 +58,16 @@ func _load_saved_data() -> void:
 
 
 func _set_and_check_save_integrity() -> bool:
-	var _savegame := load(PLAYER_SAVE_PATH) as PlayerSave
+	var savegame := load(PLAYER_SAVE_PATH) as PlayerSave
 	# inconsistent counting between levels and progress
-	if _persistent_save.levels.size() != _savegame.persistent_progress.size():
+	if _persistent_save.levels.size() != savegame.persistent_progress.size():
 		return false
 	# inconsistent naming between levels and progress
 	for level_name in _persistent_save.levels.keys():
-		if !_savegame.persistent_progress.has(level_name):
+		if !savegame.persistent_progress.has(level_name):
 			return false
 	# set verified savegame
-	_player_save = _savegame
+	_player_save = savegame
 	return true
 
 
@@ -86,10 +87,10 @@ func get_start_level_playable() -> LevelData:
 				_active_level_name = level_name
 				break
 		return _persistent_save.levels.get(_active_level_name)
-	else:
-		push_error("Nessun livello nel persistent save!")
-		return null
-		
+
+	push_error("Nessun livello nel persistent save!")
+	return null
+
 
 func save_persistent_level(level_name: String, level_data: LevelData) -> void:
 	_persistent_save.set_level(level_name, level_data.duplicate())
@@ -111,7 +112,7 @@ func _get_levels() -> LevelContainer:
 		GlobalConst.LevelGroup.MAIN:
 			return _persistent_save
 	return null
-	
+
 
 func _get_progress() -> Dictionary:
 	match _context:
@@ -120,14 +121,14 @@ func _get_progress() -> Dictionary:
 		GlobalConst.LevelGroup.MAIN:
 			return _player_save.persistent_progress
 	return {}
-	
+
 
 func set_next_level() -> bool:
 	var is_valid_level: bool
 	_next_level_name = _get_levels().get_next_level(_active_level_name)
 	is_valid_level = _next_level_name != ""
 	if is_valid_level:
-		_player_save.unlock_level(_context, _next_level_name)	
+		_player_save.unlock_level(_context, _next_level_name)
 	return is_valid_level
 
 
@@ -135,7 +136,7 @@ func get_active_level(level_name: String = "") -> LevelData:
 	if level_name != "":
 		_active_level_name = level_name
 	return _get_levels().levels.get(_active_level_name)
-	
+
 
 func get_next_level() -> LevelData:
 	_active_level_name = _next_level_name
@@ -144,7 +145,7 @@ func get_next_level() -> LevelData:
 
 func update_level_progress(move_left: int) -> bool:
 	var active_progress: LevelProgress
-	var is_record: bool	
+	var is_record: bool
 	active_progress = _get_progress().get(_active_level_name)
 	if !active_progress.is_completed != (move_left > active_progress.move_left):
 		active_progress.move_left = move_left

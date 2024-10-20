@@ -4,8 +4,8 @@ signal restart_level
 
 const PLAY_ICON = preload("res://assets/ui/play_icon.png")
 const EXIT_ICON = preload("res://assets/ui/exit_icon.png")
-const PLAY_TEXT = " Next"
-const EXIT_TEXT = " Exit"
+const PLAY_TEXT = "Next"
+const EXIT_TEXT = "Exit"
 
 var _has_next_level: bool
 

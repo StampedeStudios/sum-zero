@@ -4,7 +4,7 @@ const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
 const BUILDER_SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
 const BUILDER_RESIZE = preload("res://packed_scene/user_interface/BuilderResize.tscn")
 const BUILDER_SAVE = preload("res://packed_scene/user_interface/BuilderSave.tscn")
-const PANEL = preload("res://assets/resources/themes/Panel.tres")
+const PANEL = preload("res://assets/resources/themes/panel.tres")
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
 var _level_data: LevelData

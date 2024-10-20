@@ -19,6 +19,7 @@ config/icon="res://assets/game/logo.png"
 [autoload]
 
 GameManager="*res://packed_scene/scene_2d/GameManager.tscn"
+AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
 [display]
 

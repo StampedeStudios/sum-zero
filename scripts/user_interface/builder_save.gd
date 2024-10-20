@@ -45,7 +45,7 @@ func _on_save_btn_pressed():
 func _on_persist_btn_pressed() -> void:
 	on_query_close.emit(true, level_name.text, int(moves.text))
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
-	
+
 
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""

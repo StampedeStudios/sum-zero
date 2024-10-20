@@ -6,7 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_gy4rm"]
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_7a7pi"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
-[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="7_shpbq"]
+[ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="7_nrp2l"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ecu83"]
 shader = ExtResource("3_gy4rm")
@@ -25,6 +25,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_xwl0a")
+metadata/_edit_horizontal_guides_ = [-135.0]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -65,6 +66,7 @@ expand_mode = 3
 [node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = 20
 alignment = 2
 
 [node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
@@ -76,11 +78,6 @@ theme = ExtResource("2_iclks")
 theme_type_variation = &"Square"
 icon = ExtResource("3_aeg1p")
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/BottomRightContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
-
 [node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
@@ -89,13 +86,6 @@ focus_mode = 0
 theme = ExtResource("2_iclks")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_vhyu8")
-
-[node name="SkipSeparator" type="VSeparator" parent="MarginContainer/BottomRightContainer"]
-unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
 unique_name_in_owner = true
@@ -106,7 +96,7 @@ size_flags_vertical = 0
 focus_mode = 0
 theme = ExtResource("2_iclks")
 theme_override_font_sizes/font_size = 100
-icon = ExtResource("7_shpbq")
+icon = ExtResource("7_nrp2l")
 
 [connection signal="pressed" from="MarginContainer/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]

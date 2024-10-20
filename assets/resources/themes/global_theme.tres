@@ -1,9 +1,9 @@
 [gd_resource type="Theme" load_steps=6 format=3 uid="uid://d018ofb37nf7u"]
 
-[ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/Button.tres" id="1_bs028"]
-[ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/ButtonDisabled.tres" id="1_uckd4"]
-[ext_resource type="StyleBox" uid="uid://d0pj132xpgrxd" path="res://assets/resources/themes/ButtonHover.tres" id="2_mujji"]
-[ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/TextArea.tres" id="2_u1xd1"]
+[ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="1_bs028"]
+[ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_uckd4"]
+[ext_resource type="StyleBox" uid="uid://d0pj132xpgrxd" path="res://assets/resources/themes/button_hover.tres" id="2_mujji"]
+[ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="2_u1xd1"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="3_d8hc6"]
 
 [resource]

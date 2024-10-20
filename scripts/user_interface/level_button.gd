@@ -1,8 +1,8 @@
 class_name LevelButton extends Button
 
 # Styles
-const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/LevelButton.tres")
-const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/LevelButtonHover.tres")
+const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button.tres")
+const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
 const LEVEL_INSPECT = preload("res://packed_scene/user_interface/LevelInspect.tscn")
 
 # Icons
