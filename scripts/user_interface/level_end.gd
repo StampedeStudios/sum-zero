@@ -47,6 +47,5 @@ func _on_next_btn_pressed():
 	if !_has_next_level:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	else:
-		var level: LevelData
-		level = GameManager.get_next_level()
+		var level: LevelData = GameManager.get_next_level()
 		GameManager.level_manager.init_level.call_deferred(level)

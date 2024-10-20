@@ -41,16 +41,16 @@ func init_inspector(level_name: String, level_progress: LevelProgress, is_custom
 
 func _on_unlock_delete_btn_pressed() -> void:
 	if _is_custom:
-		pass
 		# TODO: Handle deletion
+		pass
 	else:
-		GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
-		GameManager.unlock_level(_level_name)
+		GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_name)
 		_update_buttons(true)
 		level_unlocked.emit()
 
 
 func _on_build_btn_pressed() -> void:
+	# TODO: load level in builder
 	pass  # Replace with function body.
 
 
@@ -68,8 +68,8 @@ func _on_play_btn_pressed() -> void:
 
 	var group := GlobalConst.LevelGroup.CUSTOM if _is_custom else GlobalConst.LevelGroup.MAIN
 	GameManager.set_levels_context(group)
-	GameManager.active_level_name = _level_name
-	level_manager.init_level.call_deferred(GameManager.get_active_level())
+	var level_data: LevelData = GameManager.get_active_level(_level_name)
+	level_manager.init_level.call_deferred(level_data)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
