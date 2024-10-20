@@ -30,9 +30,9 @@ func _on_play_btn_pressed():
 	get_tree().root.add_child.call_deferred(level_manager)
 	level_manager.set_manager_mode.call_deferred(false)
 	GameManager.level_manager = level_manager
+	
+	GameManager.set_start_level_playable()
 	level_manager.init_level.call_deferred(GameManager.get_active_level())
-
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
 func _on_level_btn_pressed():

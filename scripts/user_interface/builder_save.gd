@@ -1,6 +1,6 @@
 class_name BuilderSave extends Control
 
-signal on_query_close(validation: bool, level_name: String, level_moves: int)
+signal on_query_close(is_persistent_level: bool, level_name: String, level_moves: int)
 
 const MAX_MOVES_CHAR: int = 2
 const MAX_NAME_CHAR: int = 10
@@ -11,9 +11,12 @@ var _invalid_moves: bool
 @onready var level_name = %LevelName
 @onready var moves = %Moves
 @onready var save_btn = %SaveBtn
+@onready var persist_btn: Button = %PersistBtn
 
 
 func _ready():
+	if OS.has_feature("debug"):
+		persist_btn.show()
 	GameManager.on_state_change.connect(_on_state_change)
 	_invalid_moves = true
 	_invalid_name = true
@@ -31,14 +34,18 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_exit_btn_pressed():
-	on_query_close.emit(false, "", -1)
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_save_btn_pressed():
-	on_query_close.emit(true, level_name.text, int(moves.text))
+	on_query_close.emit(false, level_name.text, int(moves.text))
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
+
+func _on_persist_btn_pressed() -> void:
+	on_query_close.emit(true, level_name.text, int(moves.text))
+	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	
 
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""
@@ -58,6 +65,7 @@ func _on_moves_text_changed(new_text: String) -> void:
 
 func _check_valid_info() -> void:
 	save_btn.disabled = _invalid_moves or _invalid_name
+	persist_btn.disabled = _invalid_moves or _invalid_name
 
 
 func _on_level_name_text_changed(new_text: String) -> void:

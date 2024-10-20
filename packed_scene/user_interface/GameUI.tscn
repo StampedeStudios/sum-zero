@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene load_steps=9 format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_iclks"]
@@ -6,6 +6,7 @@
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_gy4rm"]
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_7a7pi"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="7_shpbq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ecu83"]
 shader = ExtResource("3_gy4rm")
@@ -89,5 +90,24 @@ theme = ExtResource("2_iclks")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_vhyu8")
 
+[node name="SkipSeparator" type="VSeparator" parent="MarginContainer/BottomRightContainer"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_iclks")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("7_shpbq")
+
 [connection signal="pressed" from="MarginContainer/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]

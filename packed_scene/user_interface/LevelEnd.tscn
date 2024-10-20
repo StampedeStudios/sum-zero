@@ -114,6 +114,7 @@ text = "Play again"
 flat = true
 
 [node name="NextBtn" type="Button" parent="TextureRect/MarginContainer/Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0

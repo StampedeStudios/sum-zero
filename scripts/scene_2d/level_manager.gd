@@ -36,6 +36,11 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func init_level(current_level: LevelData) -> void:
 	_clear()
+	if current_level == null:
+		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		push_error("Livello non valido!")
+		return
+		
 	var level_size: Vector2i
 	var half_grid_size: Vector2
 
@@ -96,7 +101,7 @@ func init_level(current_level: LevelData) -> void:
 func _clear() -> void:
 	for child in grid.get_children():
 		child.queue_free()
-	grid_cells = []
+	grid_cells.clear()
 
 
 func check_grid() -> void:
@@ -119,3 +124,5 @@ func check_grid() -> void:
 func _reset_level() -> void:
 	for child in grid.get_children():
 		child.reset()
+	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	

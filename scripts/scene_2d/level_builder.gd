@@ -237,14 +237,12 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 				_level_data.slider_list.erase(key)
 
 
-func _on_save_query_received(validation: bool, level_name: String, level_moves: int):
-	if validation:
-		_level_data.moves_left = level_moves
-		if OS.has_feature("debug"):
-			GameManager.save_persistent_level(level_name, _level_data)
-		else:
-			GameManager.save_custom_level(level_name, _level_data)
-
+func _on_save_query_received(is_persistent_level: bool, level_name: String, level_moves: int):
+	_level_data.moves_left = level_moves
+	if is_persistent_level:
+		GameManager.save_persistent_level(level_name, _level_data)
+	else:
+		GameManager.save_custom_level(level_name, _level_data)
 	_reset_builder_grid.call_deferred()
 
 
