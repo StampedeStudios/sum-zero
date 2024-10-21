@@ -2,13 +2,15 @@ class_name LevelInspect extends Control
 
 signal level_unlocked
 
+const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
+const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
 const TRASH_ICON = preload("res://assets/ui/trash_icon.png")
 const UNLOCK_ICON = preload("res://assets/ui/unlock_icon.png")
 
 var _level_name: String
-var _is_custom: bool
+var _level_group: GlobalConst.LevelGroup
 
 @onready var label: Label = %LevelName
 @onready var level_score_img: TextureRect = %LevelScoreImg
@@ -21,37 +23,55 @@ func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 
 
-func init_inspector(level_name: String, level_progress: LevelProgress, is_custom: bool):
+func init_inspector(level_name: String, progress: LevelProgress, group: GlobalConst.LevelGroup):
 	_level_name = level_name
-	_is_custom = is_custom
+	_level_group = group
 	label.text = _level_name
 
 	var percentage: float
-	if level_progress.is_completed:
-		percentage = 0.33 * (3 + level_progress.move_left)
+	if progress.is_completed:
+		percentage = 0.33 * (3 + progress.move_left)
 	else:
 		percentage = 0
 
 	level_score_img.material.set_shader_parameter("percentage", percentage)
-	build_btn.disabled = !level_progress.is_completed
-	_update_buttons(level_progress.is_unlocked)
-
-	unlock_delete_btn.icon = TRASH_ICON if _is_custom else UNLOCK_ICON
+	build_btn.disabled = !progress.is_completed
+	_update_buttons(progress.is_unlocked)
+	
+	match _level_group:
+		GlobalConst.LevelGroup.MAIN:
+			unlock_delete_btn.icon = UNLOCK_ICON
+		GlobalConst.LevelGroup.CUSTOM:
+			unlock_delete_btn.icon = TRASH_ICON
 
 
 func _on_unlock_delete_btn_pressed() -> void:
-	if _is_custom:
-		# TODO: Handle deletion
-		pass
-	else:
-		GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_name)
-		_update_buttons(true)
-		level_unlocked.emit()
+	match _level_group:
+		GlobalConst.LevelGroup.MAIN:
+			GameManager.unlock_level(_level_group, _level_name)
+			_update_buttons(true)
+			level_unlocked.emit()
+		GlobalConst.LevelGroup.CUSTOM:
+			# TODO: Handle deletion
+			pass
 
 
 func _on_build_btn_pressed() -> void:
-	# TODO: load level in builder
-	pass  # Replace with function body.
+	var builder_ui: BuilderUI
+	builder_ui = BUILDER_UI.instantiate()
+	get_tree().root.add_child.call_deferred(builder_ui)
+	GameManager.builder_ui = builder_ui
+
+	var level_builder: LevelBuilder
+	level_builder = LEVEL_BUILDER.instantiate()
+	get_tree().root.add_child.call_deferred(level_builder)
+	GameManager.level_builder = level_builder
+	
+	GameManager.set_levels_context(_level_group)
+	var level_data: LevelData = GameManager.get_active_level(_level_name)
+	level_builder.construct_level.call_deferred(level_data.duplicate())
+
+	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_play_btn_pressed() -> void:
@@ -66,8 +86,7 @@ func _on_play_btn_pressed() -> void:
 	level_manager.set_manager_mode.call_deferred(false)
 	GameManager.level_manager = level_manager
 
-	var group := GlobalConst.LevelGroup.CUSTOM if _is_custom else GlobalConst.LevelGroup.MAIN
-	GameManager.set_levels_context(group)
+	GameManager.set_levels_context(_level_group)
 	var level_data: LevelData = GameManager.get_active_level(_level_name)
 	level_manager.init_level.call_deferred(level_data)
 
@@ -92,5 +111,9 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 
 func _update_buttons(is_unlocked: bool) -> void:
-	unlock_delete_btn.disabled = is_unlocked if !_is_custom else false
+	match _level_group:
+		GlobalConst.LevelGroup.MAIN:
+			unlock_delete_btn.disabled = is_unlocked
+		GlobalConst.LevelGroup.CUSTOM:
+			unlock_delete_btn.disabled = false
 	play_btn.disabled = !is_unlocked
