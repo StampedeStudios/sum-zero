@@ -32,19 +32,19 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_play_btn_pressed():
-	var game_ui: GameUI
-	game_ui = GAME_UI.instantiate()
-	get_tree().root.add_child.call_deferred(game_ui)
-	GameManager.game_ui = game_ui
-
-	var level_manager: LevelManager
-	level_manager = LEVEL_MANAGER.instantiate()
-	get_tree().root.add_child.call_deferred(level_manager)
-	level_manager.set_manager_mode.call_deferred(false)
-	GameManager.level_manager = level_manager
-
 	var level_data: LevelData = GameManager.get_start_level_playable()
 	if level_data != null:
+		var game_ui: GameUI
+		game_ui = GAME_UI.instantiate()
+		get_tree().root.add_child.call_deferred(game_ui)
+		GameManager.game_ui = game_ui
+
+		var level_manager: LevelManager
+		level_manager = LEVEL_MANAGER.instantiate()
+		get_tree().root.add_child.call_deferred(level_manager)
+		level_manager.set_manager_mode.call_deferred(false)
+		GameManager.level_manager = level_manager
+
 		level_manager.init_level.call_deferred(level_data)
 
 

@@ -22,7 +22,8 @@ func initialize_player_save(save: LevelContainer) -> void:
 			progress.move_left = -1000
 			custom_progress[level_name] = progress
 	# unlock first main level
-	persistent_progress.get(save.get_level_by_index(0)).is_unlocked = true
+	if save.levels.size() > 0:
+		persistent_progress.get(save.get_level_by_index(0)).is_unlocked = true
 
 
 func reset_progress(group: GlobalConst.LevelGroup, level_name: String) -> void:
