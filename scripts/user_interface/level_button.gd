@@ -15,7 +15,7 @@ const THREE_STARS = preload("res://assets/ui/three_stars.png")
 
 var _level_name: String
 var _progress: LevelProgress
-var _is_custom: bool
+var _level_group: GlobalConst.LevelGroup
 
 
 func _ready() -> void:
@@ -44,7 +44,7 @@ func _pressed() -> void:
 		GameManager.level_inspect = inspect_instance
 
 	GameManager.level_inspect.level_unlocked.connect(_unlock_level)
-	GameManager.level_inspect.init_inspector(_level_name, _progress, _is_custom)
+	GameManager.level_inspect.init_inspector(_level_name, _progress, _level_group)
 	GameManager.change_state(GlobalConst.GameState.LEVEL_INSPECT)
 
 
@@ -52,7 +52,7 @@ func _get_minimum_size() -> Vector2:
 	return Vector2(300, 300)
 
 
-func construct(level_name: String, progress: LevelProgress, is_custom: bool) -> void:
+func construct(level_name: String, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
 	if !progress.is_unlocked:
 		icon = LOCK_ICON
 	elif progress.is_completed:
@@ -63,8 +63,8 @@ func construct(level_name: String, progress: LevelProgress, is_custom: bool) -> 
 
 	_level_name = level_name
 	_progress = progress
-	_is_custom = is_custom
-
+	_level_group = group
+	
 
 func _count_stars(moves_left: int) -> int:
 	# Less than -2 moves is equal to 0 stars. Zero or more moves are equivalent to 3 stars

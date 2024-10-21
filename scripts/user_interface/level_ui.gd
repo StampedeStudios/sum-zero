@@ -48,7 +48,7 @@ func _update_content() -> void:
 	for _name in levels_progress.keys():
 		var button := LevelButton.new()
 		var progress := levels_progress.get(_name) as LevelProgress
-		button.construct(_name, progress, _world == GlobalConst.LevelGroup.CUSTOM)
+		button.construct(_name, progress, _world)
 		_visible_buttons.append(button)
 
 	# Fill remaining slots with placeholders

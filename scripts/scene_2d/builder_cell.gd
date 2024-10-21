@@ -95,6 +95,11 @@ func _change_color(new_color: Color) -> void:
 	cell.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, new_color)
 
 
+func set_cell_data(cell_data: CellData) -> void:
+	_data = cell_data.duplicate()
+	_change_aspect()
+	
+
 func clear_cell() -> void:
 	_data = CellData.new()
 	target_value_txt.visible = false

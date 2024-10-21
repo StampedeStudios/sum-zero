@@ -24,10 +24,6 @@ func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
 	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
 	grid.position = get_viewport_rect().get_center()
-	_level_data = LevelData.new()
-	_level_data.width = 3
-	_level_data.height = 3
-	_construct_level()
 
 
 func _on_scale_change(new_scale: Vector2) -> void:
@@ -101,7 +97,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _construct_level() -> void:
+func construct_level(level_data: LevelData = null) -> void:
+	if level_data != null:
+		_level_data = level_data
+		
 	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
 	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
 	var old_collection: Dictionary
@@ -123,6 +122,8 @@ func _construct_level() -> void:
 				cell.on_cell_change.connect(_on_cell_change)
 				cell.start_multiselection.connect(_start_multiselection)
 				_cell_collection[cell_coord] = cell
+				if _level_data.cells_list.has(cell_coord):
+					cell.set_cell_data(_level_data.cells_list.get(cell_coord))
 
 			cell.position = -half_grid + half_cell + cell_pos
 
@@ -148,6 +149,8 @@ func _construct_level() -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
+			if _level_data.slider_list.has(slider_coord):
+				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -167,6 +170,8 @@ func _construct_level() -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
+			if _level_data.slider_list.has(slider_coord):
+				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -186,6 +191,8 @@ func _construct_level() -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
+			if _level_data.slider_list.has(slider_coord):
+				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -205,6 +212,8 @@ func _construct_level() -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
+			if _level_data.slider_list.has(slider_coord):
+				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -312,12 +321,12 @@ func _reset_builder_grid():
 
 func _on_width_change(new_width: int) -> void:
 	_level_data.width = new_width
-	_construct_level()
+	construct_level()
 
 
 func _on_height_change(new_height: int) -> void:
 	_level_data.height = new_height
-	_construct_level()
+	construct_level()
 
 
 func move_grid(offset: Vector2) -> void:

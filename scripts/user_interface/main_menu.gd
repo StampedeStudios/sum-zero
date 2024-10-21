@@ -65,6 +65,7 @@ func _on_editor_btn_pressed():
 	var level_builder: LevelBuilder
 	level_builder = LEVEL_BUILDER.instantiate()
 	get_tree().root.add_child.call_deferred(level_builder)
+	level_builder.construct_level.call_deferred(LevelData.new())
 	GameManager.level_builder = level_builder
 
 	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)

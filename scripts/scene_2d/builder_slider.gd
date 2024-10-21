@@ -133,6 +133,11 @@ func _change_aspect() -> void:
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, Color.WHITE)
 
 
+func set_slider_data(slider_data: SliderData) -> void:
+	_data = slider_data
+	_change_aspect()
+	
+
 func clear_slider() -> void:
 	var color: Color
 	color = GameManager.palette.builder_slider_color
