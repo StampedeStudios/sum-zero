@@ -5,8 +5,10 @@ class_name LevelContainer extends Resource
 
 
 func get_level_by_index(level_index: int) -> String:
-	return levels_order[level_index]
-
+	if levels_order.size() > level_index:
+		return levels_order[level_index]
+	return ""
+	
 
 func get_levels_group_by_index(pivot: int, group_size: int) -> Array[String]:
 	var levels_group: Array[String]
