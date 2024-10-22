@@ -44,6 +44,7 @@ func _pressed() -> void:
 		GameManager.level_inspect = inspect_instance
 
 	GameManager.level_inspect.level_unlocked.connect(_unlock_level)
+	GameManager.level_inspect.level_deleted.connect(_delete_level)
 	GameManager.level_inspect.init_inspector(_level_name, _progress, _level_group)
 	GameManager.change_state(GlobalConst.GameState.LEVEL_INSPECT)
 
@@ -73,6 +74,10 @@ func _count_stars(moves_left: int) -> int:
 
 func _unlock_level() -> void:
 	icon = PLAY_ICON
+
+
+func _delete_level() -> void:
+	self.queue_free.call_deferred()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
