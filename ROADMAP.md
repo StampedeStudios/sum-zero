@@ -35,7 +35,7 @@ This document represent a sharable roadmap that contains all main activities and
 	- Texture blocked tile;
 	- Resize icon;
 	- Level menu;
-- [-] Level select menu;
+- [x] Level select menu;
 	- Deletion;
 	- Load in editor;
 - [ ] Tutorial;
