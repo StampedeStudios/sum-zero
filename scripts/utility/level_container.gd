@@ -10,10 +10,10 @@ func get_level_by_index(level_index: int) -> String:
 	return ""
 	
 
-func get_levels_group_by_index(pivot: int, group_size: int) -> Array[String]:
+func get_levels_group_by_index(min_index: int, max_index: int) -> Array[String]:
 	var levels_group: Array[String]
-	var last := mini(levels_order.size(), pivot + group_size)
-	for level_index in range(pivot, last):
+	max_index = mini(max_index, levels_order.size())
+	for level_index in range(min_index, max_index):
 		levels_group.append(levels_order[level_index])
 	return levels_group
 
