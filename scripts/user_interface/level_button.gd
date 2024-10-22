@@ -1,5 +1,7 @@
 class_name LevelButton extends Button
 
+signal on_delete_level_button(ref: LevelButton)
+
 # Styles
 const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button.tres")
 const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
@@ -16,10 +18,6 @@ const THREE_STARS = preload("res://assets/ui/three_stars.png")
 var _level_name: String
 var _progress: LevelProgress
 var _level_group: GlobalConst.LevelGroup
-
-
-func _ready() -> void:
-	GameManager.on_state_change.connect(_on_state_change)
 
 
 func _draw():
@@ -43,10 +41,9 @@ func _pressed() -> void:
 		get_tree().root.add_child(inspect_instance)
 		GameManager.level_inspect = inspect_instance
 
-	GameManager.level_inspect.level_unlocked.connect(_unlock_level)
-	GameManager.level_inspect.level_deleted.connect(_delete_level)
-	GameManager.level_inspect.init_inspector(_level_name, _progress, _level_group)
-	GameManager.change_state(GlobalConst.GameState.LEVEL_INSPECT)
+	_toggle_connection.call_deferred(true)
+	GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress, _level_group)
+	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
 
 
 func _get_minimum_size() -> Vector2:
@@ -76,13 +73,25 @@ func _unlock_level() -> void:
 	icon = PLAY_ICON
 
 
-func _delete_level() -> void:
+func _delete_level_button() -> void:
+	on_delete_level_button.emit(self)
 	self.queue_free.call_deferred()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.LEVEL_PICK:
-			if GameManager.level_inspect != null:
-				if GameManager.level_inspect.level_unlocked.is_connected(_unlock_level):
-					GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
+			_toggle_connection.call_deferred(false)
+
+
+func _toggle_connection(is_connect: bool) -> void:
+	if is_connect:
+		GameManager.on_state_change.connect(_on_state_change)
+		GameManager.level_inspect.level_unlocked.connect(_unlock_level)
+		GameManager.level_inspect.level_deleted.connect(_delete_level_button)
+	else:
+		GameManager.on_state_change.disconnect(_on_state_change)
+		GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
+		GameManager.level_inspect.level_deleted.disconnect(_delete_level_button)
+				
+		

@@ -154,25 +154,10 @@ func update_level_progress(move_left: int) -> bool:
 		active_progress.is_completed = true
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
 	return is_record
+	
 
-
-func has_next_page(group: GlobalConst.LevelGroup, page: int, size: int) -> bool:
-	var last_in_page: int = page * size
-	var last_level: int
-	match group:
-		GlobalConst.LevelGroup.CUSTOM:
-			if _player_save.custom_levels == null:
-				return false
-			last_level = _player_save.custom_levels.levels.size()
-		GlobalConst.LevelGroup.MAIN:
-			last_level = _persistent_save.levels.size()
-	return last_level > last_in_page
-
-
-func get_page_levels(group: GlobalConst.LevelGroup, page: int, size: int) -> Dictionary:
+func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Dictionary:
 	var levels_in_page: Dictionary
-	var min_index: int = (page - 1) * size
-	var max_index: int = page * size
 	var temp_levels: LevelContainer
 	var temp_progress: Dictionary
 	match group:
@@ -183,7 +168,7 @@ func get_page_levels(group: GlobalConst.LevelGroup, page: int, size: int) -> Dic
 			temp_levels = _persistent_save
 			temp_progress = _player_save.persistent_progress
 	if temp_levels != null:
-		for level_name in temp_levels.get_levels_group_by_index(min_index, max_index):
+		for level_name in temp_levels.get_levels_group_by_index(first - 1, last):
 			levels_in_page[level_name] = temp_progress.get(level_name)
 	return levels_in_page
 
