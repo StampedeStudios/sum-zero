@@ -1,5 +1,6 @@
 class_name LevelInspect extends Control
 
+signal level_deleted
 signal level_unlocked
 
 const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
@@ -52,9 +53,10 @@ func _on_unlock_delete_btn_pressed() -> void:
 			_update_buttons(true)
 			level_unlocked.emit()
 		GlobalConst.LevelGroup.CUSTOM:
-			# TODO: Handle deletion
-			pass
-
+			GameManager.delete_level(_level_name) 
+			level_deleted.emit()
+			GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
+			
 
 func _on_build_btn_pressed() -> void:
 	var builder_ui: BuilderUI

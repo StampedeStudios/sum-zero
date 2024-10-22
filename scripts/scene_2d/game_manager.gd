@@ -195,3 +195,8 @@ func is_level_completed() -> bool:
 func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
 	_player_save.unlock_level(group, level_name)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	
+
+func delete_level(level_name: String) -> void:
+	_player_save.delete_level(level_name)
+	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
