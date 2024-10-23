@@ -62,7 +62,7 @@ func construct(level_name: String, progress: LevelProgress, group: GlobalConst.L
 	_level_name = level_name
 	_progress = progress
 	_level_group = group
-	
+
 
 func _count_stars(moves_left: int) -> int:
 	# Less than -2 moves is equal to 0 stars. Zero or more moves are equivalent to 3 stars
@@ -93,5 +93,3 @@ func _toggle_connection(is_connect: bool) -> void:
 		GameManager.on_state_change.disconnect(_on_state_change)
 		GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
 		GameManager.level_inspect.level_deleted.disconnect(_delete_level_button)
-				
-		

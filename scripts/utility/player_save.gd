@@ -44,7 +44,7 @@ func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
 			persistent_progress.get(level_name).is_unlocked = true
 		GlobalConst.LevelGroup.CUSTOM:
 			custom_progress.get(level_name).is_unlocked = true
-			
+
 
 func delete_level(level_name: String) -> void:
 	custom_progress.erase(level_name)

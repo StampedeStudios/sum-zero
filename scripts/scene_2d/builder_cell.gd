@@ -98,7 +98,7 @@ func _change_color(new_color: Color) -> void:
 func set_cell_data(cell_data: CellData) -> void:
 	_data = cell_data.duplicate()
 	_change_aspect()
-	
+
 
 func clear_cell() -> void:
 	_data = CellData.new()
