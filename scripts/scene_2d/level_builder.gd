@@ -100,7 +100,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 func construct_level(level_data: LevelData = null) -> void:
 	if level_data != null:
 		_level_data = level_data
-		
+
 	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
 	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
 	var old_collection: Dictionary

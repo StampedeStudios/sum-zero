@@ -8,7 +8,7 @@ func get_level_by_index(level_index: int) -> String:
 	if levels_order.size() > level_index:
 		return levels_order[level_index]
 	return ""
-	
+
 
 func get_levels_group_by_index(min_index: int, max_index: int) -> Array[String]:
 	var levels_group: Array[String]

@@ -38,7 +38,7 @@ func init_inspector(level_name: String, progress: LevelProgress, group: GlobalCo
 	level_score_img.material.set_shader_parameter("percentage", percentage)
 	build_btn.disabled = !progress.is_completed
 	_update_buttons(progress.is_unlocked)
-	
+
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
 			unlock_delete_btn.icon = UNLOCK_ICON
@@ -53,10 +53,10 @@ func _on_unlock_delete_btn_pressed() -> void:
 			_update_buttons(true)
 			level_unlocked.emit()
 		GlobalConst.LevelGroup.CUSTOM:
-			GameManager.delete_level(_level_name) 
+			GameManager.delete_level(_level_name)
 			level_deleted.emit()
 			GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
-			
+
 
 func _on_build_btn_pressed() -> void:
 	var builder_ui: BuilderUI
@@ -68,7 +68,7 @@ func _on_build_btn_pressed() -> void:
 	level_builder = LEVEL_BUILDER.instantiate()
 	get_tree().root.add_child.call_deferred(level_builder)
 	GameManager.level_builder = level_builder
-	
+
 	GameManager.set_levels_context(_level_group)
 	var level_data: LevelData = GameManager.get_active_level(_level_name)
 	level_builder.construct_level.call_deferred(level_data.duplicate())

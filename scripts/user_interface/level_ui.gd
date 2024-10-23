@@ -38,29 +38,29 @@ func _on_exit_btn_pressed() -> void:
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
-func _update_content() -> void:	
+func _update_content() -> void:
 	var first_level: int = (_current_page - 1) * PAGE_SIZE + 1
 	var last_level: int = _current_page * PAGE_SIZE
 	title.text = "%d ~ %d" % [first_level, last_level]
-	
-	var levels_progress: Dictionary 
+
+	var levels_progress: Dictionary
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, first_level, last_level + 1)
 	_update_buttons(levels_progress.size() > PAGE_SIZE)
-	
+
 	var max_level_btn := mini(levels_progress.size(), PAGE_SIZE)
-	# remove excess level button 
+	# remove excess level button
 	while _level_buttons.size() > max_level_btn:
 		var button: LevelButton = _level_buttons.pop_back()
 		button.queue_free()
-	# remove excess placeholder button 
+	# remove excess placeholder button
 	while _placeholder_buttons.size() > PAGE_SIZE - max_level_btn:
 		var button: PlaceholderButton = _placeholder_buttons.pop_back()
 		button.queue_free()
-		
+
 	var level_btn_count := _level_buttons.size()
 	var placeholder_btn_count := _placeholder_buttons.size()
-	for btn_index in range(0,PAGE_SIZE):
+	for btn_index in range(0, PAGE_SIZE):
 		if btn_index < levels_progress.size():
 			# add level button
 			var level_button: LevelButton
@@ -75,7 +75,7 @@ func _update_content() -> void:
 				_level_buttons.append(level_button)
 				level_grid.add_child(level_button)
 			level_button.construct(level_name, progress, _world)
-			level_grid.move_child(level_button,btn_index)
+			level_grid.move_child(level_button, btn_index)
 		else:
 			# add placeholder button
 			var placeholder_button: PlaceholderButton
@@ -87,7 +87,7 @@ func _update_content() -> void:
 				_placeholder_buttons.append(placeholder_button)
 				level_grid.add_child(placeholder_button)
 			placeholder_button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
-	
+
 
 func _update_last_level(ref: LevelButton) -> void:
 	_level_buttons.erase(ref)
@@ -96,9 +96,9 @@ func _update_last_level(ref: LevelButton) -> void:
 		_current_page -= 1
 		_update_content()
 		return
-		
+
 	var last_level: int = _current_page * PAGE_SIZE
-	var levels_progress: Dictionary 
+	var levels_progress: Dictionary
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, last_level, last_level + 1)
 	_update_buttons(levels_progress.size() > 1)
@@ -107,7 +107,7 @@ func _update_last_level(ref: LevelButton) -> void:
 		# add level button
 		var level_name: String = levels_progress.keys()[0]
 		var progress: LevelProgress = levels_progress.get(level_name)
-		var level_button := LevelButton.new()		
+		var level_button := LevelButton.new()
 		level_button.on_delete_level_button.connect(_update_last_level)
 		_level_buttons.append(level_button)
 		level_grid.add_child(level_button)
@@ -118,7 +118,7 @@ func _update_last_level(ref: LevelButton) -> void:
 		_placeholder_buttons.append(placeholder_button)
 		level_grid.add_child(placeholder_button)
 		placeholder_button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
-		
+
 
 func _on_left_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
