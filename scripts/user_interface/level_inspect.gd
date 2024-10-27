@@ -49,8 +49,7 @@ func init_inspector(level_name: String, progress: LevelProgress, group: GlobalCo
 			encoding_group.show()
 			GameManager.set_levels_context(_level_group)
 			var level_data: LevelData = GameManager.get_active_level(_level_name)
-			var encoder := Encoder.new()
-			var encode_data := encoder.encode(level_data)
+			var encode_data := Encoder.encode(level_data)
 			encodig_level.text = encode_data
 			unlock_delete_btn.icon = TRASH_ICON
 
