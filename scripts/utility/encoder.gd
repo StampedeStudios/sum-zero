@@ -73,7 +73,7 @@ const FULL_BEHAVIOR := "full"
 # OPTIMIZE SLIDER: each group of spaces is indicated with a number
 
 
-func encode(data: LevelData) -> String:
+static func encode(data: LevelData) -> String:
 	var encode_data := ""
 	var level_size := Vector2i(data.width, data.height)
 	encode_data += MOVES[data.moves_left]
@@ -93,7 +93,7 @@ func encode(data: LevelData) -> String:
 	return encode_data
 	
 	
-func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count: int = 1
@@ -124,7 +124,7 @@ func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i) -> St
 	return encode_cells
 	
 	
-func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count: int = 1
@@ -155,7 +155,7 @@ func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) -> Stri
 	return encode_cells
 	
 	
-func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_sliders := ""
 	var empty_count: int = 0
 	for edge in range(4):
@@ -173,7 +173,7 @@ func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> String:
 	return encode_sliders
 	
 	
-func _encode_slider(slider_data: SliderData) -> String:
+static func _encode_slider(slider_data: SliderData) -> String:
 	var encode_slider := ""
 	match slider_data.area_effect:
 		GlobalConst.AreaEffect.ADD:
@@ -193,7 +193,7 @@ func _encode_slider(slider_data: SliderData) -> String:
 	return SLIDER.find_key(encode_slider)
 		
 
-func decode(encode_data: String) -> LevelData:
+static func decode(encode_data: String) -> LevelData:
 	var data := LevelData.new()
 	var splitted_data := encode_data.split("-")
 	var moves_left := _decode_moves(encode_data[0])
@@ -224,14 +224,14 @@ func decode(encode_data: String) -> LevelData:
 	return data
 
 
-func _decode_moves(letter: String) -> int:
+static func _decode_moves(letter: String) -> int:
 	for index in range(MOVES.size()):
 		if letter == MOVES[index]:
 			return index
 	return -1
 	
 	
-func _decode_cell_list(encode_data: String, level_size: Vector2i, order: CellOrder) -> Dictionary:
+static func _decode_cell_list(encode_data: String, level_size: Vector2i, order: CellOrder) -> Dictionary:
 	var cell_list: Dictionary
 	var cell_count := level_size.x * level_size.y
 	var count: int = 0
@@ -261,7 +261,7 @@ func _decode_cell_list(encode_data: String, level_size: Vector2i, order: CellOrd
 	return cell_list
 
 
-func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, order: CellOrder) -> Vector2i:
+static func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, order: CellOrder) -> Vector2i:
 	var column := last_coord.x
 	var row := last_coord.y
 	match order:
@@ -278,7 +278,7 @@ func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, order: Cel
 	return Vector2i(column, row)
 
 	
-func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary:
+static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary:
 	var slider_list: Dictionary
 	var slider_count := level_size.x * 2 + level_size.y * 2
 	var slider_coord := Vector2i.ZERO
@@ -319,7 +319,7 @@ func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionar
 	return slider_list
 
 
-func _get_next_slider_coord(last_coord: Vector2i, level_size: Vector2i, offset: int) -> Vector2i:
+static func _get_next_slider_coord(last_coord: Vector2i, level_size: Vector2i, offset: int) -> Vector2i:
 	var edge := last_coord.x
 	var pos := last_coord.y
 	while offset > 0:
