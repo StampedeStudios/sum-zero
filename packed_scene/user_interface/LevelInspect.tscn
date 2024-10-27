@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene load_steps=12 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_5ka5h"]
 [ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
+[ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="6_5p5u2"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
@@ -82,6 +83,41 @@ size_flags_vertical = 3
 texture = ExtResource("4_5ka5h")
 expand_mode = 3
 
+[node name="EncodingGroup" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="EncodigLevel" type="LineEdit" parent="Background/Panel/VBoxContainer/EncodingGroup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("3_3an21")
+theme_override_styles/read_only = ExtResource("6_5p5u2")
+alignment = 1
+editable = false
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="CopyBtn" type="Button" parent="Background/Panel/VBoxContainer/EncodingGroup"]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("3_3an21")
+icon = ExtResource("6_aqsoc")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+expand_icon = true
+
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -114,6 +150,7 @@ theme = ExtResource("3_3an21")
 icon = ExtResource("6_aqsoc")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="pressed" from="Background/Panel/VBoxContainer/EncodingGroup/CopyBtn" to="." method="_on_copy_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/UnlockDeleteBtn" to="." method="_on_unlock_delete_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/BuildBtn" to="." method="_on_build_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/PlayBtn" to="." method="_on_play_btn_pressed"]
