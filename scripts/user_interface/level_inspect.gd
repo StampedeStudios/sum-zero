@@ -18,6 +18,8 @@ var _level_group: GlobalConst.LevelGroup
 @onready var unlock_delete_btn: Button = %UnlockDeleteBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
+@onready var encodig_level: LineEdit = %EncodigLevel
+@onready var encoding_group: HBoxContainer = %EncodingGroup
 
 
 func _ready() -> void:
@@ -42,7 +44,14 @@ func init_inspector(level_name: String, progress: LevelProgress, group: GlobalCo
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
 			unlock_delete_btn.icon = UNLOCK_ICON
+			encoding_group.hide()
 		GlobalConst.LevelGroup.CUSTOM:
+			encoding_group.show()
+			GameManager.set_levels_context(_level_group)
+			var level_data: LevelData = GameManager.get_active_level(_level_name)
+			var encoder := Encoder.new()
+			var encode_data := encoder.encode(level_data)
+			encodig_level.text = encode_data
 			unlock_delete_btn.icon = TRASH_ICON
 
 
@@ -119,3 +128,7 @@ func _update_buttons(is_unlocked: bool) -> void:
 		GlobalConst.LevelGroup.CUSTOM:
 			unlock_delete_btn.disabled = false
 	play_btn.disabled = !is_unlocked
+
+
+func _on_copy_btn_pressed() -> void:
+	DisplayServer.clipboard_set(encodig_level.text)
