@@ -6,6 +6,7 @@ signal on_delete_level_button(ref: LevelButton)
 const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button.tres")
 const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
 const LEVEL_INSPECT = preload("res://packed_scene/user_interface/LevelInspect.tscn")
+const CUSTOM_LEVEL_INSPECT = preload("res://packed_scene/user_interface/CustomLevelInspect.tscn")
 
 # Icons
 const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_icon.png")
@@ -37,13 +38,24 @@ func _init() -> void:
 
 func _pressed() -> void:
 	if !GameManager.level_inspect:
-		var inspect_instance = LEVEL_INSPECT.instantiate()
-		get_tree().root.add_child(inspect_instance)
-		GameManager.level_inspect = inspect_instance
+		match _level_group:
+			GlobalConst.LevelGroup.MAIN:
+				var inspect_instance = LEVEL_INSPECT.instantiate()
+				get_tree().root.add_child(inspect_instance)
+				GameManager.level_inspect = inspect_instance
+				_toggle_connection.call_deferred(true)
 
-	_toggle_connection.call_deferred(true)
-	GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress, _level_group)
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
+				GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress)
+				GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
+
+			GlobalConst.LevelGroup.CUSTOM:
+				var inspect_instance = CUSTOM_LEVEL_INSPECT.instantiate()
+				get_tree().root.add_child(inspect_instance)
+				GameManager.custom_inspect = inspect_instance
+				_toggle_connection.call_deferred(true)
+
+				GameManager.custom_inspect.init_inspector.call_deferred(_level_name, _progress)
+				GameManager.change_state.call_deferred(GlobalConst.GameState.CUSTOM_LEVEL_INSPECT)
 
 
 func _get_minimum_size() -> Vector2:
@@ -87,9 +99,15 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 func _toggle_connection(is_connect: bool) -> void:
 	if is_connect:
 		GameManager.on_state_change.connect(_on_state_change)
-		GameManager.level_inspect.level_unlocked.connect(_unlock_level)
-		GameManager.level_inspect.level_deleted.connect(_delete_level_button)
+		match _level_group:
+			GlobalConst.LevelGroup.MAIN:
+				GameManager.level_inspect.level_unlocked.connect(_unlock_level)
+			GlobalConst.LevelGroup.CUSTOM:
+				GameManager.custom_inspect.level_deleted.connect(_delete_level_button)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
-		GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
-		GameManager.level_inspect.level_deleted.disconnect(_delete_level_button)
+		match _level_group:
+			GlobalConst.LevelGroup.MAIN:
+				GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
+			GlobalConst.LevelGroup.CUSTOM:
+				GameManager.custom_inspect.level_deleted.disconnect(_delete_level_button)

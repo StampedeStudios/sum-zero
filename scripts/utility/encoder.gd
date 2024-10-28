@@ -1,56 +1,111 @@
 class_name Encoder
 
-const MOVES: PackedStringArray = [
-	'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
-	'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-	'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
-	'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-	]
-const SIZE: Dictionary = {
-	"a" : Vector2i(2,2),
-	"b" : Vector2i(2,3),
-	"c" : Vector2i(2,4),
-	"d" : Vector2i(2,5),
-	"f" : Vector2i(3,2),
-	"g" : Vector2i(3,3),
-	"h" : Vector2i(3,4),
-	"i" : Vector2i(3,5),
-	"k" : Vector2i(4,2),
-	"l" : Vector2i(4,3),
-	"m" : Vector2i(4,4),
-	"n" : Vector2i(4,5),
-	"p" : Vector2i(5,2),
-	"q" : Vector2i(5,3),
-	"r" : Vector2i(5,4),
-	"s" : Vector2i(5,5)
-}
 enum CellOrder { ORIZZONTAL, VERTICAL }
-const CELL_ORDER: Dictionary = {
-	"o" : CellOrder.ORIZZONTAL,
-	"v" : CellOrder.VERTICAL
+const MOVES: PackedStringArray = [
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"a",
+	"b",
+	"c",
+	"d",
+	"e",
+	"f",
+	"g",
+	"h",
+	"i",
+	"j",
+	"k",
+	"l",
+	"m",
+	"n",
+	"o",
+	"p",
+	"q",
+	"r",
+	"s",
+	"t",
+	"u",
+	"v",
+	"w",
+	"x",
+	"y",
+	"z",
+	"A",
+	"B",
+	"C",
+	"D",
+	"E",
+	"F",
+	"G",
+	"H",
+	"I",
+	"J",
+	"K",
+	"L",
+	"M",
+	"N",
+	"O",
+	"P",
+	"Q",
+	"R",
+	"S",
+	"T",
+	"U",
+	"V",
+	"W",
+	"X",
+	"Y",
+	"Z"
+]
+const SIZE: Dictionary = {
+	"a": Vector2i(2, 2),
+	"b": Vector2i(2, 3),
+	"c": Vector2i(2, 4),
+	"d": Vector2i(2, 5),
+	"f": Vector2i(3, 2),
+	"g": Vector2i(3, 3),
+	"h": Vector2i(3, 4),
+	"i": Vector2i(3, 5),
+	"k": Vector2i(4, 2),
+	"l": Vector2i(4, 3),
+	"m": Vector2i(4, 4),
+	"n": Vector2i(4, 5),
+	"p": Vector2i(5, 2),
+	"q": Vector2i(5, 3),
+	"r": Vector2i(5, 4),
+	"s": Vector2i(5, 5)
 }
+const CELL_ORDER: Dictionary = {"o": CellOrder.ORIZZONTAL, "v": CellOrder.VERTICAL}
 const CELL_VALUE: Dictionary = {
-	"f" : -4,
-	"g" : -3,
-	"h" : -2,
-	"i" : -1,
-	"j" : 0,
-	"k" : 1,
-	"l" : 2,
-	"m" : 3,
-	"n" : 4,
+	"f": -4,
+	"g": -3,
+	"h": -2,
+	"i": -1,
+	"j": 0,
+	"k": 1,
+	"l": 2,
+	"m": 3,
+	"n": 4,
 }
 const CELL_EMPTY := "z"
 const CELL_BLOCKED := "x"
 const SLIDER: Dictionary = {
-	"a" : ADD_EFFECT + "_" + BY_STEP_BEHAVIOR,
-	"b" : SUBTRACT_EFFECT + "_" + BY_STEP_BEHAVIOR,
-	"c" : CHANGE_SIGN_EFFECT + "_" + BY_STEP_BEHAVIOR,
-	"d" : BLOCK_EFFECT + "_" + BY_STEP_BEHAVIOR,
-	"i" : ADD_EFFECT + "_" + FULL_BEHAVIOR,
-	"j" : SUBTRACT_EFFECT + "_" + FULL_BEHAVIOR,
-	"k" : CHANGE_SIGN_EFFECT + "_" + FULL_BEHAVIOR,
-	"l" : BLOCK_EFFECT + "_" + FULL_BEHAVIOR
+	"a": ADD_EFFECT + "_" + BY_STEP_BEHAVIOR,
+	"b": SUBTRACT_EFFECT + "_" + BY_STEP_BEHAVIOR,
+	"c": CHANGE_SIGN_EFFECT + "_" + BY_STEP_BEHAVIOR,
+	"d": BLOCK_EFFECT + "_" + BY_STEP_BEHAVIOR,
+	"i": ADD_EFFECT + "_" + FULL_BEHAVIOR,
+	"j": SUBTRACT_EFFECT + "_" + FULL_BEHAVIOR,
+	"k": CHANGE_SIGN_EFFECT + "_" + FULL_BEHAVIOR,
+	"l": BLOCK_EFFECT + "_" + FULL_BEHAVIOR
 }
 const ADD_EFFECT := "plus"
 const SUBTRACT_EFFECT := "minus"
@@ -58,7 +113,6 @@ const CHANGE_SIGN_EFFECT := "invert"
 const BLOCK_EFFECT := "block"
 const BY_STEP_BEHAVIOR := "bystep"
 const FULL_BEHAVIOR := "full"
-
 
 # letter 1 = Moves_left
 # letter 2 = Grid size
@@ -87,19 +141,19 @@ static func encode(data: LevelData) -> String:
 	else:
 		encode_data += CELL_ORDER.find_key(CellOrder.ORIZZONTAL)
 		encode_data += "-"
-		encode_data += encode_orizzontal		
+		encode_data += encode_orizzontal
 	encode_data += "-"
 	encode_data += _encode_sliders(data.slider_list, level_size)
 	return encode_data
-	
-	
+
+
 static func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count: int = 1
 	for row in range(level_size.y):
 		for column in range(level_size.x):
-			var cell_coord := Vector2i(column,row)
+			var cell_coord := Vector2i(column, row)
 			var current := ""
 			if cell_list.has(cell_coord):
 				var cell := cell_list.get(cell_coord) as CellData
@@ -109,7 +163,7 @@ static func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i
 					current = CELL_VALUE.find_key(cell.value)
 			else:
 				current = CELL_EMPTY
-				
+
 			if current == last:
 				count += 1
 			else:
@@ -122,15 +176,15 @@ static func _encode_cells_orizzontal(cell_list: Dictionary, level_size: Vector2i
 		encode_cells += String.num_int64(count)
 	encode_cells += last
 	return encode_cells
-	
-	
+
+
 static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count: int = 1
 	for column in range(level_size.x):
 		for row in range(level_size.y):
-			var cell_coord := Vector2i(column,row)
+			var cell_coord := Vector2i(column, row)
 			var current := ""
 			if cell_list.has(cell_coord):
 				var cell := cell_list.get(cell_coord) as CellData
@@ -140,7 +194,7 @@ static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) 
 					current = CELL_VALUE.find_key(cell.value)
 			else:
 				current = CELL_EMPTY
-				
+
 			if current == last:
 				count += 1
 			else:
@@ -153,8 +207,8 @@ static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) 
 		encode_cells += String.num_int64(count)
 	encode_cells += last
 	return encode_cells
-	
-	
+
+
 static func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> String:
 	var encode_sliders := ""
 	var empty_count: int = 0
@@ -171,8 +225,8 @@ static func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> St
 			else:
 				empty_count += 1
 	return encode_sliders
-	
-	
+
+
 static func _encode_slider(slider_data: SliderData) -> String:
 	var encode_slider := ""
 	match slider_data.area_effect:
@@ -185,13 +239,13 @@ static func _encode_slider(slider_data: SliderData) -> String:
 		GlobalConst.AreaEffect.BLOCK:
 			encode_slider += BLOCK_EFFECT
 	encode_slider += "_"
-	match  slider_data.area_behavior:
+	match slider_data.area_behavior:
 		GlobalConst.AreaBehavior.FULL:
 			encode_slider += FULL_BEHAVIOR
 		GlobalConst.AreaBehavior.BY_STEP:
 			encode_slider += BY_STEP_BEHAVIOR
 	return SLIDER.find_key(encode_slider)
-		
+
 
 static func decode(encode_data: String) -> LevelData:
 	var data := LevelData.new()
@@ -229,9 +283,11 @@ static func _decode_moves(letter: String) -> int:
 		if letter == MOVES[index]:
 			return index
 	return -1
-	
-	
-static func _decode_cell_list(encode_data: String, level_size: Vector2i, order: CellOrder) -> Dictionary:
+
+
+static func _decode_cell_list(
+	encode_data: String, level_size: Vector2i, order: CellOrder
+) -> Dictionary:
 	var cell_list: Dictionary
 	var cell_count := level_size.x * level_size.y
 	var count: int = 0
@@ -242,7 +298,7 @@ static func _decode_cell_list(encode_data: String, level_size: Vector2i, order: 
 				count *= 10
 			count += letter.to_int()
 		else:
-			count = maxi(1,count)
+			count = maxi(1, count)
 			cell_count -= count
 			if cell_count < 0:
 				return {}
@@ -261,7 +317,9 @@ static func _decode_cell_list(encode_data: String, level_size: Vector2i, order: 
 	return cell_list
 
 
-static func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, order: CellOrder) -> Vector2i:
+static func _get_next_cell_coord(
+	last_coord: Vector2i, level_size: Vector2i, order: CellOrder
+) -> Vector2i:
 	var column := last_coord.x
 	var row := last_coord.y
 	match order:
@@ -269,7 +327,7 @@ static func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, ord
 			column += 1
 			if column >= level_size.x:
 				column = 0
-				row += 1	
+				row += 1
 		CellOrder.VERTICAL:
 			row += 1
 			if row >= level_size.y:
@@ -277,7 +335,7 @@ static func _get_next_cell_coord(last_coord: Vector2i, level_size: Vector2i, ord
 				row = 0
 	return Vector2i(column, row)
 
-	
+
 static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary:
 	var slider_list: Dictionary
 	var slider_count := level_size.x * 2 + level_size.y * 2
@@ -296,7 +354,7 @@ static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Di
 				slider_coord = _get_next_slider_coord(slider_coord, level_size, count)
 				count = 0
 			var slider := SliderData.new()
-			var encode_slider_data : String = SLIDER.get(letter) as String
+			var encode_slider_data: String = SLIDER.get(letter) as String
 			match encode_slider_data.split("_")[0]:
 				ADD_EFFECT:
 					slider.area_effect = GlobalConst.AreaEffect.ADD
@@ -319,7 +377,9 @@ static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Di
 	return slider_list
 
 
-static func _get_next_slider_coord(last_coord: Vector2i, level_size: Vector2i, offset: int) -> Vector2i:
+static func _get_next_slider_coord(
+	last_coord: Vector2i, level_size: Vector2i, offset: int
+) -> Vector2i:
 	var edge := last_coord.x
 	var pos := last_coord.y
 	while offset > 0:

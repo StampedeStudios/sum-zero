@@ -6,4 +6,3 @@ void fragment() {
     // Sample the texture with the animated UV coordinates.
     COLOR = texture(TEXTURE, vec2(UV.x + TIME * speed, UV.y));
 }
-
