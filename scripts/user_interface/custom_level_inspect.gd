@@ -1,6 +1,6 @@
-class_name LevelInspect extends Control
+class_name CustomLevelInspect extends Control
 
-signal level_unlocked
+signal level_deleted
 
 const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
 const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
@@ -8,10 +8,11 @@ const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
 
 var _level_name: String
+var _level_code: String
 
 @onready var label: Label = %LevelName
 @onready var level_score_img: TextureRect = %LevelScoreImg
-@onready var unlock_btn: Button = %UnlockBtn
+@onready var delete_btn: Button = %DeleteBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var copy_btn: Button = %CopyBtn
@@ -32,8 +33,11 @@ func init_inspector(level_name: String, progress: LevelProgress):
 		percentage = 0
 
 	level_score_img.material.set_shader_parameter("percentage", percentage)
-	build_btn.disabled = !progress.is_completed
-	_update_buttons(progress.is_unlocked)
+
+	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
+	var level_data: LevelData = GameManager.get_active_level(_level_name)
+	_level_code = Encoder.encode(level_data)
+	copy_btn.text = " " + _level_code
 
 
 func _on_build_btn_pressed() -> void:
@@ -47,7 +51,7 @@ func _on_build_btn_pressed() -> void:
 	get_tree().root.add_child.call_deferred(level_builder)
 	GameManager.level_builder = level_builder
 
-	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
+	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_name)
 	level_builder.construct_level.call_deferred(level_data.duplicate())
 
@@ -66,14 +70,14 @@ func _on_play_btn_pressed() -> void:
 	level_manager.set_manager_mode.call_deferred(false)
 	GameManager.level_manager = level_manager
 
-	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
+	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_name)
 	level_manager.init_level.call_deferred(level_data)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.LEVEL_INSPECT:
+		GlobalConst.GameState.CUSTOM_LEVEL_INSPECT:
 			self.show()
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
@@ -90,11 +94,11 @@ func _on_background_gui_input(event: InputEvent) -> void:
 		GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
 
 
-func _update_buttons(is_unlocked: bool) -> void:
-	unlock_btn.disabled = is_unlocked
-	play_btn.disabled = !is_unlocked
+func _on_copy_btn_pressed() -> void:
+	DisplayServer.clipboard_set(_level_code)
 
 
-func _on_unlock_btn_pressed() -> void:
-	_update_buttons(true)
-	level_unlocked.emit()
+func _on_delete_btn_pressed() -> void:
+	GameManager.delete_level(_level_name)
+	level_deleted.emit()
+	GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)

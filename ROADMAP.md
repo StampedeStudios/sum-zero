@@ -30,7 +30,7 @@ This document represent a sharable roadmap that contains all main activities and
 	- [x] Level data persistence;
 	- [x] Level reset;
 	- [x] Player levels saving;
-	- [ ] QRCode generation for local share;
+	- [x] Code generation for local share;
 - [x] UI elements
 	- Texture blocked tile;
 	- Resize icon;
@@ -69,4 +69,10 @@ Secondary mechanics are:
 |  14   | true  | true   | true   | false |     3    |
 |  15   | true  | true   | true   | true  |     5    |
 | TOTAL | ----- | ------ | ------ | ----- |     29   |
+
+
+- [ ] Add hint when copied level code;
+- [ ] Disable save button when name or code is missing in import window;
+- [ ] Update level interface when importing a level;
+- [x] Duplicate inspection panel for normal/custom levels;
 
