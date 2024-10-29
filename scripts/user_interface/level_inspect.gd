@@ -14,7 +14,6 @@ var _level_name: String
 @onready var unlock_btn: Button = %UnlockBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
-@onready var copy_btn: Button = %CopyBtn
 
 
 func _ready() -> void:
@@ -96,5 +95,6 @@ func _update_buttons(is_unlocked: bool) -> void:
 
 
 func _on_unlock_btn_pressed() -> void:
+	GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_name)
 	_update_buttons(true)
 	level_unlocked.emit()

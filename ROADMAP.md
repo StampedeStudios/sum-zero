@@ -72,7 +72,8 @@ Secondary mechanics are:
 
 
 - [ ] Add hint when copied level code;
-- [ ] Disable save button when name or code is missing in import window;
-- [ ] Update level interface when importing a level;
+- [x] Disable save button when name or code is missing in import window;
+- [x] Update level interface when importing a level;
 - [x] Duplicate inspection panel for normal/custom levels;
+- [x] When custom levels page are full, add a placeholder plage;
 
