@@ -106,6 +106,7 @@ layout_mode = 2
 size_flags_horizontal = 5
 focus_mode = 0
 theme = ExtResource("3_18iy2")
+disabled = true
 icon = SubResource("CompressedTexture2D_ud3al")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]

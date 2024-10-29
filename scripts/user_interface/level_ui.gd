@@ -18,6 +18,26 @@ func _ready() -> void:
 	_update_content()
 
 
+func add_imported_level(level_name: String) -> void:
+	_placeholder_buttons[-1].queue_free()
+	_placeholder_buttons.remove_at(_placeholder_buttons.size() - 1)
+
+	var level_button := LevelButton.new()
+	level_button.on_delete_level_button.connect(_update_last_level)
+	_level_buttons.append(level_button)
+	level_grid.add_child(level_button)
+
+	var progress = LevelProgress.new()
+	progress.move_left = -1000
+	progress.is_unlocked = true
+	progress.is_completed = true
+
+	level_button.construct(level_name, progress, GlobalConst.LevelGroup.CUSTOM)
+	level_grid.move_child(level_button, _level_buttons.size() - 1)
+	# Show next page button if there are no placeholder buttons
+	_update_buttons(_placeholder_buttons.size() == 0)
+
+
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
@@ -46,7 +66,11 @@ func _update_content() -> void:
 	var levels_progress: Dictionary
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, first_level, last_level + 1)
-	_update_buttons(levels_progress.size() > PAGE_SIZE)
+	match _world:
+		GlobalConst.LevelGroup.MAIN:
+			_update_buttons(levels_progress.size() > PAGE_SIZE)
+		GlobalConst.LevelGroup.CUSTOM:
+			_update_buttons(levels_progress.size() > PAGE_SIZE - 1)
 
 	var max_level_btn := mini(levels_progress.size(), PAGE_SIZE)
 	# remove excess level button
@@ -101,7 +125,12 @@ func _update_last_level(ref: LevelButton) -> void:
 	var levels_progress: Dictionary
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, last_level, last_level + 1)
-	_update_buttons(levels_progress.size() > 1)
+
+	match _world:
+		GlobalConst.LevelGroup.MAIN:
+			_update_buttons(levels_progress.size() > 1)
+		GlobalConst.LevelGroup.CUSTOM:
+			_update_buttons(levels_progress.size() > 0)
 
 	if levels_progress.size() > 0:
 		# add level button
@@ -154,3 +183,7 @@ func _on_custom_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
 	_update_content()
+
+
+func _add_empty_page() -> void:
+	pass

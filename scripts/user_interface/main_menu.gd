@@ -53,6 +53,7 @@ func _on_level_btn_pressed():
 	level_ui = LEVEL_UI.instantiate()
 	get_tree().root.add_child.call_deferred(level_ui)
 
+	GameManager.level_ui = level_ui
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 
 

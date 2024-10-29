@@ -250,6 +250,9 @@ static func _encode_slider(slider_data: SliderData) -> String:
 static func decode(encode_data: String) -> LevelData:
 	var data := LevelData.new()
 	var splitted_data := encode_data.split("-")
+	if splitted_data.size() != 3:
+		push_warning("invalid code format")
+		return null
 	var moves_left := _decode_moves(encode_data[0])
 	if moves_left < 0:
 		push_warning("invalid moves")
