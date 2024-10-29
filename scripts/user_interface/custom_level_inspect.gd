@@ -6,6 +6,7 @@ const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
 const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
+const PASTE_CHECK_ICON = preload("res://assets/ui/paste_check_icon.png")
 
 var _level_name: String
 var _level_code: String
@@ -96,6 +97,8 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 func _on_copy_btn_pressed() -> void:
 	DisplayServer.clipboard_set(_level_code)
+	copy_btn.icon = PASTE_CHECK_ICON
+	copy_btn.add_theme_color_override("icon_normal_color", Color.WEB_GREEN)
 
 
 func _on_delete_btn_pressed() -> void:
