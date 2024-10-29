@@ -71,7 +71,7 @@ Secondary mechanics are:
 | TOTAL | ----- | ------ | ------ | ----- |     29   |
 
 
-- [ ] Add hint when copied level code;
+- [x] Add hint when copied level code;
 - [x] Disable save button when name or code is missing in import window;
 - [x] Update level interface when importing a level;
 - [x] Duplicate inspection panel for normal/custom levels;

@@ -1,6 +1,7 @@
 extends Control
 
 const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
+
 var _inserted_code: String
 
 @onready var code: Button = %Code
