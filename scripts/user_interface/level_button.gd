@@ -37,25 +37,26 @@ func _init() -> void:
 
 
 func _pressed() -> void:
-	if !GameManager.level_inspect:
-		match _level_group:
-			GlobalConst.LevelGroup.MAIN:
+	match _level_group:
+		GlobalConst.LevelGroup.MAIN:
+			if !GameManager.level_inspect:
 				var inspect_instance = LEVEL_INSPECT.instantiate()
 				get_tree().root.add_child(inspect_instance)
 				GameManager.level_inspect = inspect_instance
 				_toggle_connection.call_deferred(true)
 
-				GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress)
-				GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
+			GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress)
+			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
 
-			GlobalConst.LevelGroup.CUSTOM:
+		GlobalConst.LevelGroup.CUSTOM:
+			if !GameManager.custom_inspect:
 				var inspect_instance = CUSTOM_LEVEL_INSPECT.instantiate()
 				get_tree().root.add_child(inspect_instance)
 				GameManager.custom_inspect = inspect_instance
 				_toggle_connection.call_deferred(true)
 
-				GameManager.custom_inspect.init_inspector.call_deferred(_level_name, _progress)
-				GameManager.change_state.call_deferred(GlobalConst.GameState.CUSTOM_LEVEL_INSPECT)
+			GameManager.custom_inspect.init_inspector.call_deferred(_level_name, _progress)
+			GameManager.change_state.call_deferred(GlobalConst.GameState.CUSTOM_LEVEL_INSPECT)
 
 
 func _get_minimum_size() -> Vector2:
