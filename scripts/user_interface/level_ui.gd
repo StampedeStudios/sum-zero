@@ -48,6 +48,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_INSPECT:
 			self.show()
+		GlobalConst.GameState.CUSTOM_LEVEL_INSPECT:
+			self.show()
 		GlobalConst.GameState.LEVEL_PICK:
 			self.show()
 		_:

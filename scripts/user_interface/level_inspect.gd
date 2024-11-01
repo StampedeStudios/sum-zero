@@ -31,6 +31,7 @@ func init_inspector(level_name: String, progress: LevelProgress):
 		percentage = 0
 
 	level_score_img.material.set_shader_parameter("percentage", percentage)
+
 	build_btn.disabled = !progress.is_completed
 	_update_buttons(progress.is_unlocked)
 
