@@ -11,10 +11,13 @@ config_version=5
 [application]
 
 config/name="Sum Zero"
-config/version="0.1.0s"
+config/version="0.4.0"
 run/main_scene="res://packed_scene/scene_2d/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
+boot_splash/bg_color=Color(0.25098, 0.184314, 0.105882, 1)
 config/icon="res://assets/game/logo.png"
+config/windows_native_icon="res://assets/game/icon.ico"
+boot_splash/defaults/default_clear_color=Color(0.25098, 0.184314, 0.105882, 1)
 
 [autoload]
 
@@ -25,6 +28,7 @@ AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
 window/size/viewport_width=960
 window/size/viewport_height=1280
+window/size/extend_to_title=true
 window/handheld/orientation=1
 
 [file_customization]

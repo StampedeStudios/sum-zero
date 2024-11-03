@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=39 format=3]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=51 format=3]
 
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="1_6i8uv"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_0gd78"]
@@ -232,12 +232,89 @@ Vector2i(0, 1): SubResource("Resource_ud33m")
 }
 moves_left = 1
 
+[sub_resource type="Resource" id="Resource_grdfr"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_glxwp"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_0nuiu"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_msfaf"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_fc1as"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_eslk7"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_6mx7h"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_7onlg"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_snxva"]
+script = ExtResource("1_6i8uv")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_ydi72"]
+script = ExtResource("3_xl0g1")
+area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_pqknc"]
+script = ExtResource("3_xl0g1")
+area_effect = 2
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_by2pe"]
+script = ExtResource("2_0gd78")
+width = 3
+height = 3
+cells_list = {
+Vector2i(0, 0): SubResource("Resource_grdfr"),
+Vector2i(0, 1): SubResource("Resource_glxwp"),
+Vector2i(0, 2): SubResource("Resource_eslk7"),
+Vector2i(1, 0): SubResource("Resource_msfaf"),
+Vector2i(1, 1): SubResource("Resource_0nuiu"),
+Vector2i(1, 2): SubResource("Resource_fc1as"),
+Vector2i(2, 0): SubResource("Resource_6mx7h"),
+Vector2i(2, 1): SubResource("Resource_7onlg"),
+Vector2i(2, 2): SubResource("Resource_snxva")
+}
+slider_list = {
+Vector2i(0, 1): SubResource("Resource_ydi72"),
+Vector2i(2, 1): SubResource("Resource_pqknc")
+}
+moves_left = 2
+
 [resource]
 script = ExtResource("4_v7vmu")
 levels = {
 "01": SubResource("Resource_8kl84"),
 "04": SubResource("Resource_duaxn"),
 "1": SubResource("Resource_iwiep"),
+"t": SubResource("Resource_by2pe"),
 "test1": SubResource("Resource_dt2ar")
 }
-levels_order = Array[String](["1", "01", "04", "test1"])
+levels_order = Array[String](["1", "01", "04", "test1", "t"])
