@@ -28,6 +28,12 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.BUILDER_SAVE:
+			_invalid_moves = true
+			_invalid_name = true
+			level_name.text = ""
+			level_name.caret_column = 0
+			moves.text = ""
+			moves.caret_column = 0
 			self.visible = true
 		_:
 			self.visible = false
