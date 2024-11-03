@@ -8,10 +8,10 @@
 
 </div>
 
-**Sum Zero** is a mobile puzzle game where the objective is to bring all the tiles on a grid to zero using math-based sliders. The game involves strategy, logic, and basic arithmetic to solve each level.
+**Sum Zero** is a mobile puzzle game where the player has to bring all the tiles on a grid down to zero using math-based sliders. The game involves strategy, logic, and basic arithmetic to solve each level.
 
 ## Concept
-In **Sum Zero**, players are presented with a grid of tiles that can vary in size from 2x2 up to 5x5 cells. Each tile contains a number between -4 and 4. The player's goal is to manipulate these numbers using sliders to make every tile on the grid equal to zero.
+In **Sum Zero**, players are presented with a grid of tiles that can vary in size from 2x2 up to 5x5 cells and each shape in between those sizes. Each tile contains a number between -4 and 4. The player's goal is to manipulate these numbers using sliders to make every tile on the grid equal to zero.
 
 ### Key Mechanics
 - **Grid Size**: Levels range from a 2x2 grid to a 5x5 grid, providing increasing difficulty as the grid size grows.
