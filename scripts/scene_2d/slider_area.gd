@@ -94,6 +94,7 @@ func release_handle() -> void:
 		if GameManager.builder_test != null:
 			GameManager.builder_test.add_move()
 		scale_change.emit()
+		_last_scale = _current_scale
 
 
 func _create_blocked_cell() -> void:
