@@ -32,6 +32,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_play_btn_pressed():
+	AudioManager.play_click_sound()
 	var level_data: LevelData = GameManager.get_start_level_playable()
 	if level_data != null:
 		var game_ui: GameUI
@@ -49,6 +50,7 @@ func _on_play_btn_pressed():
 
 
 func _on_level_btn_pressed():
+	AudioManager.play_click_sound()
 	var level_ui: LevelUI
 	level_ui = LEVEL_UI.instantiate()
 	get_tree().root.add_child.call_deferred(level_ui)
@@ -58,6 +60,7 @@ func _on_level_btn_pressed():
 
 
 func _on_editor_btn_pressed():
+	AudioManager.play_click_sound()
 	var builder_ui: BuilderUI
 	builder_ui = BUILDER_UI.instantiate()
 	get_tree().root.add_child.call_deferred(builder_ui)
@@ -94,5 +97,6 @@ func _on_sound_btn_pressed() -> void:
 	else:
 		sound_btn.icon = SOUND_ON_ICON
 		AudioManager.toggle_sfx()
+		AudioManager.play_click_sound()
 
 	_is_sound_on = !_is_sound_on

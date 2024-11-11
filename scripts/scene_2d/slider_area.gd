@@ -4,6 +4,9 @@ extends Node2D
 signal scale_change
 
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
+const MAX_EXTENSION: int = 5 * 256
+const MAX_PITCH: float = 3.5
+const SFX_STEP: int = 64
 
 @export var block_texture: Texture
 @export var block_shader: Shader
@@ -22,6 +25,7 @@ var _new_cell_size: float = GameManager.cell_size
 var _is_manually_controlled: bool = false
 var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
+var _last_percentage: float = 0.1
 
 @onready var area_outline: NinePatchRect = %AreaOutline
 @onready var handle: Area2D = %Handle
@@ -42,6 +46,29 @@ func init_slider(data: SliderData) -> void:
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
 		_check_limit.call_deferred()
 		_create_blocked_cell.call_deferred()
+
+
+func reset() -> void:
+	_reachable_cells.clear()
+	_target_scale = 0
+	_current_scale = 0
+	_last_scale = 0
+	_is_extended = false
+	_apply_scaling(_current_scale)
+
+
+func release_handle() -> void:
+	_is_scaling = false
+	_apply_scaling(_current_scale)
+	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
+
+	if _current_scale != _last_scale:
+		if GameManager.game_ui != null:
+			GameManager.game_ui.consume_move()
+		if GameManager.builder_test != null:
+			GameManager.builder_test.add_move()
+		scale_change.emit()
+		_last_scale = _current_scale
 
 
 func _process(_delta: float) -> void:
@@ -83,20 +110,6 @@ func _process(_delta: float) -> void:
 		_update_changed_tiles(round(_target_scale))
 
 
-func release_handle() -> void:
-	_is_scaling = false
-	_apply_scaling(_current_scale)
-	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
-
-	if _current_scale != _last_scale:
-		if GameManager.game_ui != null:
-			GameManager.game_ui.consume_move()
-		if GameManager.builder_test != null:
-			GameManager.builder_test.add_move()
-		scale_change.emit()
-		_last_scale = _current_scale
-
-
 func _create_blocked_cell() -> void:
 	for i in range(0, _moves):
 		var sprite := Sprite2D.new()
@@ -125,7 +138,9 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	area_outline.size.x = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
+	var area_extension = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
+	_play_sound(area_extension)
+	area_outline.size.x = area_extension
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
@@ -187,10 +202,11 @@ func _check_limit() -> void:
 	ray.clear_exceptions()
 
 
-func reset() -> void:
-	_reachable_cells.clear()
-	_target_scale = 0
-	_current_scale = 0
-	_last_scale = 0
-	_is_extended = false
-	_apply_scaling(_current_scale)
+func _play_sound(extension: float) -> void:
+	var percentage: float = abs(snapped(extension, SFX_STEP))
+
+	if percentage != _last_percentage:
+		var pitch: float = clamp(MAX_PITCH * extension / MAX_EXTENSION, 0.1, MAX_PITCH)
+
+		_last_percentage = percentage
+		AudioManager.play_slider_sound(pitch)

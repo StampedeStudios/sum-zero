@@ -57,18 +57,22 @@ func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
 
 
 func _on_backward_pressed():
+	AudioManager.play_click_sound()
 	backward_action.emit()
 
 
 func _on_forward_pressed():
+	AudioManager.play_click_sound()
 	forward_action.emit()
 
 
 func _on_remove_pressed():
+	AudioManager.play_click_sound()
 	remove_action.emit()
 
 
 func _on_special_pressed():
+	AudioManager.play_click_sound()
 	special_action.emit()
 
 

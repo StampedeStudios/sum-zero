@@ -1,14 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bap70j1vux1ca"]
+[gd_scene load_steps=5 format=3 uid="uid://bap70j1vux1ca"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/audio_manager.gd" id="1_n0my8"]
 [ext_resource type="AudioStream" uid="uid://dumaj0rorl2b2" path="res://assets/sfx/gone_fishin_by_memoraphile_CC0.mp3" id="2_g54x2"]
+[ext_resource type="AudioStream" uid="uid://bmlqtwi8thk1a" path="res://assets/sfx/slider.wav" id="3_m2td4"]
+[ext_resource type="AudioStream" uid="uid://d2ue8ywo4qeeb" path="res://assets/sfx/click.wav" id="3_ro30y"]
 
 [node name="AudioManager" type="Node2D"]
 script = ExtResource("1_n0my8")
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
-unique_name_in_owner = true
 stream = ExtResource("2_g54x2")
 autoplay = true
 
-[node name="SfxPlayer" type="AudioStreamPlayer2D" parent="."]
+[node name="ButtonPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ro30y")
+
+[node name="SliderPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_m2td4")

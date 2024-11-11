@@ -57,6 +57,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_exit_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
@@ -153,12 +154,14 @@ func _update_last_level(ref: LevelButton) -> void:
 
 func _on_left_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
 		_current_page -= 1
 		_update_content()
 
 
 func _on_right_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
 		_current_page += 1
 		_update_content()
 
@@ -176,16 +179,14 @@ func _update_buttons(has_next_page: bool):
 
 
 func _on_world_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
 	_update_content()
 
 
 func _on_custom_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
 	_update_content()
-
-
-func _add_empty_page() -> void:
-	pass

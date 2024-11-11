@@ -21,14 +21,17 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_reset_btn_pressed():
+	AudioManager.play_click_sound()
 	reset_builder_level.emit()
 
 
 func _on_resize_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_RESIZE)
 
 
 func _on_play_btn_pressed():
+	AudioManager.play_click_sound()
 	if !GameManager.builder_test:
 		var builder_test: BuilderTest
 		builder_test = BUILDER_TEST.instantiate()
@@ -45,8 +48,10 @@ func _on_play_btn_pressed():
 
 
 func _on_save_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_SAVE)
 
 
 func _on_exit_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)

@@ -40,15 +40,18 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_exit_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_save_btn_pressed():
+	AudioManager.play_click_sound()
 	on_query_close.emit(false, level_name.text, int(moves.text))
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_persist_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	on_query_close.emit(true, level_name.text, int(moves.text))
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 

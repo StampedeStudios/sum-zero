@@ -23,11 +23,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _on_exit_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 	_reset_moves()
 
 
 func _on_reset_btn_pressed():
+	AudioManager.play_click_sound()
 	reset_test_level.emit()
 	_reset_moves()
 

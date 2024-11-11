@@ -19,6 +19,7 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 
 func _on_save_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var level_data: LevelData = Encoder.decode(_inserted_code)
 	if level_data == null:
 		_show_error()
@@ -31,6 +32,7 @@ func _on_save_btn_pressed() -> void:
 
 
 func _on_code_pressed() -> void:
+	AudioManager.play_click_sound()
 	var cb_content := DisplayServer.clipboard_get()
 	_inserted_code = cb_content.split("\n")[0]
 
