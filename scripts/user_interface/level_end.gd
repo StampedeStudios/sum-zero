@@ -40,10 +40,12 @@ func update_score(move_left: int) -> void:
 
 
 func _on_replay_btn_pressed():
+	AudioManager.play_click_sound()
 	restart_level.emit()
 
 
 func _on_next_btn_pressed():
+	AudioManager.play_click_sound()
 	if !_has_next_level:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	else:

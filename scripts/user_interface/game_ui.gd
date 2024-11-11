@@ -46,10 +46,12 @@ func consume_move() -> void:
 
 
 func _on_exit_btn_pressed():
+	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
 func _on_reset_btn_pressed():
+	AudioManager.play_click_sound()
 	_initialize_ui()
 	reset_level.emit()
 
@@ -67,6 +69,7 @@ func _update_moves() -> void:
 
 
 func _on_skip_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	if !_has_next_level:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	else:

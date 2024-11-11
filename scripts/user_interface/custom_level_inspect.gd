@@ -42,6 +42,7 @@ func init_inspector(level_name: String, progress: LevelProgress):
 
 
 func _on_build_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var builder_ui: BuilderUI
 	builder_ui = BUILDER_UI.instantiate()
 	get_tree().root.add_child.call_deferred(builder_ui)
@@ -60,6 +61,7 @@ func _on_build_btn_pressed() -> void:
 
 
 func _on_play_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var game_ui: GameUI
 	game_ui = GAME_UI.instantiate()
 	get_tree().root.add_child.call_deferred(game_ui)
@@ -92,16 +94,19 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		copy_btn.remove_theme_color_override("icon_normal_color")
 		GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
 
 
 func _on_copy_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	DisplayServer.clipboard_set(_level_code)
 	copy_btn.icon = PASTE_CHECK_ICON
 	copy_btn.add_theme_color_override("icon_normal_color", Color.WEB_GREEN)
 
 
 func _on_delete_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	GameManager.delete_level(_level_name)
 	level_deleted.emit()
 	GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)

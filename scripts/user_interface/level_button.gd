@@ -37,6 +37,7 @@ func _init() -> void:
 
 
 func _pressed() -> void:
+	AudioManager.play_click_sound()
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
 			if !GameManager.level_inspect:
@@ -87,6 +88,7 @@ func _unlock_level() -> void:
 
 
 func _delete_level_button() -> void:
+	AudioManager.play_click_sound()
 	on_delete_level_button.emit(self)
 	self.queue_free.call_deferred()
 

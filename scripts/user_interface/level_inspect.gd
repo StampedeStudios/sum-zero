@@ -37,6 +37,7 @@ func init_inspector(level_name: String, progress: LevelProgress):
 
 
 func _on_build_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var builder_ui: BuilderUI
 	builder_ui = BUILDER_UI.instantiate()
 	get_tree().root.add_child.call_deferred(builder_ui)
@@ -55,6 +56,7 @@ func _on_build_btn_pressed() -> void:
 
 
 func _on_play_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var game_ui: GameUI
 	game_ui = GAME_UI.instantiate()
 	get_tree().root.add_child.call_deferred(game_ui)
@@ -87,6 +89,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
 		GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
 
 
@@ -96,6 +99,7 @@ func _update_buttons(is_unlocked: bool) -> void:
 
 
 func _on_unlock_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_name)
 	_update_buttons(true)
 	level_unlocked.emit()
