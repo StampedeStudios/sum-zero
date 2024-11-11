@@ -5,7 +5,7 @@ signal scale_change
 
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
 const MAX_EXTENSION: int = 5 * 256
-const MAX_PITCH: float = 3.5
+const MAX_PITCH: float = 1.5
 const SFX_STEP: int = 64
 
 @export var block_texture: Texture
@@ -206,7 +206,7 @@ func _play_sound(extension: float) -> void:
 	var percentage: float = abs(snapped(extension, SFX_STEP))
 
 	if percentage != _last_percentage:
-		var pitch: float = clamp(MAX_PITCH * extension / MAX_EXTENSION, 0.1, MAX_PITCH)
+		var pitch: float = clamp(MAX_PITCH * extension / MAX_EXTENSION, 0.3, MAX_PITCH)
 
 		_last_percentage = percentage
 		AudioManager.play_slider_sound(pitch)
