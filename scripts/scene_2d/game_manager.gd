@@ -5,9 +5,11 @@ signal on_state_change(new_state: GlobalConst.GameState)
 const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
+const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
 
 @export var palette: ColorPalette
 @export var slider_collection: SliderCollection
+@export var tutorials: Dictionary
 
 var cell_size: float
 var level_scale: Vector2
@@ -24,6 +26,7 @@ var level_end: LevelEnd
 var level_ui: LevelUI
 var level_inspect: LevelInspect
 var custom_inspect: CustomLevelInspect
+var is_tutorial_visible: bool = true
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer
@@ -47,6 +50,14 @@ func _ready() -> void:
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
+
+	if new_state == GlobalConst.GameState.LEVEL_START:
+		print("Showing tutorial")
+		if is_tutorial_visible and tutorials.has(_active_level_name):
+			var tutorial: TutorialData = tutorials.get(_active_level_name)
+			var tutorial_ui: Tutorial = TUTORIAL.instantiate()
+			get_tree().root.add_child(tutorial_ui)
+			tutorial_ui.setup.call_deferred(tutorial)
 
 
 func _load_saved_data() -> void:

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://df5xj4eoouci8"]
+
+[ext_resource type="SpriteFrames" uid="uid://sfw4whlhee64" path="res://assets/vfx/automatic_slider_animation.tres" id="1_fg1ga"]
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="2_rsaye"]
+
+[resource]
+script = ExtResource("2_rsaye")
+animation = ExtResource("1_fg1ga")
+hint = "Automatic sliders fully extends when tapped"
