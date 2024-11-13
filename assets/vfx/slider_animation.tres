@@ -1,0 +1,61 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=3 uid="uid://qvbko85vll3f"]
+
+[ext_resource type="Texture2D" uid="uid://dlpw3c7f63je5" path="res://assets/ui/sliding_animation.png" id="1_umhth"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gjjs"]
+atlas = ExtResource("1_umhth")
+region = Rect2(0, 0, 261, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mm66h"]
+atlas = ExtResource("1_umhth")
+region = Rect2(261, 0, 261, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkmpj"]
+atlas = ExtResource("1_umhth")
+region = Rect2(522, 0, 261, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hercu"]
+atlas = ExtResource("1_umhth")
+region = Rect2(783, 0, 261, 577)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_svnj3"]
+atlas = ExtResource("1_umhth")
+region = Rect2(1044, 0, 261, 577)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gjjs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm66h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkmpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hercu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svnj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_svnj3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hercu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkmpj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mm66h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gjjs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
