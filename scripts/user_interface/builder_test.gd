@@ -17,6 +17,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
+			GameManager.is_tutorial_visible = false
 			self.visible = true
 		_:
 			self.visible = false
