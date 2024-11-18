@@ -38,8 +38,8 @@ This document represent a sharable roadmap that contains all main activities and
 - [x] Level select menu;
 	- Deletion;
 	- Load in editor;
-- [ ] Tutorial;
-- [-] SFX;
+- [-] Tutorial;
+- [x] SFX;
 - [-] Graphic effects;
 
 ## Level design

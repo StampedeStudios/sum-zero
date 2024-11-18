@@ -52,7 +52,6 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
 
 	if new_state == GlobalConst.GameState.LEVEL_START:
-		print("Showing tutorial")
 		if is_tutorial_visible and tutorials.has(_active_level_name):
 			var tutorial: TutorialData = tutorials.get(_active_level_name)
 			var tutorial_ui: Tutorial = TUTORIAL.instantiate()
@@ -63,7 +62,7 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 func _load_saved_data() -> void:
 	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
 	if !FileAccess.file_exists(PLAYER_SAVE_PATH) or !_set_and_check_save_integrity():
-		push_warning("SaveGame non trovato")
+		push_warning("No saved data found on file system")
 		_player_save = PlayerSave.new()
 	_player_save.initialize_player_save(_persistent_save)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)

@@ -4,19 +4,24 @@ class_name Tutorial extends Control
 @onready var animation: AnimatedSprite2D = %Animation
 @onready var texture: TextureRect = %Texture
 @onready var static_tutorial: Control = %StaticTutorial
-@onready var label: Label = %Label
+@onready var animation_text: Label = %AnimationText
+@onready var static_text: Label = %StaticText
 
 
 func setup(tutorial: TutorialData) -> void:
-	label.text = tutorial.hint
-
 	if tutorial.animation != null:
 		animation.sprite_frames = tutorial.animation
-		animated_tutorial.show()
+		animation_text.text = tutorial.hint
 		animated_tutorial.scale = GameManager.level_scale
-		animation.play()
 
+		animated_tutorial.show()
+		animation.play()
+	else:
+		animated_tutorial.hide()
+
+	static_text.text = tutorial.hint
 	if tutorial.image != null:
+		static_text.text = tutorial.hint
 		static_tutorial.show()
 
 

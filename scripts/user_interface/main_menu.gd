@@ -17,9 +17,11 @@ var _is_sound_on: bool = true
 
 @onready var music_btn: Button = %MusicBtn
 @onready var sound_btn: Button = %SoundBtn
+@onready var version_label: Label = %VersionLabel
 
 
 func _ready():
+	version_label.text = ProjectSettings.get("application/config/version")
 	GameManager.on_state_change.connect(_on_state_change)
 
 

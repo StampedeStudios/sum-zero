@@ -197,6 +197,13 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="VersionLabel" type="Label" parent="MarginContainer/Content"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.490196)
+layout_mode = 2
+text = "1.0"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="MarginContainer/Content/HBoxContainer/MusicBtn" to="." method="_on_music_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/HBoxContainer/SoundBtn" to="." method="_on_sound_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
