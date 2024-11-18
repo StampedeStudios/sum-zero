@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("1_ajejy")
 animation = ExtResource("1_ks7yq")
-hint = ""
+hint = "Drag the slider to apply its effect to the tiles!"
