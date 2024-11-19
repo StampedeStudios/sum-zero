@@ -94,7 +94,7 @@ func init_level(current_level: LevelData) -> void:
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
 		sc_instance.init_slider(current_level.slider_list.get(coord))
-		sc_instance.scale_change.connect(check_grid)
+		sc_instance.alter_grid.connect(check_grid)
 
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
