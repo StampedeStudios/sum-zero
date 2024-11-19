@@ -23,6 +23,16 @@ func _ready():
 	_check_valid_info()
 
 
+func initialize_info(old_name: String, old_moves: String) -> void:
+	level_name.text = old_name
+	moves.text = old_moves
+	level_name.caret_column = old_name.length()
+	moves.caret_column = old_moves.length()
+	_invalid_moves = false
+	_invalid_name = false
+	_check_valid_info()
+
+
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
