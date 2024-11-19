@@ -316,7 +316,11 @@ func _reset_builder_grid():
 		cell.clear_cell()
 	for slider in _slider_collection.values():
 		slider.clear_slider()
+	var old_width := _level_data.width
+	var old_height := _level_data.height
 	_level_data = LevelData.new()
+	_level_data.width = old_width
+	_level_data.height = old_height
 
 
 func _on_width_change(new_width: int) -> void:
