@@ -42,6 +42,3 @@ In **Sum Zero**, players are presented with a grid of tiles that can vary in siz
 
 ## Contributing
 We welcome contributions! If you have ideas to improve the game or want to help, feel free to open an issue or submit a pull request.
-
-## License
-This project is developed under [MIT License](LICENSE).
