@@ -134,7 +134,7 @@ func _change_aspect() -> void:
 
 
 func set_slider_data(slider_data: SliderData) -> void:
-	_data = slider_data
+	_data = slider_data.duplicate()
 	_change_aspect()
 
 
