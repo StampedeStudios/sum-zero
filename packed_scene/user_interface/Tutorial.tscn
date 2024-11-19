@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bau13c3cip10"]
+[gd_scene load_steps=7 format=3 uid="uid://csg16o4clip3g"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/tutorial.gd" id="1_we1e4"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_o4t1n"]
