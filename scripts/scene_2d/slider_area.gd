@@ -172,6 +172,7 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 					_last_scale = _current_scale
 					_is_manually_controlled = true
 					_is_scaling = true
+					_last_affected_cells.clear()
 					for cell_index in range(_current_scale):
 						var cell: Cell = _reachable_cells[cell_index]
 						_last_affected_cells[cell] = cell.get_cell_value()
