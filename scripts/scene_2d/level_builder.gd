@@ -107,6 +107,7 @@ func construct_level(level_data: LevelData = null, level_name := "") -> void:
 	if level_name != "":
 		_level_name = level_name
 
+	GameManager.set_level_scale(_level_data.width, _level_data.height)
 	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
 	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
 	var old_collection: Dictionary
