@@ -36,11 +36,6 @@ var _context: GlobalConst.LevelGroup
 
 
 func _ready() -> void:
-	var screen_side_shorter: float
-	screen_side_shorter = min(get_viewport().size.x, get_viewport().size.y)
-	cell_size = screen_side_shorter / (GlobalConst.MAX_LEVEL_SIZE + 2)
-	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
-	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
 	_load_saved_data()
 
 	main_menu = MAIN_MENU.instantiate()
@@ -97,7 +92,8 @@ func get_start_level_playable() -> LevelData:
 			if progress.is_unlocked and !progress.is_completed:
 				_active_level_name = level_name
 				break
-		return _persistent_save.levels.get(_active_level_name)
+		set_levels_context(GlobalConst.LevelGroup.MAIN)
+		return get_active_level(_active_level_name)
 
 	push_error("Nessun livello nel persistent save!")
 	return null
@@ -146,8 +142,17 @@ func set_next_level() -> bool:
 func get_active_level(level_name: String = "") -> LevelData:
 	if level_name != "":
 		_active_level_name = level_name
-	return _get_levels().levels.get(_active_level_name)
+	var data := _get_levels().levels.get(_active_level_name) as LevelData
+	return data
 
+
+func set_level_scale(level_width: int, level_height: int) -> void:
+	var max_screen_width : float = get_viewport().size.x
+	var max_screen_height : float = get_viewport().size.y * 0.8
+	cell_size = min(max_screen_width / (level_width + 2), max_screen_height / (level_height + 2))
+	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
+	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
+	
 
 func get_next_level() -> LevelData:
 	_active_level_name = _next_level_name

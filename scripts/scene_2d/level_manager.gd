@@ -13,7 +13,6 @@ var _is_test_mode: bool
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	grid.position = get_viewport_rect().get_center()
-	grid.scale = GameManager.level_scale
 
 
 func set_manager_mode(is_test_mode: bool) -> void:
@@ -32,7 +31,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 		_:
 			self.visible = false
-
+			
 
 func init_level(current_level: LevelData) -> void:
 	_clear()
@@ -40,13 +39,15 @@ func init_level(current_level: LevelData) -> void:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 		push_error("Livello non valido!")
 		return
-
+	
 	var level_size: Vector2i
 	var half_grid_size: Vector2
 
+	GameManager.set_level_scale(current_level.width,current_level.height)
+	grid.scale = GameManager.level_scale
 	level_size = Vector2i(current_level.width, current_level.height)
 	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
-
+	
 	# placing cells
 	for coord in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
