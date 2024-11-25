@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cx3a8j50nwxxr"]
+[gd_scene load_steps=10 format=3 uid="uid://cx3a8j50nwxxr"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/game_manager.gd" id="1_tgd8e"]
 [ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/utility/rainbow_palette.tres" id="2_wd6nv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://df5xj4eoouci8" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="5_tb6dc"]
 [ext_resource type="Resource" uid="uid://cexkhgb6rb2ip" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="6_n722h"]
 [ext_resource type="Resource" uid="uid://wor27ovpdofm" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="8_rylgv"]
+[ext_resource type="Resource" uid="uid://bh8t8odtplmtn" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="9_kkyll"]
 
 [node name="GameManager" type="Node2D"]
 script = ExtResource("1_tgd8e")
@@ -18,5 +19,6 @@ tutorials = {
 "03": ExtResource("5_0l1wn"),
 "07": ExtResource("6_n722h"),
 "10": ExtResource("5_tb6dc"),
-"17": ExtResource("8_rylgv")
+"17": ExtResource("8_rylgv"),
+"27": ExtResource("9_kkyll")
 }

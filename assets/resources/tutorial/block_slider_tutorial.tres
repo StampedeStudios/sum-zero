@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://bh8t8odtplmtn"]
+
+[ext_resource type="SpriteFrames" uid="uid://qvbko85vll3f" path="res://assets/vfx/slider_animation.tres" id="1_4g4bn"]
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="2_ipdsu"]
+
+[resource]
+script = ExtResource("2_ipdsu")
+animation = ExtResource("1_4g4bn")
+hint = "Blocked tiles have no values. Use the slider to complete the level!"
