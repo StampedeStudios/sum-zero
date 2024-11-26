@@ -23,6 +23,8 @@ var _is_sound_on: bool = true
 func _ready():
 	version_label.text = ProjectSettings.get("application/config/version")
 	GameManager.on_state_change.connect(_on_state_change)
+	self.scale = GameManager.ui_scale
+	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
