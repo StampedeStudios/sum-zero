@@ -61,7 +61,7 @@ func _pressed() -> void:
 
 
 func _get_minimum_size() -> Vector2:
-	return Vector2(300, 300)
+	return Vector2(128, 128)
 
 
 func construct(level_name: String, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:

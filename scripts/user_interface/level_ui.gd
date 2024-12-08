@@ -1,6 +1,8 @@
 class_name LevelUI extends Control
 
 const PAGE_SIZE := 9
+const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
+const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
 
 var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 var _current_page: int = 1
@@ -8,8 +10,8 @@ var _level_buttons: Array[LevelButton]
 var _placeholder_buttons: Array[PlaceholderButton]
 
 @onready var level_grid: GridContainer = %LevelGrid
-@onready var left: TextureRect = %Left
-@onready var right: TextureRect = %Right
+@onready var left: TextureButton = %Left
+@onready var right: TextureButton = %Right
 @onready var title: Label = %Title
 
 
@@ -152,30 +154,32 @@ func _update_last_level(ref: LevelButton) -> void:
 		placeholder_button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
 
 
-func _on_left_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		AudioManager.play_click_sound()
-		_current_page -= 1
-		_update_content()
+func _on_left_pressed() -> void:
+	AudioManager.play_click_sound()
+	_current_page -= 1
+	_update_content()
 
 
-func _on_right_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		AudioManager.play_click_sound()
-		_current_page += 1
-		_update_content()
+func _on_right_pressed() -> void:
+	AudioManager.play_click_sound()
+	_current_page += 1
+	_update_content()
 
 
 func _update_buttons(has_next_page: bool):
 	if _current_page == 1:
-		left.hide()
+		left.disabled = true
+		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 	else:
-		left.show()
+		left.disabled = false
+		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 
 	if has_next_page:
-		right.show()
+		right.disabled = false
+		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 	else:
-		right.hide()
+		right.disabled = true
+		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 
 
 func _on_world_btn_pressed() -> void:

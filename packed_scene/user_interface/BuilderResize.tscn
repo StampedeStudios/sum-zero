@@ -29,22 +29,26 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ikv7t")
 
-[node name="Control" type="Control" parent="Background"]
-unique_name_in_owner = true
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 300.0
-offset_bottom = 300.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 140
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 140
 
-[node name="MinusWidth" type="TextureRect" parent="Background/Control"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Background/MarginContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MinusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 4
@@ -58,7 +62,7 @@ mouse_filter = 0
 texture = ExtResource("2_sr71w")
 flip_h = true
 
-[node name="PlusWidth" type="TextureRect" parent="Background/Control"]
+[node name="PlusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 6
@@ -74,7 +78,7 @@ grow_vertical = 2
 mouse_filter = 0
 texture = ExtResource("2_sr71w")
 
-[node name="MinusHeight" type="TextureRect" parent="Background/Control"]
+[node name="MinusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 5
@@ -90,7 +94,7 @@ mouse_filter = 0
 texture = ExtResource("2_sr71w")
 flip_h = true
 
-[node name="PlusHeight" type="TextureRect" parent="Background/Control"]
+[node name="PlusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 7
@@ -108,8 +112,8 @@ mouse_filter = 0
 texture = ExtResource("2_sr71w")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
-[connection signal="gui_input" from="Background/Control" to="." method="_on_control_gui_input"]
-[connection signal="gui_input" from="Background/Control/MinusWidth" to="." method="_on_minus_width_gui_input"]
-[connection signal="gui_input" from="Background/Control/PlusWidth" to="." method="_on_plus_width_gui_input"]
-[connection signal="gui_input" from="Background/Control/MinusHeight" to="." method="_on_minus_height_gui_input"]
-[connection signal="gui_input" from="Background/Control/PlusHeight" to="." method="_on_plus_height_gui_input"]
+[connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control" to="." method="_on_control_gui_input"]
+[connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control/MinusWidth" to="." method="_on_minus_width_gui_input"]
+[connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control/PlusWidth" to="." method="_on_plus_width_gui_input"]
+[connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control/MinusHeight" to="." method="_on_minus_height_gui_input"]
+[connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control/PlusHeight" to="." method="_on_plus_height_gui_input"]

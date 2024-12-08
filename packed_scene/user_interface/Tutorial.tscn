@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/tutorial.gd" id="1_we1e4"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_o4t1n"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_pl66g"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_pl66g"]
 [ext_resource type="SpriteFrames" uid="uid://sfw4whlhee64" path="res://assets/vfx/automatic_slider_animation.tres" id="3_vuu8o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]

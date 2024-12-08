@@ -4,6 +4,7 @@ enum AreaEffect { ADD, SUBTRACT, CHANGE_SIGN, BLOCK }
 enum AreaBehavior { BY_STEP, FULL }
 enum GameState {
 	MAIN_MENU,
+	OPTION_MENU,
 	LEVEL_PICK,
 	LEVEL_START,
 	LEVEL_END,

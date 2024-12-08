@@ -1,19 +1,20 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=10 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_cshsk"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_lss3m"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="4_t4xkr"]
 [ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="5_wtv3h"]
-[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="6_jik4q"]
-[ext_resource type="StyleBox" uid="uid://8a5fvuiqf5pj" path="res://assets/resources/themes/menu_button_pressed.tres" id="7_peu4s"]
+[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="6_f2jlf"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_28173"]
+resource_local_to_scene = true
 shader = ExtResource("4_t4xkr")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6dbx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vuwy"]
+resource_local_to_scene = true
 shader = ExtResource("4_t4xkr")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 
@@ -33,9 +34,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -45,6 +46,11 @@ theme_override_constants/separation = 50
 [node name="Top" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/VBoxContainer/Top"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+theme_override_constants/separation = 15
 
 [node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/Top"]
 unique_name_in_owner = true
@@ -56,32 +62,32 @@ theme = ExtResource("2_cshsk")
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("3_lss3m")
 
-[node name="Middle" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Middle"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_cshsk")
 text = "1 ~ 9"
 horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Middle" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Middle"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 6
 
 [node name="LeftBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Middle/Content"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Left" type="TextureRect" parent="MarginContainer/VBoxContainer/Middle/Content/LeftBox"]
+[node name="Left" type="TextureButton" parent="MarginContainer/VBoxContainer/Middle/Content/LeftBox"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_28173")
 layout_mode = 2
-mouse_filter = 0
-texture = ExtResource("5_wtv3h")
-stretch_mode = 3
+size_flags_vertical = 4
+texture_normal = ExtResource("5_wtv3h")
 flip_h = true
 
 [node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Middle/Content"]
@@ -90,30 +96,24 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
-theme_override_constants/h_separation = 75
-theme_override_constants/v_separation = 75
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 40
 columns = 3
 
 [node name="RightBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Middle/Content"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Right" type="TextureRect" parent="MarginContainer/VBoxContainer/Middle/Content/RightBox"]
+[node name="Right" type="TextureButton" parent="MarginContainer/VBoxContainer/Middle/Content/RightBox"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_a6dbx")
+material = SubResource("ShaderMaterial_3vuwy")
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 0
-texture = ExtResource("5_wtv3h")
-stretch_mode = 3
-
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 30
+size_flags_vertical = 4
+texture_normal = ExtResource("5_wtv3h")
 
 [node name="Bottom" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme = ExtResource("2_cshsk")
 theme_override_constants/separation = 50
 alignment = 1
@@ -121,9 +121,7 @@ alignment = 1
 [node name="WorldBtn" type="Button" parent="MarginContainer/VBoxContainer/Bottom"]
 layout_mode = 2
 focus_mode = 0
-theme_override_styles/hover = ExtResource("6_jik4q")
-theme_override_styles/pressed = ExtResource("7_peu4s")
-theme_override_styles/normal = ExtResource("6_jik4q")
+theme = ExtResource("6_f2jlf")
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("8_101tc")
@@ -132,15 +130,13 @@ text = " World "
 [node name="CustomBtn" type="Button" parent="MarginContainer/VBoxContainer/Bottom"]
 layout_mode = 2
 focus_mode = 0
-theme_override_styles/hover = ExtResource("6_jik4q")
-theme_override_styles/pressed = ExtResource("7_peu4s")
-theme_override_styles/normal = ExtResource("6_jik4q")
+theme = ExtResource("2_cshsk")
 toggle_mode = true
 button_group = ExtResource("8_101tc")
 text = " Custom "
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Top/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/Middle/Content/LeftBox/Left" to="." method="_on_left_gui_input"]
-[connection signal="gui_input" from="MarginContainer/VBoxContainer/Middle/Content/RightBox/Right" to="." method="_on_right_gui_input"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/Content/LeftBox/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Middle/Content/RightBox/Right" to="." method="_on_right_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Bottom/WorldBtn" to="." method="_on_world_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Bottom/CustomBtn" to="." method="_on_custom_btn_pressed"]
