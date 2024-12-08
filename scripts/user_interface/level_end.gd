@@ -2,10 +2,10 @@ class_name LevelEnd extends Control
 
 signal restart_level
 
-const PLAY_ICON = preload("res://assets/ui/play_icon.png")
-const EXIT_ICON = preload("res://assets/ui/exit_icon.png")
-const PLAY_TEXT = "Next"
-const EXIT_TEXT = "Exit"
+# const PLAY_ICON = preload("res://assets/ui/play_icon.png")
+# const EXIT_ICON = preload("res://assets/ui/exit_icon.png")
+const PLAY_TEXT = " Next "
+const EXIT_TEXT = " Exit "
 
 var _has_next_level: bool
 
@@ -35,7 +35,7 @@ func update_score(move_left: int) -> void:
 	if is_record:
 		print("NEW RECORD")
 	_has_next_level = GameManager.set_next_level()
-	next_btn.icon = PLAY_ICON if _has_next_level else EXIT_ICON
+	# next_btn.icon = PLAY_ICON if _has_next_level else EXIT_ICON
 	next_btn.text = PLAY_TEXT if _has_next_level else EXIT_TEXT
 
 

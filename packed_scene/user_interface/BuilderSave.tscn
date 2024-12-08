@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://devm2geibslsw"]
+[gd_scene load_steps=8 format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_q3qhm"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
-[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_blv7d"]
+[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
+[ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="8_t1bnt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
 bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
@@ -27,6 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_q3qhm")
 theme_override_styles/panel = SubResource("StyleBoxFlat_r00fw")
 
 [node name="Panel" type="Panel" parent="Background"]
@@ -36,30 +38,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -300.0
-offset_right = 300.0
-offset_bottom = 300.0
+offset_left = -275.0
+offset_top = -250.0
+offset_right = 275.0
+offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_qhpg7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -250.0
-offset_right = 250.0
-offset_bottom = 250.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
 
-[node name="LevelName" type="LineEdit" parent="Background/Panel/VBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 20
+
+[node name="LevelName" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -74,7 +83,7 @@ selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Moves" type="LineEdit" parent="Background/Panel/VBoxContainer"]
+[node name="Moves" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -89,34 +98,13 @@ selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="HSeparator" type="HSeparator" parent="Background/Panel/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="Controls" type="HBoxContainer" parent="Background/Panel/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 20
+alignment = 2
 
-[node name="ExitBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
-layout_mode = 2
-size_flags_horizontal = 5
-focus_mode = 0
-theme = ExtResource("2_q3qhm")
-theme_override_font_sizes/font_size = 100
-icon = ExtResource("3_blv7d")
-
-[node name="SaveBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 5
-focus_mode = 0
-theme = ExtResource("2_q3qhm")
-icon = SubResource("CompressedTexture2D_ud3al")
-
-[node name="PersistBtn" type="Button" parent="Background/Panel/VBoxContainer/Controls"]
+[node name="PersistBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -129,9 +117,21 @@ theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
 icon = SubResource("CompressedTexture2D_ud3al")
+flat = true
 
-[connection signal="text_changed" from="Background/Panel/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
-[connection signal="text_changed" from="Background/Panel/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/VBoxContainer/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
+[node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("4_a08wn")
+theme_override_constants/icon_max_width = 92
+text = " Save "
+icon = ExtResource("8_t1bnt")
+icon_alignment = 2
+
+[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
+[connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]

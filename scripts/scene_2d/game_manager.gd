@@ -18,6 +18,7 @@ var level_manager: LevelManager
 var level_builder: LevelBuilder
 var game_ui: GameUI
 var builder_ui: BuilderUI
+var option_ui: Options
 var builder_selection: BuilderSelection
 var builder_save: BuilderSave
 var builder_resize: BuilderResize
@@ -43,14 +44,14 @@ func _ready() -> void:
 	main_menu = MAIN_MENU.instantiate()
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
-	
+
 
 func _set_ui_scale() -> void:
-	var max_screen_width : float = get_viewport().size.x
-	var max_screen_height : float = get_viewport().size.y
+	var max_screen_width: float = get_viewport().size.x
+	var max_screen_height: float = get_viewport().size.y
 	var min_scale: float = min(max_screen_width / 720, max_screen_height / 1280)
-	ui_scale = Vector2(min_scale,min_scale)
-	
+	ui_scale = Vector2(min_scale, min_scale)
+
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
@@ -156,12 +157,12 @@ func get_active_level(level_name: String = "") -> LevelData:
 
 
 func set_level_scale(level_width: int, level_height: int) -> void:
-	var max_screen_width : float = get_viewport().size.x
-	var max_screen_height : float = get_viewport().size.y * 0.8
+	var max_screen_width: float = get_viewport().size.x
+	var max_screen_height: float = get_viewport().size.y * 0.8
 	cell_size = min(max_screen_width / (level_width + 2), max_screen_height / (level_height + 2))
 	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
 	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
-	
+
 
 func get_next_level() -> LevelData:
 	_active_level_name = _next_level_name
@@ -210,3 +211,7 @@ func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
 func delete_level(level_name: String) -> void:
 	_player_save.delete_level(level_name)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+
+
+func toggle_tutorial() -> void:
+	is_tutorial_visible = !is_tutorial_visible

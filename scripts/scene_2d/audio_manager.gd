@@ -32,3 +32,11 @@ func play_slider_sound(percentage: float) -> void:
 	if _is_sfx_on:
 		slider_player.pitch_scale = percentage
 		slider_player.play()
+
+
+func is_music_on() -> bool:
+	return _is_music_on
+
+
+func is_sfx_on() -> bool:
+	return _is_sfx_on

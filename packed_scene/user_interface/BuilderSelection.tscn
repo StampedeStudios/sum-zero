@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_ya4n7"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="6_3iilm"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="6_3iilm"]
 [ext_resource type="Texture2D" uid="uid://bltremx72y4lg" path="res://assets/ui/lightning_icon.png" id="6_lyil8"]
 [ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="7_0ydmo"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="8_1aj5k"]
@@ -56,6 +56,8 @@ rotation = 3.14159
 focus_mode = 0
 theme = ExtResource("6_3iilm")
 icon = ExtResource("7_0ydmo")
+flat = true
+icon_alignment = 1
 
 [node name="Forward" type="Button" parent="Control"]
 unique_name_in_owner = true
@@ -71,6 +73,8 @@ grow_vertical = 2
 focus_mode = 0
 theme = ExtResource("6_3iilm")
 icon = ExtResource("8_ud0wv")
+flat = true
+icon_alignment = 1
 
 [node name="Remove" type="Button" parent="Control"]
 unique_name_in_owner = true
@@ -86,6 +90,8 @@ grow_horizontal = 2
 focus_mode = 0
 theme = ExtResource("6_3iilm")
 icon = ExtResource("9_yyv7m")
+flat = true
+icon_alignment = 1
 
 [node name="Special" type="Button" parent="Control"]
 unique_name_in_owner = true
@@ -104,6 +110,8 @@ grow_vertical = 0
 focus_mode = 0
 theme = ExtResource("6_3iilm")
 icon = ExtResource("10_aav8u")
+flat = true
+icon_alignment = 1
 
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
 [connection signal="pressed" from="Control/Backward" to="." method="_on_backward_pressed"]

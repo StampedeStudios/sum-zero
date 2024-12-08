@@ -1,6 +1,7 @@
 extends Control
 
 const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
+const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
 
 var _inserted_code: String
 
@@ -82,7 +83,7 @@ func _show_error() -> void:
 	code.add_theme_color_override("font_color", Color.DARK_RED)
 
 	await get_tree().create_timer(1).timeout
-	code.remove_theme_stylebox_override("normal")
+	code.add_theme_stylebox_override("normal", BUTTON_NORMAL)
 	code.remove_theme_color_override("icon_normal_color")
 	code.remove_theme_color_override("font_color")
 	code.text = ""

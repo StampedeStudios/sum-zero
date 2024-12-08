@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpri6h0m2juyf"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/global_theme.tres" id="2_0xa7q"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_0xa7q"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="3_8n2no"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="3_34h8o"]
 [ext_resource type="Texture2D" uid="uid://bx5rrmh1alb5g" path="res://assets/ui/resize_icon.png" id="4_5ca4s"]
@@ -27,9 +27,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
+theme_override_constants/margin_bottom = 40
 
 [node name="TopContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2

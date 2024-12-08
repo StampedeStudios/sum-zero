@@ -49,11 +49,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _on_exit_btn_pressed():
-	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
-
-
 func _on_save_btn_pressed():
 	AudioManager.play_click_sound()
 	on_query_close.emit(false, level_name.text, int(moves.text))
@@ -100,3 +95,9 @@ func _on_level_name_text_changed(new_text: String) -> void:
 
 	_invalid_name = new_text.is_empty()
 	_check_valid_info()
+
+
+func _on_background_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
+		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
