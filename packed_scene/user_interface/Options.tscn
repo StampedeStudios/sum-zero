@@ -10,9 +10,11 @@
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 720.0
-offset_bottom = 1280.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_ncc3j")
 script = ExtResource("2_mjy7k")
 
@@ -33,9 +35,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -275.0
-offset_top = -250.0
+offset_top = -200.0
 offset_right = 275.0
-offset_bottom = 250.0
+offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -53,21 +55,9 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-alignment = 1
-
-[node name="Label" type="Label" parent="Background/Panel/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 65
-text = "Settings"
-horizontal_alignment = 1
-
 [node name="Options" type="HBoxContainer" parent="Background/Panel/MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="Labels" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options"]
 layout_mode = 2

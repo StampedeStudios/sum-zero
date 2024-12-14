@@ -41,6 +41,8 @@ func add_imported_level(level_name: String) -> void:
 	progress.is_completed = true
 
 	level_button.construct(level_name, progress, GlobalConst.LevelGroup.CUSTOM)
+	level_button.add_child(_create_label(_level_buttons.size() + (_current_page - 1) * PAGE_SIZE))
+
 	level_grid.move_child(level_button, _level_buttons.size() - 1)
 	# Show next page button if there are no placeholder buttons
 	_update_buttons(_placeholder_buttons.size() == 0)
@@ -106,25 +108,27 @@ func _update_content() -> void:
 			var progress: LevelProgress = levels_progress.get(level_name)
 			if level_btn_count > 0:
 				level_button = _level_buttons[level_btn_count - 1]
-				var lab: Label = level_button.get_child(0)
-				lab.text = str(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
+
+				# Update level index
+				if progress.is_unlocked:
+					var lab: Label = level_button.get_child(0)
+					lab.text = str(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
+					lab.show()
+				else:
+					var lab: Label = level_button.get_child(0)
+					lab.hide()
 
 				level_btn_count -= 1
 			else:
 				level_button = LevelButton.new()
 				level_button.on_delete_level_button.connect(_update_last_level)
-				var lab: Label = Label.new()
-				lab.text = str(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
-
-				lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
-				lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
-				lab.theme = THEME
-				lab.set_anchors_preset(PRESET_FULL_RECT)
-
-				level_button.add_child(lab)
+				if progress.is_unlocked:
+					var label := _create_label(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
+					level_button.add_child(label)
 
 				_level_buttons.append(level_button)
 				level_grid.add_child(level_button)
+
 			level_button.construct(level_name, progress, _world)
 			level_grid.move_child(level_button, btn_index)
 		else:
@@ -175,6 +179,7 @@ func _update_last_level(ref: LevelButton) -> void:
 		_placeholder_buttons.append(placeholder_button)
 		level_grid.add_child(placeholder_button)
 		placeholder_button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
+		_update_content()
 
 
 func _on_left_pressed() -> void:
@@ -223,3 +228,14 @@ func _on_custom_btn_pressed() -> void:
 	world_underline.hide()
 	custom_underline.show()
 	_update_content()
+
+
+func _create_label(index: int) -> Label:
+	var lab: Label = Label.new()
+	lab.text = str(index)
+
+	lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+	lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+	lab.theme = THEME
+	lab.set_anchors_preset(PRESET_FULL_RECT)
+	return lab
