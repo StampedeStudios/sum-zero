@@ -9,8 +9,7 @@ const LEVEL_INSPECT = preload("res://packed_scene/user_interface/LevelInspect.ts
 const CUSTOM_LEVEL_INSPECT = preload("res://packed_scene/user_interface/CustomLevelInspect.tscn")
 
 # Icons
-const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_icon.png")
-const PLAY_ICON: CompressedTexture2D = preload("res://assets/ui/play_icon.png")
+const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_level_icon.png")
 const ZERO_STARS = preload("res://assets/ui/zero_stars.png")
 const ONE_STAR = preload("res://assets/ui/one_star.png")
 const TWO_STARS = preload("res://assets/ui/two_stars.png")
@@ -71,7 +70,7 @@ func construct(level_name: String, progress: LevelProgress, group: GlobalConst.L
 		var stars_amount := _count_stars(progress.move_left)
 		icon = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS][stars_amount]
 	else:
-		icon = PLAY_ICON
+		icon = ZERO_STARS
 
 	_level_name = level_name
 	_progress = progress
@@ -84,11 +83,10 @@ func _count_stars(moves_left: int) -> int:
 
 
 func _unlock_level() -> void:
-	icon = PLAY_ICON
+	icon = ZERO_STARS
 
 
 func _delete_level_button() -> void:
-	print("delete")
 	AudioManager.play_click_sound()
 	on_delete_level_button.emit(self)
 	self.queue_free.call_deferred()

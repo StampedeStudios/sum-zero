@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=446 format=3]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=435 format=3 uid="uid://bypwt0u7fe45m"]
 
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="1_6i8uv"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_0gd78"]
@@ -2693,76 +2693,6 @@ Vector2i(0, 1): SubResource("Resource_1uy85")
 }
 moves_left = 1
 
-[sub_resource type="Resource" id="Resource_gfi42"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_80233"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_ndiu5"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_rffty"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_ow1i6"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_w84mj"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_qurf6"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_iwntc"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_gt4y1"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_gxg6g"]
-script = ExtResource("3_xl0g1")
-area_effect = 1
-area_behavior = 0
-
-[sub_resource type="Resource" id="Resource_bjjgo"]
-script = ExtResource("2_0gd78")
-width = 3
-height = 3
-cells_list = {
-Vector2i(0, 0): SubResource("Resource_gfi42"),
-Vector2i(0, 1): SubResource("Resource_80233"),
-Vector2i(0, 2): SubResource("Resource_ow1i6"),
-Vector2i(1, 0): SubResource("Resource_rffty"),
-Vector2i(1, 1): SubResource("Resource_ndiu5"),
-Vector2i(1, 2): SubResource("Resource_w84mj"),
-Vector2i(2, 0): SubResource("Resource_qurf6"),
-Vector2i(2, 1): SubResource("Resource_iwntc"),
-Vector2i(2, 2): SubResource("Resource_gt4y1")
-}
-slider_list = {
-Vector2i(0, 1): SubResource("Resource_gxg6g")
-}
-moves_left = 1
-
 [resource]
 script = ExtResource("4_v7vmu")
 levels = {
@@ -2792,7 +2722,6 @@ levels = {
 "24": SubResource("Resource_yqbt3"),
 "25": SubResource("Resource_vkwot"),
 "26": SubResource("Resource_o0ebo"),
-"27": SubResource("Resource_ka72c"),
-"Test": SubResource("Resource_bjjgo")
+"27": SubResource("Resource_ka72c")
 }
-levels_order = Array[String](["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "Test"])
+levels_order = Array[String](["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27"])
