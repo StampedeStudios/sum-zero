@@ -40,6 +40,10 @@ folder_colors={
 "res://scripts/": "blue"
 }
 
+[gui]
+
+theme/custom_font="res://assets/ui/fonts/FiraMono-Regular.ttf"
+
 [input]
 
 click={

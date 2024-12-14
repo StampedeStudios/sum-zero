@@ -6,7 +6,7 @@ const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_b
 
 # Icons
 const IMPORT_ICON: CompressedTexture2D = preload("res://assets/ui/import_icon.png")
-const PLACEHOLDER_ICON: CompressedTexture2D = preload("res://assets/ui/gear_icon.png")
+const PLACEHOLDER_ICON: CompressedTexture2D = preload("res://assets/ui/col_gear_icon.png")
 
 const LEVEL_IMPORT = preload("res://packed_scene/user_interface/LevelImport.tscn")
 

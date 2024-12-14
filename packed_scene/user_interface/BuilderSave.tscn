@@ -1,13 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://devm2geibslsw"]
+[gd_scene load_steps=10 format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
+[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_wt55p"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
+[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="6_q6q01"]
+[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_7obcj"]
 [ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="8_t1bnt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r00fw"]
-bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ud3al"]
 load_path = "res://.godot/imported/save_icon.png-bb729b418ac7c5fcd58f67cd4ad6fc4c.ctex"
@@ -29,7 +29,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_q3qhm")
-theme_override_styles/panel = SubResource("StyleBoxFlat_r00fw")
+theme_override_styles/panel = ExtResource("3_wt55p")
 
 [node name="Panel" type="Panel" parent="Background"]
 layout_mode = 1
@@ -130,8 +130,27 @@ text = " Save "
 icon = ExtResource("8_t1bnt")
 icon_alignment = 2
 
+[node name="ExitBtn" type="Button" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_bottom = 45.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_styles/hover = ExtResource("6_q6q01")
+theme_override_styles/pressed = ExtResource("6_q6q01")
+theme_override_styles/normal = ExtResource("6_q6q01")
+icon = ExtResource("7_7obcj")
+icon_alignment = 1
+
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

@@ -199,6 +199,16 @@ func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Di
 	return levels_in_page
 
 
+func get_num_levels(group: GlobalConst.LevelGroup) -> int:
+	match group:
+		GlobalConst.LevelGroup.CUSTOM:
+			return _player_save.custom_levels.levels.size()
+		GlobalConst.LevelGroup.MAIN:
+			return _player_save.persistent_progress.size()
+		_:
+			return 0
+
+
 func is_level_completed() -> bool:
 	return _get_progress().get(_active_level_name).is_completed
 

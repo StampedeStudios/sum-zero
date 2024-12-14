@@ -51,7 +51,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				GameManager.builder_save = builder_save
 			if _level_name != "":
 				var moves := String.num_int64(_level_data.moves_left)
-				GameManager.builder_save.initialize_info.call_deferred(_level_name,moves)
+				GameManager.builder_save.initialize_info.call_deferred(_level_name, moves)
 
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true

@@ -3,9 +3,11 @@ class_name LevelUI extends Control
 const PAGE_SIZE := 9
 const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
 const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
+const THEME = preload("res://assets/resources/themes/default.tres")
 
 var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 var _current_page: int = 1
+var _num_pages: int = 1
 var _level_buttons: Array[LevelButton]
 var _placeholder_buttons: Array[PlaceholderButton]
 
@@ -13,10 +15,13 @@ var _placeholder_buttons: Array[PlaceholderButton]
 @onready var left: TextureButton = %Left
 @onready var right: TextureButton = %Right
 @onready var title: Label = %Title
+@onready var world_underline: Line2D = %WorldUnderline
+@onready var custom_underline: Line2D = %CustomUnderline
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
+	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	_update_content()
 
 
@@ -26,6 +31,7 @@ func add_imported_level(level_name: String) -> void:
 
 	var level_button := LevelButton.new()
 	level_button.on_delete_level_button.connect(_update_last_level)
+
 	_level_buttons.append(level_button)
 	level_grid.add_child(level_button)
 
@@ -66,11 +72,12 @@ func _on_exit_btn_pressed() -> void:
 func _update_content() -> void:
 	var first_level: int = (_current_page - 1) * PAGE_SIZE + 1
 	var last_level: int = _current_page * PAGE_SIZE
-	title.text = "%d ~ %d" % [first_level, last_level]
 
 	var levels_progress: Dictionary
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, first_level, last_level + 1)
+	title.text = "%d of %d" % [_current_page, _num_pages]
+
 	match _world:
 		GlobalConst.LevelGroup.MAIN:
 			_update_buttons(levels_progress.size() > PAGE_SIZE)
@@ -78,10 +85,12 @@ func _update_content() -> void:
 			_update_buttons(levels_progress.size() > PAGE_SIZE - 1)
 
 	var max_level_btn := mini(levels_progress.size(), PAGE_SIZE)
+
 	# remove excess level button
 	while _level_buttons.size() > max_level_btn:
 		var button: LevelButton = _level_buttons.pop_back()
 		button.queue_free()
+
 	# remove excess placeholder button
 	while _placeholder_buttons.size() > PAGE_SIZE - max_level_btn:
 		var button: PlaceholderButton = _placeholder_buttons.pop_back()
@@ -97,10 +106,23 @@ func _update_content() -> void:
 			var progress: LevelProgress = levels_progress.get(level_name)
 			if level_btn_count > 0:
 				level_button = _level_buttons[level_btn_count - 1]
+				var lab: Label = level_button.get_child(0)
+				lab.text = str(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
+
 				level_btn_count -= 1
 			else:
 				level_button = LevelButton.new()
 				level_button.on_delete_level_button.connect(_update_last_level)
+				var lab: Label = Label.new()
+				lab.text = str(btn_index + 1 + (_current_page - 1) * PAGE_SIZE)
+
+				lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+				lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+				lab.theme = THEME
+				lab.set_anchors_preset(PRESET_FULL_RECT)
+
+				level_button.add_child(lab)
+
 				_level_buttons.append(level_button)
 				level_grid.add_child(level_button)
 			level_button.construct(level_name, progress, _world)
@@ -143,6 +165,7 @@ func _update_last_level(ref: LevelButton) -> void:
 		var progress: LevelProgress = levels_progress.get(level_name)
 		var level_button := LevelButton.new()
 		level_button.on_delete_level_button.connect(_update_last_level)
+
 		_level_buttons.append(level_button)
 		level_grid.add_child(level_button)
 		level_button.construct(level_name, progress, _world)
@@ -186,11 +209,17 @@ func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
+	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	_update_content()
+	world_underline.show()
+	custom_underline.hide()
 
 
 func _on_custom_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
+	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
+	world_underline.hide()
+	custom_underline.show()
 	_update_content()

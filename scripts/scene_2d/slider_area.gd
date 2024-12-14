@@ -63,7 +63,7 @@ func release_handle() -> void:
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
-	if _current_scale != _last_scale:		
+	if _current_scale != _last_scale:
 		_last_scale = _current_scale
 		_alter_grid()
 	else:
@@ -79,7 +79,7 @@ func _alter_grid() -> void:
 	if GameManager.builder_test != null:
 		GameManager.builder_test.add_move()
 	alter_grid.emit()
-		
+
 
 func _process(_delta: float) -> void:
 	if _is_scaling:
@@ -176,7 +176,7 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 					for cell_index in range(_current_scale):
 						var cell: Cell = _reachable_cells[cell_index]
 						_last_affected_cells[cell] = cell.get_cell_value()
-							
+
 				# extend the area to the maximum reachable cell
 				GlobalConst.AreaBehavior.FULL:
 					_check_limit()
