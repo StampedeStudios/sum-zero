@@ -103,3 +103,8 @@ func _on_unlock_btn_pressed() -> void:
 	GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_name)
 	_update_buttons(true)
 	level_unlocked.emit()
+
+
+func _on_exit_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)

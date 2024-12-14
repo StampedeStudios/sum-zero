@@ -64,3 +64,8 @@ func _update_button_style(toggled_button: TextureButton, toggled_on: bool) -> vo
 	else:
 		toggled_button.texture_normal = TOGGLE_BUTTON_OFF_NORMAL
 		toggled_button.texture_hover = TOGGLE_BUTTON_OFF_NORMAL
+
+
+func _on_exit_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)

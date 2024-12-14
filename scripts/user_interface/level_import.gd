@@ -87,3 +87,7 @@ func _show_error() -> void:
 	code.remove_theme_color_override("icon_normal_color")
 	code.remove_theme_color_override("font_color")
 	code.text = ""
+
+
+func _on_exit_btn_pressed() -> void:
+	self.queue_free()

@@ -110,3 +110,8 @@ func _on_delete_btn_pressed() -> void:
 	GameManager.delete_level(_level_name)
 	level_deleted.emit()
 	GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)
+
+
+func _on_exit_btn_pressed() -> void:
+	copy_btn.remove_theme_color_override("icon_normal_color")
+	GameManager.change_state(GlobalConst.GameState.LEVEL_PICK)

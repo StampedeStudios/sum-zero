@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://boo7egubuj8lm"]
+[gd_scene load_steps=16 format=3 uid="uid://boo7egubuj8lm"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_xhbmd"]
 [ext_resource type="Script" path="res://scripts/user_interface/custom_level_inspect.gd" id="2_hvtap"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="3_f7xua"]
+[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_r5v54"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_vh8y7"]
 [ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="5_ioms7"]
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="6_botlw"]
@@ -11,9 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="8_805tn"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="9_m2lq8"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_pmfwt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
-bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="12_bfmt0"]
+[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="13_7ds18"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wsgkt"]
 shader = ExtResource("4_vh8y7")
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ikv7t")
+theme_override_styles/panel = ExtResource("3_r5v54")
 
 [node name="Panel" type="Panel" parent="Background"]
 layout_mode = 1
@@ -133,8 +133,27 @@ focus_mode = 0
 theme = ExtResource("9_pmfwt")
 icon = ExtResource("9_m2lq8")
 
+[node name="ExitBtn" type="Button" parent="Background/Panel"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -45.0
+offset_bottom = 45.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_styles/hover = ExtResource("12_bfmt0")
+theme_override_styles/pressed = ExtResource("12_bfmt0")
+theme_override_styles/normal = ExtResource("12_bfmt0")
+icon = ExtResource("13_7ds18")
+icon_alignment = 1
+
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/BoxContainer/CopyBtn" to="." method="_on_copy_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/DeleteBtn" to="." method="_on_delete_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/BuildBtn" to="." method="_on_build_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]
