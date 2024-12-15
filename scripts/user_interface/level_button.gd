@@ -92,7 +92,7 @@ func _create_label(index: int) -> Label:
 	lab.theme = THEME
 	lab.set_anchors_preset(PRESET_FULL_RECT)
 	return lab
-	
+
 
 func _count_stars(moves_left: int) -> int:
 	# Less than -2 moves is equal to 0 stars. Zero or more moves are equivalent to 3 stars
