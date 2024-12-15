@@ -150,7 +150,6 @@ func get_active_level(level_id: int = -1) -> LevelData:
 	return _get_levels().levels[_active_level_id] as LevelData
 
 
-
 func set_level_scale(level_width: int, level_height: int) -> void:
 	var max_screen_width: float = get_viewport().size.x
 	var max_screen_height: float = get_viewport().size.y * 0.8
