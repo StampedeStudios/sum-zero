@@ -1,8 +1,8 @@
 class_name PlayerSave extends Resource
 
 @export var custom_levels: LevelContainer
-@export var custom_progress: Dictionary
-@export var persistent_progress: Dictionary
+@export var custom_progress: Array[LevelProgress]
+@export var persistent_progress: Array[LevelProgress]
 
 
 func initialize_player_save(save: LevelContainer) -> void:
@@ -10,43 +10,36 @@ func initialize_player_save(save: LevelContainer) -> void:
 	if custom_levels == null:
 		custom_levels = LevelContainer.new()
 	# create new progress for each persistent level
-	for level_name in save.levels.keys():
-		if !persistent_progress.has(level_name):
-			persistent_progress[level_name] = LevelProgress.new()
-	# create new progress for each custom level
-	for level_name in custom_levels.levels.keys():
-		if !custom_progress.has(level_name):
-			var progress := LevelProgress.new()
-			progress.is_unlocked = true
-			progress.is_completed = true
-			progress.move_left = -1000
-			custom_progress[level_name] = progress
+	for id in range(persistent_progress.size(), save.levels.size()):
+		var progress := LevelProgress.new()
+		progress.name = save.levels[id].name
+		persistent_progress.append(progress)
 	# unlock first main level
 	if save.levels.size() > 0:
-		persistent_progress.get(save.get_level_by_index(0)).is_unlocked = true
+		persistent_progress[0].is_unlocked = true
 
 
-func reset_progress(group: GlobalConst.LevelGroup, level_name: String) -> void:
+func add_progress(group: GlobalConst.LevelGroup, level_name: String) -> void:
+	var progress := LevelProgress.new()
+	progress.name = level_name
 	match group:
 		GlobalConst.LevelGroup.MAIN:
-			persistent_progress[level_name] = LevelProgress.new()
+			persistent_progress.append(progress)
 		GlobalConst.LevelGroup.CUSTOM:
-			var progress := LevelProgress.new()
 			progress.is_unlocked = true
 			progress.is_completed = true
 			progress.move_left = -1000
-			custom_progress[level_name] = progress
+			custom_progress.append(progress)
 
 
-func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
+func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
 	match group:
 		GlobalConst.LevelGroup.MAIN:
-			persistent_progress.get(level_name).is_unlocked = true
+			persistent_progress[level_id].is_unlocked = true
 		GlobalConst.LevelGroup.CUSTOM:
-			custom_progress.get(level_name).is_unlocked = true
+			custom_progress[level_id].is_unlocked = true
 
 
-func delete_level(level_name: String) -> void:
-	custom_progress.erase(level_name)
-	custom_levels.levels.erase(level_name)
-	custom_levels.levels_order.erase(level_name)
+func delete_level(level_id: int) -> void:
+	custom_progress.remove_at(level_id)
+	custom_levels.levels.remove_at(level_id)

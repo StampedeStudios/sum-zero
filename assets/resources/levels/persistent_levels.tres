@@ -1,2727 +1,2719 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=435 format=3 uid="uid://bypwt0u7fe45m"]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=434 format=3 uid="uid://v0r16yxsejpo"]
 
-[ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="1_6i8uv"]
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_0gd78"]
-[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_xl0g1"]
+[ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="2_08p0w"]
+[ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_cr51g"]
 [ext_resource type="Script" path="res://scripts/utility/level_container.gd" id="4_v7vmu"]
 
-[sub_resource type="Resource" id="Resource_4i4bm"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qujjk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_bcwq5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_7rche"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_tfxuw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ubyoa"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ver3d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_iqigu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_30cxr"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_hylnk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_jul3r"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4i4re"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_5gsdc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_cnral"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_hywmm"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_b4i2r"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_agvig"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_koocd"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_6hypx"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ytfvs"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_262tc"]
+[sub_resource type="Resource" id="Resource_prlpu"]
 script = ExtResource("2_0gd78")
+name = "01"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_4i4bm"),
-Vector2i(0, 1): SubResource("Resource_bcwq5"),
-Vector2i(0, 2): SubResource("Resource_tfxuw"),
-Vector2i(1, 0): SubResource("Resource_ver3d"),
-Vector2i(1, 1): SubResource("Resource_30cxr"),
-Vector2i(1, 2): SubResource("Resource_jul3r"),
-Vector2i(2, 0): SubResource("Resource_5gsdc"),
-Vector2i(2, 1): SubResource("Resource_hywmm"),
-Vector2i(2, 2): SubResource("Resource_agvig")
+Vector2i(0, 0): SubResource("Resource_qujjk"),
+Vector2i(0, 1): SubResource("Resource_7rche"),
+Vector2i(0, 2): SubResource("Resource_ubyoa"),
+Vector2i(1, 0): SubResource("Resource_iqigu"),
+Vector2i(1, 1): SubResource("Resource_hylnk"),
+Vector2i(1, 2): SubResource("Resource_4i4re"),
+Vector2i(2, 0): SubResource("Resource_cnral"),
+Vector2i(2, 1): SubResource("Resource_b4i2r"),
+Vector2i(2, 2): SubResource("Resource_koocd")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_6hypx")
+Vector2i(0, 1): SubResource("Resource_ytfvs")
 }
 moves_left = 1
 
-[sub_resource type="Resource" id="Resource_rgf1o"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_f8afm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_s565p"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_glynh"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_65n3x"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ygdvu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_5m8xp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_iu35a"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_mwuvg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_62170"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_83kfo"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wfrbe"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_uo766"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_j7rev"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_wf301"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_faamd"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_oi7op"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mhd4o"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_jxka1"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_fm5hg"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_pmsfj"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_tp3pn"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_yhu4i"]
+[sub_resource type="Resource" id="Resource_1c6xk"]
 script = ExtResource("2_0gd78")
+name = "02"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_rgf1o"),
-Vector2i(0, 1): SubResource("Resource_s565p"),
-Vector2i(0, 2): SubResource("Resource_65n3x"),
-Vector2i(1, 0): SubResource("Resource_5m8xp"),
-Vector2i(1, 1): SubResource("Resource_mwuvg"),
-Vector2i(1, 2): SubResource("Resource_83kfo"),
-Vector2i(2, 0): SubResource("Resource_uo766"),
-Vector2i(2, 1): SubResource("Resource_wf301"),
-Vector2i(2, 2): SubResource("Resource_oi7op")
+Vector2i(0, 0): SubResource("Resource_f8afm"),
+Vector2i(0, 1): SubResource("Resource_glynh"),
+Vector2i(0, 2): SubResource("Resource_ygdvu"),
+Vector2i(1, 0): SubResource("Resource_iu35a"),
+Vector2i(1, 1): SubResource("Resource_62170"),
+Vector2i(1, 2): SubResource("Resource_wfrbe"),
+Vector2i(2, 0): SubResource("Resource_j7rev"),
+Vector2i(2, 1): SubResource("Resource_faamd"),
+Vector2i(2, 2): SubResource("Resource_mhd4o")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_jxka1"),
-Vector2i(1, 1): SubResource("Resource_pmsfj")
+Vector2i(0, 1): SubResource("Resource_fm5hg"),
+Vector2i(1, 1): SubResource("Resource_tp3pn")
 }
 moves_left = 2
 
-[sub_resource type="Resource" id="Resource_micl2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_oelni"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_bnetf"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_fijh7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_7y4xj"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_clwhn"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_wg0wl"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_h8c4l"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ugwku"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jg226"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_6e7hu"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ehi2m"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_voyyx"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ut7t1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_e43bv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mejg5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_2ckg3"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_rop5d"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_vjf7s"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1oph4"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_0lboj"]
+[sub_resource type="Resource" id="Resource_rb0jg"]
 script = ExtResource("2_0gd78")
+name = "03"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_micl2"),
-Vector2i(0, 1): SubResource("Resource_bnetf"),
-Vector2i(0, 2): SubResource("Resource_7y4xj"),
-Vector2i(1, 0): SubResource("Resource_wg0wl"),
-Vector2i(1, 1): SubResource("Resource_ugwku"),
-Vector2i(1, 2): SubResource("Resource_6e7hu"),
-Vector2i(2, 0): SubResource("Resource_voyyx"),
-Vector2i(2, 1): SubResource("Resource_e43bv"),
-Vector2i(2, 2): SubResource("Resource_2ckg3")
+Vector2i(0, 0): SubResource("Resource_oelni"),
+Vector2i(0, 1): SubResource("Resource_fijh7"),
+Vector2i(0, 2): SubResource("Resource_clwhn"),
+Vector2i(1, 0): SubResource("Resource_h8c4l"),
+Vector2i(1, 1): SubResource("Resource_jg226"),
+Vector2i(1, 2): SubResource("Resource_ehi2m"),
+Vector2i(2, 0): SubResource("Resource_ut7t1"),
+Vector2i(2, 1): SubResource("Resource_mejg5"),
+Vector2i(2, 2): SubResource("Resource_rop5d")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_vjf7s")
+Vector2i(0, 1): SubResource("Resource_1oph4")
 }
 moves_left = 1
 
-[sub_resource type="Resource" id="Resource_trg87"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_e0bcs"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_0sk7a"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_myfv6"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_leghb"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mxnjt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_2f15n"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_a408w"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_0hftn"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_8c76d"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_araqv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_eur28"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_fhw2m"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yt2hc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_pu5tq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mlb67"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_8w5yb"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_o2byg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_psf80"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ravhb"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_s40dw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mn82r"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_icoxp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_43yml"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_18svy"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_hiagg"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_s40w1"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_dvnri"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xy130"]
+[sub_resource type="Resource" id="Resource_vmxe4"]
 script = ExtResource("2_0gd78")
+name = "04"
 width = 4
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_trg87"),
-Vector2i(0, 1): SubResource("Resource_0sk7a"),
-Vector2i(0, 2): SubResource("Resource_leghb"),
-Vector2i(1, 0): SubResource("Resource_2f15n"),
-Vector2i(1, 1): SubResource("Resource_0hftn"),
-Vector2i(1, 2): SubResource("Resource_araqv"),
-Vector2i(2, 0): SubResource("Resource_fhw2m"),
-Vector2i(2, 1): SubResource("Resource_pu5tq"),
-Vector2i(2, 2): SubResource("Resource_8w5yb"),
-Vector2i(3, 0): SubResource("Resource_psf80"),
-Vector2i(3, 1): SubResource("Resource_s40dw"),
-Vector2i(3, 2): SubResource("Resource_icoxp")
+Vector2i(0, 0): SubResource("Resource_e0bcs"),
+Vector2i(0, 1): SubResource("Resource_myfv6"),
+Vector2i(0, 2): SubResource("Resource_mxnjt"),
+Vector2i(1, 0): SubResource("Resource_a408w"),
+Vector2i(1, 1): SubResource("Resource_8c76d"),
+Vector2i(1, 2): SubResource("Resource_eur28"),
+Vector2i(2, 0): SubResource("Resource_yt2hc"),
+Vector2i(2, 1): SubResource("Resource_mlb67"),
+Vector2i(2, 2): SubResource("Resource_o2byg"),
+Vector2i(3, 0): SubResource("Resource_ravhb"),
+Vector2i(3, 1): SubResource("Resource_mn82r"),
+Vector2i(3, 2): SubResource("Resource_43yml")
 }
 slider_list = {
-Vector2i(0, 2): SubResource("Resource_18svy"),
-Vector2i(3, 1): SubResource("Resource_s40w1")
+Vector2i(0, 2): SubResource("Resource_hiagg"),
+Vector2i(3, 1): SubResource("Resource_dvnri")
 }
-moves_left = 3
+moves_left = 2
 
-[sub_resource type="Resource" id="Resource_7vs0x"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1yac5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_jgyns"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_n1hg1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_i3qjv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_bf2yh"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_oa2q7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4krq4"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_edkmw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_djhpt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_stu3x"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_k01qt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_8hxe8"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_84dqj"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ccru1"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_65akn"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_13ku6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_0l10i"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_c2sfv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_rdsyw"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_blr5p"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_vbvys"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_pnscl"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_41tj6"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_l3qn2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_pw7h0"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_hijof"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_f346s"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_dg6b2"]
+[sub_resource type="Resource" id="Resource_wvwty"]
 script = ExtResource("2_0gd78")
+name = "05"
 width = 4
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_7vs0x"),
-Vector2i(0, 1): SubResource("Resource_jgyns"),
-Vector2i(1, 0): SubResource("Resource_i3qjv"),
-Vector2i(1, 1): SubResource("Resource_oa2q7"),
-Vector2i(1, 2): SubResource("Resource_edkmw"),
-Vector2i(2, 1): SubResource("Resource_stu3x"),
-Vector2i(2, 2): SubResource("Resource_8hxe8"),
-Vector2i(2, 3): SubResource("Resource_ccru1"),
-Vector2i(3, 2): SubResource("Resource_13ku6"),
-Vector2i(3, 3): SubResource("Resource_c2sfv")
+Vector2i(0, 0): SubResource("Resource_1yac5"),
+Vector2i(0, 1): SubResource("Resource_n1hg1"),
+Vector2i(1, 0): SubResource("Resource_bf2yh"),
+Vector2i(1, 1): SubResource("Resource_4krq4"),
+Vector2i(1, 2): SubResource("Resource_djhpt"),
+Vector2i(2, 1): SubResource("Resource_k01qt"),
+Vector2i(2, 2): SubResource("Resource_84dqj"),
+Vector2i(2, 3): SubResource("Resource_65akn"),
+Vector2i(3, 2): SubResource("Resource_0l10i"),
+Vector2i(3, 3): SubResource("Resource_rdsyw")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_blr5p"),
-Vector2i(1, 2): SubResource("Resource_pnscl"),
-Vector2i(2, 2): SubResource("Resource_l3qn2"),
-Vector2i(3, 1): SubResource("Resource_hijof")
+Vector2i(0, 1): SubResource("Resource_vbvys"),
+Vector2i(1, 2): SubResource("Resource_41tj6"),
+Vector2i(2, 2): SubResource("Resource_pw7h0"),
+Vector2i(3, 1): SubResource("Resource_f346s")
 }
 moves_left = 3
 
-[sub_resource type="Resource" id="Resource_xqmfp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3xvuq"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_qja0v"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4nfi7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_tfo1i"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1b3mi"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_y3d17"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lrr6q"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_7rp0d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_uqgv1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_8qhro"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lw6cx"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 3
 
-[sub_resource type="Resource" id="Resource_f8oj2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lk1io"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_kt5ml"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ig17a"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_rg23n"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4xnt5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_8r7t0"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_f5bn1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_75pg2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_5p2y7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_kbrmj"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6c76j"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_oeejn"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_7j5tm"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_nl2hf"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_45nhb"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_bbe3o"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_fit1k"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kmywe"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1025f"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_u7vsf"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1oas5"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_bvd28"]
+[sub_resource type="Resource" id="Resource_3klna"]
 script = ExtResource("2_0gd78")
+name = "06"
 width = 3
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_xqmfp"),
-Vector2i(0, 1): SubResource("Resource_qja0v"),
-Vector2i(0, 2): SubResource("Resource_tfo1i"),
-Vector2i(0, 3): SubResource("Resource_y3d17"),
-Vector2i(1, 0): SubResource("Resource_7rp0d"),
-Vector2i(1, 1): SubResource("Resource_8qhro"),
-Vector2i(1, 2): SubResource("Resource_f8oj2"),
-Vector2i(1, 3): SubResource("Resource_kt5ml"),
-Vector2i(2, 0): SubResource("Resource_rg23n"),
-Vector2i(2, 1): SubResource("Resource_8r7t0"),
-Vector2i(2, 2): SubResource("Resource_75pg2"),
-Vector2i(2, 3): SubResource("Resource_kbrmj")
+Vector2i(0, 0): SubResource("Resource_3xvuq"),
+Vector2i(0, 1): SubResource("Resource_4nfi7"),
+Vector2i(0, 2): SubResource("Resource_1b3mi"),
+Vector2i(0, 3): SubResource("Resource_lrr6q"),
+Vector2i(1, 0): SubResource("Resource_uqgv1"),
+Vector2i(1, 1): SubResource("Resource_lw6cx"),
+Vector2i(1, 2): SubResource("Resource_lk1io"),
+Vector2i(1, 3): SubResource("Resource_ig17a"),
+Vector2i(2, 0): SubResource("Resource_4xnt5"),
+Vector2i(2, 1): SubResource("Resource_f5bn1"),
+Vector2i(2, 2): SubResource("Resource_5p2y7"),
+Vector2i(2, 3): SubResource("Resource_6c76j")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_oeejn"),
-Vector2i(0, 2): SubResource("Resource_nl2hf"),
-Vector2i(1, 1): SubResource("Resource_bbe3o"),
-Vector2i(2, 1): SubResource("Resource_kmywe"),
-Vector2i(3, 2): SubResource("Resource_u7vsf")
+Vector2i(0, 1): SubResource("Resource_7j5tm"),
+Vector2i(0, 2): SubResource("Resource_45nhb"),
+Vector2i(1, 1): SubResource("Resource_fit1k"),
+Vector2i(2, 1): SubResource("Resource_1025f"),
+Vector2i(3, 2): SubResource("Resource_1oas5")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_ao6rw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ww2k1"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_ql0x3"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_pvyrh"]
-script = ExtResource("1_6i8uv")
-is_blocked = true
-value = 0
-
-[sub_resource type="Resource" id="Resource_fmgc7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_xcygl"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_v2bpi"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ug8yg"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_rd64n"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = -1
-
-[sub_resource type="Resource" id="Resource_ltrun"]
-script = ExtResource("1_6i8uv")
-is_blocked = true
-value = 0
-
-[sub_resource type="Resource" id="Resource_jr87e"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ysqbt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_v0kiw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_w78lm"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_s16f7"]
-script = ExtResource("3_xl0g1")
-area_effect = 0
-area_behavior = 0
+[sub_resource type="Resource" id="Resource_vbw0v"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
 
-[sub_resource type="Resource" id="Resource_ai8qx"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_xfw5p"]
+script = ExtResource("2_08p0w")
+is_blocked = true
+value = 0
+
+[sub_resource type="Resource" id="Resource_f0owe"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_4o1dc"]
+script = ExtResource("2_08p0w")
+is_blocked = true
+value = 0
+
+[sub_resource type="Resource" id="Resource_ijieo"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_k53f2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_pji8r"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_08ap2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_st6ni"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_blmn8"]
+[sub_resource type="Resource" id="Resource_g6r1k"]
+script = ExtResource("3_cr51g")
+area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_vc0s3"]
 script = ExtResource("2_0gd78")
+name = "07"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_ao6rw"),
-Vector2i(0, 1): SubResource("Resource_ql0x3"),
-Vector2i(0, 2): SubResource("Resource_pvyrh"),
-Vector2i(1, 0): SubResource("Resource_fmgc7"),
-Vector2i(1, 1): SubResource("Resource_v2bpi"),
-Vector2i(1, 2): SubResource("Resource_rd64n"),
-Vector2i(2, 0): SubResource("Resource_ltrun"),
-Vector2i(2, 1): SubResource("Resource_jr87e"),
-Vector2i(2, 2): SubResource("Resource_v0kiw")
+Vector2i(0, 0): SubResource("Resource_ww2k1"),
+Vector2i(0, 1): SubResource("Resource_xcygl"),
+Vector2i(0, 2): SubResource("Resource_ug8yg"),
+Vector2i(1, 0): SubResource("Resource_ysqbt"),
+Vector2i(1, 1): SubResource("Resource_w78lm"),
+Vector2i(1, 2): SubResource("Resource_vbw0v"),
+Vector2i(2, 0): SubResource("Resource_xfw5p"),
+Vector2i(2, 1): SubResource("Resource_f0owe"),
+Vector2i(2, 2): SubResource("Resource_4o1dc")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_s16f7"),
-Vector2i(1, 1): SubResource("Resource_ai8qx"),
-Vector2i(2, 1): SubResource("Resource_k53f2"),
-Vector2i(3, 1): SubResource("Resource_08ap2")
+Vector2i(0, 1): SubResource("Resource_ijieo"),
+Vector2i(1, 1): SubResource("Resource_pji8r"),
+Vector2i(2, 1): SubResource("Resource_st6ni"),
+Vector2i(3, 1): SubResource("Resource_g6r1k")
 }
 moves_left = 4
 
-[sub_resource type="Resource" id="Resource_sihud"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mugqk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_b2vgc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_5xnfd"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_nxaxe"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wndcc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_4pnb6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_cmp3i"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_oltdm"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_csfpo"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_kki2t"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_hhrl7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_ephlg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_tgbm7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_25722"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yguuo"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_xowq2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_b10sg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_mvcvx"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_724x6"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_xa4cc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_0v8kb"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_ojtyl"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_oc0px"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_0g1vq"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_j7jb7"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_l6xxj"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_qdwmf"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ho8ea"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ysq3x"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_c56tp"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_vxh67"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xurg0"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8kwnl"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_twjs7"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_4x4i3"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_5w523"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_348vf"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_o46dq"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_een5n"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_c2vtp"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ji0ge"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_pna5r"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_4g1ot"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_hh3a0"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_bdlav"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_buypq"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_7g5rd"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_k86gq"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_48w3t"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_jhuba"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1k203"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_k7hsk"]
+[sub_resource type="Resource" id="Resource_acy3a"]
 script = ExtResource("2_0gd78")
+name = "08"
 width = 3
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_sihud"),
-Vector2i(0, 1): SubResource("Resource_b2vgc"),
-Vector2i(0, 2): SubResource("Resource_nxaxe"),
-Vector2i(0, 3): SubResource("Resource_4pnb6"),
-Vector2i(1, 0): SubResource("Resource_oltdm"),
-Vector2i(1, 1): SubResource("Resource_kki2t"),
-Vector2i(1, 2): SubResource("Resource_ephlg"),
-Vector2i(1, 3): SubResource("Resource_25722"),
-Vector2i(2, 0): SubResource("Resource_xowq2"),
-Vector2i(2, 1): SubResource("Resource_mvcvx"),
-Vector2i(2, 2): SubResource("Resource_xa4cc"),
-Vector2i(2, 3): SubResource("Resource_ojtyl")
+Vector2i(0, 0): SubResource("Resource_mugqk"),
+Vector2i(0, 1): SubResource("Resource_5xnfd"),
+Vector2i(0, 2): SubResource("Resource_wndcc"),
+Vector2i(0, 3): SubResource("Resource_cmp3i"),
+Vector2i(1, 0): SubResource("Resource_csfpo"),
+Vector2i(1, 1): SubResource("Resource_hhrl7"),
+Vector2i(1, 2): SubResource("Resource_tgbm7"),
+Vector2i(1, 3): SubResource("Resource_yguuo"),
+Vector2i(2, 0): SubResource("Resource_b10sg"),
+Vector2i(2, 1): SubResource("Resource_724x6"),
+Vector2i(2, 2): SubResource("Resource_0v8kb"),
+Vector2i(2, 3): SubResource("Resource_oc0px")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_0g1vq"),
-Vector2i(0, 1): SubResource("Resource_l6xxj"),
-Vector2i(0, 2): SubResource("Resource_ho8ea"),
-Vector2i(1, 0): SubResource("Resource_c56tp"),
-Vector2i(1, 1): SubResource("Resource_xurg0"),
-Vector2i(1, 2): SubResource("Resource_twjs7"),
-Vector2i(1, 3): SubResource("Resource_5w523"),
-Vector2i(2, 0): SubResource("Resource_o46dq"),
-Vector2i(2, 1): SubResource("Resource_c2vtp"),
-Vector2i(2, 2): SubResource("Resource_pna5r"),
-Vector2i(3, 0): SubResource("Resource_hh3a0"),
-Vector2i(3, 1): SubResource("Resource_buypq"),
-Vector2i(3, 2): SubResource("Resource_k86gq"),
-Vector2i(3, 3): SubResource("Resource_jhuba")
+Vector2i(0, 0): SubResource("Resource_j7jb7"),
+Vector2i(0, 1): SubResource("Resource_qdwmf"),
+Vector2i(0, 2): SubResource("Resource_ysq3x"),
+Vector2i(1, 0): SubResource("Resource_vxh67"),
+Vector2i(1, 1): SubResource("Resource_8kwnl"),
+Vector2i(1, 2): SubResource("Resource_4x4i3"),
+Vector2i(1, 3): SubResource("Resource_348vf"),
+Vector2i(2, 0): SubResource("Resource_een5n"),
+Vector2i(2, 1): SubResource("Resource_ji0ge"),
+Vector2i(2, 2): SubResource("Resource_4g1ot"),
+Vector2i(3, 0): SubResource("Resource_bdlav"),
+Vector2i(3, 1): SubResource("Resource_7g5rd"),
+Vector2i(3, 2): SubResource("Resource_48w3t"),
+Vector2i(3, 3): SubResource("Resource_1k203")
 }
 moves_left = 7
 
-[sub_resource type="Resource" id="Resource_1t07k"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4f28v"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_w7bln"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_eymao"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_u82ca"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4v235"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -4
 
-[sub_resource type="Resource" id="Resource_g5o56"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yirn7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_wie6v"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ff4lp"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_v8fch"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1kd5v"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_hpfua"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_rpbqc"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_td2qb"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_uaei3"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_pe550"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_0gccn"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_axxru"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_tf82x"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_5ow25"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1e6tv"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_3x4er"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_3gunl"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_l84cc"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_p7eo1"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_tswvx"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_wimkl"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xv7y8"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_p0vlc"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kalax"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_5ktaf"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_0lp5d"]
+[sub_resource type="Resource" id="Resource_y3dh4"]
 script = ExtResource("2_0gd78")
+name = "09"
 width = 3
 height = 2
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_1t07k"),
-Vector2i(0, 1): SubResource("Resource_w7bln"),
-Vector2i(1, 0): SubResource("Resource_u82ca"),
-Vector2i(1, 1): SubResource("Resource_g5o56"),
-Vector2i(2, 0): SubResource("Resource_wie6v"),
-Vector2i(2, 1): SubResource("Resource_v8fch")
+Vector2i(0, 0): SubResource("Resource_4f28v"),
+Vector2i(0, 1): SubResource("Resource_eymao"),
+Vector2i(1, 0): SubResource("Resource_4v235"),
+Vector2i(1, 1): SubResource("Resource_yirn7"),
+Vector2i(2, 0): SubResource("Resource_ff4lp"),
+Vector2i(2, 1): SubResource("Resource_1kd5v")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_hpfua"),
-Vector2i(0, 1): SubResource("Resource_td2qb"),
-Vector2i(0, 2): SubResource("Resource_pe550"),
-Vector2i(1, 0): SubResource("Resource_axxru"),
-Vector2i(1, 1): SubResource("Resource_5ow25"),
-Vector2i(2, 0): SubResource("Resource_3x4er"),
-Vector2i(2, 1): SubResource("Resource_l84cc"),
-Vector2i(2, 2): SubResource("Resource_tswvx"),
-Vector2i(3, 0): SubResource("Resource_xv7y8"),
-Vector2i(3, 1): SubResource("Resource_kalax")
+Vector2i(0, 0): SubResource("Resource_rpbqc"),
+Vector2i(0, 1): SubResource("Resource_uaei3"),
+Vector2i(0, 2): SubResource("Resource_0gccn"),
+Vector2i(1, 0): SubResource("Resource_tf82x"),
+Vector2i(1, 1): SubResource("Resource_1e6tv"),
+Vector2i(2, 0): SubResource("Resource_3gunl"),
+Vector2i(2, 1): SubResource("Resource_p7eo1"),
+Vector2i(2, 2): SubResource("Resource_wimkl"),
+Vector2i(3, 0): SubResource("Resource_p0vlc"),
+Vector2i(3, 1): SubResource("Resource_5ktaf")
 }
 moves_left = 8
 
-[sub_resource type="Resource" id="Resource_2tkhu"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_o1ps2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_piyt4"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_8djc5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_yl64h"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_2gb4s"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_pepn3"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4uefc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_0urco"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_p73oe"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_0j4cq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_c7dt5"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_hphq0"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6yjk2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_iioec"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yc56x"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_nvrk8"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_f5hrn"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_qwtgg"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_1d6mm"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_madqu"]
+[sub_resource type="Resource" id="Resource_msraw"]
 script = ExtResource("2_0gd78")
+name = "10"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_2tkhu"),
-Vector2i(0, 1): SubResource("Resource_piyt4"),
-Vector2i(0, 2): SubResource("Resource_yl64h"),
-Vector2i(1, 0): SubResource("Resource_pepn3"),
-Vector2i(1, 1): SubResource("Resource_0urco"),
-Vector2i(1, 2): SubResource("Resource_0j4cq"),
-Vector2i(2, 0): SubResource("Resource_hphq0"),
-Vector2i(2, 1): SubResource("Resource_iioec"),
-Vector2i(2, 2): SubResource("Resource_nvrk8")
+Vector2i(0, 0): SubResource("Resource_o1ps2"),
+Vector2i(0, 1): SubResource("Resource_8djc5"),
+Vector2i(0, 2): SubResource("Resource_2gb4s"),
+Vector2i(1, 0): SubResource("Resource_4uefc"),
+Vector2i(1, 1): SubResource("Resource_p73oe"),
+Vector2i(1, 2): SubResource("Resource_c7dt5"),
+Vector2i(2, 0): SubResource("Resource_6yjk2"),
+Vector2i(2, 1): SubResource("Resource_yc56x"),
+Vector2i(2, 2): SubResource("Resource_f5hrn")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_qwtgg")
+Vector2i(0, 1): SubResource("Resource_1d6mm")
 }
 moves_left = 1
 
-[sub_resource type="Resource" id="Resource_0unru"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_7uqs2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_sawxb"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jqici"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_m1kol"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jo41q"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_4k5ao"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_22h7g"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_egx0q"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_vyyvr"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_cvc2v"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_nguyi"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_vstu2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_u416x"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_micos"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_fb66r"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_cmugg"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8i4na"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_gk75x"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_nyotx"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ec3vt"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ivcgm"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_mpw25"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_700lp"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_bi0rx"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_0y6hr"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_eww6n"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ha8qy"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_qjsvy"]
+[sub_resource type="Resource" id="Resource_s86vk"]
 script = ExtResource("2_0gd78")
+name = "11"
 width = 3
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_0unru"),
-Vector2i(0, 1): SubResource("Resource_sawxb"),
-Vector2i(1, 0): SubResource("Resource_m1kol"),
-Vector2i(1, 1): SubResource("Resource_4k5ao"),
-Vector2i(1, 2): SubResource("Resource_egx0q"),
-Vector2i(1, 3): SubResource("Resource_cvc2v"),
-Vector2i(2, 0): SubResource("Resource_vstu2"),
-Vector2i(2, 1): SubResource("Resource_micos")
+Vector2i(0, 0): SubResource("Resource_7uqs2"),
+Vector2i(0, 1): SubResource("Resource_jqici"),
+Vector2i(1, 0): SubResource("Resource_jo41q"),
+Vector2i(1, 1): SubResource("Resource_22h7g"),
+Vector2i(1, 2): SubResource("Resource_vyyvr"),
+Vector2i(1, 3): SubResource("Resource_nguyi"),
+Vector2i(2, 0): SubResource("Resource_u416x"),
+Vector2i(2, 1): SubResource("Resource_fb66r")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_cmugg"),
-Vector2i(1, 0): SubResource("Resource_gk75x"),
-Vector2i(1, 1): SubResource("Resource_ec3vt"),
-Vector2i(2, 1): SubResource("Resource_mpw25"),
-Vector2i(3, 0): SubResource("Resource_bi0rx"),
-Vector2i(3, 1): SubResource("Resource_eww6n")
+Vector2i(0, 1): SubResource("Resource_8i4na"),
+Vector2i(1, 0): SubResource("Resource_nyotx"),
+Vector2i(1, 1): SubResource("Resource_ivcgm"),
+Vector2i(2, 1): SubResource("Resource_700lp"),
+Vector2i(3, 0): SubResource("Resource_0y6hr"),
+Vector2i(3, 1): SubResource("Resource_ha8qy")
 }
 moves_left = 3
 
-[sub_resource type="Resource" id="Resource_dun3a"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yxbxe"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_a4xth"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_h21gj"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_nil83"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wk1jq"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_u7v73"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qat80"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_o2vr3"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wxknl"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_csokj"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_28beq"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_jsc2x"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_iinte"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_5upx8"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3ldan"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_w115x"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_g2bbg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_brijr"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_o2prm"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_h3mti"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_qw24u"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_mklqs"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_iy76j"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_swl4n"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ycpfb"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_na1sp"]
+[sub_resource type="Resource" id="Resource_j6uwf"]
 script = ExtResource("2_0gd78")
+name = "12"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_dun3a"),
-Vector2i(0, 1): SubResource("Resource_a4xth"),
-Vector2i(0, 2): SubResource("Resource_nil83"),
-Vector2i(1, 0): SubResource("Resource_u7v73"),
-Vector2i(1, 1): SubResource("Resource_o2vr3"),
-Vector2i(1, 2): SubResource("Resource_csokj"),
-Vector2i(2, 0): SubResource("Resource_jsc2x"),
-Vector2i(2, 1): SubResource("Resource_5upx8"),
-Vector2i(2, 2): SubResource("Resource_w115x")
+Vector2i(0, 0): SubResource("Resource_yxbxe"),
+Vector2i(0, 1): SubResource("Resource_h21gj"),
+Vector2i(0, 2): SubResource("Resource_wk1jq"),
+Vector2i(1, 0): SubResource("Resource_qat80"),
+Vector2i(1, 1): SubResource("Resource_wxknl"),
+Vector2i(1, 2): SubResource("Resource_28beq"),
+Vector2i(2, 0): SubResource("Resource_iinte"),
+Vector2i(2, 1): SubResource("Resource_3ldan"),
+Vector2i(2, 2): SubResource("Resource_g2bbg")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_brijr"),
-Vector2i(1, 0): SubResource("Resource_h3mti"),
-Vector2i(2, 2): SubResource("Resource_mklqs"),
-Vector2i(3, 0): SubResource("Resource_swl4n")
+Vector2i(0, 0): SubResource("Resource_o2prm"),
+Vector2i(1, 0): SubResource("Resource_qw24u"),
+Vector2i(2, 2): SubResource("Resource_iy76j"),
+Vector2i(3, 0): SubResource("Resource_ycpfb")
 }
 moves_left = 4
 
-[sub_resource type="Resource" id="Resource_wiq0q"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_pum3j"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_26ioj"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_2brj1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_53hma"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_pvdjn"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_6fkjo"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_p18ca"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_d1j6d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_7yqao"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_34jl7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ugemm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_xpecd"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_etbmg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_rak7y"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_w5q0a"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_tc0vd"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_a8qeb"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_pjtjw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_io2b7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_50dg5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_d10wk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_7d18q"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_fmewl"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_pwofx"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_hrqwj"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_v4et7"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_oyppa"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_lsptr"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_hugid"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_raxh5"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_a17u8"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_anvie"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_nm0rx"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_6i60l"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_nyywp"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ou7lv"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8fxh3"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xr8cv"]
+[sub_resource type="Resource" id="Resource_t8lgr"]
 script = ExtResource("2_0gd78")
+name = "13"
 width = 4
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_wiq0q"),
-Vector2i(0, 1): SubResource("Resource_26ioj"),
-Vector2i(0, 2): SubResource("Resource_53hma"),
-Vector2i(1, 0): SubResource("Resource_6fkjo"),
-Vector2i(1, 1): SubResource("Resource_d1j6d"),
-Vector2i(1, 2): SubResource("Resource_34jl7"),
-Vector2i(2, 0): SubResource("Resource_xpecd"),
-Vector2i(2, 1): SubResource("Resource_rak7y"),
-Vector2i(2, 2): SubResource("Resource_tc0vd"),
-Vector2i(3, 0): SubResource("Resource_pjtjw"),
-Vector2i(3, 1): SubResource("Resource_50dg5"),
-Vector2i(3, 2): SubResource("Resource_7d18q")
+Vector2i(0, 0): SubResource("Resource_pum3j"),
+Vector2i(0, 1): SubResource("Resource_2brj1"),
+Vector2i(0, 2): SubResource("Resource_pvdjn"),
+Vector2i(1, 0): SubResource("Resource_p18ca"),
+Vector2i(1, 1): SubResource("Resource_7yqao"),
+Vector2i(1, 2): SubResource("Resource_ugemm"),
+Vector2i(2, 0): SubResource("Resource_etbmg"),
+Vector2i(2, 1): SubResource("Resource_w5q0a"),
+Vector2i(2, 2): SubResource("Resource_a8qeb"),
+Vector2i(3, 0): SubResource("Resource_io2b7"),
+Vector2i(3, 1): SubResource("Resource_d10wk"),
+Vector2i(3, 2): SubResource("Resource_fmewl")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_pwofx"),
-Vector2i(0, 2): SubResource("Resource_v4et7"),
-Vector2i(1, 0): SubResource("Resource_lsptr"),
-Vector2i(1, 2): SubResource("Resource_raxh5"),
-Vector2i(2, 1): SubResource("Resource_anvie"),
-Vector2i(2, 2): SubResource("Resource_6i60l"),
-Vector2i(3, 1): SubResource("Resource_ou7lv")
+Vector2i(0, 1): SubResource("Resource_hrqwj"),
+Vector2i(0, 2): SubResource("Resource_oyppa"),
+Vector2i(1, 0): SubResource("Resource_hugid"),
+Vector2i(1, 2): SubResource("Resource_a17u8"),
+Vector2i(2, 1): SubResource("Resource_nm0rx"),
+Vector2i(2, 2): SubResource("Resource_nyywp"),
+Vector2i(3, 1): SubResource("Resource_8fxh3")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_vma0i"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_r67nu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_t577w"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_q0gfb"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_3hj1y"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4mpsh"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_8xclv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qru3n"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_pm041"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yhjda"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_nnwvp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_imdic"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_syh0w"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ct3ah"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_y67a0"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ifay6"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_thlpy"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mldjc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_mmecd"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_hkc0f"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_q5sbp"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_et5dw"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_mkjew"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_hww47"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_bigny"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ydtpn"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_dyub5"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_whjlr"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_hsnij"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_fyamt"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_of4h8"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_otvt0"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_uo277"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_dpwr8"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_iptd4"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_5hqrn"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_5cclf"]
+[sub_resource type="Resource" id="Resource_cv4is"]
 script = ExtResource("2_0gd78")
+name = "14"
 width = 3
 height = 4
 cells_list = {
-Vector2i(0, 1): SubResource("Resource_vma0i"),
-Vector2i(0, 2): SubResource("Resource_t577w"),
-Vector2i(1, 0): SubResource("Resource_3hj1y"),
-Vector2i(1, 1): SubResource("Resource_8xclv"),
-Vector2i(1, 2): SubResource("Resource_pm041"),
-Vector2i(1, 3): SubResource("Resource_nnwvp"),
-Vector2i(2, 0): SubResource("Resource_syh0w"),
-Vector2i(2, 1): SubResource("Resource_y67a0"),
-Vector2i(2, 2): SubResource("Resource_thlpy"),
-Vector2i(2, 3): SubResource("Resource_mmecd")
+Vector2i(0, 1): SubResource("Resource_r67nu"),
+Vector2i(0, 2): SubResource("Resource_q0gfb"),
+Vector2i(1, 0): SubResource("Resource_4mpsh"),
+Vector2i(1, 1): SubResource("Resource_qru3n"),
+Vector2i(1, 2): SubResource("Resource_yhjda"),
+Vector2i(1, 3): SubResource("Resource_imdic"),
+Vector2i(2, 0): SubResource("Resource_ct3ah"),
+Vector2i(2, 1): SubResource("Resource_ifay6"),
+Vector2i(2, 2): SubResource("Resource_mldjc"),
+Vector2i(2, 3): SubResource("Resource_hkc0f")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_q5sbp"),
-Vector2i(0, 2): SubResource("Resource_mkjew"),
-Vector2i(1, 1): SubResource("Resource_bigny"),
-Vector2i(1, 2): SubResource("Resource_dyub5"),
-Vector2i(2, 1): SubResource("Resource_hsnij"),
-Vector2i(2, 2): SubResource("Resource_of4h8"),
-Vector2i(3, 1): SubResource("Resource_uo277"),
-Vector2i(3, 2): SubResource("Resource_iptd4")
+Vector2i(0, 1): SubResource("Resource_et5dw"),
+Vector2i(0, 2): SubResource("Resource_hww47"),
+Vector2i(1, 1): SubResource("Resource_ydtpn"),
+Vector2i(1, 2): SubResource("Resource_whjlr"),
+Vector2i(2, 1): SubResource("Resource_fyamt"),
+Vector2i(2, 2): SubResource("Resource_otvt0"),
+Vector2i(3, 1): SubResource("Resource_dpwr8"),
+Vector2i(3, 2): SubResource("Resource_5hqrn")
 }
 moves_left = 3
 
-[sub_resource type="Resource" id="Resource_w5hpk"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_64q8o"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_x63yn"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_c8kff"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_7g7f3"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_tlqwy"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_exgxq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_sidx5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_0fdbc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ymkcr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_5esl6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wejen"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_hxvot"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_rljk8"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_1grap"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_g5vuk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_7675s"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_tdgbg"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_arxpx"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_0nawr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ase8h"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_34rhu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_mm0ch"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_bq3ku"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ggk0i"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3pwdk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ca1e3"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_80tsi"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_fo3by"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_aiwfl"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_32qlk"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8ev47"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_m4myo"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_er4ky"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_io7bu"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8ibrp"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_jxgla"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_o8x1j"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_hfhtn"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_7ifin"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_uuucf"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_b2kbl"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_4dmky"]
+[sub_resource type="Resource" id="Resource_q2spa"]
 script = ExtResource("2_0gd78")
+name = "15"
 width = 4
 height = 4
 cells_list = {
-Vector2i(0, 1): SubResource("Resource_w5hpk"),
-Vector2i(0, 2): SubResource("Resource_x63yn"),
-Vector2i(0, 3): SubResource("Resource_7g7f3"),
-Vector2i(1, 0): SubResource("Resource_exgxq"),
-Vector2i(1, 1): SubResource("Resource_0fdbc"),
-Vector2i(1, 2): SubResource("Resource_5esl6"),
-Vector2i(1, 3): SubResource("Resource_hxvot"),
-Vector2i(2, 0): SubResource("Resource_1grap"),
-Vector2i(2, 1): SubResource("Resource_7675s"),
-Vector2i(2, 2): SubResource("Resource_arxpx"),
-Vector2i(3, 0): SubResource("Resource_ase8h"),
-Vector2i(3, 1): SubResource("Resource_mm0ch"),
-Vector2i(3, 2): SubResource("Resource_ggk0i")
+Vector2i(0, 1): SubResource("Resource_64q8o"),
+Vector2i(0, 2): SubResource("Resource_c8kff"),
+Vector2i(0, 3): SubResource("Resource_tlqwy"),
+Vector2i(1, 0): SubResource("Resource_sidx5"),
+Vector2i(1, 1): SubResource("Resource_ymkcr"),
+Vector2i(1, 2): SubResource("Resource_wejen"),
+Vector2i(1, 3): SubResource("Resource_rljk8"),
+Vector2i(2, 0): SubResource("Resource_g5vuk"),
+Vector2i(2, 1): SubResource("Resource_tdgbg"),
+Vector2i(2, 2): SubResource("Resource_0nawr"),
+Vector2i(3, 0): SubResource("Resource_34rhu"),
+Vector2i(3, 1): SubResource("Resource_bq3ku"),
+Vector2i(3, 2): SubResource("Resource_3pwdk")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_ca1e3"),
-Vector2i(0, 3): SubResource("Resource_fo3by"),
-Vector2i(1, 0): SubResource("Resource_32qlk"),
-Vector2i(1, 2): SubResource("Resource_m4myo"),
-Vector2i(2, 0): SubResource("Resource_io7bu"),
-Vector2i(2, 1): SubResource("Resource_jxgla"),
-Vector2i(3, 1): SubResource("Resource_hfhtn"),
-Vector2i(3, 3): SubResource("Resource_uuucf")
+Vector2i(0, 1): SubResource("Resource_80tsi"),
+Vector2i(0, 3): SubResource("Resource_aiwfl"),
+Vector2i(1, 0): SubResource("Resource_8ev47"),
+Vector2i(1, 2): SubResource("Resource_er4ky"),
+Vector2i(2, 0): SubResource("Resource_8ibrp"),
+Vector2i(2, 1): SubResource("Resource_o8x1j"),
+Vector2i(3, 1): SubResource("Resource_7ifin"),
+Vector2i(3, 3): SubResource("Resource_b2kbl")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_4yrto"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_vys4k"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_nxfv5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_w8ygk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_gu816"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_kenfm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_34b2c"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_o0l8m"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_8jq24"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_cb1lb"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_xq46d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_vf6s8"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_ql21g"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_x4g71"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_e1ibg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mph4p"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_vpwc8"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_o4q5a"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_e46wh"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_thl13"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_036v6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_bpke2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_my8kw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1siy3"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_7xtol"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_i1j0w"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_4ebkr"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4mjrm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_8btvv"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_mre4b"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_aqwml"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ql4f3"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_7xbtf"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ekvdo"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kdpf7"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_4cvkf"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_8g6h7"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_bamxp"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_suo7i"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ilm1c"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_w4yit"]
+[sub_resource type="Resource" id="Resource_4rf6f"]
 script = ExtResource("2_0gd78")
+name = "16"
 width = 4
 height = 5
 cells_list = {
-Vector2i(0, 3): SubResource("Resource_4yrto"),
-Vector2i(0, 4): SubResource("Resource_nxfv5"),
-Vector2i(1, 0): SubResource("Resource_gu816"),
-Vector2i(1, 1): SubResource("Resource_34b2c"),
-Vector2i(1, 2): SubResource("Resource_8jq24"),
-Vector2i(1, 3): SubResource("Resource_xq46d"),
-Vector2i(1, 4): SubResource("Resource_ql21g"),
-Vector2i(2, 0): SubResource("Resource_e1ibg"),
-Vector2i(2, 1): SubResource("Resource_vpwc8"),
-Vector2i(2, 2): SubResource("Resource_e46wh"),
-Vector2i(2, 3): SubResource("Resource_036v6"),
-Vector2i(2, 4): SubResource("Resource_my8kw"),
-Vector2i(3, 3): SubResource("Resource_7xtol"),
-Vector2i(3, 4): SubResource("Resource_4ebkr")
+Vector2i(0, 3): SubResource("Resource_vys4k"),
+Vector2i(0, 4): SubResource("Resource_w8ygk"),
+Vector2i(1, 0): SubResource("Resource_kenfm"),
+Vector2i(1, 1): SubResource("Resource_o0l8m"),
+Vector2i(1, 2): SubResource("Resource_cb1lb"),
+Vector2i(1, 3): SubResource("Resource_vf6s8"),
+Vector2i(1, 4): SubResource("Resource_x4g71"),
+Vector2i(2, 0): SubResource("Resource_mph4p"),
+Vector2i(2, 1): SubResource("Resource_o4q5a"),
+Vector2i(2, 2): SubResource("Resource_thl13"),
+Vector2i(2, 3): SubResource("Resource_bpke2"),
+Vector2i(2, 4): SubResource("Resource_1siy3"),
+Vector2i(3, 3): SubResource("Resource_i1j0w"),
+Vector2i(3, 4): SubResource("Resource_4mjrm")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_8btvv"),
-Vector2i(0, 2): SubResource("Resource_aqwml"),
-Vector2i(1, 4): SubResource("Resource_7xbtf"),
-Vector2i(2, 1): SubResource("Resource_kdpf7"),
-Vector2i(2, 2): SubResource("Resource_8g6h7"),
-Vector2i(3, 3): SubResource("Resource_suo7i")
+Vector2i(0, 1): SubResource("Resource_mre4b"),
+Vector2i(0, 2): SubResource("Resource_ql4f3"),
+Vector2i(1, 4): SubResource("Resource_ekvdo"),
+Vector2i(2, 1): SubResource("Resource_4cvkf"),
+Vector2i(2, 2): SubResource("Resource_bamxp"),
+Vector2i(3, 3): SubResource("Resource_ilm1c")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_qvv74"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ifihe"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_wpefi"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_buse4"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_5ub5h"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_5lxcr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_nto23"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6vdtt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_avaib"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jyt5d"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_2hd7u"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4674l"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_n82he"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_yf46n"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_8q2t2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_dc1dk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_wuct2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3m068"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_lqbaj"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_blfg6"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_4g1io"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_rprx4"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_jrbkc"]
+[sub_resource type="Resource" id="Resource_g6frb"]
 script = ExtResource("2_0gd78")
+name = "17"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_qvv74"),
-Vector2i(0, 1): SubResource("Resource_wpefi"),
-Vector2i(0, 2): SubResource("Resource_5ub5h"),
-Vector2i(1, 0): SubResource("Resource_nto23"),
-Vector2i(1, 1): SubResource("Resource_avaib"),
-Vector2i(1, 2): SubResource("Resource_2hd7u"),
-Vector2i(2, 0): SubResource("Resource_n82he"),
-Vector2i(2, 1): SubResource("Resource_8q2t2"),
-Vector2i(2, 2): SubResource("Resource_wuct2")
+Vector2i(0, 0): SubResource("Resource_ifihe"),
+Vector2i(0, 1): SubResource("Resource_buse4"),
+Vector2i(0, 2): SubResource("Resource_5lxcr"),
+Vector2i(1, 0): SubResource("Resource_6vdtt"),
+Vector2i(1, 1): SubResource("Resource_jyt5d"),
+Vector2i(1, 2): SubResource("Resource_4674l"),
+Vector2i(2, 0): SubResource("Resource_yf46n"),
+Vector2i(2, 1): SubResource("Resource_dc1dk"),
+Vector2i(2, 2): SubResource("Resource_3m068")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_lqbaj"),
-Vector2i(2, 1): SubResource("Resource_4g1io")
+Vector2i(0, 1): SubResource("Resource_blfg6"),
+Vector2i(2, 1): SubResource("Resource_rprx4")
 }
 moves_left = 2
 
-[sub_resource type="Resource" id="Resource_kq1rv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_e2gkr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_3g02l"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ryw3k"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_wpbk7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_y7ges"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_c3tei"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_esvep"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_7n5gr"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ox3wj"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_awacq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_q6wni"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_tvryf"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_iewqf"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_0yh5v"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_atpye"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_vrbrw"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_aotib"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_efgho"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_v1qej"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_gxdp2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_srcuu"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_mbi4r"]
+[sub_resource type="Resource" id="Resource_uujdd"]
 script = ExtResource("2_0gd78")
+name = "18"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_kq1rv"),
-Vector2i(0, 1): SubResource("Resource_3g02l"),
-Vector2i(1, 0): SubResource("Resource_wpbk7"),
-Vector2i(1, 1): SubResource("Resource_c3tei"),
-Vector2i(1, 2): SubResource("Resource_7n5gr"),
-Vector2i(2, 0): SubResource("Resource_awacq"),
-Vector2i(2, 1): SubResource("Resource_tvryf")
+Vector2i(0, 0): SubResource("Resource_e2gkr"),
+Vector2i(0, 1): SubResource("Resource_ryw3k"),
+Vector2i(1, 0): SubResource("Resource_y7ges"),
+Vector2i(1, 1): SubResource("Resource_esvep"),
+Vector2i(1, 2): SubResource("Resource_ox3wj"),
+Vector2i(2, 0): SubResource("Resource_q6wni"),
+Vector2i(2, 1): SubResource("Resource_iewqf")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_0yh5v"),
-Vector2i(1, 1): SubResource("Resource_vrbrw"),
-Vector2i(2, 1): SubResource("Resource_efgho"),
-Vector2i(3, 1): SubResource("Resource_gxdp2")
+Vector2i(0, 1): SubResource("Resource_atpye"),
+Vector2i(1, 1): SubResource("Resource_aotib"),
+Vector2i(2, 1): SubResource("Resource_v1qej"),
+Vector2i(3, 1): SubResource("Resource_srcuu")
 }
 moves_left = 3
 
-[sub_resource type="Resource" id="Resource_8wbjd"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_714p7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_frty6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_y4dul"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_r5eda"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_280cc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_b6s1w"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4kroq"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_cdrsr"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_0dufm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_hnevc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_42c4m"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_kuw01"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_b6pq1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_44qxh"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_n4m75"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ekanh"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_xaeup"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_vmw54"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_tkute"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_o2bwk"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_od06g"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kx51j"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_q4n4p"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_6d40x"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_8135e"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kwhjw"]
+[sub_resource type="Resource" id="Resource_qxjo7"]
 script = ExtResource("2_0gd78")
+name = "19"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_8wbjd"),
-Vector2i(0, 1): SubResource("Resource_frty6"),
-Vector2i(0, 2): SubResource("Resource_r5eda"),
-Vector2i(1, 1): SubResource("Resource_b6s1w"),
-Vector2i(2, 0): SubResource("Resource_cdrsr"),
-Vector2i(2, 1): SubResource("Resource_hnevc"),
-Vector2i(2, 2): SubResource("Resource_kuw01")
+Vector2i(0, 0): SubResource("Resource_714p7"),
+Vector2i(0, 1): SubResource("Resource_y4dul"),
+Vector2i(0, 2): SubResource("Resource_280cc"),
+Vector2i(1, 1): SubResource("Resource_4kroq"),
+Vector2i(2, 0): SubResource("Resource_0dufm"),
+Vector2i(2, 1): SubResource("Resource_42c4m"),
+Vector2i(2, 2): SubResource("Resource_b6pq1")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_44qxh"),
-Vector2i(0, 2): SubResource("Resource_ekanh"),
-Vector2i(1, 2): SubResource("Resource_vmw54"),
-Vector2i(2, 0): SubResource("Resource_o2bwk"),
-Vector2i(2, 2): SubResource("Resource_kx51j"),
-Vector2i(3, 0): SubResource("Resource_6d40x")
+Vector2i(0, 0): SubResource("Resource_n4m75"),
+Vector2i(0, 2): SubResource("Resource_xaeup"),
+Vector2i(1, 2): SubResource("Resource_tkute"),
+Vector2i(2, 0): SubResource("Resource_od06g"),
+Vector2i(2, 2): SubResource("Resource_q4n4p"),
+Vector2i(3, 0): SubResource("Resource_8135e")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_8jj2t"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ouyrr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_pe6ys"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_p23k2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_2jaqv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_162bu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_e1ffh"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_83lyw"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_d7sce"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = -1
-
-[sub_resource type="Resource" id="Resource_rxmi5"]
-script = ExtResource("1_6i8uv")
-is_blocked = true
-value = 0
-
-[sub_resource type="Resource" id="Resource_aw3d4"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_y5cgk"]
-script = ExtResource("1_6i8uv")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_4ef0s"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_bygjd"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_q1hp2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_sklhx"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_0umhf"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_iicf7"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_r2h2l"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_0j37n"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_vt3ev"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_haae7"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_mrup4"]
+script = ExtResource("2_08p0w")
+is_blocked = true
+value = 0
+
+[sub_resource type="Resource" id="Resource_dbjew"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_j3eny"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_ekint"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_t78jy"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_j0ndk"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_akp4m"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_msrjr"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_oqx7q"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_y8dkj"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_q2dro"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_q63vr"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_1qoa4"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_gpn45"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_embnx"]
+[sub_resource type="Resource" id="Resource_d23vm"]
 script = ExtResource("2_0gd78")
+name = "20"
 width = 4
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_8jj2t"),
-Vector2i(0, 1): SubResource("Resource_pe6ys"),
-Vector2i(0, 2): SubResource("Resource_2jaqv"),
-Vector2i(1, 0): SubResource("Resource_e1ffh"),
-Vector2i(1, 1): SubResource("Resource_d7sce"),
-Vector2i(1, 2): SubResource("Resource_rxmi5"),
-Vector2i(1, 3): SubResource("Resource_aw3d4"),
-Vector2i(2, 0): SubResource("Resource_y5cgk"),
-Vector2i(2, 1): SubResource("Resource_4ef0s"),
-Vector2i(2, 2): SubResource("Resource_q1hp2"),
-Vector2i(2, 3): SubResource("Resource_0umhf"),
-Vector2i(3, 0): SubResource("Resource_r2h2l"),
-Vector2i(3, 1): SubResource("Resource_vt3ev"),
-Vector2i(3, 2): SubResource("Resource_t78jy")
+Vector2i(0, 0): SubResource("Resource_ouyrr"),
+Vector2i(0, 1): SubResource("Resource_p23k2"),
+Vector2i(0, 2): SubResource("Resource_162bu"),
+Vector2i(1, 0): SubResource("Resource_83lyw"),
+Vector2i(1, 1): SubResource("Resource_bygjd"),
+Vector2i(1, 2): SubResource("Resource_sklhx"),
+Vector2i(1, 3): SubResource("Resource_iicf7"),
+Vector2i(2, 0): SubResource("Resource_0j37n"),
+Vector2i(2, 1): SubResource("Resource_haae7"),
+Vector2i(2, 2): SubResource("Resource_mrup4"),
+Vector2i(2, 3): SubResource("Resource_dbjew"),
+Vector2i(3, 0): SubResource("Resource_j3eny"),
+Vector2i(3, 1): SubResource("Resource_ekint"),
+Vector2i(3, 2): SubResource("Resource_j0ndk")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_akp4m"),
-Vector2i(0, 3): SubResource("Resource_oqx7q"),
-Vector2i(1, 1): SubResource("Resource_q2dro"),
-Vector2i(3, 1): SubResource("Resource_1qoa4")
+Vector2i(0, 0): SubResource("Resource_msrjr"),
+Vector2i(0, 3): SubResource("Resource_y8dkj"),
+Vector2i(1, 1): SubResource("Resource_q63vr"),
+Vector2i(3, 1): SubResource("Resource_gpn45")
 }
 moves_left = 4
 
-[sub_resource type="Resource" id="Resource_bhl58"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_hkd47"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_15x7l"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_duf0v"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_5pryc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_wmo8v"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_7pird"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3uadx"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_2lm4e"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_3b0jx"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_smeu7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qw0pr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_bw1gi"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_otfej"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_c7m2y"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_w3w6r"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_mcroy"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ijcvu"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_vxnkv"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_jt2kr"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_52m7s"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_uo3sj"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_cqau8"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_k7f8h"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_i6n55"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_75bcy"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_beb8h"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_kox8i"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_o43g2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_gedkj"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_goatl"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_tlqty"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xej8l"]
+[sub_resource type="Resource" id="Resource_qqffa"]
 script = ExtResource("2_0gd78")
+name = "21"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_bhl58"),
-Vector2i(0, 1): SubResource("Resource_15x7l"),
-Vector2i(0, 2): SubResource("Resource_5pryc"),
-Vector2i(1, 0): SubResource("Resource_7pird"),
-Vector2i(1, 1): SubResource("Resource_2lm4e"),
-Vector2i(1, 2): SubResource("Resource_smeu7"),
-Vector2i(2, 0): SubResource("Resource_bw1gi"),
-Vector2i(2, 1): SubResource("Resource_c7m2y"),
-Vector2i(2, 2): SubResource("Resource_mcroy")
+Vector2i(0, 0): SubResource("Resource_hkd47"),
+Vector2i(0, 1): SubResource("Resource_duf0v"),
+Vector2i(0, 2): SubResource("Resource_wmo8v"),
+Vector2i(1, 0): SubResource("Resource_3uadx"),
+Vector2i(1, 1): SubResource("Resource_3b0jx"),
+Vector2i(1, 2): SubResource("Resource_qw0pr"),
+Vector2i(2, 0): SubResource("Resource_otfej"),
+Vector2i(2, 1): SubResource("Resource_w3w6r"),
+Vector2i(2, 2): SubResource("Resource_ijcvu")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_vxnkv"),
-Vector2i(0, 1): SubResource("Resource_52m7s"),
-Vector2i(0, 2): SubResource("Resource_cqau8"),
-Vector2i(1, 1): SubResource("Resource_i6n55"),
-Vector2i(2, 0): SubResource("Resource_beb8h"),
-Vector2i(2, 1): SubResource("Resource_o43g2"),
-Vector2i(2, 2): SubResource("Resource_goatl")
+Vector2i(0, 0): SubResource("Resource_jt2kr"),
+Vector2i(0, 1): SubResource("Resource_uo3sj"),
+Vector2i(0, 2): SubResource("Resource_k7f8h"),
+Vector2i(1, 1): SubResource("Resource_75bcy"),
+Vector2i(2, 0): SubResource("Resource_kox8i"),
+Vector2i(2, 1): SubResource("Resource_gedkj"),
+Vector2i(2, 2): SubResource("Resource_tlqty")
 }
 moves_left = 6
 
-[sub_resource type="Resource" id="Resource_gr2nf"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_nrgim"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_etkfe"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_klnnn"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_q41cg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_8rlt3"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_yxbol"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lnws1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_c6iwg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_b1q1p"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_q22r0"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_2b0e2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_whbvn"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_20ae5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_hgu2m"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6pbnc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_5j6ej"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_46i1o"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_qae4i"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_oeool"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_qib6j"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_fs1x7"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_v1qpl"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_f5e81"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_gmiug"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_43red"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_hf1i8"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_7jwmv"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_2kttg"]
+[sub_resource type="Resource" id="Resource_q8oss"]
 script = ExtResource("2_0gd78")
+name = "22"
 width = 4
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_gr2nf"),
-Vector2i(0, 1): SubResource("Resource_etkfe"),
-Vector2i(0, 2): SubResource("Resource_q41cg"),
-Vector2i(1, 0): SubResource("Resource_yxbol"),
-Vector2i(1, 1): SubResource("Resource_c6iwg"),
-Vector2i(1, 2): SubResource("Resource_q22r0"),
-Vector2i(2, 1): SubResource("Resource_whbvn"),
-Vector2i(2, 2): SubResource("Resource_hgu2m"),
-Vector2i(3, 1): SubResource("Resource_5j6ej")
+Vector2i(0, 0): SubResource("Resource_nrgim"),
+Vector2i(0, 1): SubResource("Resource_klnnn"),
+Vector2i(0, 2): SubResource("Resource_8rlt3"),
+Vector2i(1, 0): SubResource("Resource_lnws1"),
+Vector2i(1, 1): SubResource("Resource_b1q1p"),
+Vector2i(1, 2): SubResource("Resource_2b0e2"),
+Vector2i(2, 1): SubResource("Resource_20ae5"),
+Vector2i(2, 2): SubResource("Resource_6pbnc"),
+Vector2i(3, 1): SubResource("Resource_46i1o")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_qae4i"),
-Vector2i(1, 1): SubResource("Resource_qib6j"),
-Vector2i(2, 0): SubResource("Resource_v1qpl"),
-Vector2i(2, 2): SubResource("Resource_gmiug"),
-Vector2i(3, 1): SubResource("Resource_hf1i8")
+Vector2i(0, 1): SubResource("Resource_oeool"),
+Vector2i(1, 1): SubResource("Resource_fs1x7"),
+Vector2i(2, 0): SubResource("Resource_f5e81"),
+Vector2i(2, 2): SubResource("Resource_43red"),
+Vector2i(3, 1): SubResource("Resource_7jwmv")
 }
 moves_left = 5
 
-[sub_resource type="Resource" id="Resource_olf04"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_gxhg6"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_p001k"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_s0spj"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_n3ppg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_dm8bf"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_y44du"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_tg0o8"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_j5ger"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_xtuog"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_682ol"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1y3kg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_qwpfq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_aj4qr"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_i0qph"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jm7p2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_voos3"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_1dgy2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_jvlr6"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lp61t"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_bnump"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ysili"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_kp8ix"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_qbss3"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_chpbt"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_yeii4"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_vdthw"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_i3y8l"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_dwwjk"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_k5rof"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_uxh8i"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_736cf"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_t1xfn"]
+[sub_resource type="Resource" id="Resource_64mpf"]
 script = ExtResource("2_0gd78")
+name = "23"
 width = 4
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_olf04"),
-Vector2i(0, 1): SubResource("Resource_p001k"),
-Vector2i(1, 0): SubResource("Resource_n3ppg"),
-Vector2i(1, 1): SubResource("Resource_y44du"),
-Vector2i(1, 2): SubResource("Resource_j5ger"),
-Vector2i(2, 1): SubResource("Resource_682ol"),
-Vector2i(2, 2): SubResource("Resource_qwpfq"),
-Vector2i(2, 3): SubResource("Resource_i0qph"),
-Vector2i(3, 2): SubResource("Resource_voos3"),
-Vector2i(3, 3): SubResource("Resource_jvlr6")
+Vector2i(0, 0): SubResource("Resource_gxhg6"),
+Vector2i(0, 1): SubResource("Resource_s0spj"),
+Vector2i(1, 0): SubResource("Resource_dm8bf"),
+Vector2i(1, 1): SubResource("Resource_tg0o8"),
+Vector2i(1, 2): SubResource("Resource_xtuog"),
+Vector2i(2, 1): SubResource("Resource_1y3kg"),
+Vector2i(2, 2): SubResource("Resource_aj4qr"),
+Vector2i(2, 3): SubResource("Resource_jm7p2"),
+Vector2i(3, 2): SubResource("Resource_1dgy2"),
+Vector2i(3, 3): SubResource("Resource_lp61t")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_bnump"),
-Vector2i(1, 2): SubResource("Resource_kp8ix"),
-Vector2i(1, 3): SubResource("Resource_chpbt"),
-Vector2i(2, 3): SubResource("Resource_vdthw"),
-Vector2i(3, 0): SubResource("Resource_dwwjk"),
-Vector2i(3, 1): SubResource("Resource_uxh8i")
+Vector2i(0, 0): SubResource("Resource_ysili"),
+Vector2i(1, 2): SubResource("Resource_qbss3"),
+Vector2i(1, 3): SubResource("Resource_yeii4"),
+Vector2i(2, 3): SubResource("Resource_i3y8l"),
+Vector2i(3, 0): SubResource("Resource_k5rof"),
+Vector2i(3, 1): SubResource("Resource_736cf")
 }
 moves_left = 6
 
-[sub_resource type="Resource" id="Resource_qmquu"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4fejo"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_a5nxx"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_38sms"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_i3pxp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_fldkg"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_1xppv"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_8bgvv"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ukr56"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_56sav"]
+script = ExtResource("2_08p0w")
 is_blocked = true
 value = 0
 
-[sub_resource type="Resource" id="Resource_g0evy"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_t4gh5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_qmmmc"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_oktta"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_n1st7"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_busy3"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ywrdf"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_ql102"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_a13p2"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_21ntr"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_pllqb"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_2hefx"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 1
 
-[sub_resource type="Resource" id="Resource_7u31r"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_xo8hc"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_yqbt3"]
+[sub_resource type="Resource" id="Resource_5hqdm"]
 script = ExtResource("2_0gd78")
+name = "24"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_qmquu"),
-Vector2i(0, 1): SubResource("Resource_a5nxx"),
-Vector2i(0, 2): SubResource("Resource_i3pxp"),
-Vector2i(1, 0): SubResource("Resource_1xppv"),
-Vector2i(1, 1): SubResource("Resource_ukr56"),
-Vector2i(1, 2): SubResource("Resource_g0evy"),
-Vector2i(2, 0): SubResource("Resource_qmmmc"),
-Vector2i(2, 1): SubResource("Resource_n1st7")
+Vector2i(0, 0): SubResource("Resource_4fejo"),
+Vector2i(0, 1): SubResource("Resource_38sms"),
+Vector2i(0, 2): SubResource("Resource_fldkg"),
+Vector2i(1, 0): SubResource("Resource_8bgvv"),
+Vector2i(1, 1): SubResource("Resource_56sav"),
+Vector2i(1, 2): SubResource("Resource_t4gh5"),
+Vector2i(2, 0): SubResource("Resource_oktta"),
+Vector2i(2, 1): SubResource("Resource_busy3")
 }
 slider_list = {
-Vector2i(0, 0): SubResource("Resource_ywrdf"),
-Vector2i(0, 1): SubResource("Resource_a13p2"),
-Vector2i(2, 0): SubResource("Resource_pllqb"),
-Vector2i(3, 0): SubResource("Resource_7u31r")
+Vector2i(0, 0): SubResource("Resource_ql102"),
+Vector2i(0, 1): SubResource("Resource_21ntr"),
+Vector2i(2, 0): SubResource("Resource_2hefx"),
+Vector2i(3, 0): SubResource("Resource_xo8hc")
 }
 moves_left = 3
 
-[sub_resource type="Resource" id="Resource_rqfs5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_tp4fm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_g16cg"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_gd4k2"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_jcanw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6h5ks"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_kvp1n"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_d6njw"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ppvej"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_jfxbm"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_ndewf"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qjlg3"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_3m06l"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_qsks1"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_6oj0d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_r5rst"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_4uokr"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_l54ps"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_0lii5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_prp8u"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_25ld5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_er7e0"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_yj23e"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_ri4ec"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_woirp"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_pum44"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_3f66g"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_374g4"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_xvlyr"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_tk3p8"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ojd10"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_af2c8"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_aluep"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_yrhu2"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_u8801"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_csxxl"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_u5vja"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_gt4ur"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_35s4y"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_p4gf6"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_rulr2"]
-script = ExtResource("3_xl0g1")
-area_effect = 2
-area_behavior = 0
-
-[sub_resource type="Resource" id="Resource_vkwot"]
+[sub_resource type="Resource" id="Resource_ogg6p"]
 script = ExtResource("2_0gd78")
+name = "25"
 width = 4
 height = 4
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_rqfs5"),
-Vector2i(0, 1): SubResource("Resource_g16cg"),
-Vector2i(1, 0): SubResource("Resource_jcanw"),
-Vector2i(1, 1): SubResource("Resource_kvp1n"),
-Vector2i(1, 2): SubResource("Resource_ppvej"),
-Vector2i(1, 3): SubResource("Resource_ndewf"),
-Vector2i(2, 0): SubResource("Resource_3m06l"),
-Vector2i(2, 1): SubResource("Resource_6oj0d"),
-Vector2i(2, 2): SubResource("Resource_4uokr"),
-Vector2i(2, 3): SubResource("Resource_0lii5"),
-Vector2i(3, 2): SubResource("Resource_25ld5"),
-Vector2i(3, 3): SubResource("Resource_yj23e")
+Vector2i(0, 0): SubResource("Resource_tp4fm"),
+Vector2i(0, 1): SubResource("Resource_gd4k2"),
+Vector2i(1, 0): SubResource("Resource_6h5ks"),
+Vector2i(1, 1): SubResource("Resource_d6njw"),
+Vector2i(1, 2): SubResource("Resource_jfxbm"),
+Vector2i(1, 3): SubResource("Resource_qjlg3"),
+Vector2i(2, 0): SubResource("Resource_qsks1"),
+Vector2i(2, 1): SubResource("Resource_r5rst"),
+Vector2i(2, 2): SubResource("Resource_l54ps"),
+Vector2i(2, 3): SubResource("Resource_prp8u"),
+Vector2i(3, 2): SubResource("Resource_er7e0"),
+Vector2i(3, 3): SubResource("Resource_ri4ec")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_woirp"),
-Vector2i(0, 2): SubResource("Resource_3f66g"),
-Vector2i(1, 2): SubResource("Resource_xvlyr"),
-Vector2i(1, 3): SubResource("Resource_ojd10"),
-Vector2i(2, 1): SubResource("Resource_aluep"),
-Vector2i(2, 2): SubResource("Resource_u8801"),
-Vector2i(2, 3): SubResource("Resource_u5vja"),
-Vector2i(3, 0): SubResource("Resource_35s4y"),
-Vector2i(3, 1): SubResource("Resource_rulr2")
+Vector2i(0, 1): SubResource("Resource_pum44"),
+Vector2i(0, 2): SubResource("Resource_374g4"),
+Vector2i(1, 2): SubResource("Resource_tk3p8"),
+Vector2i(1, 3): SubResource("Resource_af2c8"),
+Vector2i(2, 1): SubResource("Resource_yrhu2"),
+Vector2i(2, 2): SubResource("Resource_csxxl"),
+Vector2i(2, 3): SubResource("Resource_gt4ur"),
+Vector2i(3, 0): SubResource("Resource_p4gf6")
 }
 moves_left = 7
 
-[sub_resource type="Resource" id="Resource_0nils"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_c4uxb"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_eqmgw"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_uu5fc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_67br2"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_lge7o"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_1rqj5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_uffir"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 3
 
-[sub_resource type="Resource" id="Resource_rijnu"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_dg0ks"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 3
 
-[sub_resource type="Resource" id="Resource_b2yh5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_krp5c"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_sw5ak"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_xixnt"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_h2bsk"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_w3jhe"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ksayq"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_d5j7r"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_hw6e6"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_s1l5j"]
+script = ExtResource("3_cr51g")
 area_effect = 2
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ko3y3"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_mrkr3"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_tgtc5"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_kpy3p"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_1u6wb"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_r65a6"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_w1r44"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_beyki"]
+script = ExtResource("3_cr51g")
 area_effect = 1
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ikr0b"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_nl7dq"]
+script = ExtResource("3_cr51g")
 area_effect = 0
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_o0ebo"]
+[sub_resource type="Resource" id="Resource_bhwnc"]
 script = ExtResource("2_0gd78")
+name = "26"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_0nils"),
-Vector2i(0, 1): SubResource("Resource_eqmgw"),
-Vector2i(0, 2): SubResource("Resource_67br2"),
-Vector2i(1, 0): SubResource("Resource_1rqj5"),
-Vector2i(1, 1): SubResource("Resource_rijnu"),
-Vector2i(1, 2): SubResource("Resource_b2yh5"),
-Vector2i(2, 0): SubResource("Resource_sw5ak"),
-Vector2i(2, 1): SubResource("Resource_h2bsk"),
-Vector2i(2, 2): SubResource("Resource_ksayq")
+Vector2i(0, 0): SubResource("Resource_c4uxb"),
+Vector2i(0, 1): SubResource("Resource_uu5fc"),
+Vector2i(0, 2): SubResource("Resource_lge7o"),
+Vector2i(1, 0): SubResource("Resource_uffir"),
+Vector2i(1, 1): SubResource("Resource_dg0ks"),
+Vector2i(1, 2): SubResource("Resource_krp5c"),
+Vector2i(2, 0): SubResource("Resource_xixnt"),
+Vector2i(2, 1): SubResource("Resource_w3jhe"),
+Vector2i(2, 2): SubResource("Resource_d5j7r")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_hw6e6"),
-Vector2i(1, 0): SubResource("Resource_ko3y3"),
-Vector2i(1, 1): SubResource("Resource_tgtc5"),
-Vector2i(2, 1): SubResource("Resource_1u6wb"),
-Vector2i(3, 0): SubResource("Resource_w1r44"),
-Vector2i(3, 1): SubResource("Resource_ikr0b")
+Vector2i(0, 1): SubResource("Resource_s1l5j"),
+Vector2i(1, 0): SubResource("Resource_mrkr3"),
+Vector2i(1, 1): SubResource("Resource_kpy3p"),
+Vector2i(2, 1): SubResource("Resource_r65a6"),
+Vector2i(3, 0): SubResource("Resource_beyki"),
+Vector2i(3, 1): SubResource("Resource_nl7dq")
 }
 moves_left = 6
 
-[sub_resource type="Resource" id="Resource_3frlp"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_vmmx0"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_rcm4b"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_dsfgh"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_u244d"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_rf3e3"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_5ujxe"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_mve7q"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_4kf5b"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_4rucv"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_6i1ht"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_fl2uw"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 4
 
-[sub_resource type="Resource" id="Resource_l5pie"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_nqv8a"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_801pd"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_6akn5"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_ju2t5"]
-script = ExtResource("1_6i8uv")
+[sub_resource type="Resource" id="Resource_8xhtc"]
+script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_1uy85"]
-script = ExtResource("3_xl0g1")
+[sub_resource type="Resource" id="Resource_xyc5m"]
+script = ExtResource("3_cr51g")
 area_effect = 3
 area_behavior = 0
 
-[sub_resource type="Resource" id="Resource_ka72c"]
+[sub_resource type="Resource" id="Resource_s136b"]
 script = ExtResource("2_0gd78")
+name = "27"
 width = 3
 height = 3
 cells_list = {
-Vector2i(0, 0): SubResource("Resource_3frlp"),
-Vector2i(0, 1): SubResource("Resource_rcm4b"),
-Vector2i(0, 2): SubResource("Resource_u244d"),
-Vector2i(1, 0): SubResource("Resource_5ujxe"),
-Vector2i(1, 1): SubResource("Resource_4kf5b"),
-Vector2i(1, 2): SubResource("Resource_6i1ht"),
-Vector2i(2, 0): SubResource("Resource_l5pie"),
-Vector2i(2, 1): SubResource("Resource_801pd"),
-Vector2i(2, 2): SubResource("Resource_ju2t5")
+Vector2i(0, 0): SubResource("Resource_vmmx0"),
+Vector2i(0, 1): SubResource("Resource_dsfgh"),
+Vector2i(0, 2): SubResource("Resource_rf3e3"),
+Vector2i(1, 0): SubResource("Resource_mve7q"),
+Vector2i(1, 1): SubResource("Resource_4rucv"),
+Vector2i(1, 2): SubResource("Resource_fl2uw"),
+Vector2i(2, 0): SubResource("Resource_nqv8a"),
+Vector2i(2, 1): SubResource("Resource_6akn5"),
+Vector2i(2, 2): SubResource("Resource_8xhtc")
 }
 slider_list = {
-Vector2i(0, 1): SubResource("Resource_1uy85")
+Vector2i(0, 1): SubResource("Resource_xyc5m")
 }
 moves_left = 1
 
 [resource]
 script = ExtResource("4_v7vmu")
-levels = {
-"01": SubResource("Resource_262tc"),
-"02": SubResource("Resource_yhu4i"),
-"03": SubResource("Resource_0lboj"),
-"04": SubResource("Resource_xy130"),
-"05": SubResource("Resource_dg6b2"),
-"06": SubResource("Resource_bvd28"),
-"07": SubResource("Resource_blmn8"),
-"08": SubResource("Resource_k7hsk"),
-"09": SubResource("Resource_0lp5d"),
-"10": SubResource("Resource_madqu"),
-"11": SubResource("Resource_qjsvy"),
-"12": SubResource("Resource_na1sp"),
-"13": SubResource("Resource_xr8cv"),
-"14": SubResource("Resource_5cclf"),
-"15": SubResource("Resource_4dmky"),
-"16": SubResource("Resource_w4yit"),
-"17": SubResource("Resource_jrbkc"),
-"18": SubResource("Resource_mbi4r"),
-"19": SubResource("Resource_kwhjw"),
-"20": SubResource("Resource_embnx"),
-"21": SubResource("Resource_xej8l"),
-"22": SubResource("Resource_2kttg"),
-"23": SubResource("Resource_t1xfn"),
-"24": SubResource("Resource_yqbt3"),
-"25": SubResource("Resource_vkwot"),
-"26": SubResource("Resource_o0ebo"),
-"27": SubResource("Resource_ka72c")
-}
-levels_order = Array[String](["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27"])
+levels = Array[ExtResource("2_0gd78")]([SubResource("Resource_prlpu"), SubResource("Resource_1c6xk"), SubResource("Resource_rb0jg"), SubResource("Resource_vmxe4"), SubResource("Resource_wvwty"), SubResource("Resource_3klna"), SubResource("Resource_vc0s3"), SubResource("Resource_acy3a"), SubResource("Resource_y3dh4"), SubResource("Resource_msraw"), SubResource("Resource_s86vk"), SubResource("Resource_j6uwf"), SubResource("Resource_t8lgr"), SubResource("Resource_cv4is"), SubResource("Resource_q2spa"), SubResource("Resource_4rf6f"), SubResource("Resource_g6frb"), SubResource("Resource_uujdd"), SubResource("Resource_qxjo7"), SubResource("Resource_d23vm"), SubResource("Resource_qqffa"), SubResource("Resource_q8oss"), SubResource("Resource_64mpf"), SubResource("Resource_5hqdm"), SubResource("Resource_ogg6p"), SubResource("Resource_bhwnc"), SubResource("Resource_s136b")])

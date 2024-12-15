@@ -32,8 +32,8 @@ var is_tutorial_visible: bool = true
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer
-var _active_level_name: String
-var _next_level_name: String
+var _active_level_id: int
+var _next_level_id: int
 var _context: GlobalConst.LevelGroup
 
 
@@ -57,8 +57,8 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
 
 	if new_state == GlobalConst.GameState.LEVEL_START:
-		if is_tutorial_visible and tutorials.has(_active_level_name):
-			var tutorial: TutorialData = tutorials.get(_active_level_name)
+		if is_tutorial_visible and tutorials.has(_active_level_id):
+			var tutorial: TutorialData = tutorials.get(_active_level_id)
 			var tutorial_ui: Tutorial = TUTORIAL.instantiate()
 			get_tree().root.add_child(tutorial_ui)
 			tutorial_ui.setup.call_deferred(tutorial)
@@ -78,10 +78,6 @@ func _set_and_check_save_integrity() -> bool:
 	# inconsistent counting between levels and progress
 	if _persistent_save.levels.size() != savegame.persistent_progress.size():
 		return false
-	# inconsistent naming between levels and progress
-	for level_name in _persistent_save.levels.keys():
-		if !savegame.persistent_progress.has(level_name):
-			return false
 	# set verified savegame
 	_player_save = savegame
 	return true
@@ -92,33 +88,32 @@ func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 
 
 func get_start_level_playable() -> LevelData:
-	_context = GlobalConst.LevelGroup.MAIN
-	if !_persistent_save.levels.is_empty():
+	set_levels_context(GlobalConst.LevelGroup.MAIN)
+	if !_persistent_save.is_empty():
 		# get the first level available
-		_active_level_name = _persistent_save.get_level_by_index(0)
+		_active_level_id = 0
 		# get the first level unlocked and not completed
-		for level_name in _persistent_save.levels_order:
-			var progress := _player_save.persistent_progress.get(level_name) as LevelProgress
+		for id in range(_persistent_save.levels.size()):
+			var progress := _player_save.persistent_progress[id] as LevelProgress
 			if progress.is_unlocked and !progress.is_completed:
-				_active_level_name = level_name
+				_active_level_id = id
 				break
-		set_levels_context(GlobalConst.LevelGroup.MAIN)
-		return get_active_level(_active_level_name)
+		return get_active_level(_active_level_id)
 
 	push_error("Nessun livello nel persistent save!")
 	return null
 
 
-func save_persistent_level(level_name: String, level_data: LevelData) -> void:
-	_persistent_save.set_level(level_name, level_data.duplicate())
-	_player_save.reset_progress(GlobalConst.LevelGroup.MAIN, level_name)
+func save_persistent_level(level_data: LevelData) -> void:
+	_persistent_save.add_level(level_data.duplicate())
+	_player_save.add_progress(GlobalConst.LevelGroup.MAIN, level_data.name)
 	ResourceSaver.save.call_deferred(_persistent_save, PERSISTENT_SAVE_PATH)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
 
 
-func save_custom_level(level_name: String, level_data: LevelData) -> void:
-	_player_save.custom_levels.set_level(level_name, level_data.duplicate())
-	_player_save.reset_progress(GlobalConst.LevelGroup.CUSTOM, level_name)
+func save_custom_level(level_data: LevelData) -> void:
+	_player_save.custom_levels.add_level(level_data.duplicate())
+	_player_save.add_progress(GlobalConst.LevelGroup.CUSTOM, level_data.name)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
 
 
@@ -131,29 +126,29 @@ func _get_levels() -> LevelContainer:
 	return null
 
 
-func _get_progress() -> Dictionary:
+func _get_progress() -> Array[LevelProgress]:
 	match _context:
 		GlobalConst.LevelGroup.CUSTOM:
 			return _player_save.custom_progress
 		GlobalConst.LevelGroup.MAIN:
 			return _player_save.persistent_progress
-	return {}
+	return []
 
 
 func set_next_level() -> bool:
 	var is_valid_level: bool
-	_next_level_name = _get_levels().get_next_level(_active_level_name)
-	is_valid_level = _next_level_name != ""
+	_next_level_id = _active_level_id + 1
+	is_valid_level = _get_levels().levels.size() > _next_level_id
 	if is_valid_level:
-		_player_save.unlock_level(_context, _next_level_name)
+		_player_save.unlock_level(_context, _next_level_id)
 	return is_valid_level
 
 
-func get_active_level(level_name: String = "") -> LevelData:
-	if level_name != "":
-		_active_level_name = level_name
-	var data := _get_levels().levels.get(_active_level_name) as LevelData
-	return data
+func get_active_level(level_id: int = -1) -> LevelData:
+	if level_id > -1:
+		_active_level_id = level_id
+	return _get_levels().levels[_active_level_id] as LevelData
+
 
 
 func set_level_scale(level_width: int, level_height: int) -> void:
@@ -165,14 +160,14 @@ func set_level_scale(level_width: int, level_height: int) -> void:
 
 
 func get_next_level() -> LevelData:
-	_active_level_name = _next_level_name
+	_active_level_id = _next_level_id
 	return get_active_level()
 
 
 func update_level_progress(move_left: int) -> bool:
 	var active_progress: LevelProgress
 	var is_record: bool
-	active_progress = _get_progress().get(_active_level_name)
+	active_progress = _get_progress()[_active_level_id]
 	if !active_progress.is_completed != (move_left > active_progress.move_left):
 		active_progress.move_left = move_left
 		is_record = true
@@ -182,21 +177,13 @@ func update_level_progress(move_left: int) -> bool:
 	return is_record
 
 
-func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Dictionary:
-	var levels_in_page: Dictionary
-	var temp_levels: LevelContainer
-	var temp_progress: Dictionary
+func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
 	match group:
 		GlobalConst.LevelGroup.CUSTOM:
-			temp_levels = _player_save.custom_levels
-			temp_progress = _player_save.custom_progress
+			return _player_save.custom_progress.slice(first - 1, last + 1)
 		GlobalConst.LevelGroup.MAIN:
-			temp_levels = _persistent_save
-			temp_progress = _player_save.persistent_progress
-	if temp_levels != null:
-		for level_name in temp_levels.get_levels_group_by_index(first - 1, last):
-			levels_in_page[level_name] = temp_progress.get(level_name)
-	return levels_in_page
+			return _player_save.persistent_progress.slice(first - 1, last + 1)
+	return []
 
 
 func get_num_levels(group: GlobalConst.LevelGroup) -> int:
@@ -210,16 +197,16 @@ func get_num_levels(group: GlobalConst.LevelGroup) -> int:
 
 
 func is_level_completed() -> bool:
-	return _get_progress().get(_active_level_name).is_completed
+	return _get_progress()[_active_level_id].is_completed
 
 
-func unlock_level(group: GlobalConst.LevelGroup, level_name: String) -> void:
-	_player_save.unlock_level(group, level_name)
+func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
+	_player_save.unlock_level(group, level_id)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
 
 
-func delete_level(level_name: String) -> void:
-	_player_save.delete_level(level_name)
+func delete_level(level_id: int) -> void:
+	_player_save.delete_level(level_id)
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
 
 

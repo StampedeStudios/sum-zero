@@ -25,8 +25,9 @@ func _on_save_btn_pressed() -> void:
 	if level_data == null:
 		_show_error()
 	else:
-		GameManager.save_custom_level(level_name.text, level_data)
-		GameManager.level_ui.add_imported_level(level_name.text)
+		level_data.name = level_name.text
+		GameManager.save_custom_level(level_data)
+		GameManager.level_ui.update_content()
 		code.text = ""
 		level_name.text = ""
 		self.hide()
