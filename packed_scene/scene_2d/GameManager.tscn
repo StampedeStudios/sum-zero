@@ -15,10 +15,10 @@ script = ExtResource("1_tgd8e")
 palette = ExtResource("2_wd6nv")
 slider_collection = ExtResource("3_lx543")
 tutorials = {
-"01": ExtResource("4_m4vjt"),
-"03": ExtResource("5_0l1wn"),
-"07": ExtResource("6_n722h"),
-"10": ExtResource("5_tb6dc"),
-"17": ExtResource("8_rylgv"),
-"27": ExtResource("9_kkyll")
+0: ExtResource("4_m4vjt"),
+2: ExtResource("5_0l1wn"),
+6: ExtResource("6_n722h"),
+9: ExtResource("5_tb6dc"),
+16: ExtResource("8_rylgv"),
+26: ExtResource("9_kkyll")
 }

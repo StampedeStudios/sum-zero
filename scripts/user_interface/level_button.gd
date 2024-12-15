@@ -7,6 +7,7 @@ const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_
 const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
 const LEVEL_INSPECT = preload("res://packed_scene/user_interface/LevelInspect.tscn")
 const CUSTOM_LEVEL_INSPECT = preload("res://packed_scene/user_interface/CustomLevelInspect.tscn")
+const THEME = preload("res://assets/resources/themes/default.tres")
 
 # Icons
 const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_level_icon.png")
@@ -15,7 +16,7 @@ const ONE_STAR = preload("res://assets/ui/one_star.png")
 const TWO_STARS = preload("res://assets/ui/two_stars.png")
 const THREE_STARS = preload("res://assets/ui/three_stars.png")
 
-var _level_name: String
+var _level_id: int
 var _progress: LevelProgress
 var _level_group: GlobalConst.LevelGroup
 
@@ -45,7 +46,7 @@ func _pressed() -> void:
 				GameManager.level_inspect = inspect_instance
 
 			_toggle_connection.call_deferred(true)
-			GameManager.level_inspect.init_inspector.call_deferred(_level_name, _progress)
+			GameManager.level_inspect.init_inspector.call_deferred(_level_id, _progress)
 			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
 
 		GlobalConst.LevelGroup.CUSTOM:
@@ -55,7 +56,7 @@ func _pressed() -> void:
 				GameManager.custom_inspect = inspect_instance
 
 			_toggle_connection.call_deferred(true)
-			GameManager.custom_inspect.init_inspector.call_deferred(_level_name, _progress)
+			GameManager.custom_inspect.init_inspector.call_deferred(_level_id, _progress)
 			GameManager.change_state.call_deferred(GlobalConst.GameState.CUSTOM_LEVEL_INSPECT)
 
 
@@ -63,7 +64,7 @@ func _get_minimum_size() -> Vector2:
 	return Vector2(128, 128)
 
 
-func construct(level_name: String, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
+func construct(level_id: int, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
 	if !progress.is_unlocked:
 		icon = LOCK_ICON
 	elif progress.is_completed:
@@ -72,10 +73,26 @@ func construct(level_name: String, progress: LevelProgress, group: GlobalConst.L
 	else:
 		icon = ZERO_STARS
 
-	_level_name = level_name
+	_level_id = level_id
 	_progress = progress
 	_level_group = group
+	if get_child_count() > 0:
+		get_child(0).text = str(level_id + 1)
+	else:
+		add_child(_create_label(level_id + 1))
+	get_child(0).visible = progress.is_unlocked
 
+
+func _create_label(index: int) -> Label:
+	var lab: Label = Label.new()
+	lab.text = str(index)
+
+	lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+	lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+	lab.theme = THEME
+	lab.set_anchors_preset(PRESET_FULL_RECT)
+	return lab
+	
 
 func _count_stars(moves_left: int) -> int:
 	# Less than -2 moves is equal to 0 stars. Zero or more moves are equivalent to 3 stars
@@ -84,6 +101,7 @@ func _count_stars(moves_left: int) -> int:
 
 func _unlock_level() -> void:
 	icon = ZERO_STARS
+	get_child(0).show()
 
 
 func _delete_level_button() -> void:

@@ -7,7 +7,6 @@ const BUILDER_SAVE = preload("res://packed_scene/user_interface/BuilderSave.tscn
 const PANEL = preload("res://assets/resources/themes/panel.tres")
 const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 
-var _level_name: String
 var _level_data: LevelData
 var _cell_collection: Dictionary
 var _slider_collection: Dictionary
@@ -49,9 +48,9 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				get_tree().root.add_child.call_deferred(builder_save)
 				builder_save.on_query_close.connect(_on_save_query_received)
 				GameManager.builder_save = builder_save
-			if _level_name != "":
+			if _level_data.name != "":
 				var moves := String.num_int64(_level_data.moves_left)
-				GameManager.builder_save.initialize_info.call_deferred(_level_name, moves)
+				GameManager.builder_save.initialize_info.call_deferred(_level_data.name, moves)
 
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
@@ -101,11 +100,9 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func construct_level(level_data: LevelData = null, level_name := "") -> void:
+func construct_level(level_data: LevelData = null) -> void:
 	if level_data != null:
 		_level_data = level_data
-	if level_name != "":
-		_level_name = level_name
 
 	GameManager.set_level_scale(_level_data.width, _level_data.height)
 	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
@@ -255,11 +252,11 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 
 func _on_save_query_received(is_persistent_level: bool, level_name: String, level_moves: int):
 	_level_data.moves_left = level_moves
-	_level_name = level_name
+	_level_data.name = level_name
 	if is_persistent_level:
-		GameManager.save_persistent_level(_level_name, _level_data)
+		GameManager.save_persistent_level(_level_data)
 	else:
-		GameManager.save_custom_level(_level_name, _level_data)
+		GameManager.save_custom_level(_level_data)
 	_reset_builder_grid.call_deferred()
 
 
