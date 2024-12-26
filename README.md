@@ -1,44 +1,55 @@
 <div align="center">
 
-# Sum zero
+# Sum Zero
 
-[![Godot Engine](https://img.shields.io/badge/Godot-%23FFFFFF.svg?logo=godot-engine)](https://godotengine.org/)
-[![Inkscape](https://img.shields.io/badge/Inkscape-000000?logo=Inkscape&logoColor=white)](https://inkscape.org/)
-[![Audacity](https://img.shields.io/badge/Audacity-0000CC?logo=audacity&logoColor=white)](https://www.audacityteam.org/)
+[![Godot Engine](https://img.shields.io/badge/Godot-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine)](https://godotengine.org/)
+[![Inkscape](https://img.shields.io/badge/Inkscape-000000?style=for-the-badge&logo=Inkscape&logoColor=white)](https://inkscape.org/)
+[![Audacity](https://img.shields.io/badge/Audacity-0000CC?style=for-the-badge&logo=audacity&logoColor=white)](https://www.audacityteam.org/)
 
 </div>
 
-**Sum Zero** is a mobile puzzle game where the player has to bring all the tiles on a grid down to zero using math-based sliders. The game involves strategy, logic, and basic arithmetic to solve each level.
+## Table of Contents
+- [Concept](#concept)
+  - [Key Mechanics](#key-mechanics)
+  - [How to Play](#how-to-play)
+    - [Analyze the level](#analyze-the-level)
+    - [Plan a sequence of moves](#plan-a-sequence-of-moves)
+    - [Minimize moves amount](#minimize-moves-amount)
+- [Features](#features)
+- [Contributing](#contributing)
 
 ## Concept
-In **Sum Zero**, players are presented with a grid of tiles that can vary in size from 2x2 up to 5x5 cells and each shape in between those sizes. Each tile contains a number between -4 and 4. The player's goal is to manipulate these numbers using sliders to make every tile on the grid equal to zero.
+**Sum Zero** is a mobile puzzle game where players use math-based sliders to bring all tiles on a grid down to zero. Combining strategy, logic, and arithmetic, each level presents a unique challenge to solve.
+
+Players navigate grids ranging in size from 2x2 to 5x5. Each tile has a number between -4 and 4, and the goal is to manipulate these numbers using sliders to make every tile equal to zero.
 
 ### Key Mechanics
-- **Grid Size**: Levels range from a 2x2 grid to a 5x5 grid, providing increasing difficulty as the grid size grows.
-- **Tile Values**: Each tile can have an initial value between -4 and 4.
-- **Sliders**: Sliders are positioned on the sides of the grid and apply operations to a row or column of tiles. The available slider operations include:
-  - **Add 1**: Increases the value of each tile in the selected row or column by 1.
-  - **Remove 1**: Decreases the value of each tile in the selected row or column by 1.
-  - **Invert Sign**: Multiplies the value of each tile in the selected row or column by -1 (positive becomes negative and vice versa).
-  - **Block Tile**: Sets each tile in a row or colum to 0 and prevents any further slider from affecting it.
+- **Dynamic Grids**: Levels vary in size, from 2x2 to 5x5, with difficulty scaling as grids grow larger.
+- **Tile Values**: Tiles start with values between -4 and 4, requiring careful planning to neutralize.
+- **Slider Operations**:
+  - **Add 1**: Increases all tile values in a row or column by 1.
+  - **Remove 1**: Decreases all tile values in a row or column by 1.
+  - **Invert Sign**: Multiplies all tile values in a row or column by -1 (positive becomes negative and vice versa).
+  - **Block Tile**: Sets all tile values in a row or column to 0, preventing further slider effects.
 
 ### How to Play
-1. At the start of each level, the grid is populated with tiles containing values between -4 and 4.
-2. Use the sliders on the grid's sides to manipulate the rows and columns.
-3. Try to find the optimal combination of slider movements to bring every tile's value to 0.
-4. Some tiles may be blocked, some may be missing.
-5. Once all tiles are set to zero, the level is complete!
 
-### Challenges
-- With increasing grid sizes, finding the right sequence of slider movements becomes more complex.
-- The puzzle requires logical thinking, as certain moves may seem beneficial at first but complicate the puzzle in later steps.
+#### Analyze the level
+Use sliders positioned along the grid's edges to manipulate rows or columns. Not every row or column has a slider. Begin the level with a grid of tiles displaying values from -4 to 4. 
 
-## Game Features
-- Varying grid sizes (from 2x2 to 5x5) for different difficulty levels.
-- A range of mathematical sliders to manipulate the tiles.
-- Strategic decision-making: Blocking tiles and deciding the best sequence of operations is key to solving the puzzle efficiently.
-- Minimalistic yet challenging gameplay with endless possibilities for level design.
----
+#### Plan a sequence of moves
+Eache level can be of different shape on a max of a 4 by 4 size. Strategically sequence slider movements to reduce all tile values to zero executing the lower number of moves possible. 
+
+#### Minimize moves amount
+Deal with blocked or missing tiles that may appear as additional obstacles. Complete the level once all tiles display a value of zero.
+
+## Features
+- **Varied Difficulty**: Grids range from simple 2x2 layouts to challenging 5x5 puzzles. Larger grids increase complexity, requiring more strategic planning and foresight;
+- **Math-Based Game play**: Leverage arithmetic sliders to manipulate tile values and solve puzzles.
+- **Strategic Thinking**: Plan sequences of moves to clear levels efficiently while navigating blocked tiles and other constraints. Some sliders may initially seem helpful but create complications for future moves.
+- **Minimalist Design**: Focused game play with endless potential for creative level designs.
 
 ## Contributing
-We welcome contributions! If you have ideas to improve the game or want to help, feel free to open an issue or submit a pull request.
+We welcome contributions to **Sum Zero**! Whether you have ideas for improvement, bug fixes, or new features, feel free to open an issue to share your thoughts or to submit a pull request with your contribution.
+
+Together, let's make **Sum Zero** even better!
