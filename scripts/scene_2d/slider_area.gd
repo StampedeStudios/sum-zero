@@ -10,6 +10,8 @@ const SFX_STEP: int = 64
 
 @export var block_texture: Texture
 @export var block_shader: Shader
+@export var full_collision: PackedVector2Array
+@export var half_collision: PackedVector2Array
 
 var _target_scale: float
 var _is_scaling: bool
@@ -27,12 +29,14 @@ var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
 var _last_percentage: float = 0.1
 var _last_affected_cells: Dictionary
+var _has_half_collision: bool = false
 
 @onready var area_outline: NinePatchRect = %AreaOutline
 @onready var handle: Area2D = %Handle
 @onready var area_effect: Sprite2D = %AreaEffect
 @onready var area_behavior = %AreaBehavior
 @onready var ray: RayCast2D = %Ray
+@onready var collision_shape: CollisionPolygon2D = %CollisionShape
 
 
 func init_slider(data: SliderData) -> void:
@@ -56,6 +60,7 @@ func reset() -> void:
 	_last_scale = 0
 	_is_extended = false
 	_apply_scaling(_current_scale)
+	set_handle_collision(false)
 
 
 func release_handle() -> void:
@@ -71,6 +76,22 @@ func release_handle() -> void:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
 				_alter_grid()
 				break
+				
+	_check_intersection()
+	
+
+func set_handle_collision(is_half_collision) -> void:
+	_has_half_collision = is_half_collision
+	collision_shape.polygon = half_collision if is_half_collision else full_collision
+	
+
+func _check_intersection() -> void:
+	await get_tree().create_timer(0.1).timeout # await physic
+	for other_handle in handle.get_overlapping_areas():
+		var other_area : SliderArea = other_handle.get_parent()
+		if other_area != null:
+			set_handle_collision.call_deferred(true)
+			other_area.set_handle_collision.call_deferred(true)
 
 
 func _alter_grid() -> void:
@@ -162,6 +183,8 @@ func _apply_scaling(_new_scale: float) -> void:
 func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			if _has_half_collision:
+				_reset_handle_collision()
 			match _area_behavior:
 				# move the area handle manually with your finger
 				GlobalConst.AreaBehavior.BY_STEP:
@@ -183,6 +206,14 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 					_is_extended = !_is_extended
 					_is_manually_controlled = false
 					_is_scaling = true
+
+
+func _reset_handle_collision() -> void:
+	set_handle_collision(false)
+	for other_handle in handle.get_overlapping_areas():
+		var other_area : SliderArea = other_handle.get_parent()
+		if other_area != null:
+			other_area.set_handle_collision(false)
 
 
 func _check_limit() -> void:
