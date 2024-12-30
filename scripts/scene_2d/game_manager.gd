@@ -210,8 +210,7 @@ func delete_level(level_id: int) -> void:
 
 func get_options() -> PlayerOptions:
 	return _player_save.player_options
-	
+
 
 func save_player_data() -> void:
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
-	

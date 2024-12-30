@@ -3,11 +3,11 @@ class_name Options extends Control
 const TOGGLE_BUTTON_OFF_NORMAL = preload("res://assets/ui/toggle_button_off_normal.png")
 const TOGGLE_BUTTON_ON_NORMAL = preload("res://assets/ui/toggle_button_on_normal.png")
 
+var _player_options: PlayerOptions
+
 @onready var music_btn: TextureButton = %MusicBtn
 @onready var sfx_btn: TextureButton = %SfxBtn
 @onready var tutorial_btn: TextureButton = %TutorialBtn
-
-var _player_options: PlayerOptions
 
 
 func _ready():

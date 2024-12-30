@@ -47,4 +47,3 @@ func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
 func delete_level(level_id: int) -> void:
 	custom_progress.remove_at(level_id)
 	custom_levels.levels.remove_at(level_id)
-	
