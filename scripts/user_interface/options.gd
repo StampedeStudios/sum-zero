@@ -7,24 +7,25 @@ const TOGGLE_BUTTON_ON_NORMAL = preload("res://assets/ui/toggle_button_on_normal
 @onready var sfx_btn: TextureButton = %SfxBtn
 @onready var tutorial_btn: TextureButton = %TutorialBtn
 
+var _player_options: PlayerOptions
+
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
-	var is_music_on: bool = AudioManager.is_music_on()
-	var is_sfx_on: bool = AudioManager.is_sfx_on()
-	var is_tutorial_on: bool = GameManager.is_tutorial_visible
+	_player_options = GameManager.get_options()
 
-	music_btn.set_pressed_no_signal(is_music_on)
-	sfx_btn.set_pressed_no_signal(is_sfx_on)
-	tutorial_btn.set_pressed_no_signal(is_tutorial_on)
-	_update_button_style(music_btn, is_music_on)
-	_update_button_style(sfx_btn, is_sfx_on)
-	_update_button_style(tutorial_btn, is_tutorial_on)
+	music_btn.set_pressed_no_signal(_player_options.music_on)
+	sfx_btn.set_pressed_no_signal(_player_options.sfx_on)
+	tutorial_btn.set_pressed_no_signal(_player_options.tutorial_on)
+	_update_button_style(music_btn, _player_options.music_on)
+	_update_button_style(sfx_btn, _player_options.sfx_on)
+	_update_button_style(tutorial_btn, _player_options.tutorial_on)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
+			GameManager.save_player_data()
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.OPTION_MENU:
 			self.visible = true
@@ -40,20 +41,20 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 func _on_music_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_music()
+	_player_options.music_on = toggled_on
 	_update_button_style(music_btn, toggled_on)
 
 
 func _on_sfx_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_sfx()
 	AudioManager.play_click_sound()
-
+	_player_options.sfx_on = toggled_on
 	_update_button_style(sfx_btn, toggled_on)
 
 
 func _on_tutorial_btn_toggled(toggled_on: bool) -> void:
-	GameManager.toggle_tutorial()
 	AudioManager.play_click_sound()
-
+	_player_options.tutorial_on = toggled_on
 	_update_button_style(tutorial_btn, toggled_on)
 
 

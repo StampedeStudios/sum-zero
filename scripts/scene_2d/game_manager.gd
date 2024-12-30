@@ -28,7 +28,6 @@ var level_end: LevelEnd
 var level_ui: LevelUI
 var level_inspect: LevelInspect
 var custom_inspect: CustomLevelInspect
-var is_tutorial_visible: bool = true
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer
@@ -57,7 +56,7 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
 
 	if new_state == GlobalConst.GameState.LEVEL_START:
-		if is_tutorial_visible and tutorials.has(_active_level_id):
+		if _player_save.player_options.tutorial_on and tutorials.has(_active_level_id):
 			var tutorial: TutorialData = tutorials.get(_active_level_id)
 			var tutorial_ui: Tutorial = TUTORIAL.instantiate()
 			get_tree().root.add_child(tutorial_ui)
@@ -70,7 +69,7 @@ func _load_saved_data() -> void:
 		push_warning("No saved data found on file system")
 		_player_save = PlayerSave.new()
 	_player_save.initialize_player_save(_persistent_save)
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	save_player_data()
 
 
 func _set_and_check_save_integrity() -> bool:
@@ -108,13 +107,13 @@ func save_persistent_level(level_data: LevelData) -> void:
 	_persistent_save.add_level(level_data.duplicate())
 	_player_save.add_progress(GlobalConst.LevelGroup.MAIN, level_data.name)
 	ResourceSaver.save.call_deferred(_persistent_save, PERSISTENT_SAVE_PATH)
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	save_player_data()
 
 
 func save_custom_level(level_data: LevelData) -> void:
 	_player_save.custom_levels.add_level(level_data.duplicate())
 	_player_save.add_progress(GlobalConst.LevelGroup.CUSTOM, level_data.name)
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	save_player_data()
 
 
 func _get_levels() -> LevelContainer:
@@ -172,7 +171,7 @@ func update_level_progress(move_left: int) -> bool:
 		is_record = true
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	save_player_data()
 	return is_record
 
 
@@ -201,13 +200,18 @@ func is_level_completed() -> bool:
 
 func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
 	_player_save.unlock_level(group, level_id)
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+	save_player_data()
 
 
 func delete_level(level_id: int) -> void:
 	_player_save.delete_level(level_id)
+	save_player_data()
+
+
+func get_options() -> PlayerOptions:
+	return _player_save.player_options
+	
+
+func save_player_data() -> void:
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
-
-
-func toggle_tutorial() -> void:
-	is_tutorial_visible = !is_tutorial_visible
+	

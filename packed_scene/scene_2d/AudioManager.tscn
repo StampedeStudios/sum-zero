@@ -10,7 +10,6 @@ script = ExtResource("1_n0my8")
 
 [node name="MusicPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_g54x2")
-autoplay = true
 
 [node name="ButtonPlayer" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_ro30y")

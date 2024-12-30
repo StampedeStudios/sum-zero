@@ -3,9 +3,13 @@ class_name PlayerSave extends Resource
 @export var custom_levels: LevelContainer
 @export var custom_progress: Array[LevelProgress]
 @export var persistent_progress: Array[LevelProgress]
+@export var player_options: PlayerOptions
 
 
 func initialize_player_save(save: LevelContainer) -> void:
+	# initialize player options
+	if player_options == null:
+		player_options = PlayerOptions.new()
 	# initialize custom level container on new savegame
 	if custom_levels == null:
 		custom_levels = LevelContainer.new()
@@ -43,3 +47,4 @@ func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
 func delete_level(level_id: int) -> void:
 	custom_progress.remove_at(level_id)
 	custom_levels.levels.remove_at(level_id)
+	

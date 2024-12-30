@@ -76,6 +76,7 @@ func _on_quit_btn_pressed():
 
 
 func _on_option_btn_pressed() -> void:
+	AudioManager.play_click_sound()
 	var option_ui: Options = OPTIONS.instantiate()
 	get_tree().root.add_child.call_deferred(option_ui)
 	GameManager.option_ui = option_ui
