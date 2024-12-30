@@ -76,19 +76,19 @@ func release_handle() -> void:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
 				_alter_grid()
 				break
-				
+
 	_check_intersection()
-	
+
 
 func set_handle_collision(is_half_collision) -> void:
 	_has_half_collision = is_half_collision
 	collision_shape.polygon = half_collision if is_half_collision else full_collision
-	
+
 
 func _check_intersection() -> void:
-	await get_tree().create_timer(0.1).timeout # await physic
+	await get_tree().create_timer(0.1).timeout  # await physic
 	for other_handle in handle.get_overlapping_areas():
-		var other_area : SliderArea = other_handle.get_parent()
+		var other_area: SliderArea = other_handle.get_parent()
 		if other_area != null:
 			set_handle_collision.call_deferred(true)
 			other_area.set_handle_collision.call_deferred(true)
@@ -211,7 +211,7 @@ func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int
 func _reset_handle_collision() -> void:
 	set_handle_collision(false)
 	for other_handle in handle.get_overlapping_areas():
-		var other_area : SliderArea = other_handle.get_parent()
+		var other_area: SliderArea = other_handle.get_parent()
 		if other_area != null:
 			other_area.set_handle_collision(false)
 
