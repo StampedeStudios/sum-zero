@@ -15,7 +15,7 @@ func _ready() -> void:
 	_is_sfx_on = options.sfx_on
 	if _is_music_on:
 		music_player.play()
-	
+
 
 func toggle_music() -> void:
 	if _is_music_on:
