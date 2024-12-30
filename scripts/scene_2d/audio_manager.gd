@@ -9,6 +9,14 @@ var _music_playback_position: float
 @onready var slider_player: AudioStreamPlayer2D = $SliderPlayer
 
 
+func _ready() -> void:
+	var options := GameManager.get_options()
+	_is_music_on = options.music_on
+	_is_sfx_on = options.sfx_on
+	if _is_music_on:
+		music_player.play()
+	
+
 func toggle_music() -> void:
 	if _is_music_on:
 		_music_playback_position = music_player.get_playback_position()
