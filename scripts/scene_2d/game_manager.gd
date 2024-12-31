@@ -37,13 +37,14 @@ var _context: GlobalConst.LevelGroup
 
 
 func _ready() -> void:
-	_load_saved_data()
-	_set_ui_scale()
-
-	main_menu = MAIN_MENU.instantiate()
-	get_tree().root.add_child.call_deferred(main_menu)
-	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
-
+	if _try_load_saved_data():
+		_set_ui_scale()
+		main_menu = MAIN_MENU.instantiate()
+		get_tree().root.add_child.call_deferred(main_menu)
+		change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
+	else:
+		get_tree().quit.call_deferred()
+		
 
 func _set_ui_scale() -> void:
 	var max_screen_width: float = get_viewport().size.x
@@ -63,24 +64,23 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 			tutorial_ui.setup.call_deferred(tutorial)
 
 
-func _load_saved_data() -> void:
+func _try_load_saved_data() -> bool:
 	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
-	if !FileAccess.file_exists(PLAYER_SAVE_PATH) or !_set_and_check_save_integrity():
-		push_warning("No saved data found on file system")
-		_player_save = PlayerSave.new()
-	_player_save.initialize_player_save(_persistent_save)
-	save_player_data()
-
-
-func _set_and_check_save_integrity() -> bool:
-	var savegame := load(PLAYER_SAVE_PATH) as PlayerSave
-	# inconsistent counting between levels and progress
-	if _persistent_save.levels.size() != savegame.persistent_progress.size():
+	if _persistent_save == null or _persistent_save.is_empty():
+		push_error("Nessun livello nel persistent save!")
 		return false
-	# set verified savegame
-	_player_save = savegame
+	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
+		push_warning("Nessun file di salvataggio trovato sul disco!")
+		_player_save = PlayerSave.new()
+	_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
+	if _player_save == null:
+		push_warning("File di salvataggio non leggibile!")
+		_player_save = PlayerSave.new()
+	var modified := _player_save.check_savegame_integrity(_persistent_save)
+	if modified:
+		save_player_data()
 	return true
-
+	
 
 func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 	_context = level_group
@@ -88,19 +88,14 @@ func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 
 func get_start_level_playable() -> LevelData:
 	set_levels_context(GlobalConst.LevelGroup.MAIN)
-	if !_persistent_save.is_empty():
-		# get the first level available
-		_active_level_id = 0
-		# get the first level unlocked and not completed
-		for id in range(_persistent_save.levels.size()):
-			var progress := _player_save.persistent_progress[id] as LevelProgress
-			if progress.is_unlocked and !progress.is_completed:
-				_active_level_id = id
-				break
-		return get_active_level(_active_level_id)
-
-	push_error("Nessun livello nel persistent save!")
-	return null
+	_active_level_id = 0
+	# get the first level unlocked and not completed
+	for id in range(_persistent_save.levels.size()):
+		var progress := _player_save.persistent_progress[id] as LevelProgress
+		if progress.is_unlocked and !progress.is_completed:
+			_active_level_id = id
+			break
+	return get_active_level(_active_level_id)
 
 
 func save_persistent_level(level_data: LevelData) -> void:
