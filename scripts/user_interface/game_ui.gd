@@ -2,6 +2,8 @@ class_name GameUI extends Control
 
 signal reset_level
 
+const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
+
 var moves_left: int
 
 var _has_next_level: bool
@@ -38,6 +40,11 @@ func _initialize_ui():
 		if _has_next_level:
 			skip_btn.show()
 	_update_moves()
+	var tutorial : TutorialData = GameManager.get_tutorial()
+	if tutorial != null:
+		var tutorial_ui: Tutorial = TUTORIAL.instantiate()
+		get_tree().root.add_child(tutorial_ui)
+		tutorial_ui.setup.call_deferred(tutorial)
 
 
 func consume_move() -> void:
