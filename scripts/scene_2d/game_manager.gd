@@ -5,11 +5,9 @@ signal on_state_change(new_state: GlobalConst.GameState)
 const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
-const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
 
 @export var palette: ColorPalette
 @export var slider_collection: SliderCollection
-@export var tutorials: Dictionary
 
 var ui_scale: Vector2
 var cell_size: float
@@ -55,13 +53,14 @@ func _set_ui_scale() -> void:
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
+	
 
-	if new_state == GlobalConst.GameState.LEVEL_START:
-		if _player_save.player_options.tutorial_on and tutorials.has(_active_level_id):
-			var tutorial: TutorialData = tutorials.get(_active_level_id)
-			var tutorial_ui: Tutorial = TUTORIAL.instantiate()
-			get_tree().root.add_child(tutorial_ui)
-			tutorial_ui.setup.call_deferred(tutorial)
+func get_tutorial() -> TutorialData:
+	if !_player_save.player_options.tutorial_on:
+		return null
+	if _context != GlobalConst.LevelGroup.MAIN:
+		return null	
+	return _persistent_save.get_tutorial(_active_level_id)
 
 
 func _try_load_saved_data() -> bool:
@@ -72,7 +71,8 @@ func _try_load_saved_data() -> bool:
 	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
 		push_warning("Nessun file di salvataggio trovato sul disco!")
 		_player_save = PlayerSave.new()
-	_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
+	else:
+		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
 	if _player_save == null:
 		push_warning("File di salvataggio non leggibile!")
 		_player_save = PlayerSave.new()
@@ -106,18 +106,18 @@ func save_persistent_level(level_data: LevelData) -> void:
 
 
 func save_custom_level(level_data: LevelData) -> void:
-	_player_save.custom_levels.add_level(level_data.duplicate())
+	_player_save.custom_levels.append(level_data.duplicate())
 	_player_save.add_progress(GlobalConst.LevelGroup.CUSTOM, level_data.name)
 	save_player_data()
 
 
-func _get_levels() -> LevelContainer:
+func _get_levels() -> Array[LevelData]:
 	match _context:
 		GlobalConst.LevelGroup.CUSTOM:
 			return _player_save.custom_levels
 		GlobalConst.LevelGroup.MAIN:
-			return _persistent_save
-	return null
+			return _persistent_save.levels
+	return []
 
 
 func _get_progress() -> Array[LevelProgress]:
@@ -132,7 +132,7 @@ func _get_progress() -> Array[LevelProgress]:
 func set_next_level() -> bool:
 	var is_valid_level: bool
 	_next_level_id = _active_level_id + 1
-	is_valid_level = _get_levels().levels.size() > _next_level_id
+	is_valid_level = _get_levels().size() > _next_level_id
 	if is_valid_level:
 		_player_save.unlock_level(_context, _next_level_id)
 	return is_valid_level
@@ -141,7 +141,7 @@ func set_next_level() -> bool:
 func get_active_level(level_id: int = -1) -> LevelData:
 	if level_id > -1:
 		_active_level_id = level_id
-	return _get_levels().levels[_active_level_id] as LevelData
+	return _get_levels()[_active_level_id] as LevelData
 
 
 func set_level_scale(level_width: int, level_height: int) -> void:
@@ -182,7 +182,7 @@ func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Ar
 func get_num_levels(group: GlobalConst.LevelGroup) -> int:
 	match group:
 		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_levels.levels.size()
+			return _player_save.custom_levels.size()
 		GlobalConst.LevelGroup.MAIN:
 			return _player_save.persistent_progress.size()
 		_:
