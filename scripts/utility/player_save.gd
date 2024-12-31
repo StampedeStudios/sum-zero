@@ -6,21 +6,36 @@ class_name PlayerSave extends Resource
 @export var player_options: PlayerOptions
 
 
-func initialize_player_save(save: LevelContainer) -> void:
+func check_savegame_integrity(world: LevelContainer) -> bool:
+	var has_change := false
 	# initialize player options
 	if player_options == null:
+		print("opzioni non trovate e resettate")
 		player_options = PlayerOptions.new()
+		has_change = true
 	# initialize custom level container on new savegame
 	if custom_levels == null:
+		print("livelli custom non trovati e resettati")
 		custom_levels = LevelContainer.new()
-	# create new progress for each persistent level
-	for id in range(persistent_progress.size(), save.levels.size()):
-		var progress := LevelProgress.new()
-		progress.name = save.levels[id].name
-		persistent_progress.append(progress)
-	# unlock first main level
-	if save.levels.size() > 0:
-		persistent_progress[0].is_unlocked = true
+		custom_progress.clear()
+		has_change = true
+	for id in range(world.levels.size()):
+		var level_name := world.levels[id].name
+		if id < persistent_progress.size():
+			if level_name != persistent_progress[id].name:
+				var progress := LevelProgress.new()
+				progress.name = level_name
+				persistent_progress[id] = progress
+				has_change = true
+		else:
+			var progress := LevelProgress.new()
+			progress.name = level_name
+			if id == 0:
+				progress.is_unlocked = true
+			persistent_progress.append(progress)
+			has_change = true
+	return has_change
+		
 
 
 func add_progress(group: GlobalConst.LevelGroup, level_name: String) -> void:
