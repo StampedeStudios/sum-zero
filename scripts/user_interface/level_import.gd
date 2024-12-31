@@ -8,9 +8,12 @@ var _inserted_code: String
 @onready var code: Button = %Code
 @onready var level_name: LineEdit = %LevelName
 @onready var save_btn: Button = %SaveBtn
+@onready var persist_btn: Button = %PersistBtn
 
 
 func _ready() -> void:
+	if OS.has_feature("debug"):
+		persist_btn.show()
 	GameManager.on_state_change.connect(_on_state_change)
 
 
@@ -28,6 +31,19 @@ func _on_save_btn_pressed() -> void:
 		level_data.name = level_name.text
 		GameManager.save_custom_level(level_data)
 		GameManager.level_ui.update_content()
+		code.text = ""
+		level_name.text = ""
+		self.hide()
+
+
+func _on_persist_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	var level_data: LevelData = Encoder.decode(_inserted_code)
+	if level_data == null:
+		_show_error()
+	else:
+		level_data.name = level_name.text
+		GameManager.save_persistent_level(level_data)
 		code.text = ""
 		level_name.text = ""
 		self.hide()

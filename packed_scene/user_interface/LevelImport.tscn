@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://y40ta11k55cw"]
+[gd_scene load_steps=12 format=3 uid="uid://y40ta11k55cw"]
 
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_38aa5"]
 [ext_resource type="Script" path="res://scripts/user_interface/level_import.gd" id="2_213re"]
@@ -10,6 +10,9 @@
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="6_jxuku"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="8_d7aa4"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="9_g62vk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8n8sy"]
+load_path = "res://.godot/imported/save_icon.png-bb729b418ac7c5fcd58f67cd4ad6fc4c.ctex"
 
 [node name="LevelImport" type="Control"]
 layout_mode = 3
@@ -105,6 +108,21 @@ size_flags_vertical = 10
 theme_override_constants/separation = 20
 alignment = 2
 
+[node name="PersistBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 5
+focus_mode = 0
+theme = ExtResource("3_18iy2")
+theme_override_colors/icon_normal_color = Color(0.784314, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0.784314, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+icon = SubResource("CompressedTexture2D_8n8sy")
+flat = true
+
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -138,5 +156,6 @@ icon_alignment = 1
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/VBoxContainer/Code" to="." method="_on_code_pressed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]
