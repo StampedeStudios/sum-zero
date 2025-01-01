@@ -251,31 +251,31 @@ static func decode(encode_data: String) -> LevelData:
 	var data := LevelData.new()
 	var splitted_data := encode_data.split("-")
 	if splitted_data.size() != 3:
-		push_warning("invalid code format")
+		push_warning("Invalid code format")
 		return null
 	var moves_left := _decode_moves(encode_data[0])
 	if moves_left < 0:
-		push_warning("invalid moves")
+		push_warning("Invalid moves")
 		return null
 	data.moves_left = moves_left
 	if !SIZE.has(encode_data[1]):
-		push_warning("invalid size")
+		push_warning("Invalid size")
 		return null
 	var level_size: Vector2i = SIZE.get(encode_data[1])
 	data.width = level_size.x
 	data.height = level_size.y
 	var cell_order: CellOrder = CELL_ORDER.get(encode_data[2])
 	if cell_order == null:
-		push_warning("invalid order")
+		push_warning("Invalid order")
 		return null
 	var cell_list := _decode_cell_list(splitted_data[1], level_size, cell_order)
 	if cell_list.is_empty():
-		push_warning("invalid cells")
+		push_warning("Invalid cells")
 		return null
 	data.cells_list = cell_list
 	var slider_list := _decode_slider_list(splitted_data[2], level_size)
 	if slider_list.is_empty():
-		push_warning("invalid sliders")
+		push_warning("Invalid sliders")
 		return null
 	data.slider_list = slider_list
 	return data

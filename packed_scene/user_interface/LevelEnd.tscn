@@ -2,17 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
+[ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_1hfem"]
+[ext_resource type="SpriteFrames" uid="uid://bwcqlsnglsfub" path="res://assets/vfx/stars.tres" id="5_7jbgv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
-[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="7_djh55"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="7_dngta"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="7_e8pvp"]
-[ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="8_6w3sr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hocxu"]
-shader = ExtResource("8_6w3sr")
-shader_parameter/baseColor = Color(0.85, 0.801125, 0.6545, 1)
-shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
-shader_parameter/percentage = 0.0
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fm4t"]
+shader = ExtResource("4_1hfem")
+shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -66,18 +64,12 @@ size_flags_vertical = 2
 theme = ExtResource("7_dngta")
 text = "Level complete!"
 
-[node name="LevelScoreImg" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="LevelScoreImg" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_hocxu")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-texture = ExtResource("7_djh55")
-
-[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-theme_override_constants/separation = 60
+material = SubResource("ShaderMaterial_4fm4t")
+position = Vector2(237, 180)
+sprite_frames = ExtResource("5_7jbgv")
+frame_progress = 1.0
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

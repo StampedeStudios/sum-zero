@@ -37,7 +37,7 @@ func init_level(current_level: LevelData) -> void:
 	_clear()
 	if current_level == null:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
-		push_error("Livello non valido!")
+		push_error("Invalid level!")
 		return
 
 	var level_size: Vector2i
