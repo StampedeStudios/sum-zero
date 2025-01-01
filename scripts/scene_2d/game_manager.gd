@@ -42,7 +42,7 @@ func _ready() -> void:
 		change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
 	else:
 		get_tree().quit.call_deferred()
-		
+
 
 func _set_ui_scale() -> void:
 	var max_screen_width: float = get_viewport().size.x
@@ -53,13 +53,13 @@ func _set_ui_scale() -> void:
 
 func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
-	
+
 
 func get_tutorial() -> TutorialData:
 	if !_player_save.player_options.tutorial_on:
 		return null
 	if _context != GlobalConst.LevelGroup.MAIN:
-		return null	
+		return null
 	return _persistent_save.get_tutorial(_active_level_id)
 
 
@@ -80,7 +80,7 @@ func _try_load_saved_data() -> bool:
 	if modified:
 		save_player_data()
 	return true
-	
+
 
 func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 	_context = level_group

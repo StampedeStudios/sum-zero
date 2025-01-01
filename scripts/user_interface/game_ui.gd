@@ -9,12 +9,10 @@ var moves_left: int
 var _has_next_level: bool
 
 @onready var moves_left_txt: Label = %MovesLeft
-@onready var level_score_img: TextureRect = %LevelScoreImg
 @onready var skip_btn: Button = %SkipBtn
 
 
 func _ready() -> void:
-	level_score_img.visible = false
 	GameManager.on_state_change.connect(_on_state_change)
 
 
@@ -40,7 +38,7 @@ func _initialize_ui():
 		if _has_next_level:
 			skip_btn.show()
 	_update_moves()
-	var tutorial : TutorialData = GameManager.get_tutorial()
+	var tutorial: TutorialData = GameManager.get_tutorial()
 	if tutorial != null:
 		var tutorial_ui: Tutorial = TUTORIAL.instantiate()
 		get_tree().root.add_child(tutorial_ui)
@@ -64,15 +62,12 @@ func _on_reset_btn_pressed():
 
 
 func _update_moves() -> void:
+	# TODO: evaluate move left visibility
 	if moves_left >= 0:
-		level_score_img.visible = false
 		moves_left_txt.visible = true
 		moves_left_txt.text = "%s" % String.num(moves_left)
 	else:
 		moves_left_txt.visible = false
-		level_score_img.visible = true
-		var percentage: float = 0.33 * (3 + moves_left)
-		level_score_img.material.set_shader_parameter("percentage", percentage)
 
 
 func _on_skip_btn_pressed() -> void:
