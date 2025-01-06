@@ -10,7 +10,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 	var has_change := false
 	# initialize player options
 	if player_options == null:
-		print("opzioni non trovate e resettate")
+		print("No settings preferences found, resetting")
 		player_options = PlayerOptions.new()
 		has_change = true
 	# check custom levels and custom progress
@@ -34,7 +34,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 				progress.move_left = -1000
 				custom_progress.append(progress)
 				has_change = true
-	# check persistent progress			
+	# check persistent progress
 	for id in range(world.levels.size()):
 		var level_name := world.levels[id].name
 		if id < persistent_progress.size():

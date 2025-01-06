@@ -31,3 +31,14 @@ const MAX_CELL_VALUE: int = 4
 const HALF_BUILDER_SELECTION: int = 300
 
 const MAX_STARS_GAIN: int = 3
+
+const THREE_STARS_MSGS: Array[String] = [
+	"Star-studded victory!", "Flawless finish!", "You nailed it!"
+]
+const TWO_STARS_MSGS: Array[String] = [
+	"Shining bright!", "Almost perfect!", "So close, yet so bright!"
+]
+const ONE_STARS_MSGS: Array[String] = ["Barely made it!", "Star power on fumes!", "A win is a win!"]
+const NO_STARS_MSGS: Array[String] = [
+	"At least you finished!", "A win... kinda.", "Room for improvement!"
+]

@@ -8,7 +8,6 @@ var moves_left: int
 
 var _has_next_level: bool
 
-@onready var moves_left_txt: Label = %MovesLeft
 @onready var skip_btn: Button = %SkipBtn
 
 
@@ -32,12 +31,12 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _initialize_ui():
 	moves_left = GameManager.get_active_level().moves_left
+
 	skip_btn.hide()
 	if GameManager.is_level_completed():
 		_has_next_level = GameManager.set_next_level()
 		if _has_next_level:
 			skip_btn.show()
-	_update_moves()
 	var tutorial: TutorialData = GameManager.get_tutorial()
 	if tutorial != null:
 		var tutorial_ui: Tutorial = TUTORIAL.instantiate()
@@ -47,7 +46,6 @@ func _initialize_ui():
 
 func consume_move() -> void:
 	moves_left -= 1
-	_update_moves()
 
 
 func _on_exit_btn_pressed():
@@ -59,15 +57,6 @@ func _on_reset_btn_pressed():
 	AudioManager.play_click_sound()
 	_initialize_ui()
 	reset_level.emit()
-
-
-func _update_moves() -> void:
-	# TODO: evaluate move left visibility
-	if moves_left >= 0:
-		moves_left_txt.visible = true
-		moves_left_txt.text = "%s" % String.num(moves_left)
-	else:
-		moves_left_txt.visible = false
 
 
 func _on_skip_btn_pressed() -> void:

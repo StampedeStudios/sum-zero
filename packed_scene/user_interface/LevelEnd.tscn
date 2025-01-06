@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=11 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_1hfem"]
 [ext_resource type="SpriteFrames" uid="uid://bwcqlsnglsfub" path="res://assets/vfx/stars.tres" id="5_7jbgv"]
+[ext_resource type="Shader" path="res://scripts/shaders/LinearReveal.gdshader" id="6_211iv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="7_dngta"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="7_e8pvp"]
@@ -11,6 +12,10 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4fm4t"]
 shader = ExtResource("4_1hfem")
 shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a3ofu"]
+shader = ExtResource("6_211iv")
+shader_parameter/percentage = 0.635
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -34,7 +39,7 @@ anchor_bottom = 0.5
 offset_left = -275.0
 offset_top = -250.0
 offset_right = 275.0
-offset_bottom = 250.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -57,19 +62,32 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
 theme = ExtResource("7_dngta")
 text = "Level complete!"
 
-[node name="LevelScoreImg" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelScoreImg" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4fm4t")
-position = Vector2(237, 180)
+position = Vector2(237, 24)
 sprite_frames = ExtResource("5_7jbgv")
 frame_progress = 1.0
+
+[node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_a3ofu")
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("7_dngta")
+theme_override_font_sizes/font_size = 26
+text = "Star-studded victory!"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

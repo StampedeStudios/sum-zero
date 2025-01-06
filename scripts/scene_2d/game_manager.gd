@@ -166,6 +166,7 @@ func update_level_progress(move_left: int) -> bool:
 		is_record = true
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
+
 	save_player_data()
 	return is_record
 

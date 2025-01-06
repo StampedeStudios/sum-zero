@@ -1,0 +1,13 @@
+shader_type canvas_item;
+
+uniform float percentage = 0.0;
+
+void fragment() {
+    // Get the actual screen position of the fragment
+    vec2 screen_uv = SCREEN_UV;
+    
+    // Use SCREEN_UV.x instead of UV.x to get position relative to screen
+    if (screen_uv.x > percentage) {
+        discard;
+    }
+}

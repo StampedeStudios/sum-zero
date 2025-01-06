@@ -5,8 +5,8 @@
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="3_f7xua"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_r5v54"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_vh8y7"]
-[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="5_ioms7"]
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="6_botlw"]
+[ext_resource type="Texture2D" uid="uid://c0at616n8nxn8" path="res://assets/ui/stars_frames.png" id="6_j27i3"]
 [ext_resource type="StyleBox" uid="uid://6j6cvsgplugk" path="res://assets/resources/themes/copy_button.tres" id="6_p0coo"]
 [ext_resource type="Texture2D" uid="uid://bs8543o34whrb" path="res://assets/ui/trash_icon.png" id="7_gy07g"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="8_805tn"]
@@ -15,11 +15,9 @@
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="12_bfmt0"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="13_7ds18"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsgkt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktg2c"]
 shader = ExtResource("4_vh8y7")
-shader_parameter/baseColor = Color(0.992157, 0.937255, 0.768627, 1)
-shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
-shader_parameter/percentage = 0.0
+shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
 
 [node name="LevelInspect" type="Control"]
 layout_mode = 3
@@ -78,14 +76,18 @@ theme = ExtResource("1_xhbmd")
 text = "Level 01"
 horizontal_alignment = 1
 
-[node name="LevelScoreImg" type="TextureRect" parent="Background/Panel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_wsgkt")
+[node name="ProgressHint" type="BoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 3
-texture = ExtResource("5_ioms7")
-expand_mode = 3
+
+[node name="Stars" type="Sprite2D" parent="Background/Panel/MarginContainer/VBoxContainer/ProgressHint"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ktg2c")
+position = Vector2(250, 60)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("6_j27i3")
+region_enabled = true
+region_rect = Rect2(0, 0, 350, 239)
 
 [node name="BoxContainer" type="BoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
