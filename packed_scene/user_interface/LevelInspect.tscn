@@ -5,19 +5,17 @@
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="2_rmjy0"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_3an21"]
-[ext_resource type="Texture2D" uid="uid://db21wornw3ypr" path="res://assets/ui/stars.png" id="4_5ka5h"]
 [ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
+[ext_resource type="Texture2D" uid="uid://c0at616n8nxn8" path="res://assets/ui/stars_frames.png" id="5_indje"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="8_el7sx"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_32ph3"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_pt48p"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wsgkt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfrax"]
 shader = ExtResource("3_2dflr")
-shader_parameter/baseColor = Color(0.992157, 0.937255, 0.768627, 1)
-shader_parameter/fillColor = Color(0.980392, 0.796078, 0.317647, 1)
-shader_parameter/percentage = 0.0
+shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
 
 [node name="LevelInspect" type="Control"]
 layout_mode = 3
@@ -75,14 +73,13 @@ theme = ExtResource("3_3an21")
 text = "Level 01"
 horizontal_alignment = 1
 
-[node name="LevelScoreImg" type="TextureRect" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="Stars" type="Sprite2D" parent="Background/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_wsgkt")
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-texture = ExtResource("4_5ka5h")
-expand_mode = 3
+material = SubResource("ShaderMaterial_rfrax")
+position = Vector2(250, 200)
+texture = ExtResource("5_indje")
+region_enabled = true
+region_rect = Rect2(0, 0, 350, 239)
 
 [node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -120,6 +117,9 @@ size_flags_horizontal = 8
 focus_mode = 0
 theme = ExtResource("8_el7sx")
 icon = ExtResource("6_aqsoc")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
 layout_mode = 1

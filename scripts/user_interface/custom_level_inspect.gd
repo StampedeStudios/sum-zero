@@ -7,12 +7,13 @@ const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
 const PASTE_CHECK_ICON = preload("res://assets/ui/paste_check_icon.png")
+const STARS_SPRITE_SIZE := Vector2(350, 239)
 
 var _level_id: int
 var _level_code: String
 
 @onready var label: Label = %LevelName
-@onready var level_score_img: TextureRect = %LevelScoreImg
+@onready var stars: Sprite2D = %Stars
 @onready var delete_btn: Button = %DeleteBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
@@ -27,13 +28,17 @@ func init_inspector(level_id: int, progress: LevelProgress):
 	label.text = progress.name
 	_level_id = level_id
 
-	var percentage: float
-	if progress.is_completed:
-		percentage = 0.33 * (3 + progress.move_left)
-	else:
-		percentage = 0
+	var num_stars = clamp(
+		GlobalConst.MAX_STARS_GAIN + progress.move_left, 0, GlobalConst.MAX_STARS_GAIN
+	)
+	if !progress.is_completed:
+		num_stars = 0
 
-	level_score_img.material.set_shader_parameter("percentage", percentage)
+	var frame_per_star = 5
+
+	stars.region_rect = Rect2(
+		Vector2(frame_per_star * STARS_SPRITE_SIZE.x * num_stars, 0), STARS_SPRITE_SIZE
+	)
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
