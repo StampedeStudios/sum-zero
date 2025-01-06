@@ -38,7 +38,7 @@ Players navigate grids ranging in size from 2x2 to 5x5. Each tile has a number b
 Use sliders positioned along the grid's edges to manipulate rows or columns. Not every row or column has a slider. Begin the level with a grid of tiles displaying values from -4 to 4. 
 
 #### Plan a sequence of moves
-Eache level can be of different shape on a max of a 4 by 4 size. Strategically sequence slider movements to reduce all tile values to zero executing the lower number of moves possible. 
+Each level can be of different shape on a max of a 4 by 4 size. Strategically sequence slider movements to reduce all tile values to zero executing the lower number of moves possible. 
 
 #### Minimize moves amount
 Deal with blocked or missing tiles that may appear as additional obstacles. Complete the level once all tiles display a value of zero.
