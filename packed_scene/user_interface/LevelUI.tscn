@@ -26,15 +26,16 @@ grow_vertical = 2
 script = ExtResource("1_hkyqh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 30
+theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 30
+theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -60,7 +61,7 @@ flat = true
 
 [node name="NavigationTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 4
 theme = ExtResource("2_cshsk")
 theme_override_constants/separation = 50
 alignment = 1
@@ -105,14 +106,16 @@ end_cap_mode = 2
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 3
 
-[node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Content"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Content/AspectRatioContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 5.0
+size_flags_horizontal = 3
 theme_override_constants/h_separation = 60
 theme_override_constants/v_separation = 60
 columns = 3
@@ -120,7 +123,7 @@ columns = 3
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="LeftBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Controls"]
 layout_mode = 2

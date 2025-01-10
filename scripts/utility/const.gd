@@ -21,6 +21,8 @@ enum LevelGroup { CUSTOM, MAIN }
 
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
+const Y_MARGIN_PERCENTAGE: float = 0.05
+const X_MARGIN_PERCENTAGE: float = 0.1
 
 const MIN_LEVEL_SIZE: int = 2
 const MAX_LEVEL_SIZE: int = 5
