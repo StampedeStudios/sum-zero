@@ -16,11 +16,25 @@ var _placeholder_buttons: Array[PlaceholderButton]
 @onready var title: Label = %Title
 @onready var world_underline: Line2D = %WorldUnderline
 @onready var custom_underline: Line2D = %CustomUnderline
+@onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
+
+	var screen_size = get_viewport_rect().size
+	var vertical_margin: int = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
+	var horizontal_margin: int = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
+
+	margin.add_theme_constant_override("margin_left", horizontal_margin)
+	margin.add_theme_constant_override("margin_right", horizontal_margin)
+	margin.add_theme_constant_override("margin_top", vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", vertical_margin)
+
+	level_grid.add_theme_constant_override("h_separation", vertical_margin)
+	level_grid.add_theme_constant_override("v_separation", vertical_margin)
+
 	update_content()
 
 
