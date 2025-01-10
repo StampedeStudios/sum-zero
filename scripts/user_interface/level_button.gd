@@ -25,6 +25,7 @@ func _draw():
 	# Set size flags to allow expansion inside containers
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
+
 	focus_mode = Control.FocusMode.FOCUS_NONE
 
 
@@ -34,6 +35,8 @@ func _init() -> void:
 	add_theme_stylebox_override("pressed", HOVER_STYLE)
 	icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+
+	expand_icon = true
 
 
 func _pressed() -> void:

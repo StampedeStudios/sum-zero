@@ -19,6 +19,7 @@ mouse_filter = 1
 script = ExtResource("1_w1118")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

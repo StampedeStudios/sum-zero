@@ -5,9 +5,20 @@ signal reset_builder_level
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn")
 
+@onready var margin: MarginContainer = %MarginContainer
+
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
+	# Update margin percentage
+	var screen_size = get_viewport_rect().size
+	var vertical_margin: int = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
+	var horizontal_margin: int = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
+
+	margin.add_theme_constant_override("margin_left", horizontal_margin)
+	margin.add_theme_constant_override("margin_right", horizontal_margin)
+	margin.add_theme_constant_override("margin_top", vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", vertical_margin)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
