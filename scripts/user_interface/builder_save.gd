@@ -44,6 +44,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			level_name.caret_column = 0
 			moves.text = ""
 			moves.caret_column = 0
+			_check_valid_info()
 			self.visible = true
 		_:
 			self.visible = false
