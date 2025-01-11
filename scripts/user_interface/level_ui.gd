@@ -85,7 +85,7 @@ func update_content() -> void:
 				level_btn_count -= 1
 			else:
 				level_button = LevelButton.new()
-				level_button.on_delete_level_button.connect(update_content)
+				level_button.on_delete_level_button.connect(_on_level_deleted)
 				_level_buttons.append(level_button)
 				level_grid.add_child(level_button)
 
@@ -103,6 +103,11 @@ func update_content() -> void:
 				_placeholder_buttons.append(placeholder_button)
 				level_grid.add_child(placeholder_button)
 			placeholder_button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
+
+
+func _on_level_deleted(ref: LevelButton) -> void:
+	_level_buttons.erase(ref)
+	update_content()
 
 
 func _on_left_pressed() -> void:
@@ -138,9 +143,9 @@ func _on_world_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-	update_content()
 	world_underline.show()
 	custom_underline.hide()
+	update_content()
 
 
 func _on_custom_btn_pressed() -> void:
