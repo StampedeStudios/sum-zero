@@ -75,8 +75,10 @@ func _on_level_name_text_changed(new_text: String) -> void:
 func _update_save_btn() -> void:
 	if code.text == "" or level_name.text == "":
 		save_btn.disabled = true
+		persist_btn.disabled = true
 	else:
 		save_btn.disabled = false
+		persist_btn.disabled = false
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -95,6 +97,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _show_error() -> void:
 	save_btn.disabled = true
+	persist_btn.disabled = true
 	code.add_theme_stylebox_override("normal", BUTTON_ERROR)
 	code.add_theme_color_override("icon_normal_color", Color.DARK_RED)
 	code.add_theme_color_override("font_color", Color.DARK_RED)
