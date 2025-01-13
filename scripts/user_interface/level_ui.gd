@@ -40,6 +40,8 @@ func _ready() -> void:
 
 	update_content()
 
+	Randomizer.generate()
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
