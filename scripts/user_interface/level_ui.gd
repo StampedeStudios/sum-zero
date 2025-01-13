@@ -23,6 +23,8 @@ func _ready() -> void:
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	update_content()
 
+	Randomizer.generate()
+
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
