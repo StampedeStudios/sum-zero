@@ -20,7 +20,7 @@ static func generate() -> LevelData:
 	data.width = randi_range(2, 5)
 	data.height = randi_range(2, 5)
 
-	if check_probability(HOLE_CELL_ODD):		
+	if check_probability(HOLE_CELL_ODD):
 		create_holes(data)
 	if check_probability(BLOCK_CELL_ODD):
 		create_block(data)
@@ -55,7 +55,7 @@ static func remove_blocks(data: LevelData) -> void:
 	for coord in data.cells_list.keys():
 		var cell_data = data.cells_list.get(coord) as CellData
 		cell_data.is_blocked = false
-		
+
 
 static func create_block(data: LevelData) -> void:
 	if data.cells_list.is_empty():
@@ -90,7 +90,7 @@ static func create_sliders(data: LevelData) -> void:
 		remove_holes(data)
 	remove_sliders(data)
 	var possible_sliders := get_possible_sliders(data)
-	
+
 	for edge_group in possible_sliders:
 		if edge_group.is_empty():
 			continue
@@ -102,12 +102,12 @@ static func create_sliders(data: LevelData) -> void:
 				var reachable_cell := edge_group.get(coord) as Array[Vector2i]
 				var slider := get_random_slider()
 				data.slider_list[coord] = slider
-				for i in range(randi_range(0,reachable_cell.size())):
+				for i in range(randi_range(0, reachable_cell.size())):
 					var cell := data.cells_list.get(reachable_cell[i]) as CellData
 					apply_slider_effect(cell, slider)
-					
-				
-static func apply_slider_effect(cell:CellData, slider: SliderData) -> void:
+
+
+static func apply_slider_effect(cell: CellData, slider: SliderData) -> void:
 	match slider.area_effect:
 		GlobalConst.AreaEffect.ADD:
 			cell.value -= 1
@@ -116,9 +116,9 @@ static func apply_slider_effect(cell:CellData, slider: SliderData) -> void:
 		GlobalConst.AreaEffect.CHANGE_SIGN:
 			cell.value *= -1
 		GlobalConst.AreaEffect.BLOCK:
-			cell.value = 0 #TODO gestire quando inserito block
+			cell.value = 0  #TODO gestire quando inserito block
 			cell.is_blocked = true
-			
+
 
 static func get_possible_sliders(data: LevelData) -> Array[Dictionary]:
 	var result: Array[Dictionary]
@@ -154,7 +154,7 @@ static func get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -
 	var result: Array[Vector2i]
 	var direction: Vector2i
 	var max_extension: int
-	
+
 	match edge:
 		0:
 			direction = Vector2i.DOWN
@@ -168,7 +168,7 @@ static func get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -
 		3:
 			direction = Vector2i.RIGHT
 			max_extension = data.width
-			
+
 	result.append(origin)
 	for i in range(1, max_extension):
 		var coord := origin + direction * i
@@ -184,16 +184,16 @@ static func get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -
 static func get_adiacent_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
 	var result: Array[Vector2i]
 	for direction in SQUARE_DIRECTION + CROSS_DIRECTION:
-		var adiacent : Vector2i = pos + direction
+		var adiacent: Vector2i = pos + direction
 		if cells.has(adiacent):
 			result.append(adiacent)
 	return result
 
 
 static func check_probability(probability: float) -> bool:
-	var random := randi_range(1,100)
+	var random := randi_range(1, 100)
 	return true if random <= probability else false
-	
+
 
 static func get_random_slider() -> SliderData:
 	var result := SliderData.new()
@@ -202,7 +202,7 @@ static func get_random_slider() -> SliderData:
 	var subtract_odd := Vector2i(add_odd.y, add_odd.y + SUBTRACT_SLIDER_ODD)
 	var invert_odd := Vector2i(subtract_odd.y, subtract_odd.y + INVERT_SLIDER_ODD)
 	var block_odd := Vector2i(invert_odd.y, max_odd)
-	var random := randi_range(1,max_odd)
+	var random := randi_range(1, max_odd)
 	if random <= add_odd.y:
 		result.area_effect = GlobalConst.AreaEffect.ADD
 	elif random > subtract_odd.x and random <= subtract_odd.y:
