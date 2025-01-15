@@ -13,6 +13,8 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8qsm"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8qsm"]
+
 [node name="BuilderUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
