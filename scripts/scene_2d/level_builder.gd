@@ -116,7 +116,7 @@ func construct_level(level_data: LevelData = null) -> void:
 			var cell_coord := Vector2i(column, row)
 			var cell_pos := cell_coord * GlobalConst.CELL_SIZE
 			var cell: BuilderCell
-			
+
 			if _cell_collection.has(cell_coord):
 				cell = _cell_collection.get(cell_coord)
 				old_collection.erase(cell_coord)
@@ -366,4 +366,3 @@ func generate_level(element: GlobalConst.GenerationElement) -> void:
 			Randomizer.create_sliders(_level_data)
 			pass
 	construct_level.call_deferred(_level_data)
-	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
