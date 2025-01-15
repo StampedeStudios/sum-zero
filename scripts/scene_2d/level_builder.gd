@@ -111,12 +111,12 @@ func construct_level(level_data: LevelData = null) -> void:
 
 	# add cell space
 	old_collection = _cell_collection.duplicate()
-	for columun in range(0, _level_data.width):
+	for column in range(0, _level_data.width):
 		for row in range(0, _level_data.height):
-			var cell_coord := Vector2i(columun, row)
+			var cell_coord := Vector2i(column, row)
 			var cell_pos := cell_coord * GlobalConst.CELL_SIZE
 			var cell: BuilderCell
-
+			
 			if _cell_collection.has(cell_coord):
 				cell = _cell_collection.get(cell_coord)
 				old_collection.erase(cell_coord)
@@ -126,8 +126,11 @@ func construct_level(level_data: LevelData = null) -> void:
 				cell.on_cell_change.connect(_on_cell_change)
 				cell.start_multiselection.connect(_start_multiselection)
 				_cell_collection[cell_coord] = cell
-				if _level_data.cells_list.has(cell_coord):
-					cell.set_cell_data(_level_data.cells_list.get(cell_coord))
+			if _level_data.cells_list.has(cell_coord):
+				cell.set_cell_data(_level_data.cells_list.get(cell_coord))
+			else:
+				cell = _cell_collection.get(cell_coord)
+				cell.clear_cell()
 
 			cell.position = -half_grid + half_cell + cell_pos
 
@@ -153,8 +156,8 @@ func construct_level(level_data: LevelData = null) -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
-			if _level_data.slider_list.has(slider_coord):
-				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
+		if _level_data.slider_list.has(slider_coord):
+			slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -174,8 +177,8 @@ func construct_level(level_data: LevelData = null) -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
-			if _level_data.slider_list.has(slider_coord):
-				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
+		if _level_data.slider_list.has(slider_coord):
+			slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -195,8 +198,8 @@ func construct_level(level_data: LevelData = null) -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
-			if _level_data.slider_list.has(slider_coord):
-				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
+		if _level_data.slider_list.has(slider_coord):
+			slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = column * GlobalConst.CELL_SIZE
 		slider_pos.y = 0
@@ -216,8 +219,8 @@ func construct_level(level_data: LevelData = null) -> void:
 			grid.add_child(slider)
 			slider.on_slider_change.connect(_on_slider_change)
 			_slider_collection[slider_coord] = slider
-			if _level_data.slider_list.has(slider_coord):
-				slider.set_slider_data(_level_data.slider_list.get(slider_coord))
+		if _level_data.slider_list.has(slider_coord):
+			slider.set_slider_data(_level_data.slider_list.get(slider_coord))
 
 		slider_pos.x = 0
 		slider_pos.y = row * GlobalConst.CELL_SIZE
@@ -344,3 +347,10 @@ func move_grid(offset: Vector2) -> void:
 
 func get_level_data() -> LevelData:
 	return _level_data
+
+
+func generate_level() -> void:
+	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
+	var level: LevelData = Randomizer.generate()
+	construct_level.call_deferred(level)
+	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
