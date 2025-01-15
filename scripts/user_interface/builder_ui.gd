@@ -68,3 +68,7 @@ func _on_save_btn_pressed():
 func _on_exit_btn_pressed():
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+
+
+func _on_generate_pressed() -> void:
+	GameManager.level_builder.generate_level()
