@@ -19,6 +19,8 @@ enum GameState {
 }
 enum LevelGroup { CUSTOM, MAIN }
 
+enum GenerationElement { HOLE, BLOCK, SLIDER }
+
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
 
