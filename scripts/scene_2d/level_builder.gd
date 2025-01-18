@@ -364,5 +364,5 @@ func generate_level(element: GlobalConst.GenerationElement) -> void:
 			Randomizer.create_block(_level_data)
 		GlobalConst.GenerationElement.SLIDER:
 			Randomizer.create_sliders(_level_data)
-			pass
 	construct_level.call_deferred(_level_data)
+	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
