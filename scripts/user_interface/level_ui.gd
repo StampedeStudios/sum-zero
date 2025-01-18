@@ -3,6 +3,8 @@ class_name LevelUI extends Control
 const PAGE_SIZE := 9
 const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
 const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
+const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
+const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 
 var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 var _current_page: int = 1
@@ -14,15 +16,13 @@ var _placeholder_buttons: Array[PlaceholderButton]
 @onready var left: TextureButton = %Left
 @onready var right: TextureButton = %Right
 @onready var title: Label = %Title
-@onready var world_underline: Line2D = %WorldUnderline
-@onready var custom_underline: Line2D = %CustomUnderline
 @onready var margin: MarginContainer = %MarginContainer
+@onready var exitBtn: Button = %ExitBtn
+@onready var worldBtn: Button = %WorldBtn
+@onready var customBtn: Button = %CustomBtn
 
 
 func _ready() -> void:
-	GameManager.on_state_change.connect(_on_state_change)
-	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-
 	var screen_size = get_viewport_rect().size
 	var vertical_margin: int = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
 	var horizontal_margin: int = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
@@ -34,6 +34,15 @@ func _ready() -> void:
 
 	level_grid.add_theme_constant_override("h_separation", vertical_margin)
 	level_grid.add_theme_constant_override("v_separation", vertical_margin)
+
+	worldBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	customBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
+	exitBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	exitBtn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+
+	GameManager.on_state_change.connect(_on_state_change)
+	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 
 	update_content()
 
@@ -157,9 +166,9 @@ func _on_world_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-	world_underline.show()
-	custom_underline.hide()
 	update_content()
+	worldBtn.theme = PRIMARY_THEME
+	customBtn.theme = DEFAULT_THEME
 
 
 func _on_custom_btn_pressed() -> void:
@@ -167,6 +176,6 @@ func _on_custom_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-	world_underline.hide()
-	custom_underline.show()
 	update_content()
+	customBtn.theme = PRIMARY_THEME
+	worldBtn.theme = DEFAULT_THEME

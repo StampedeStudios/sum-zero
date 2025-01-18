@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="Sum Zero"
-config/description="s"
 config/version="0.5.1"
 run/main_scene="res://packed_scene/scene_2d/LevelManager.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
@@ -27,8 +26,8 @@ AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=1280
+window/size/viewport_width=1440
+window/size/viewport_height=2560
 window/size/extend_to_title=true
 window/handheld/orientation=1
 

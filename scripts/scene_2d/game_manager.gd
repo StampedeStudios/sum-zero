@@ -10,6 +10,11 @@ const PLAYER_SAVE_PATH = "user://sumzero.tres"
 @export var slider_collection: SliderCollection
 
 var ui_scale: Vector2
+var title_font_size: int
+var subtitle_font_size: int
+var text_font_size: int
+var icon_max_width: int
+
 var cell_size: float
 var level_scale: Vector2
 var level_manager: LevelManager
@@ -35,8 +40,8 @@ var _context: GlobalConst.LevelGroup
 
 
 func _ready() -> void:
+	_set_ui_scale()
 	if _try_load_saved_data():
-		_set_ui_scale()
 		main_menu = MAIN_MENU.instantiate()
 		get_tree().root.add_child.call_deferred(main_menu)
 		change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
@@ -47,8 +52,15 @@ func _ready() -> void:
 func _set_ui_scale() -> void:
 	var max_screen_width: float = get_viewport().size.x
 	var max_screen_height: float = get_viewport().size.y
-	var min_scale: float = min(max_screen_width / 720, max_screen_height / 1280)
+	var min_scale: float = min(
+		max_screen_width / GlobalConst.SCREEN_SIZE_X, max_screen_height / GlobalConst.SCREEN_SIZE_Y
+	)
 	ui_scale = Vector2(min_scale, min_scale)
+
+	title_font_size = int(ui_scale.x * GlobalConst.TITLE_FONT_SIZE)
+	subtitle_font_size = int(ui_scale.x * GlobalConst.SUBTITLE_FONT_SIZE)
+	text_font_size = int(ui_scale.x * GlobalConst.TEXT_FONT_SIZE)
+	icon_max_width = int(ui_scale.x * GlobalConst.ICON_MAX_WIDTH)
 
 
 func change_state(new_state: GlobalConst.GameState) -> void:
