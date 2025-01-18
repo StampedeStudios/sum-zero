@@ -70,5 +70,13 @@ func _on_exit_btn_pressed():
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
-func _on_generate_pressed() -> void:
-	GameManager.level_builder.generate_level()
+func _on_generate_hole_pressed() -> void:
+	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.HOLE)
+
+
+func _on_generate_block_pressed() -> void:
+	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.BLOCK)
+
+
+func _on_generate_slider_pressed() -> void:
+	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.SLIDER)

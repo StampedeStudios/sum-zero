@@ -24,6 +24,8 @@ enum LevelGroup { CUSTOM, MAIN }
 const SCREEN_SIZE_X = 720
 const SCREEN_SIZE_Y = 1280
 
+enum GenerationElement { HOLE, BLOCK, SLIDER }
+
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
 const Y_MARGIN_PERCENTAGE: float = 0.05

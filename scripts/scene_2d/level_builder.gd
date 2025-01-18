@@ -349,8 +349,13 @@ func get_level_data() -> LevelData:
 	return _level_data
 
 
-func generate_level() -> void:
-	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
-	var level: LevelData = Randomizer.generate()
-	construct_level.call_deferred(level)
+func generate_level(element: GlobalConst.GenerationElement) -> void:
+	match element:
+		GlobalConst.GenerationElement.HOLE:
+			Randomizer.create_holes(_level_data)
+		GlobalConst.GenerationElement.BLOCK:
+			Randomizer.create_block(_level_data)
+		GlobalConst.GenerationElement.SLIDER:
+			pass
+	construct_level.call_deferred(_level_data)
 	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
