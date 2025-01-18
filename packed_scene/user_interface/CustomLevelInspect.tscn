@@ -47,7 +47,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
 offset_top = -300.0
-offset_right = 250.0
+offset_right = 300.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -133,6 +133,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
 theme = ExtResource("9_pmfwt")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("9_m2lq8")
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]

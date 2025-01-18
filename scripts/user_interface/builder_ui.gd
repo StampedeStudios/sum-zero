@@ -6,6 +6,8 @@ const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn")
 
 @onready var margin: MarginContainer = %MarginContainer
+@onready var exit_btn: Button = %ExitBtn
+@onready var buttons: HBoxContainer = %BottomContainer
 
 
 func _ready():
@@ -19,6 +21,14 @@ func _ready():
 	margin.add_theme_constant_override("margin_right", horizontal_margin)
 	margin.add_theme_constant_override("margin_top", vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", vertical_margin)
+
+	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+
+	for child in buttons.get_children():
+		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+
+	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:

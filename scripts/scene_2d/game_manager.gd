@@ -14,6 +14,8 @@ var title_font_size: int
 var subtitle_font_size: int
 var text_font_size: int
 var icon_max_width: int
+var btn_icon_max_width: int
+var btns_separation: int
 
 var cell_size: float
 var level_scale: Vector2
@@ -61,6 +63,9 @@ func _set_ui_scale() -> void:
 	subtitle_font_size = int(ui_scale.x * GlobalConst.SUBTITLE_FONT_SIZE)
 	text_font_size = int(ui_scale.x * GlobalConst.TEXT_FONT_SIZE)
 	icon_max_width = int(ui_scale.x * GlobalConst.ICON_MAX_WIDTH)
+	btn_icon_max_width = int(ui_scale.x * GlobalConst.BTN_ICON_MAX_WIDTH)
+
+	btns_separation = int(ui_scale.x * GlobalConst.BTN_SEPARATION)
 
 
 func change_state(new_state: GlobalConst.GameState) -> void:
