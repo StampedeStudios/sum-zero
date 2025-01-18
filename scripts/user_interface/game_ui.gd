@@ -9,7 +9,10 @@ var moves_left: int
 var _has_next_level: bool
 
 @onready var skip_btn: Button = %SkipBtn
+@onready var exit_btn: Button = %ExitBtn
+
 @onready var margin: MarginContainer = %MarginContainer
+@onready var container: HBoxContainer = %BottomRightContainer
 
 
 func _ready() -> void:
@@ -24,6 +27,18 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_right", horizontal_margin)
 	margin.add_theme_constant_override("margin_top", vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", vertical_margin)
+
+	for child in container.get_children():
+		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+
+	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+	container.add_theme_constant_override("separation", 50)
+
+
+func _on_exit_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -57,11 +72,6 @@ func _initialize_ui():
 
 func consume_move() -> void:
 	moves_left -= 1
-
-
-func _on_exit_btn_pressed():
-	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 
 
 func _on_reset_btn_pressed():

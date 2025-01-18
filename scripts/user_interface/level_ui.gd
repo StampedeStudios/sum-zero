@@ -17,9 +17,9 @@ var _placeholder_buttons: Array[PlaceholderButton]
 @onready var right: TextureButton = %Right
 @onready var title: Label = %Title
 @onready var margin: MarginContainer = %MarginContainer
-@onready var exitBtn: Button = %ExitBtn
-@onready var worldBtn: Button = %WorldBtn
-@onready var customBtn: Button = %CustomBtn
+@onready var exit_btn: Button = %ExitBtn
+@onready var world_btn: Button = %WorldBtn
+@onready var custom_btn: Button = %CustomBtn
 
 
 func _ready() -> void:
@@ -35,11 +35,11 @@ func _ready() -> void:
 	level_grid.add_theme_constant_override("h_separation", vertical_margin)
 	level_grid.add_theme_constant_override("v_separation", vertical_margin)
 
-	worldBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	customBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	world_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	custom_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
-	exitBtn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	exitBtn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	GameManager.on_state_change.connect(_on_state_change)
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
@@ -167,8 +167,8 @@ func _on_world_btn_pressed() -> void:
 	_current_page = 1
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	update_content()
-	worldBtn.theme = PRIMARY_THEME
-	customBtn.theme = DEFAULT_THEME
+	world_btn.theme = PRIMARY_THEME
+	custom_btn.theme = DEFAULT_THEME
 
 
 func _on_custom_btn_pressed() -> void:
@@ -177,5 +177,5 @@ func _on_custom_btn_pressed() -> void:
 	_current_page = 1
 	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	update_content()
-	customBtn.theme = PRIMARY_THEME
-	worldBtn.theme = DEFAULT_THEME
+	custom_btn.theme = PRIMARY_THEME
+	world_btn.theme = DEFAULT_THEME
