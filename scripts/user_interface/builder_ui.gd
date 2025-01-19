@@ -11,24 +11,16 @@ const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn
 
 
 func _ready():
-	GameManager.on_state_change.connect(_on_state_change)
-	# Update margin percentage
-	var screen_size = get_viewport_rect().size
-	var vertical_margin: int = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
-	var horizontal_margin: int = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
-
-	margin.add_theme_constant_override("margin_left", horizontal_margin)
-	margin.add_theme_constant_override("margin_right", horizontal_margin)
-	margin.add_theme_constant_override("margin_top", vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", vertical_margin)
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
-	for child in buttons.get_children():
-		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
-
 	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
+	GameManager.on_state_change.connect(_on_state_change)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:

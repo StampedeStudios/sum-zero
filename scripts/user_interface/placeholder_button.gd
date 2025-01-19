@@ -27,6 +27,8 @@ func _init() -> void:
 	icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
 
+	expand_icon = true
+
 
 func _pressed() -> void:
 	if _is_custom:

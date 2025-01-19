@@ -5,6 +5,7 @@ signal on_state_change(new_state: GlobalConst.GameState)
 const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
+const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 
 @export var palette: ColorPalette
 @export var slider_collection: SliderCollection
@@ -16,6 +17,8 @@ var text_font_size: int
 var icon_max_width: int
 var btn_icon_max_width: int
 var btns_separation: int
+var vertical_margin: int
+var horizontal_margin: int
 
 var cell_size: float
 var level_scale: Vector2
@@ -52,8 +55,9 @@ func _ready() -> void:
 
 
 func _set_ui_scale() -> void:
-	var max_screen_width: float = get_viewport().size.x
-	var max_screen_height: float = get_viewport().size.y
+	var screen_size = get_viewport().size
+	var max_screen_width: float = screen_size.x
+	var max_screen_height: float = screen_size.y
 	var min_scale: float = min(
 		max_screen_width / GlobalConst.SCREEN_SIZE_X, max_screen_height / GlobalConst.SCREEN_SIZE_Y
 	)
@@ -66,6 +70,13 @@ func _set_ui_scale() -> void:
 	btn_icon_max_width = int(ui_scale.x * GlobalConst.BTN_ICON_MAX_WIDTH)
 
 	btns_separation = int(ui_scale.x * GlobalConst.BTN_SEPARATION)
+
+	# Update margin percentage
+	vertical_margin = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
+	horizontal_margin = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
+
+	# Update themes
+	DEFAULT_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)
 
 
 func change_state(new_state: GlobalConst.GameState) -> void:

@@ -23,17 +23,13 @@ var _placeholder_buttons: Array[PlaceholderButton]
 
 
 func _ready() -> void:
-	var screen_size = get_viewport_rect().size
-	var vertical_margin: int = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
-	var horizontal_margin: int = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-	margin.add_theme_constant_override("margin_left", horizontal_margin)
-	margin.add_theme_constant_override("margin_right", horizontal_margin)
-	margin.add_theme_constant_override("margin_top", vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", vertical_margin)
-
-	level_grid.add_theme_constant_override("h_separation", vertical_margin)
-	level_grid.add_theme_constant_override("v_separation", vertical_margin)
+	level_grid.add_theme_constant_override("h_separation", GameManager.vertical_margin)
+	level_grid.add_theme_constant_override("v_separation", GameManager.vertical_margin)
 
 	world_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	custom_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
