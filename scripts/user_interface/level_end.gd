@@ -14,7 +14,6 @@ var _has_next_level: bool
 
 
 func _ready():
-	hint.text = ""
 	GameManager.on_state_change.connect(_on_state_change)
 
 	self.scale = GameManager.ui_scale
@@ -61,7 +60,8 @@ func _animate_stars(move_left: int) -> void:
 
 func _animate_hint(move_left: int):
 	hint.text = _select_random_text(move_left)
-	var tween = create_tween()
+	var tween := create_tween()
+
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
 
@@ -94,20 +94,17 @@ func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
 
 func _on_replay_btn_pressed():
 	AudioManager.play_click_sound()
-	_play_frames(0, 1, 0.02)
-	_update_shader_percentage(0)
-	hint.text = ""
+
 	restart_level.emit()
+	queue_free()
 
 
 func _on_next_btn_pressed():
 	AudioManager.play_click_sound()
-	_play_frames(0, 1, 0.02)
-	_update_shader_percentage(0)
-	hint.text = ""
 
 	if !_has_next_level:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	else:
 		var level: LevelData = GameManager.get_next_level()
 		GameManager.level_manager.init_level.call_deferred(level)
+		queue_free()
