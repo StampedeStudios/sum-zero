@@ -8,7 +8,6 @@ const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 
 var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 var _current_page: int = 1
-var _num_pages: int = 1
 var _level_buttons: Array[LevelButton]
 var _placeholder_buttons: Array[PlaceholderButton]
 
@@ -38,7 +37,6 @@ func _ready() -> void:
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	GameManager.on_state_change.connect(_on_state_change)
-	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 
 	update_content()
 
@@ -73,13 +71,18 @@ func update_content() -> void:
 	var levels_progress: Array[LevelProgress]
 	# get extra level for test next page
 	levels_progress = GameManager.get_page_levels(_world, first_level, last_level + 1)
-	title.text = "%d of %d" % [_current_page, _num_pages]
 
 	match _world:
 		GlobalConst.LevelGroup.MAIN:
 			_update_buttons(levels_progress.size() > PAGE_SIZE)
+			var _num_pages: int = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
+			title.text = "%d of %d" % [_current_page, _num_pages]
 		GlobalConst.LevelGroup.CUSTOM:
 			_update_buttons(levels_progress.size() > PAGE_SIZE - 1)
+
+			# Accounting for at least one placeholder_button, always present in custom level panel
+			var _num_pages: int = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
+			title.text = "%d of %d" % [_current_page, _num_pages]
 
 	var max_level_btn := mini(levels_progress.size(), PAGE_SIZE)
 
@@ -161,7 +164,6 @@ func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
-	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	update_content()
 	world_btn.theme = PRIMARY_THEME
 	custom_btn.theme = DEFAULT_THEME
@@ -171,7 +173,6 @@ func _on_custom_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
-	_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 	update_content()
 	custom_btn.theme = PRIMARY_THEME
 	world_btn.theme = DEFAULT_THEME
