@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=9 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2fw0e"]
+[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_kqnek"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="4_t4xkr"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
 
@@ -26,15 +27,16 @@ grow_vertical = 2
 script = ExtResource("1_hkyqh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 30
+theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 30
+theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
@@ -60,59 +62,46 @@ flat = true
 
 [node name="NavigationTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 4
 theme = ExtResource("2_cshsk")
 theme_override_constants/separation = 50
 alignment = 1
 
 [node name="WorldBtn" type="Button" parent="MarginContainer/VBoxContainer/NavigationTab"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+size_flags_horizontal = 0
 focus_mode = 0
-theme = ExtResource("2_cshsk")
+theme = ExtResource("4_kqnek")
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("8_101tc")
 text = " World "
-flat = true
-
-[node name="WorldUnderline" type="Line2D" parent="MarginContainer/VBoxContainer/NavigationTab/WorldBtn"]
-unique_name_in_owner = true
-position = Vector2(9, 2)
-points = PackedVector2Array(20, 80, 250, 80)
-width = 8.0
-default_color = Color(0.384314, 0.745098, 0.364706, 1)
-begin_cap_mode = 2
-end_cap_mode = 2
 
 [node name="CustomBtn" type="Button" parent="MarginContainer/VBoxContainer/NavigationTab"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+size_flags_horizontal = 2
 focus_mode = 0
 theme = ExtResource("2_cshsk")
 toggle_mode = true
 button_group = ExtResource("8_101tc")
 text = " Custom "
-flat = true
-
-[node name="CustomUnderline" type="Line2D" parent="MarginContainer/VBoxContainer/NavigationTab/CustomBtn"]
-unique_name_in_owner = true
-visible = false
-position = Vector2(12, 2)
-points = PackedVector2Array(20, 80, 250, 80)
-width = 8.0
-default_color = Color(0.384314, 0.745098, 0.364706, 1)
-begin_cap_mode = 2
-end_cap_mode = 2
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 3
 
-[node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Content"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Content/AspectRatioContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 5.0
+size_flags_horizontal = 3
 theme_override_constants/h_separation = 60
 theme_override_constants/v_separation = 60
 columns = 3
@@ -120,7 +109,7 @@ columns = 3
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 10
+size_flags_vertical = 8
 
 [node name="LeftBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Controls"]
 layout_mode = 2

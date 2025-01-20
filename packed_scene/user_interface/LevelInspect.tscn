@@ -116,9 +116,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
 theme = ExtResource("8_el7sx")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("6_aqsoc")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BoxContainer" type="BoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]

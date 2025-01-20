@@ -116,6 +116,7 @@ theme_override_colors/icon_focus_color = Color(0.784314, 0, 0, 1)
 theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
 theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_constants/icon_max_width = 128
 icon = SubResource("CompressedTexture2D_ud3al")
 flat = true
 

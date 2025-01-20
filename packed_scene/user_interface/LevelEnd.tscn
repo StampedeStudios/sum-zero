@@ -16,6 +16,7 @@ shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a3ofu"]
 shader = ExtResource("6_211iv")
 shader_parameter/percentage = 0.635
+shader_parameter/right_to_left = false
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -87,7 +88,6 @@ layout_mode = 2
 size_flags_vertical = 8
 theme = ExtResource("7_dngta")
 theme_override_font_sizes/font_size = 26
-text = "Star-studded victory!"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

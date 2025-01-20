@@ -16,6 +16,9 @@ func _ready() -> void:
 		persist_btn.show()
 	GameManager.on_state_change.connect(_on_state_change)
 
+	self.scale = GameManager.ui_scale
+	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):

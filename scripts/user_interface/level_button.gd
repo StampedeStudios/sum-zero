@@ -25,6 +25,7 @@ func _draw():
 	# Set size flags to allow expansion inside containers
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
+
 	focus_mode = Control.FocusMode.FOCUS_NONE
 
 
@@ -34,6 +35,8 @@ func _init() -> void:
 	add_theme_stylebox_override("pressed", HOVER_STYLE)
 	icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
+
+	expand_icon = true
 
 
 func _pressed() -> void:
@@ -90,6 +93,8 @@ func _create_label(index: int) -> Label:
 	lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
 	lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	lab.theme = THEME
+	lab.add_theme_font_size_override("font_size", GameManager.text_font_size)
+
 	lab.set_anchors_preset(PRESET_FULL_RECT)
 	return lab
 

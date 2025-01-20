@@ -16,6 +16,7 @@ mouse_filter = 1
 script = ExtResource("1_xo1x5")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +42,7 @@ theme_override_font_sizes/font_size = 128
 text = "0"
 
 [node name="BottomContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

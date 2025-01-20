@@ -19,10 +19,23 @@ enum GameState {
 }
 enum LevelGroup { CUSTOM, MAIN }
 
+# Default sizes
+# TODO: Handle this constants differently
+const SCREEN_SIZE_X = 720
+const SCREEN_SIZE_Y = 1280
+
 enum GenerationElement { HOLE, BLOCK, SLIDER }
 
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
+const Y_MARGIN_PERCENTAGE: float = 0.05
+const X_MARGIN_PERCENTAGE: float = 0.1
+const TITLE_FONT_SIZE: int = 60
+const SUBTITLE_FONT_SIZE: int = 50
+const TEXT_FONT_SIZE: int = 40
+const ICON_MAX_WIDTH: int = 64
+const BTN_ICON_MAX_WIDTH: int = 128
+const BTN_SEPARATION: int = 20
 
 const MIN_LEVEL_SIZE: int = 2
 const MAX_LEVEL_SIZE: int = 5

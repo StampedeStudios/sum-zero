@@ -4,10 +4,19 @@ signal reset_test_level
 
 var _moves: int
 
+@onready var margin: MarginContainer = %MarginContainer
 @onready var moves_count = %MovesCount
+@onready var buttons: HBoxContainer = %BottomContainer
 
 
 func _ready():
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+
+	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
+
 	GameManager.on_state_change.connect(_on_state_change)
 	_reset_moves()
 

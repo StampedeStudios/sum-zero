@@ -22,6 +22,9 @@ func _ready():
 	_invalid_name = true
 	_check_valid_info()
 
+	self.scale = GameManager.ui_scale
+	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+
 
 func initialize_info(old_name: String, old_moves: String) -> void:
 	level_name.text = old_name
