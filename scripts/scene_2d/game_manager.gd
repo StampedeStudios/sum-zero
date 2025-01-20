@@ -6,6 +6,7 @@ const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
+const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 
 @export var palette: ColorPalette
 @export var slider_collection: SliderCollection
@@ -77,6 +78,7 @@ func _set_ui_scale() -> void:
 
 	# Update themes
 	DEFAULT_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)
+	PRIMARY_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)
 
 
 func change_state(new_state: GlobalConst.GameState) -> void:

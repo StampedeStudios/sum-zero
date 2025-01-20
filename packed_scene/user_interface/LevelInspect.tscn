@@ -36,6 +36,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_rmjy0")
 
 [node name="Panel" type="Panel" parent="Background"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -90,12 +91,14 @@ theme_override_constants/separation = 20
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 55
+alignment = 1
 
 [node name="UnlockBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 2
 focus_mode = 0
 theme = ExtResource("3_3an21")
 theme_override_font_sizes/font_size = 100
@@ -105,7 +108,7 @@ icon = ExtResource("4_hx5r7")
 [node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 6
 focus_mode = 0
 theme = ExtResource("3_3an21")
 icon = ExtResource("5_rcr73")
@@ -113,10 +116,9 @@ icon = ExtResource("5_rcr73")
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 10
 focus_mode = 0
 theme = ExtResource("8_el7sx")
-theme_override_constants/icon_max_width = 128
 icon = ExtResource("6_aqsoc")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]

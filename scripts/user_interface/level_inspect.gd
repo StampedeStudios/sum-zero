@@ -15,12 +15,14 @@ var _level_id: int
 @onready var unlock_btn: Button = %UnlockBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
+@onready var panel: Panel = %Panel
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	self.scale = GameManager.ui_scale
-	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+
+	panel.scale = GameManager.ui_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func init_inspector(level_id: int, progress: LevelProgress):
