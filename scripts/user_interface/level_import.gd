@@ -9,6 +9,7 @@ var _inserted_code: String
 @onready var level_name: LineEdit = %LevelName
 @onready var save_btn: Button = %SaveBtn
 @onready var persist_btn: Button = %PersistBtn
+@onready var panel: Panel = %Panel
 
 
 func _ready() -> void:
@@ -16,8 +17,8 @@ func _ready() -> void:
 		persist_btn.show()
 	GameManager.on_state_change.connect(_on_state_change)
 
-	self.scale = GameManager.ui_scale
-	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+	panel.scale = GameManager.ui_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _on_background_gui_input(event: InputEvent) -> void:
