@@ -90,7 +90,6 @@ static func create_sliders(data: LevelData) -> void:
 		remove_holes(data)
 	remove_sliders(data)
 	var possible_sliders := get_possible_sliders(data)
-
 	for edge_group in possible_sliders:
 		if edge_group.is_empty():
 			continue
@@ -154,7 +153,6 @@ static func get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -
 	var result: Array[Vector2i]
 	var direction: Vector2i
 	var max_extension: int
-
 	match edge:
 		0:
 			direction = Vector2i.DOWN
@@ -168,7 +166,6 @@ static func get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -
 		3:
 			direction = Vector2i.RIGHT
 			max_extension = data.width
-
 	result.append(origin)
 	for i in range(1, max_extension):
 		var coord := origin + direction * i
