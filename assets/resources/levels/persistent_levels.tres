@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=440 format=3 uid="uid://v0r16yxsejpo"]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=457 format=3]
 
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_0gd78"]
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="2_08p0w"]
 [ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_cr51g"]
 [ext_resource type="Script" path="res://scripts/utility/level_container.gd" id="4_v7vmu"]
-[ext_resource type="Resource" uid="uid://g4xb4c18wx6d" path="res://assets/resources/tutorial/slider_tutorial.tres" id="5_w6l3t"]
-[ext_resource type="Resource" uid="uid://di7kanjcci6e6" path="res://assets/resources/tutorial/symbols_tutorial.tres" id="6_dak7y"]
-[ext_resource type="Resource" uid="uid://cexkhgb6rb2ip" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="7_k86s7"]
-[ext_resource type="Resource" uid="uid://df5xj4eoouci8" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="8_www21"]
-[ext_resource type="Resource" uid="uid://wor27ovpdofm" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="9_up8js"]
-[ext_resource type="Resource" uid="uid://bh8t8odtplmtn" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="10_fk02p"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/slider_tutorial.tres" id="5_w6l3t"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/symbols_tutorial.tres" id="6_dak7y"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="7_k86s7"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="8_www21"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="9_up8js"]
+[ext_resource type="Resource" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="10_fk02p"]
 
 [sub_resource type="Resource" id="Resource_qujjk"]
 script = ExtResource("2_08p0w")
@@ -2720,9 +2720,116 @@ Vector2i(0, 1): SubResource("Resource_xyc5m")
 }
 moves_left = 1
 
+[sub_resource type="Resource" id="Resource_xhoqt"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_vgbxh"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_yaaxw"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_3rm15"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_40scx"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_21v86"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_mihly"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_lvbvm"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_y22r1"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_r0mri"]
+script = ExtResource("3_cr51g")
+area_effect = 2
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_bdwrb"]
+script = ExtResource("3_cr51g")
+area_effect = 1
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_tr5a8"]
+script = ExtResource("3_cr51g")
+area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_83g5x"]
+script = ExtResource("3_cr51g")
+area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_3jn50"]
+script = ExtResource("3_cr51g")
+area_effect = 1
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_75uul"]
+script = ExtResource("3_cr51g")
+area_effect = 1
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_pgd84"]
+script = ExtResource("3_cr51g")
+area_effect = 0
+area_behavior = 0
+
+[sub_resource type="Resource" id="Resource_8707i"]
+script = ExtResource("2_0gd78")
+name = "29"
+width = 3
+height = 3
+cells_list = {
+Vector2i(0, 0): SubResource("Resource_xhoqt"),
+Vector2i(0, 1): SubResource("Resource_vgbxh"),
+Vector2i(0, 2): SubResource("Resource_yaaxw"),
+Vector2i(1, 0): SubResource("Resource_3rm15"),
+Vector2i(1, 1): SubResource("Resource_40scx"),
+Vector2i(1, 2): SubResource("Resource_21v86"),
+Vector2i(2, 0): SubResource("Resource_mihly"),
+Vector2i(2, 1): SubResource("Resource_lvbvm"),
+Vector2i(2, 2): SubResource("Resource_y22r1")
+}
+slider_list = {
+Vector2i(0, 0): SubResource("Resource_r0mri"),
+Vector2i(1, 2): SubResource("Resource_bdwrb"),
+Vector2i(2, 0): SubResource("Resource_83g5x"),
+Vector2i(2, 1): SubResource("Resource_tr5a8"),
+Vector2i(3, 0): SubResource("Resource_75uul"),
+Vector2i(3, 1): SubResource("Resource_pgd84"),
+Vector2i(3, 2): SubResource("Resource_3jn50")
+}
+moves_left = 4
+
 [resource]
 script = ExtResource("4_v7vmu")
-levels = Array[ExtResource("2_0gd78")]([SubResource("Resource_prlpu"), SubResource("Resource_1c6xk"), SubResource("Resource_rb0jg"), SubResource("Resource_vmxe4"), SubResource("Resource_wvwty"), SubResource("Resource_3klna"), SubResource("Resource_vc0s3"), SubResource("Resource_acy3a"), SubResource("Resource_y3dh4"), SubResource("Resource_msraw"), SubResource("Resource_s86vk"), SubResource("Resource_j6uwf"), SubResource("Resource_t8lgr"), SubResource("Resource_cv4is"), SubResource("Resource_q2spa"), SubResource("Resource_4rf6f"), SubResource("Resource_g6frb"), SubResource("Resource_uujdd"), SubResource("Resource_qxjo7"), SubResource("Resource_d23vm"), SubResource("Resource_qqffa"), SubResource("Resource_q8oss"), SubResource("Resource_64mpf"), SubResource("Resource_5hqdm"), SubResource("Resource_ogg6p"), SubResource("Resource_bhwnc"), SubResource("Resource_s136b")])
+levels = Array[ExtResource("2_0gd78")]([SubResource("Resource_prlpu"), SubResource("Resource_1c6xk"), SubResource("Resource_rb0jg"), SubResource("Resource_vmxe4"), SubResource("Resource_wvwty"), SubResource("Resource_3klna"), SubResource("Resource_vc0s3"), SubResource("Resource_acy3a"), SubResource("Resource_y3dh4"), SubResource("Resource_msraw"), SubResource("Resource_s86vk"), SubResource("Resource_j6uwf"), SubResource("Resource_t8lgr"), SubResource("Resource_cv4is"), SubResource("Resource_q2spa"), SubResource("Resource_4rf6f"), SubResource("Resource_g6frb"), SubResource("Resource_uujdd"), SubResource("Resource_qxjo7"), SubResource("Resource_d23vm"), SubResource("Resource_qqffa"), SubResource("Resource_q8oss"), SubResource("Resource_64mpf"), SubResource("Resource_5hqdm"), SubResource("Resource_ogg6p"), SubResource("Resource_bhwnc"), SubResource("Resource_s136b"), SubResource("Resource_8707i")])
 tutorials = {
 0: ExtResource("5_w6l3t"),
 2: ExtResource("6_dak7y"),

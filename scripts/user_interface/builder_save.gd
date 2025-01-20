@@ -12,6 +12,7 @@ var _invalid_moves: bool
 @onready var moves = %Moves
 @onready var save_btn = %SaveBtn
 @onready var persist_btn: Button = %PersistBtn
+@onready var panel: Panel = %Panel
 
 
 func _ready():
@@ -22,8 +23,8 @@ func _ready():
 	_invalid_name = true
 	_check_valid_info()
 
-	self.scale = GameManager.ui_scale
-	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+	panel.scale = GameManager.ui_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func initialize_info(old_name: String, old_moves: String) -> void:

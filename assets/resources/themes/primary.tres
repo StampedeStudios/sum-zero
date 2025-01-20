@@ -20,6 +20,7 @@ Button/colors/icon_hover_color = Color(1, 1, 1, 1)
 Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
 Button/colors/icon_normal_color = Color(1, 0.972549, 0.937255, 1)
 Button/colors/icon_pressed_color = Color(1, 0.972549, 0.937255, 1)
+Button/constants/icon_max_width = 128
 Button/font_sizes/font_size = 60
 Button/styles/disabled = ExtResource("1_i6ml5")
 Button/styles/hover = ExtResource("2_cg004")
