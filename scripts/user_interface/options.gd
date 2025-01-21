@@ -8,6 +8,7 @@ var _player_options: PlayerOptions
 @onready var music_btn: TextureButton = %MusicBtn
 @onready var sfx_btn: TextureButton = %SfxBtn
 @onready var tutorial_btn: TextureButton = %TutorialBtn
+@onready var panel: Panel = %Panel
 
 
 func _ready():
@@ -21,8 +22,8 @@ func _ready():
 	_update_button_style(sfx_btn, _player_options.sfx_on)
 	_update_button_style(tutorial_btn, _player_options.tutorial_on)
 
-	self.scale = GameManager.ui_scale
-	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+	panel.scale = GameManager.ui_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
