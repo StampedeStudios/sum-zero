@@ -2,8 +2,8 @@ class_name LevelEnd extends Control
 
 signal restart_level
 
-const PLAY_TEXT = " Next "
-const EXIT_TEXT = " Exit "
+const PLAY_TEXT = "NEXT"
+const EXIT_TEXT = "EXIT"
 const ANIMATION_DURATION = 300
 
 var _has_next_level: bool
@@ -33,7 +33,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 func update_score(move_left: int) -> void:
 	GameManager.update_level_progress(move_left)
 	_has_next_level = GameManager.set_next_level()
-	next_btn.text = PLAY_TEXT if _has_next_level else EXIT_TEXT
+	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
 
 	await _animate_stars(move_left)
 	await _animate_hint(move_left)
@@ -77,13 +77,13 @@ func _select_random_text(move_left) -> String:
 	var num_stars = clamp(GlobalConst.MAX_STARS_GAIN + move_left, 0, GlobalConst.MAX_STARS_GAIN)
 
 	if num_stars == 0:
-		return GlobalConst.NO_STARS_MSGS.pick_random()
+		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
 	if num_stars == 1:
-		return GlobalConst.ONE_STARS_MSGS.pick_random()
+		return tr(GlobalConst.ONE_STARS_MSGS.pick_random())
 	if num_stars == 2:
-		return GlobalConst.TWO_STARS_MSGS.pick_random()
+		return tr(GlobalConst.TWO_STARS_MSGS.pick_random())
 
-	return GlobalConst.THREE_STARS_MSGS.pick_random()
+	return tr(GlobalConst.THREE_STARS_MSGS.pick_random())
 
 
 func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
