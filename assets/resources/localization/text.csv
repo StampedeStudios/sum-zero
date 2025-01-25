@@ -1,0 +1,36 @@
+Keys,en,it,fr,es,de
+PLAY,Play,Gioca,Jouer,Jugar,Spielen
+LEVELS,Levels,Livelli,Niveaux,Niveles,Level
+EDITOR,Editor,Editor,Éditeur,Editor,Editor
+OPTIONS,Options,Opzioni,Options,Opciones,Optionen
+QUIT,Quit,Esci,Quitter,Salir,Beenden
+BACK,Back,Indietro,Retour,Atrás,Zurück
+MUSIC,Music,Musica,Musique,Música,Musik
+SFX,Effects,Effetti,Effets,Efectos,Effekte
+TUTORIAL,Tutorial,Tutorial,Tutoriel,Tutorial,Tutorial
+WORLD,World,Mondo,Std,Mundo,Std
+CUSTOM,Player,Utente,Créé,Creado,Spieler
+COMPLETE,Done!,Fatto!,Terminé!,¡Listo!,Fertig!
+NEXT,Next,Vai,Vaï,Vai,Weiter
+EXIT,Exit,Esci,Retour,Atrás,Zurück
+LEV_NAME,Level name,Nome livello,Nom du niveau,Nombre,Levelname
+MOVES,Moves,Numero mosse,Mouvements,Movimientos,Züge
+SAVE, Save, Salva, Ok, Ok, Ok
+THREE_STAR_MSG_1,"Star-studded victory!","Vittoria stellare!","Victoire étoilée!","¡Victoria estrellada!","Sieg mit Sternen!"
+THREE_STAR_MSG_2,"Flawless finish!","Conclusione perfetta!","Finition impeccable!","¡Final perfecto!","Makelloser Abschluss!"
+THREE_STAR_MSG_3,"You nailed it!","Ci sei riuscito!","Tu l’as réussi!","¡Lo lograste!","Du hast es geschafft!"
+TWO_STAR_MSG_1,"Shining bright!","Splendente!","Brillant!","¡Brillando!","Strahlend hell!"
+TWO_STAR_MSG_2,"Almost perfect!","Quasi perfetto!","Presque parfait!","¡Casi perfecto!","Fast perfekt!"
+TWO_STAR_MSG_3,"So close, yet so bright!","Brilla, brilla... quasi!","Ça brille... presque!","Brilla, brilla... casi!","So nah und doch so hell!"
+ONE_STAR_MSG_1,"Barely made it!","Per un pelo!","À la largeur d'un cheveu","¡Apenas lo lograste!","Knapp geschafft!"
+ONE_STAR_MSG_2,"Star power on fumes!","Potere stellare al minimo!","Pouvoir d’étoile au minimum!","¡Energía estelar al mínimo!","Sternkraft fast leer!"
+ONE_STAR_MSG_3,"A win is a win!","Una vittoria è una vittoria!","Une victoire est une victoire!","¡Una victoria es una victoria!","Ein Sieg ist ein Sieg!"
+ZERO_STAR_MSG_1,"At least you finished!","Almeno hai finito!","Au moins tu as fini!","¡Al menos terminaste!","Wenigstens hast du es beendet!"
+ZERO_STAR_MSG_2,"A win... kinda.","Una vittoria... più o meno.","Une victoire... à peu près.","Una victoria... más o menos.","Ein Sieg... irgendwie."
+ZERO_STAR_MSG_3,"Room for improvement!","C'è spazio per migliorare!","Il y a place à l'amélioration!","¡Hay margen de mejora!","Mehr drin!"
+TUTORIAL_SLIDER,"Drag the Slider to apply its effect to the tiles!","Trascina lo 'Slider' per applicare il suo effetto alle celle!","Faites glisser le 'Slider' pour appliquer son effet aux tuiles!","¡Arrastra el 'Slider' para aplicar su efecto a los mosaicos!","Ziehen Sie den 'Slider', um den Effekt auf die Kacheln anzuwenden!"
+TUTORIAL_DIFF_EFFECTS,"Sliders can have different effects.","Gli 'Slider' possono avere diversi effetti.","Les 'Slider' peuvent avoir différents effets.","Los 'Slider' pueden tener diferentes efectos.","'Slider' können unterschiedliche Auswirkungen haben."
+TUTORIAL_INVERTER,"Some sliders can invert the sign of affected tiles.","Alcuni 'Slider' possono invertire il segno delle celle.","Certains 'Slider' peuvent inverser le signe des tuiles affectées.","Algunos 'Slider' pueden invertir el signo de los mosaicos afectados.","Einige 'Slider' können das Vorzeichen betroffener Kacheln umkehren."
+TUTORIAL_BLOCKER,"Blocked tiles have no values. Use the slider to complete the level!","Le celle bloccate valgono 0. Usa lo 'Slider' per completare il livello!","Les tuiles bloquées n'ont aucune valeur. Utilisez le 'Slider' pour terminer le niveau!","Las fichas bloqueadas no tienen valores. ¡Usa el 'Slider' para completar el nivel!","Blockierte Kacheln haben keine Werte. Benutze den 'Slider', um das Level abzuschließen!"
+TUTORIAL_BLOCKED_TILES,"Some tiles are blocked and cannot be changed.","Alcune celle sono bloccate e non possono essere modificate.","Certaines tuiles sont bloquées et ne peuvent pas être modifiées.","Algunas fichas están bloqueadas y no se pueden cambiar.","Einige Kacheln sind blockiert und können nicht geändert werden."
+TUTORIAL_AUTOMATIC_SLIDER,"Automatic sliders fully extends when tapped.","Gli 'Slider' automatici si estendono completamente quando attivati.","Les 'Slider' automatiques s'étendent complètement lorsqu'ils sont tapotés.","Los 'Slider' automáticos se extienden completamente cuando se tocan.","Die automatischen 'Slider' lassen sich beim Tippen vollständig ausfahren."

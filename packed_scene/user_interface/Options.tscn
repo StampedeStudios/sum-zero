@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2701iq6kr7jy"]
+[gd_scene load_steps=7 format=3 uid="uid://c2701iq6kr7jy"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_ncc3j"]
 [ext_resource type="Script" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_5iarc"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="3_vagje"]
-[ext_resource type="Texture2D" uid="uid://jm0eyvgqfr6s" path="res://assets/ui/toggle_button_on_normal.png" id="6_o1i1h"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_6mlv4"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="7_enxjh"]
 
@@ -38,7 +37,7 @@ anchor_bottom = 0.5
 offset_left = -275.0
 offset_top = -200.0
 offset_right = 275.0
-offset_bottom = 200.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -52,9 +51,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 20
+theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+
+[node name="OptionButton" type="OptionButton" parent="Background/Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("1_ncc3j")
+selected = 0
+item_count = 5
+popup/item_0/text = "English"
+popup/item_1/text = "Français"
+popup/item_1/id = 1
+popup/item_2/text = "Italiano"
+popup/item_2/id = 2
+popup/item_3/text = "Español"
+popup/item_3/id = 3
+popup/item_4/text = "Deutsch"
+popup/item_4/id = 4
 
 [node name="Options" type="HBoxContainer" parent="Background/Panel/MarginContainer"]
 layout_mode = 2
@@ -69,49 +86,43 @@ theme_override_constants/separation = 20
 
 [node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
 layout_mode = 2
-text = "Music"
+text = "MUSIC"
 
 [node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
 layout_mode = 2
-text = "Sfx"
+text = "SFX"
 
 [node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
 layout_mode = 2
-text = "Tutorial"
+text = "TUTORIAL"
 
 [node name="Buttons" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 size_flags_stretch_ratio = 1.5
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="MusicBtn" type="TextureButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="MusicBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-toggle_mode = true
-button_pressed = true
-texture_normal = ExtResource("6_o1i1h")
-texture_pressed = ExtResource("6_o1i1h")
-texture_hover = ExtResource("6_o1i1h")
+focus_mode = 0
+theme = ExtResource("1_ncc3j")
+flat = true
 
-[node name="SfxBtn" type="TextureButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="SfxBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-toggle_mode = true
+focus_mode = 0
 button_pressed = true
-texture_normal = ExtResource("6_o1i1h")
-texture_pressed = ExtResource("6_o1i1h")
-texture_hover = ExtResource("6_o1i1h")
+flat = true
 
-[node name="TutorialBtn" type="TextureButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="TutorialBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
-toggle_mode = true
+focus_mode = 0
 button_pressed = true
-texture_normal = ExtResource("6_o1i1h")
-texture_pressed = ExtResource("6_o1i1h")
-texture_hover = ExtResource("6_o1i1h")
+flat = true
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
 layout_mode = 1
@@ -132,6 +143,7 @@ icon = ExtResource("7_6mlv4")
 icon_alignment = 1
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="item_selected" from="Background/Panel/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/MusicBtn" to="." method="_on_music_btn_toggled"]
 [connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/SfxBtn" to="." method="_on_sfx_btn_toggled"]
 [connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]

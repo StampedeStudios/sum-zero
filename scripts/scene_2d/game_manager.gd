@@ -51,6 +51,8 @@ func _ready() -> void:
 		main_menu = MAIN_MENU.instantiate()
 		get_tree().root.add_child.call_deferred(main_menu)
 		change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
+
+		TranslationServer.set_locale(get_options().language)
 	else:
 		get_tree().quit.call_deferred()
 

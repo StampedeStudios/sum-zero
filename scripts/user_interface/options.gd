@@ -2,13 +2,15 @@ class_name Options extends Control
 
 const TOGGLE_BUTTON_OFF_NORMAL = preload("res://assets/ui/toggle_button_off_normal.png")
 const TOGGLE_BUTTON_ON_NORMAL = preload("res://assets/ui/toggle_button_on_normal.png")
+const PANEL = preload("res://assets/resources/themes/panel.tres")
 
 var _player_options: PlayerOptions
 
-@onready var music_btn: TextureButton = %MusicBtn
-@onready var sfx_btn: TextureButton = %SfxBtn
-@onready var tutorial_btn: TextureButton = %TutorialBtn
 @onready var panel: Panel = %Panel
+@onready var music_btn: Button = %MusicBtn
+@onready var sfx_btn: Button = %SfxBtn
+@onready var tutorial_btn: Button = %TutorialBtn
+@onready var options_btn: OptionButton = %OptionButton
 
 
 func _ready():
@@ -18,9 +20,9 @@ func _ready():
 	music_btn.set_pressed_no_signal(_player_options.music_on)
 	sfx_btn.set_pressed_no_signal(_player_options.sfx_on)
 	tutorial_btn.set_pressed_no_signal(_player_options.tutorial_on)
-	_update_button_style(music_btn, _player_options.music_on)
-	_update_button_style(sfx_btn, _player_options.sfx_on)
-	_update_button_style(tutorial_btn, _player_options.tutorial_on)
+
+	var index: int = GlobalConst.AVAILABLE_LANGS.find(_player_options.language)
+	options_btn.selected = index
 
 	panel.scale = GameManager.ui_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
@@ -46,31 +48,25 @@ func _on_background_gui_input(event: InputEvent) -> void:
 func _on_music_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_music()
 	_player_options.music_on = toggled_on
-	_update_button_style(music_btn, toggled_on)
 
 
 func _on_sfx_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_sfx()
 	AudioManager.play_click_sound()
 	_player_options.sfx_on = toggled_on
-	_update_button_style(sfx_btn, toggled_on)
 
 
 func _on_tutorial_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.play_click_sound()
 	_player_options.tutorial_on = toggled_on
-	_update_button_style(tutorial_btn, toggled_on)
-
-
-func _update_button_style(toggled_button: TextureButton, toggled_on: bool) -> void:
-	if toggled_on:
-		toggled_button.texture_normal = TOGGLE_BUTTON_ON_NORMAL
-		toggled_button.texture_hover = TOGGLE_BUTTON_ON_NORMAL
-	else:
-		toggled_button.texture_normal = TOGGLE_BUTTON_OFF_NORMAL
-		toggled_button.texture_hover = TOGGLE_BUTTON_OFF_NORMAL
 
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+
+
+func _on_option_button_item_selected(index: int) -> void:
+	var preferred_locale: String = GlobalConst.AVAILABLE_LANGS[index]
+	_player_options.language = preferred_locale
+	TranslationServer.set_locale(preferred_locale)
