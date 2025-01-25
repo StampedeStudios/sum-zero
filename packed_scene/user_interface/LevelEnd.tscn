@@ -68,7 +68,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 2
 theme = ExtResource("7_dngta")
-text = "Level complete!"
+text = "COMPLETE"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -106,13 +106,12 @@ icon = ExtResource("6_bnfmt")
 [node name="NextBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("7_e8pvp")
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 80
-text = " Next "
-alignment = 0
+text = "NEXT"
 icon_alignment = 2
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/BottomRightContainer/ReplayBtn" to="." method="_on_replay_btn_pressed"]

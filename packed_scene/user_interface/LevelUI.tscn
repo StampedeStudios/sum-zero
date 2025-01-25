@@ -56,7 +56,7 @@ focus_mode = 0
 theme = ExtResource("2_cshsk")
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
-text = "Back"
+text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
 
@@ -77,7 +77,7 @@ theme = ExtResource("4_kqnek")
 toggle_mode = true
 button_pressed = true
 button_group = ExtResource("8_101tc")
-text = " World "
+text = "WORLD"
 
 [node name="CustomBtn" type="Button" parent="MarginContainer/VBoxContainer/NavigationTab"]
 unique_name_in_owner = true
@@ -88,7 +88,7 @@ focus_mode = 0
 theme = ExtResource("2_cshsk")
 toggle_mode = true
 button_group = ExtResource("8_101tc")
-text = " Custom "
+text = "CUSTOM"
 
 [node name="Content" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

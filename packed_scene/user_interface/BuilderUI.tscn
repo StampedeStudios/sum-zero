@@ -53,7 +53,7 @@ focus_mode = 0
 theme = ExtResource("2_0xa7q")
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
-text = "Back"
+text = "BACK"
 icon = ExtResource("3_6lbb1")
 flat = true
 

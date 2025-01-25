@@ -61,7 +61,7 @@ theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 25
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -74,7 +74,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_q3qhm")
-placeholder_text = "Level name"
+placeholder_text = "LEV_NAME"
 alignment = 1
 max_length = 15
 context_menu_enabled = false
@@ -89,7 +89,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_q3qhm")
-placeholder_text = "Moves"
+placeholder_text = "MOVES"
 alignment = 1
 max_length = 2
 context_menu_enabled = false
@@ -109,7 +109,8 @@ alignment = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-size_flags_horizontal = 5
+size_flags_horizontal = 2
+size_flags_vertical = 8
 focus_mode = 0
 theme = ExtResource("2_q3qhm")
 theme_override_colors/icon_normal_color = Color(0.784314, 0, 0, 1)
@@ -124,12 +125,14 @@ flat = true
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 5
+size_flags_horizontal = 10
+size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("4_a08wn")
 theme_override_constants/icon_max_width = 92
-text = " Save "
+text = "SAVE"
 icon = ExtResource("8_t1bnt")
+alignment = 2
 icon_alignment = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
