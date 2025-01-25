@@ -62,6 +62,10 @@ click_dx={
 ]
 }
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://assets/resources/localization/text.de.translation", "res://assets/resources/localization/text.en.translation", "res://assets/resources/localization/text.es.translation", "res://assets/resources/localization/text.fr.translation", "res://assets/resources/localization/text.it.translation")
+
 [layer_names]
 
 2d_physics/layer_1="Cell"
