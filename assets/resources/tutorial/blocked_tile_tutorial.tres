@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_2kafn")
 animation = ExtResource("1_j3vxo")
-hint = "Some tiles are blocked and cannot be changed."
+hint = "TUTORIAL_BLOCKED_TILES"
