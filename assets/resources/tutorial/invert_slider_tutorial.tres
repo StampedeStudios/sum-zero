@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_f3oqj")
 animation = ExtResource("1_l2lxv")
-hint = "Some sliders can invert the sign of affected tiles."
+hint = "TUTORIAL_INVERTER"

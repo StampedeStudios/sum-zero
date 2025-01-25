@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_8wg5u")
 animation = ExtResource("1_n5sr5")
-hint = "Sliders can have different effects."
+hint = "TUTORIAL_DIFF_EFFECTS"

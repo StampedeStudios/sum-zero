@@ -6,4 +6,4 @@
 [resource]
 script = ExtResource("2_ipdsu")
 animation = ExtResource("1_4g4bn")
-hint = "Blocked tiles have no values. Use the slider to complete the level!"
+hint = "TUTORIAL_BLOCKER"
