@@ -18,12 +18,11 @@ enum GameState {
 	CUSTOM_LEVEL_INSPECT
 }
 enum LevelGroup { CUSTOM, MAIN }
+enum GenerationElement { HOLE, BLOCK, SLIDER }
 
 # Default sizes
-# TODO: Handle this constants differently
 const SCREEN_SIZE_X = 720
 const SCREEN_SIZE_Y = 1280
-
 const CELL_SIZE: float = 256
 const SLIDER_SIZE: float = 128
 const Y_MARGIN_PERCENTAGE: float = 0.05
