@@ -64,7 +64,7 @@ func _on_build_btn_pressed() -> void:
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
-	level_builder.construct_level.call_deferred(level_data.duplicate())
+	level_builder.construct_level.call_deferred(level_data.duplicate(), true)
 
 	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
 
