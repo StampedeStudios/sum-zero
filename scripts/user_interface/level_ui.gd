@@ -75,14 +75,14 @@ func update_content() -> void:
 	match _world:
 		GlobalConst.LevelGroup.MAIN:
 			_update_buttons(levels_progress.size() > PAGE_SIZE)
-			var _num_pages: int = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-			title.text = "%d of %d" % [_current_page, _num_pages]
+			var num_pages: int = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
+			title.text = "%d of %d" % [_current_page, num_pages]
 		GlobalConst.LevelGroup.CUSTOM:
 			_update_buttons(levels_progress.size() > PAGE_SIZE - 1)
 
 			# Accounting for at least one placeholder_button, always present in custom level panel
-			var _num_pages: int = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
-			title.text = "%d of %d" % [_current_page, _num_pages]
+			var num_pages: int = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
+			title.text = "%d of %d" % [_current_page, num_pages]
 
 	var max_level_btn := mini(levels_progress.size(), PAGE_SIZE)
 
