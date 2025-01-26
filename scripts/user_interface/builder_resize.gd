@@ -13,6 +13,8 @@ var _scale: float
 
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
+	for child: TextureRect in control.get_children():
+		child.position.y = child.position.y - GameManager.cell_size / 4
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -29,7 +31,7 @@ func init_query(level_size: Vector2i):
 	_width = level_size.x
 	_height = level_size.y
 	_scale = 0
-	_update_zoom()
+	_update_zoom.call_deferred()
 
 
 func _on_minus_width_gui_input(event):
