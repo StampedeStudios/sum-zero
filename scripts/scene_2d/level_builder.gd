@@ -23,11 +23,16 @@ var _multiselection_cells: Array[BuilderCell]
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
 	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
-	grid.position = get_viewport_rect().get_center()
 
 
 func _on_scale_change(new_scale: Vector2) -> void:
 	grid.scale = new_scale
+	set_grid_position()
+	
+	
+func set_grid_position() -> void:
+	var	offset := Vector2(0, GameManager.cell_size / 4)
+	grid.position = get_viewport_rect().get_center() - offset
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -349,7 +354,10 @@ func _on_height_change(new_height: int) -> void:
 
 
 func move_grid(offset: Vector2) -> void:
-	grid.position = get_viewport_rect().get_center() + offset
+	if offset == Vector2.ZERO:
+		set_grid_position()
+		return		
+	grid.position += offset
 
 
 func get_level_data() -> LevelData:

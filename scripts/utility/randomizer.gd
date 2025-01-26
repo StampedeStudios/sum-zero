@@ -3,11 +3,14 @@ class_name Randomizer
 const HOLE_CELL_ODD := 75
 const BLOCK_CELL_ODD := 60
 
-const SLIDER_ODD := 50
+const SLIDER_ODD := 85
+const SLIDER_FULL_ODD := 15
 const ADD_SLIDER_ODD := 40
 const SUBTRACT_SLIDER_ODD := 40
 const INVERT_SLIDER_ODD := 5
-const BLOCK_SLIDER_ODD := 0
+
+const BLOCK_SLIDER_ODD := 5
+const BLOCK_SLIDER_FULL_ODD := 50
 
 const MAX_CELLS := 25
 const MIN_CELLS := 4
@@ -89,25 +92,131 @@ static func create_sliders(data: LevelData) -> void:
 	if data.cells_list.is_empty():
 		remove_holes(data)
 	remove_sliders(data)
+	# backup persistent blocked cells
+	var persistent_blocks := get_persistent_blocks(data.cells_list)
+	# all slider with reachable cells
 	var possible_sliders := get_possible_sliders(data)
-	for edge_group in possible_sliders:
-		if edge_group.is_empty():
+	# all cell with occupied sliders
+	var cell_occupied := get_cell_occupation(possible_sliders)
+	# selected slider with reached cell
+	var selected_slider := get_selected_sliders(cell_occupied)
+	# trying to fit block sliders into the remaining spots
+	add_block_sliders(data, possible_sliders, selected_slider)
+	# add remaining sliders and calculate grid cells value
+	add_sliders(data, possible_sliders, selected_slider)
+	# restore original blocked cells
+	remove_temporarily_blocks(data.cells_list, persistent_blocks)
+
+
+static func get_persistent_blocks(cells: Dictionary) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for cell_coord: Vector2i in cells.keys():
+		var cell_data := cells.get(cell_coord) as CellData
+		if cell_data.is_blocked:
+			result.append(cell_coord)
+	return result
+
+
+static func remove_temporarily_blocks(cells: Dictionary, blocks: Array[Vector2i]) -> void:
+	for cell_coord: Vector2i in cells.keys():
+		if blocks.has(cell_coord):
 			continue
-		var group_coord := edge_group.keys()
-		group_coord.shuffle()
-		while group_coord.size() > 0:
-			var coord := group_coord.pop_back() as Vector2i
+		var cell_data := cells.get(cell_coord) as CellData
+		cell_data.is_blocked = false
+
+
+static func add_sliders(data: LevelData, possible: Dictionary, selected: Dictionary) -> void:
+	for slider_coord: Vector2i in selected.keys():
+		var slider_data := get_random_slider()
+		data.slider_list[slider_coord] = slider_data
+		var reachable_cells := possible.get(slider_coord) as Array[Vector2i]
+		var reached_cells := selected.get(slider_coord) as Array[Vector2i]
+		if reached_cells.size() == reachable_cells.size():
+			if check_probability(SLIDER_FULL_ODD):
+				slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
+		for cell_coord in reachable_cells:
+			if !reached_cells.has(cell_coord):
+				break
+			var cell_data := data.cells_list.get(cell_coord) as CellData
+			if cell_data.is_blocked:
+				if check_probability(SLIDER_FULL_ODD):
+					slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
+				break
+			apply_slider_effect(cell_data, slider_data.area_effect)
+
+
+static func add_block_sliders(data: LevelData, possible: Dictionary, selected: Dictionary) -> void:
+	var filtered: Array[Vector2i]
+	for slider_coord: Vector2i in possible.keys():
+		if selected.has(slider_coord):
+			continue
+		filtered.append(slider_coord)
+	if filtered.is_empty():
+		return
+	for slider_coord in filtered:
+		if check_probability(BLOCK_SLIDER_ODD):
+			var reachable := possible.get(slider_coord) as Array[Vector2i]
+			var max_extension := reachable.size()
+			var extension := randi_range(0, max_extension)
+			reachable.resize(extension)
+			var slider := SliderData.new()
+			slider.area_effect = GlobalConst.AreaEffect.BLOCK
+			if extension == 0 or extension == max_extension:
+				if check_probability(BLOCK_SLIDER_FULL_ODD):
+					slider.area_behavior = GlobalConst.AreaBehavior.FULL
+			data.slider_list[slider_coord] = slider
+			for cell_coord in reachable:
+				var cell_data := data.cells_list[cell_coord] as CellData
+				apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
+
+
+static func get_cell_occupation(sliders: Dictionary) -> Dictionary:
+	var result: Dictionary
+
+	for slider_coord: Vector2i in sliders.keys():
+		var slider_reachable := sliders.get(slider_coord) as Array[Vector2i]
+		for reachable in slider_reachable:
+			var sliders_list: Array[Vector2i]
+			if result.has(reachable):
+				sliders_list = result.get(reachable)
+			sliders_list.append(slider_coord)
+			result[reachable] = sliders_list
+
+	return result
+
+
+static func get_selected_sliders(cell_occupation: Dictionary) -> Dictionary:
+	var result: Dictionary
+	var discarded: Array[Vector2i]
+
+	for cell_coord: Vector2i in cell_occupation.keys():
+		for slider in cell_occupation.get(cell_coord):
+			if discarded.has(slider):
+				continue
 			if check_probability(SLIDER_ODD):
-				var reachable_cell := edge_group.get(coord) as Array[Vector2i]
-				var slider := get_random_slider()
-				data.slider_list[coord] = slider
-				for i in range(randi_range(0, reachable_cell.size())):
-					var cell := data.cells_list.get(reachable_cell[i]) as CellData
-					apply_slider_effect(cell, slider)
+				var cell_list: Array[Vector2i]
+				if result.has(slider):
+					cell_list = result.get(slider)
+				cell_list.append(cell_coord)
+				result[slider] = cell_list
+			else:
+				discarded.append(slider)
+				result.erase(slider)
+
+	return result
 
 
-static func apply_slider_effect(cell: CellData, slider: SliderData) -> void:
-	match slider.area_effect:
+# unused func for sort dictionary with array value
+static func sort_by_lenght(a: Vector2i, b: Vector2i, dict: Dictionary) -> bool:
+	var a_val := dict.get(a) as Array
+	var b_val := dict.get(b) as Array
+	if a_val.size() > b_val.size():
+		return true
+	return false
+
+
+static func apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEffect) -> void:
+	match area_effect:
 		GlobalConst.AreaEffect.ADD:
 			cell.value -= 1
 		GlobalConst.AreaEffect.SUBTRACT:
@@ -115,15 +224,23 @@ static func apply_slider_effect(cell: CellData, slider: SliderData) -> void:
 		GlobalConst.AreaEffect.CHANGE_SIGN:
 			cell.value *= -1
 		GlobalConst.AreaEffect.BLOCK:
-			cell.value = 0  #TODO gestire quando inserito block
+			# temporarily block for the next checks
 			cell.is_blocked = true
+			# applies a random effect to mask the block effect
+			match randi_range(1, 3):
+				1:
+					cell.value -= 1
+				2:
+					cell.value += 1
+				3:
+					cell.value *= -1
 
 
-static func get_possible_sliders(data: LevelData) -> Array[Dictionary]:
-	var result: Array[Dictionary]
+static func get_possible_sliders(data: LevelData) -> Dictionary:
+	var result: Dictionary
 	var size := Vector2i(data.width, data.height)
+
 	for edge in range(4):
-		var edge_group: Dictionary
 		var max_pos := data.width if edge % 2 == 0 else data.height
 		for position in range(max_pos):
 			var slider_coord := Vector2i(edge, position)
@@ -131,8 +248,7 @@ static func get_possible_sliders(data: LevelData) -> Array[Dictionary]:
 			if data.cells_list.has(reference_cell):
 				var cell_data := data.cells_list.get(reference_cell) as CellData
 				if !cell_data.is_blocked:
-					edge_group[slider_coord] = get_slider_extension(edge, reference_cell, data)
-		result.append(edge_group)
+					result[slider_coord] = get_slider_extension(edge, reference_cell, data)
 	return result
 
 
@@ -194,18 +310,15 @@ static func check_probability(probability: float) -> bool:
 
 static func get_random_slider() -> SliderData:
 	var result := SliderData.new()
-	var max_odd := ADD_SLIDER_ODD + SUBTRACT_SLIDER_ODD + INVERT_SLIDER_ODD + BLOCK_SLIDER_ODD
+	var max_odd := ADD_SLIDER_ODD + SUBTRACT_SLIDER_ODD + INVERT_SLIDER_ODD
 	var add_odd := Vector2i(0, ADD_SLIDER_ODD)
 	var subtract_odd := Vector2i(add_odd.y, add_odd.y + SUBTRACT_SLIDER_ODD)
 	var invert_odd := Vector2i(subtract_odd.y, subtract_odd.y + INVERT_SLIDER_ODD)
-	var block_odd := Vector2i(invert_odd.y, max_odd)
 	var random := randi_range(1, max_odd)
 	if random <= add_odd.y:
 		result.area_effect = GlobalConst.AreaEffect.ADD
 	elif random > subtract_odd.x and random <= subtract_odd.y:
 		result.area_effect = GlobalConst.AreaEffect.SUBTRACT
-	elif random > invert_odd.x and random <= invert_odd.y:
+	elif random > invert_odd.x:
 		result.area_effect = GlobalConst.AreaEffect.CHANGE_SIGN
-	elif random > block_odd.x:
-		result.area_effect = GlobalConst.AreaEffect.BLOCK
 	return result
