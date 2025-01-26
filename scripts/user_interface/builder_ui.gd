@@ -8,6 +8,7 @@ const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
 @onready var buttons: HBoxContainer = %BottomContainer
+@onready var top_buttons: HBoxContainer = %HBoxContainer
 
 
 func _ready():
@@ -18,6 +19,9 @@ func _ready():
 
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+
+	for button in top_buttons.get_children():
+		button.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
 	GameManager.on_state_change.connect(_on_state_change)

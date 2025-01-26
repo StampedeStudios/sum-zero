@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://y40ta11k55cw"]
+[gd_scene load_steps=11 format=3 uid="uid://y40ta11k55cw"]
 
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_38aa5"]
 [ext_resource type="Script" path="res://scripts/user_interface/level_import.gd" id="2_213re"]
@@ -6,7 +6,6 @@
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_p6n2l"]
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="3_w7fk6"]
 [ext_resource type="StyleBox" uid="uid://6j6cvsgplugk" path="res://assets/resources/themes/copy_button.tres" id="4_8lej0"]
-[ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="5_r4ey6"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="6_jxuku"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="8_d7aa4"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="9_g62vk"]
@@ -129,14 +128,13 @@ flat = true
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("6_jxuku")
 theme_override_constants/icon_max_width = 92
 disabled = true
 text = "SAVE"
-icon = ExtResource("5_r4ey6")
 icon_alignment = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
