@@ -4,13 +4,13 @@ LEVELS,Levels,Livelli,Niveaux,Niveles,Level
 EDITOR,Editor,Editor,Éditeur,Editor,Editor
 OPTIONS,Options,Opzioni,Options,Opciones,Optionen
 QUIT,Quit,Esci,Quitter,Salir,Beenden
-BACK,Back,Indietro,Retour,Atrás,Zurück
+BACK,Menu,Menu,Retour,Atrás,Zurück
 MUSIC,Music,Musica,Musique,Música,Musik
 SFX,Effects,Effetti,Effets,Efectos,Effekte
 TUTORIAL,Tutorial,Tutorial,Tutoriel,Tutorial,Tutorial
-WORLD,World,Mondo,Std,Mundo,Std
-CUSTOM,Player,Utente,Créé,Creado,Spieler
-COMPLETE,Done!,Fatto!,Terminé!,¡Listo!,Fertig!
+WORLD,"Classic ","Classico ","Classique ","Clásico ","Klassiker "
+CUSTOM," Your levels"," Tuoi livelli"," Vos niveaux"," Tus niveles"," Deine Levels"
+COMPLETE,Done!,Completato!,Terminé!,¡Listo!,Fertig!
 NEXT,Next,Continua,Prochain,Próximo,Weiter
 EXIT,Exit,Esci,Retour,Atrás,Zurück
 LEV_NAME,Level name,Nome livello,Nom du niveau,Nombre,Name der Ebene
@@ -18,12 +18,12 @@ MOVES,Moves,Numero mosse,Mouvements,Movimientos,Züge
 SAVE,Save,Salva,Ajouter,Salvar,Retten
 THREE_STAR_MSG_1,"Star-studded victory!","Vittoria stellare!","Victoire étoilée!","¡Victoria estrellada!","Sieg mit Sternen!"
 THREE_STAR_MSG_2,"Flawless finish!","Conclusione perfetta!","Finition impeccable!","¡Final perfecto!","Makelloser Abschluss!"
-THREE_STAR_MSG_3,"You nailed it!","Ci sei riuscito!","Tu l’as réussi!","¡Lo lograste!","Du hast es geschafft!"
+THREE_STAR_MSG_3,"You nailed it!","Ci sei riuscito!","Tu l'as réussi!","¡Lo lograste!","Du hast es geschafft!"
 TWO_STAR_MSG_1,"Shining bright!","Splendente!","Brillant!","¡Brillando!","Strahlend hell!"
 TWO_STAR_MSG_2,"Almost perfect!","Quasi perfetto!","Presque parfait!","¡Casi perfecto!","Fast perfekt!"
 TWO_STAR_MSG_3,"So close, yet so bright!","Brilla, brilla... quasi!","Ça brille... presque!","Brilla, brilla... casi!","So nah und doch so hell!"
 ONE_STAR_MSG_1,"Barely made it!","Per un pelo!","À la largeur d'un cheveu","¡Apenas lo lograste!","Knapp geschafft!"
-ONE_STAR_MSG_2,"Star power on fumes!","Potere stellare al minimo!","Pouvoir d’étoile au minimum!","¡Energía estelar al mínimo!","Sternkraft fast leer!"
+ONE_STAR_MSG_2,"Star power on fumes.","Potere stellare al minimo.","Pouvoir d'étoile au minimum.","¡Energía estelar al mínimo.","Sternkraft fast leer."
 ONE_STAR_MSG_3,"A win is a win!","Una vittoria è una vittoria!","Une victoire est une victoire!","¡Una victoria es una victoria!","Ein Sieg ist ein Sieg!"
 ZERO_STAR_MSG_1,"At least you finished!","Almeno hai finito!","Au moins tu as fini!","¡Al menos terminaste!","Wenigstens hast du es beendet!"
 ZERO_STAR_MSG_2,"A win... kinda.","Una vittoria... più o meno.","Une victoire... à peu près.","Una victoria... más o menos.","Ein Sieg... irgendwie."

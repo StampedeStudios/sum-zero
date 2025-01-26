@@ -3,8 +3,6 @@ class_name LevelUI extends Control
 const PAGE_SIZE := 9
 const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
 const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
-const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
-const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 
 var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 var _current_page: int = 1
@@ -165,8 +163,8 @@ func _on_world_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.MAIN
 	_current_page = 1
 	update_content()
-	world_btn.theme = PRIMARY_THEME
-	custom_btn.theme = DEFAULT_THEME
+	world_btn.hide()
+	custom_btn.show()
 
 
 func _on_custom_btn_pressed() -> void:
@@ -174,5 +172,5 @@ func _on_custom_btn_pressed() -> void:
 	_world = GlobalConst.LevelGroup.CUSTOM
 	_current_page = 1
 	update_content()
-	custom_btn.theme = PRIMARY_THEME
-	world_btn.theme = DEFAULT_THEME
+	custom_btn.hide()
+	world_btn.show()
