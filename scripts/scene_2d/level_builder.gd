@@ -105,7 +105,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func construct_level(level_data: LevelData = null) -> void:
+func construct_level(level_data: LevelData = null, is_imported: bool = false) -> void:
 	if level_data != null:
 		_level_data = level_data
 
@@ -130,8 +130,11 @@ func construct_level(level_data: LevelData = null) -> void:
 				grid.add_child(cell)
 				cell.on_cell_change.connect(_on_cell_change)
 				cell.start_multiselection.connect(_start_multiselection)
-				_level_data.cells_list[cell_coord] = CellData.new()
+
+				if !is_imported:
+					_level_data.cells_list[cell_coord] = CellData.new()
 				_cell_collection[cell_coord] = cell
+
 			if _level_data.cells_list.has(cell_coord):
 				cell.set_cell_data(_level_data.cells_list.get(cell_coord))
 			else:
@@ -372,5 +375,6 @@ func generate_level(element: GlobalConst.GenerationElement) -> void:
 			Randomizer.create_block(_level_data)
 		GlobalConst.GenerationElement.SLIDER:
 			Randomizer.create_sliders(_level_data)
-	construct_level.call_deferred(_level_data)
+
+	construct_level.call_deferred(_level_data, true)
 	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
