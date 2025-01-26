@@ -118,6 +118,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 focus_mode = 0
 theme = ExtResource("1_xhbmd")
+theme_override_constants/icon_max_width = 128
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("7_gy07g")
 
@@ -127,6 +128,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 focus_mode = 0
 theme = ExtResource("1_xhbmd")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("8_805tn")
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
@@ -135,6 +137,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 focus_mode = 0
 theme = ExtResource("9_pmfwt")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("9_m2lq8")
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]

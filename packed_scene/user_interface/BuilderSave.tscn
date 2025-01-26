@@ -153,4 +153,5 @@ icon_alignment = 1
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

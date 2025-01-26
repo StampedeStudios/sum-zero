@@ -101,6 +101,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 focus_mode = 0
 theme = ExtResource("3_3an21")
+theme_override_constants/icon_max_width = 128
 theme_override_font_sizes/font_size = 100
 disabled = true
 icon = ExtResource("4_hx5r7")
@@ -111,6 +112,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 focus_mode = 0
 theme = ExtResource("3_3an21")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("5_rcr73")
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
@@ -119,6 +121,7 @@ layout_mode = 2
 size_flags_horizontal = 10
 focus_mode = 0
 theme = ExtResource("8_el7sx")
+theme_override_constants/icon_max_width = 128
 icon = ExtResource("6_aqsoc")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
