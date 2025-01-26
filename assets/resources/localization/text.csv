@@ -11,11 +11,11 @@ TUTORIAL,Tutorial,Tutorial,Tutoriel,Tutorial,Tutorial
 WORLD,World,Mondo,Std,Mundo,Std
 CUSTOM,Player,Utente,Créé,Creado,Spieler
 COMPLETE,Done!,Fatto!,Terminé!,¡Listo!,Fertig!
-NEXT,Next,Vai,Vaï,Vai,Weiter
+NEXT,Next,Continua,Prochain,Próximo,Weiter
 EXIT,Exit,Esci,Retour,Atrás,Zurück
-LEV_NAME,Level name,Nome livello,Nom du niveau,Nombre,Levelname
+LEV_NAME,Level name,Nome livello,Nom du niveau,Nombre,Name der Ebene
 MOVES,Moves,Numero mosse,Mouvements,Movimientos,Züge
-SAVE, Save, Salva, Ok, Ok, Ok
+SAVE,Save,Salva,Ajouter,Salvar,Retten
 THREE_STAR_MSG_1,"Star-studded victory!","Vittoria stellare!","Victoire étoilée!","¡Victoria estrellada!","Sieg mit Sternen!"
 THREE_STAR_MSG_2,"Flawless finish!","Conclusione perfetta!","Finition impeccable!","¡Final perfecto!","Makelloser Abschluss!"
 THREE_STAR_MSG_3,"You nailed it!","Ci sei riuscito!","Tu l’as réussi!","¡Lo lograste!","Du hast es geschafft!"

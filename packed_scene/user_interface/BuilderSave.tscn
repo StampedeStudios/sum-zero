@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://devm2geibslsw"]
+[gd_scene load_steps=9 format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
@@ -7,7 +7,6 @@
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="6_q6q01"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_7obcj"]
-[ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="8_t1bnt"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ud3al"]
 load_path = "res://.godot/imported/save_icon.png-bb729b418ac7c5fcd58f67cd4ad6fc4c.ctex"
@@ -125,14 +124,11 @@ flat = true
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("4_a08wn")
-theme_override_constants/icon_max_width = 92
 text = "SAVE"
-icon = ExtResource("8_t1bnt")
-alignment = 2
 icon_alignment = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
@@ -157,5 +153,4 @@ icon_alignment = 1
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]
