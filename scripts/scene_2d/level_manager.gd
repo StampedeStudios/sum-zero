@@ -12,7 +12,6 @@ var _is_test_mode: bool
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	grid.position = get_viewport_rect().get_center()
 
 
 func set_manager_mode(is_test_mode: bool) -> void:
@@ -44,6 +43,9 @@ func init_level(current_level: LevelData) -> void:
 	var half_grid_size: Vector2
 
 	GameManager.set_level_scale(current_level.width, current_level.height)
+	var offset := Vector2(0, GameManager.cell_size / 4)
+	grid.position = get_viewport_rect().get_center() - offset
+
 	grid.scale = GameManager.level_scale
 	level_size = Vector2i(current_level.width, current_level.height)
 	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2

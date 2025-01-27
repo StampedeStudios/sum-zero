@@ -8,6 +8,11 @@ class_name Tutorial extends Control
 @onready var static_text: Label = %StaticText
 
 
+func _ready() -> void:
+	var offset := Vector2(0, GameManager.cell_size / 4)
+	animated_tutorial.position = animated_tutorial.position - offset
+
+
 func setup(tutorial: TutorialData) -> void:
 	if tutorial.animation != null:
 		animation.sprite_frames = tutorial.animation
