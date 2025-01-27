@@ -62,7 +62,7 @@ text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
 
-[node name="NavigationTab" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="NavigationTab" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("2_cshsk")
@@ -131,9 +131,6 @@ material = SubResource("ShaderMaterial_28173")
 layout_mode = 2
 size_flags_vertical = 4
 texture_normal = ExtResource("3_2fw0e")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Controls"]
-layout_mode = 2
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true

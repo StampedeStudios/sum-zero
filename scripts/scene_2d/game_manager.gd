@@ -170,6 +170,10 @@ func set_next_level() -> bool:
 	return is_valid_level
 
 
+func get_active_level_id() -> int:
+	return _active_level_id
+
+
 func get_active_level(level_id: int = -1) -> LevelData:
 	if level_id > -1:
 		_active_level_id = level_id

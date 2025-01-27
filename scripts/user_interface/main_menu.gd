@@ -9,10 +9,14 @@ const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 
 @onready var version_label: Label = %VersionLabel
 
+var _playable_level: LevelData
+
 
 func _ready():
 	version_label.text = ProjectSettings.get("application/config/version")
 	GameManager.on_state_change.connect(_on_state_change)
+	_playable_level = GameManager.get_start_level_playable()
+
 	self.scale = GameManager.ui_scale
 	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
 
@@ -29,8 +33,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_play_btn_pressed():
 	AudioManager.play_click_sound()
-	var level_data: LevelData = GameManager.get_start_level_playable()
-	if level_data != null:
+	if _playable_level != null:
 		var game_ui: GameUI
 		game_ui = GAME_UI.instantiate()
 		get_tree().root.add_child.call_deferred(game_ui)
@@ -42,7 +45,7 @@ func _on_play_btn_pressed():
 		level_manager.set_manager_mode.call_deferred(false)
 		GameManager.level_manager = level_manager
 
-		level_manager.init_level.call_deferred(level_data)
+		level_manager.init_level.call_deferred(_playable_level)
 
 
 func _on_level_btn_pressed():

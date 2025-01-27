@@ -36,6 +36,9 @@ func _ready() -> void:
 
 	GameManager.on_state_change.connect(_on_state_change)
 
+	# Set starting page where the next playable level is
+	var active_level_id: int = GameManager.get_active_level_id()
+	_current_page = ceil(float(active_level_id + 1) / PAGE_SIZE)
 	update_content()
 
 
