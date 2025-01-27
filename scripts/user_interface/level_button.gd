@@ -10,11 +10,13 @@ const CUSTOM_LEVEL_INSPECT = preload("res://packed_scene/user_interface/CustomLe
 const THEME = preload("res://assets/resources/themes/default.tres")
 
 # Icons
-const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_level_icon.png")
+const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_icon.png")
 const ZERO_STARS = preload("res://assets/ui/zero_stars.png")
 const ONE_STAR = preload("res://assets/ui/one_star.png")
 const TWO_STARS = preload("res://assets/ui/two_stars.png")
 const THREE_STARS = preload("res://assets/ui/three_stars.png")
+
+const BROWN: Color = Color8(64, 47, 27)
 
 var _level_id: int
 var _progress: LevelProgress
@@ -70,11 +72,19 @@ func _get_minimum_size() -> Vector2:
 func construct(level_id: int, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
 	if !progress.is_unlocked:
 		icon = LOCK_ICON
-	elif progress.is_completed:
-		var stars_amount := _count_stars(progress.move_left)
-		icon = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS][stars_amount]
+		add_theme_color_override("icon_normal_color", BROWN)
+		add_theme_color_override("icon_hover_color", BROWN)
+		add_theme_color_override("icon_pressed_color", BROWN)
 	else:
-		icon = ZERO_STARS
+		remove_theme_color_override("icon_normal_color")
+		remove_theme_color_override("icon_hover_color")
+		remove_theme_color_override("icon_pressed_color")
+
+		if progress.is_completed:
+			var stars_amount := _count_stars(progress.move_left)
+			icon = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS][stars_amount]
+		else:
+			icon = ZERO_STARS
 
 	_level_id = level_id
 	_progress = progress

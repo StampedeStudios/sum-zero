@@ -6,8 +6,9 @@ const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_b
 
 # Icons
 const IMPORT_ICON: CompressedTexture2D = preload("res://assets/ui/import_icon.png")
-const PLACEHOLDER_ICON: CompressedTexture2D = preload("res://assets/ui/gear_level_icon.png")
+const PLACEHOLDER_ICON: CompressedTexture2D = preload("res://assets/ui/gear_icon.png")
 
+const BROWN: Color = Color8(64, 47, 27)
 const LEVEL_IMPORT = preload("res://packed_scene/user_interface/LevelImport.tscn")
 
 var _is_custom: bool
@@ -38,7 +39,16 @@ func _pressed() -> void:
 
 func construct(is_custom: bool) -> void:
 	_is_custom = is_custom
-	icon = IMPORT_ICON if _is_custom else PLACEHOLDER_ICON
+	if _is_custom:
+		icon = PLACEHOLDER_ICON
+		add_theme_color_override("icon_normal_color", BROWN)
+		add_theme_color_override("icon_hover_color", BROWN)
+		add_theme_color_override("icon_pressed_color", BROWN)
+	else:
+		icon = IMPORT_ICON
+		remove_theme_color_override("icon_normal_color")
+		remove_theme_color_override("icon_hover_color")
+		remove_theme_color_override("icon_pressed_color")
 
 
 func _get_minimum_size() -> Vector2:
