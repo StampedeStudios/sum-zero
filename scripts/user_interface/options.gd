@@ -1,7 +1,5 @@
 class_name Options extends Control
 
-const TOGGLE_BUTTON_OFF_NORMAL = preload("res://assets/ui/toggle_button_off_normal.png")
-const TOGGLE_BUTTON_ON_NORMAL = preload("res://assets/ui/toggle_button_on_normal.png")
 const PANEL = preload("res://assets/resources/themes/panel.tres")
 
 var _player_options: PlayerOptions
