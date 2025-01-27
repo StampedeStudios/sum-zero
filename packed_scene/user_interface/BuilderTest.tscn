@@ -38,7 +38,7 @@ theme = ExtResource("2_0tpta")
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
-theme_override_font_sizes/font_size = 128
+theme_override_font_sizes/font_size = 80
 text = "0"
 
 [node name="BottomContainer" type="HBoxContainer" parent="MarginContainer"]
