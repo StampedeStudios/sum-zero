@@ -39,16 +39,10 @@ func _pressed() -> void:
 
 func construct(is_custom: bool) -> void:
 	_is_custom = is_custom
-	if _is_custom:
-		icon = PLACEHOLDER_ICON
-		add_theme_color_override("icon_normal_color", BROWN)
-		add_theme_color_override("icon_hover_color", BROWN)
-		add_theme_color_override("icon_pressed_color", BROWN)
-	else:
-		icon = IMPORT_ICON
-		remove_theme_color_override("icon_normal_color")
-		remove_theme_color_override("icon_hover_color")
-		remove_theme_color_override("icon_pressed_color")
+	icon = IMPORT_ICON if _is_custom else PLACEHOLDER_ICON
+	add_theme_color_override("icon_normal_color", BROWN)
+	add_theme_color_override("icon_hover_color", BROWN)
+	add_theme_color_override("icon_pressed_color", BROWN)
 
 
 func _get_minimum_size() -> Vector2:

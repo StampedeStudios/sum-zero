@@ -164,8 +164,11 @@ func _update_buttons(has_next_page: bool):
 func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.MAIN
-	_current_page = 1
+	# Set starting page where the next playable level is
+	var active_level_id: int = GameManager.get_active_level_id()
+	_current_page = ceil(float(active_level_id + 1) / PAGE_SIZE)
 	update_content()
+
 	world_btn.hide()
 	custom_btn.show()
 
@@ -173,7 +176,6 @@ func _on_world_btn_pressed() -> void:
 func _on_custom_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.CUSTOM
-	_current_page = 1
 	update_content()
 	custom_btn.hide()
 	world_btn.show()
