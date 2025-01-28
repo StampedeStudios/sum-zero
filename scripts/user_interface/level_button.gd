@@ -115,6 +115,10 @@ func _count_stars(moves_left: int) -> int:
 
 
 func _unlock_level() -> void:
+	remove_theme_color_override("icon_normal_color")
+	remove_theme_color_override("icon_hover_color")
+	remove_theme_color_override("icon_pressed_color")
+
 	icon = ZERO_STARS
 	get_child(0).show()
 
