@@ -176,6 +176,7 @@ func _on_world_btn_pressed() -> void:
 func _on_custom_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.CUSTOM
+	_current_page = 1
 	update_content()
 	custom_btn.hide()
 	world_btn.show()

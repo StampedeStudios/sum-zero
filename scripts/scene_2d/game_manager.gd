@@ -210,9 +210,9 @@ func update_level_progress(move_left: int) -> bool:
 func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
 	match group:
 		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_progress.slice(first - 1, last + 1)
+			return _player_save.custom_progress.slice(first - 1, last)
 		GlobalConst.LevelGroup.MAIN:
-			return _player_save.persistent_progress.slice(first - 1, last + 1)
+			return _player_save.persistent_progress.slice(first - 1, last)
 	return []
 
 
