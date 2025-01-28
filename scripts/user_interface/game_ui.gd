@@ -49,7 +49,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _initialize_ui():
 	moves_left = GameManager.get_active_level().moves_left
-
 	skip_btn.hide()
 	if GameManager.is_level_completed():
 		_has_next_level = GameManager.set_next_level()
@@ -68,7 +67,6 @@ func consume_move() -> void:
 
 func _on_reset_btn_pressed():
 	AudioManager.play_click_sound()
-	_initialize_ui()
 	reset_level.emit()
 
 
