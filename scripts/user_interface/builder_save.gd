@@ -18,6 +18,8 @@ var _invalid_moves: bool
 func _ready():
 	if OS.has_feature("debug"):
 		persist_btn.show()
+	else:
+		persist_btn.hide()
 	GameManager.on_state_change.connect(_on_state_change)
 	_invalid_moves = true
 	_invalid_name = true

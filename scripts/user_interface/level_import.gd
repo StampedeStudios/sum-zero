@@ -15,6 +15,8 @@ var _inserted_code: String
 func _ready() -> void:
 	if OS.has_feature("debug"):
 		persist_btn.show()
+	else:
+		persist_btn.hide()
 	GameManager.on_state_change.connect(_on_state_change)
 
 	panel.scale = GameManager.ui_scale
