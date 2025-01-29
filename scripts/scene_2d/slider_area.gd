@@ -64,7 +64,6 @@ func reset() -> void:
 
 
 func release_handle() -> void:
-	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
@@ -76,7 +75,6 @@ func release_handle() -> void:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
 				_alter_grid()
 				break
-
 	_check_intersection()
 
 
@@ -90,8 +88,8 @@ func _check_intersection() -> void:
 	for other_handle in handle.get_overlapping_areas():
 		var other_area: SliderArea = other_handle.get_parent()
 		if other_area != null:
-			set_handle_collision.call_deferred(true)
-			other_area.set_handle_collision.call_deferred(true)
+			set_handle_collision(true)
+			other_area.set_handle_collision(true)
 
 
 func _alter_grid() -> void:
@@ -106,7 +104,8 @@ func _process(_delta: float) -> void:
 	if _is_scaling:
 		if _is_manually_controlled:
 			if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
-				release_handle()
+				_is_scaling = false
+				release_handle.call_deferred()
 				return
 
 			var drag_direction: Vector2
