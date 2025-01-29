@@ -21,8 +21,8 @@ position = Vector2(454, 665)
 script = ExtResource("1_xjbxd")
 block_texture = ExtResource("3_e6fhw")
 block_shader = ExtResource("2_uw1fh")
-full_collision = PackedVector2Array(0, -128, 128, 0, 0, 128, -128, 0)
-half_collision = PackedVector2Array(0, -128, 0, 128, -128, 0)
+full_collision = PackedVector2Array(0, -110, 110, 0, 0, 110, -110, 0)
+half_collision = PackedVector2Array(-5, -120, -5, 120, -120, 0)
 
 [node name="Body" type="Sprite2D" parent="."]
 position = Vector2(64, 0)
@@ -58,7 +58,7 @@ collision_mask = 2
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="Handle"]
 unique_name_in_owner = true
-polygon = PackedVector2Array(0, -120, 120, 0, 0, 120, -120, 0)
+polygon = PackedVector2Array(0, -110, 110, 0, 0, 110, -110, 0)
 
 [node name="Ray" type="RayCast2D" parent="."]
 unique_name_in_owner = true

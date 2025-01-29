@@ -7,9 +7,9 @@ const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
 const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 
-@onready var version_label: Label = %VersionLabel
-
 var _playable_level: LevelData
+
+@onready var version_label: Label = %VersionLabel
 
 
 func _ready():
