@@ -64,6 +64,7 @@ func reset() -> void:
 
 
 func release_handle() -> void:
+	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
@@ -104,8 +105,7 @@ func _process(_delta: float) -> void:
 	if _is_scaling:
 		if _is_manually_controlled:
 			if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
-				_is_scaling = false
-				release_handle.call_deferred()
+				release_handle()
 				return
 
 			var drag_direction: Vector2
