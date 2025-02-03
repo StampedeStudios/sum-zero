@@ -3,6 +3,7 @@ extends Node
 signal on_state_change(new_state: GlobalConst.GameState)
 
 const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
+const SPLASH_SCREEN = preload("res://packed_scene/user_interface/SplashScreen.tscn")
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
@@ -33,6 +34,7 @@ var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
 var main_menu: MainMenu
+var splash_screen: SplashScreen
 var level_end: LevelEnd
 var level_ui: LevelUI
 var level_inspect: LevelInspect
@@ -47,14 +49,24 @@ var _context: GlobalConst.LevelGroup
 
 func _ready() -> void:
 	_set_ui_scale()
-	if _try_load_saved_data():
-		main_menu = MAIN_MENU.instantiate()
-		get_tree().root.add_child.call_deferred(main_menu)
-		change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
+	splash_screen = SPLASH_SCREEN.instantiate()
+	get_tree().root.add_child.call_deferred(splash_screen)
 
-		TranslationServer.set_locale(get_options().language)
-	else:
+	if !_try_load_saved_data():
 		get_tree().quit.call_deferred()
+
+
+func start() -> void:
+	# Set language
+	TranslationServer.set_locale(get_options().language)
+
+	# Start music
+	AudioManager.start_music()
+
+	# Instantiate main menu
+	main_menu = MAIN_MENU.instantiate()
+	get_tree().root.add_child.call_deferred(main_menu)
+	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
 
 
 func _set_ui_scale() -> void:
