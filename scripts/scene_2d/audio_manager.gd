@@ -13,6 +13,9 @@ func _ready() -> void:
 	var options := GameManager.get_options()
 	_is_music_on = options.music_on
 	_is_sfx_on = options.sfx_on
+
+
+func start_music() -> void:
 	if _is_music_on:
 		music_player.play()
 

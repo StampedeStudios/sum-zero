@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg38bb2eh85gg"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/splash_screen.gd" id="1_4f1xo"]
+[ext_resource type="SpriteFrames" uid="uid://splyd5ir88ki" path="res://assets/vfx/splash.tres" id="1_xckb4"]
+[ext_resource type="SpriteFrames" uid="uid://d33qokhctphu4" path="res://assets/vfx/splash_zero.tres" id="2_mv0cm"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_wrkr5"]
+
+[node name="SplashScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4f1xo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(0.94902, 0.878431, 0.815686, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VersionLabel" type="Label" parent="VBoxContainer/ColorRect/MarginContainer"]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.490196)
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("2_wrkr5")
+text = "1.0"
+horizontal_alignment = 1
+
+[node name="SplashTop" type="AnimatedSprite2D" parent="VBoxContainer"]
+unique_name_in_owner = true
+position = Vector2(360, 573)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("1_xckb4")
+
+[node name="SplashBottom" type="AnimatedSprite2D" parent="VBoxContainer"]
+unique_name_in_owner = true
+position = Vector2(360, 707)
+scale = Vector2(0.7, 0.7)
+sprite_frames = ExtResource("2_mv0cm")

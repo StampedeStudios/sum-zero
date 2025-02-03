@@ -10,10 +10,16 @@ const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 var _playable_level: LevelData
 
 @onready var version_label: Label = %VersionLabel
+@onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready():
 	version_label.text = ProjectSettings.get("application/config/version")
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+
 	GameManager.on_state_change.connect(_on_state_change)
 	_playable_level = GameManager.get_start_level_playable()
 
