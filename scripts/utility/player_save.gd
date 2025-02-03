@@ -12,7 +12,17 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 	if player_options == null:
 		print("No settings preferences found, resetting")
 		player_options = PlayerOptions.new()
+
+		# Select starting language
+		var language: String = OS.get_locale_language()
+		print("No language set, reading from OS: [%s]" % language)
+		if GlobalConst.AVAILABLE_LANGS.has(language):
+			player_options.language = language
+		else:
+			print("[%s] not supported, falling back to English" % language)
+
 		has_change = true
+
 	# check custom levels and custom progress
 	if !custom_levels.is_empty():
 		for id in range(custom_levels.size()):
