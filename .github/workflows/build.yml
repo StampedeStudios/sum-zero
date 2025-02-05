@@ -1,0 +1,187 @@
+name: "Godot Build Pipeline"
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - "main"
+  pull_request:
+    branches:
+      - "main"
+
+env:
+  GODOT_VERSION: "4.3"
+  PROJECT_PATH: "."
+  GAME_NAME: "SumZero"
+
+jobs:
+  build-web:
+    name: Web Build
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Web Build
+        run: |
+          mkdir -p build/web
+          godot --headless --export-release "Web" ./build/web/index.html
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: web
+          path: build/web
+          
+  build-windows:
+    name: Windows Build
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Windows Build
+        run: |
+          mkdir -p build/windows
+          godot --headless --export-release "Windows Desktop" ./build/windows/${{ github.event.repository.name }}.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: build/windows
+          
+  build-linux:
+    name: Linux Build
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Linux Build
+        run: |
+          mkdir -p build/linux
+          godot --headless --export-release "Linux/X11" ./build/linux/${{ github.event.repository.name }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: build/linux
+          
+  build-android:
+    name: Android Build
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      - name: Android Build
+        run: |
+          mkdir -p build/android
+          godot --headless --export-release "Android" ./build/android/${{ github.event.repository.name }}.apk
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: build/android
+          
+  create-release:
+    name: Create Release
+    needs: [build-web, build-windows, build-linux, build-android]
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for changelog generation
+      
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: builds
+          
+      - name: Generate Changelog
+        id: changelog
+        run: |
+          # Get changes since last tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            # If this is the first tag, get all commits
+            CHANGELOG=$(git log --pretty=format:"* %s" ${{ github.ref_name }})
+          else
+            CHANGELOG=$(git log --pretty=format:"* %s" ${PREVIOUS_TAG}..${{ github.ref_name }})
+          fi
+          # Save changelog to a file and escape newlines for Github Actions
+          echo "$CHANGELOG" > CHANGELOG.md
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+          
+      - name: Prepare Release Files
+        run: |
+          cd builds
+          VERSION=${GITHUB_REF_NAME#v}
+          
+          # Web build
+          cd web
+          zip -r "../${GAME_NAME}_web_${VERSION}.zip" .
+          cd ..
+          
+          # Windows build
+          cd windows
+          zip -r "../${GAME_NAME}_windows_${VERSION}.zip" .
+          cd ..
+          
+          # Linux build
+          cd linux
+          zip -r "../${GAME_NAME}_linux_${VERSION}.zip" .
+          cd ..
+          
+          # Android build
+          cd android
+          zip -r "../${GAME_NAME}_android_${VERSION}.zip" .
+          cd ..
+          
+          # Generate SHA256 checksums
+          echo "# SHA256 Checksums" > ../SHA256SUMS.txt
+          sha256sum ${GAME_NAME}_*.zip >> ../SHA256SUMS.txt
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            builds/${{ env.GAME_NAME }}_web_${{ github.ref_name }}.zip
+            builds/${{ env.GAME_NAME }}_windows_${{ github.ref_name }}.zip
+            builds/${{ env.GAME_NAME }}_linux_${{ github.ref_name }}.zip
+            builds/${{ env.GAME_NAME }}_android_${{ github.ref_name }}.zip
+            SHA256SUMS.txt
+          body: |
+            ## Changes in this release:
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ## SHA256 Checksums
+            ```
+            $(cat SHA256SUMS.txt)
+            ```
+          draft: false
+          prerelease: false
