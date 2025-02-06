@@ -3,19 +3,51 @@ class_name Randomizer
 const HOLE_CELL_ODD := 75
 const BLOCK_CELL_ODD := 60
 
-const SLIDER_ODD := 85
-const SLIDER_FULL_ODD := 15
+# TODO: remove
+const SLIDER_ODD := 75
 const ADD_SLIDER_ODD := 40
 const SUBTRACT_SLIDER_ODD := 40
 const INVERT_SLIDER_ODD := 5
-
 const BLOCK_SLIDER_ODD := 5
-const BLOCK_SLIDER_FULL_ODD := 50
+##
 
 const MAX_CELLS := 25
 const MIN_CELLS := 4
 const SQUARE_DIRECTION := [Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(-1, 0)]
 const CROSS_DIRECTION := [Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1)]
+
+# regola di diffuzione sliders
+const SLIDER_DIFFUSION_RULES := {
+	"STANDARD": 70,
+	"LOWER": 15,
+	"UPPER": 15
+}
+const SLIDER_DIFFUSION := {
+	4: Vector2i(2, 3),
+	6: Vector2i(3, 4),
+	8: Vector2i(3, 5),
+	10: Vector2i(4, 6),
+	12: Vector2i(4, 8),
+	14: Vector2i(4, 7),
+	16: Vector2i(5, 8),
+	18: Vector2i(5, 9),
+	20: Vector2i(6, 11)
+}
+# regola di estensine sliders
+const SLIDER_EXTENSION_RULES := {
+	"FULL": 55,
+	"NONE": 15,
+	"RANDOM": 30
+}
+# regola tipologia sliders
+const SLIDER_TYPE_RULES := {
+	GlobalConst.AreaEffect.ADD: 45,
+	GlobalConst.AreaEffect.SUBTRACT: 45,
+	GlobalConst.AreaEffect.CHANGE_SIGN: 5,
+	GlobalConst.AreaEffect.BLOCK: 5
+}
+const SLIDER_FULL_ODD := 15
+const BLOCK_SLIDER_FULL_ODD := 50
 
 
 static func generate() -> LevelData:
@@ -97,16 +129,55 @@ static func create_sliders(data: LevelData) -> void:
 	var persistent_blocks := _get_persistent_blocks(data.cells_list)
 	# all slider with reachable cells
 	var possible_sliders := _get_possible_sliders(data)
-	# all cell with occupied sliders
-	var cell_occupied := _get_cell_occupation(possible_sliders)
 	# selected slider with reached cell
-	var selected_slider := _get_selected_sliders(cell_occupied)
+	var selected_sliders := _get_filtered_sliders(possible_sliders)	
 	# trying to fit block sliders into the remaining spots
-	_add_block_sliders(data, possible_sliders, selected_slider)
+	_add_block_sliders(data, possible_sliders, selected_sliders)
 	# add remaining sliders and calculate grid cells value
-	_add_sliders(data, possible_sliders, selected_slider)
+	_add_sliders(data, possible_sliders, selected_sliders)
 	# restore original blocked cells
 	_remove_temporarily_blocks(data.cells_list, persistent_blocks)
+
+
+static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
+	# diffusion
+	var result: Dictionary
+	var filterd := possible.keys()
+	var slider_count := 0
+	var max_diffusion := possible.size() if possible.size() % 2 == 0 else possible.size() + 1
+	var diffusion_range := SLIDER_DIFFUSION.get(max_diffusion) as Vector2i
+	match _get_rule(SLIDER_DIFFUSION_RULES):
+		"STANDARD":
+			slider_count = randi_range(diffusion_range.x, diffusion_range.y)
+		"LOWER":
+			slider_count = diffusion_range.x
+			while _check_probability(40):
+				slider_count -= 1
+				if slider_count <= 1:
+					slider_count = 1
+					break
+		"UPPER":
+			slider_count = diffusion_range.y
+			while _check_probability(60):
+				slider_count += 1
+				if slider_count >= max_diffusion:
+					slider_count = max_diffusion
+					break
+	filterd.shuffle()
+	filterd.resize(slider_count)
+	# extesion
+	for slider_coord in filterd:
+		var reachable := possible.get(slider_coord).duplicate() as Array[Vector2i]
+		match _get_rule(SLIDER_EXTENSION_RULES):
+			"FULL":
+				pass
+			"NONE":
+				reachable.clear()
+			"RANDOM":
+				if reachable.size() > 1:
+					reachable.resize(randi_range(1, reachable.size() - 1))
+		result[slider_coord] = reachable
+	return result
 
 
 static func _get_persistent_blocks(cells: Dictionary) -> Array[Vector2i]:
@@ -168,6 +239,8 @@ static func _add_block_sliders(data: LevelData, possible: Dictionary, selected: 
 			data.slider_list[slider_coord] = slider
 			for cell_coord in reachable:
 				var cell_data := data.cells_list[cell_coord] as CellData
+				if cell_data.is_blocked:
+					break
 				_apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
 
 
@@ -219,13 +292,11 @@ static func _apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEf
 			# temporarily block for the next checks
 			cell.is_blocked = true
 			# applies a random effect to mask the block effect
-			match randi_range(1, 3):
+			match randi_range(1, 2):
 				1:
 					cell.value -= 1
 				2:
 					cell.value += 1
-				3:
-					cell.value *= -1
 
 
 static func _get_possible_sliders(data: LevelData) -> Dictionary:
@@ -314,3 +385,15 @@ static func _get_random_slider() -> SliderData:
 	elif random > invert_odd.x:
 		result.area_effect = GlobalConst.AreaEffect.CHANGE_SIGN
 	return result
+
+
+static func _get_rule(rules_odd: Dictionary) -> String:
+	var random := randi_range(1, 100)
+	var counter_odd := 0
+	for rule: String in rules_odd.keys():
+		counter_odd += rules_odd.get(rule) as int
+		if random <= counter_odd:
+			return rule
+	push_error("No rules found!")
+	return ""
+	
