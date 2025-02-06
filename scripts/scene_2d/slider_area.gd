@@ -128,11 +128,13 @@ func _process(_delta: float) -> void:
 			if _is_extended:
 				_target_scale += 10 * _delta
 				if _target_scale >= _moves:
+					_is_scaling = false
 					release_handle()
 					return
 			else:
 				_target_scale -= 10 * _delta
 				if _target_scale <= 0:
+					_is_scaling = false
 					release_handle()
 					return
 
