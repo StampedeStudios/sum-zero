@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="RandomizerOptions" load_steps=2 format=3 uid="uid://rxcnbkc4kqpy"]
+
+[ext_resource type="Script" path="res://scripts/utility/randomizer_options.gd" id="1_q6vmi"]
+
+[resource]
+script = ExtResource("1_q6vmi")
+OCCUPATION_RULES = {
+"LOWER": 15,
+"STANDARD": 70,
+"UPPER": 15
+}
+OCCUPATION_STD = {
+4: Vector2i(2, 3),
+6: Vector2i(3, 4),
+8: Vector2i(3, 5),
+10: Vector2i(4, 6),
+12: Vector2i(4, 8),
+14: Vector2i(4, 7),
+16: Vector2i(5, 8),
+18: Vector2i(5, 9),
+20: Vector2i(6, 11)
+}
+EXTENSION_RULES = {
+"FULL": 55,
+"NONE": 15,
+"RANDOM": 30
+}
+TYPE_RULES = {
+"ADD": 45,
+"BLOCK": 5,
+"CHANGE_SIGN": 5,
+"SUBTRACT": 45
+}
+FULL_ODD = 15
+BLOCK_FULL_ODD = 50
