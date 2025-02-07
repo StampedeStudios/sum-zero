@@ -1,169 +1,100 @@
-name: "Godot Build Pipeline"
+name: Build and Release Godot Game
 
 on:
   push:
-    tags:
-      - "v*.*.*"
     branches:
-      - "main"
-  pull_request:
-    branches:
-      - "main"
-
-env:
-  GODOT_VERSION: "4.3"
-  PROJECT_PATH: "."
-  GAME_NAME: "SumZero"
+      - main
 
 jobs:
-  build-web:
-    name: Web Build
+  build:
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          lfs: true
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      - name: Web Build
-        run: |
-          mkdir -v -p build/web
-          EXPORT_DIR="$(readlink -f build)"
-          cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Web" "$EXPORT_DIR"/web/index.html
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: web
-          path: build/web
-          
-  build-windows:
-    name: Windows Build
-    runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mkdir -v -p ~/.config/
-          mv /root/.config/godot ~/.config/godot
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      - name: Windows Build
-        run: |
-          mkdir -v -p build/windows
-          EXPORT_DIR="$(readlink -f build)"
-          cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR"/windows/"$GAME_NAME".exe
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: windows
-          path: build/windows
-          
-  build-linux:
-    name: Linux Build
-    runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup
-        run: |
-          mkdir -v -p ~/.local/share/godot/export_templates/
-          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
-      - name: Linux Build
-        run: |
-          mkdir -v -p build/linux
-          EXPORT_DIR="$(readlink -f build)"
-          cd $PROJECT_PATH
-          godot --headless --verbose --export-release "Linux" "$EXPORT_DIR"/linux/"$GAME_NAME".x86_64
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux
-          path: build/linux
-          
-  create-release:
-    name: Create Release
-    needs: [build-web, build-windows, build-linux]
-    runs-on: ubuntu-latest
-    if: github.ref_type == 'tag'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: builds
-          
-      - name: Generate Changelog
-        id: changelog
-        run: |
-          # Get changes since last tag
-          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
-          if [ -z "$PREVIOUS_TAG" ]; then
-            # If this is the first tag, get all commits
-            CHANGELOG=$(git log --pretty=format:"* %s" ${{ github.ref_name }})
-          else
-            CHANGELOG=$(git log --pretty=format:"* %s" ${PREVIOUS_TAG}..${{ github.ref_name }})
-          fi
-          # Save changelog to a file and escape newlines for Github Actions
-          echo "$CHANGELOG" > CHANGELOG.md
-          echo "changelog<<EOF" >> $GITHUB_OUTPUT
-          echo "$CHANGELOG" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
-          
-      - name: Prepare Release Files
-        run: |
-          cd builds
-          VERSION=${GITHUB_REF_NAME#v}
-          
-          # Web build
-          cd web
-          zip -r "../${GAME_NAME}_web_${VERSION}.zip" .
-          cd ..
-          
-          # Windows build
-          cd windows
-          zip -r "../${GAME_NAME}_windows_${VERSION}.zip" .
-          cd ..
-          
-          # Linux build
-          cd linux
-          zip -r "../${GAME_NAME}_linux_${VERSION}.zip" .
-          cd ..
-          
-          # Generate SHA256 checksums
-          echo "# SHA256 Checksums" > ../SHA256SUMS.txt
-          sha256sum ${GAME_NAME}_*.zip >> ../SHA256SUMS.txt
-          
-      - name: Create Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            builds/${{ env.GAME_NAME }}_web_${{ github.ref_name }}.zip
-            builds/${{ env.GAME_NAME }}_windows_${{ github.ref_name }}.zip
-            builds/${{ env.GAME_NAME }}_linux_${{ github.ref_name }}.zip
-            SHA256SUMS.txt
-          body: |
-            ## Changes in this release:
-            ${{ steps.changelog.outputs.changelog }}
-            
-            ## SHA256 Checksums
-            ```
-            $(cat SHA256SUMS.txt)
-            ```
-          draft: false
-          prerelease: false
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Godot
+      uses: firebelley/godot-action@v1
+      with:
+        godot_version: "4.3"
+
+    - name: Extract version from godot.project
+      id: version
+      run: |
+        VERSION=$(grep -oP 'config/version="\K[^"]+' godot.project)
+        echo "Extracted version: $VERSION"
+        echo "::set-output name=version::$VERSION"
+
+    - name: Build for Windows
+      run: |
+        godot --export-release "Windows Desktop" build/windows/SumZero.exe
+
+    - name: Build for Linux
+      run: |
+        godot --export-release "Linux/X11" build/linux/SumZero.x86_64
+
+    - name: Build for Web
+      run: |
+        godot --export-release "HTML5" build/web/index.html
+
+    - name: Build for Android
+      run: |
+        godot --export-release "Android" build/android/SumZero.apk
+
+    - name: Generate SHA256 checksums
+      id: checksums
+      run: |
+        echo "::set-output name=windows_sha::$(sha256sum build/windows/game.exe | awk '{print $1}')"
+        echo "::set-output name=linux_sha::$(sha256sum build/linux/game.x86_64 | awk '{print $1}')"
+        echo "::set-output name=web_sha::$(sha256sum build/web/index.html | awk '{print $1}')"
+        echo "::set-output name=android_sha::$(sha256sum build/android/game.apk | awk '{print $1}')"
+
+    - name: Create Release
+      uses: actions/create-release@v1
+      if: success()
+      with:
+        tag_name: v${{ steps.version.outputs.version }}
+        release_name: Release v${{ steps.version.outputs.version }}
+        body: |
+          Changelog:
+          ${{ github.event.head_commit.message }}
+
+          SHA256 Checksums:
+          - Windows: ${{ steps.checksums.outputs.windows_sha }}
+          - Linux: ${{ steps.checksums.outputs.linux_sha }}
+          - Web: ${{ steps.checksums.outputs.web_sha }}
+          - Android: ${{ steps.checksums.outputs.android_sha }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Windows Artifact
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/windows/SumZero.exe
+        asset_name: SumZero-windows.exe
+        asset_content_type: application/octet-stream
+
+    - name: Upload Linux Artifact
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/linux/SumZero.x86_64
+        asset_name: SumZero-linux.x86_64
+        asset_content_type: application/octet-stream
+
+    - name: Upload Web Artifact
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/web/index.html
+        asset_name: SumZero-web.zip
+        asset_content_type: application/zip
+
+    - name: Upload Android Artifact
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: build/android/SumZero.apk
+        asset_name: SumZero-android.apk
+        asset_content_type: application/vnd.android.package-archive
