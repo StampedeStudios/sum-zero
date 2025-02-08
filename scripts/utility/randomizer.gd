@@ -72,82 +72,127 @@ static func create_sliders(data: LevelData) -> void:
 	# filter random sliders with random extesion
 	var filtered_sliders := _get_filtered_sliders(possible_sliders)
 	# add sliders and calculate grid cells value
-	_add_sliders(data, possible_sliders, filtered_sliders)
+	_add_sliders(data, filtered_sliders)
 
 
-static func _add_sliders(data: LevelData, possible: Dictionary, filtered: Dictionary) -> void:
+static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	var block_sliders: Array[Vector2i]
 	var change_sliders: Array[Vector2i]
 	var normal_sliders: Array[Vector2i]
 	var locked_cells: Array[CellData]
+	var receiver_cells: Dictionary
 	for slider_coord: Vector2i in filtered.keys():
-		var slider_data := SliderData.new()
-		data.slider_list[slider_coord] = slider_data
+		var slider_data := filtered.get(slider_coord) as RandomizerSlider
 		match _get_rule(OPTIONS.type_rules):
 			"ADD":
-				slider_data.area_effect = GlobalConst.AreaEffect.ADD
+				slider_data.effect = GlobalConst.AreaEffect.ADD
 				normal_sliders.append(slider_coord)
 			"SUBTRACT":
-				slider_data.area_effect = GlobalConst.AreaEffect.SUBTRACT
+				slider_data.effect = GlobalConst.AreaEffect.SUBTRACT
 				normal_sliders.append(slider_coord)
 			"CHANGE_SIGN":
-				slider_data.area_effect = GlobalConst.AreaEffect.CHANGE_SIGN
+				slider_data.effect = GlobalConst.AreaEffect.CHANGE_SIGN
 				change_sliders.append(slider_coord)
 			"BLOCK":
-				slider_data.area_effect = GlobalConst.AreaEffect.BLOCK
+				slider_data.effect = GlobalConst.AreaEffect.BLOCK
 				block_sliders.append(slider_coord)
 	# add slider-block
-	var block_sliders_unfull: Array[Vector2i]
 	for slider_coord in block_sliders:
-		var reachable := possible.get(slider_coord) as Array[Vector2i]
-		var reached := filtered.get(slider_coord) as Array[Vector2i]
-		var is_unfull := false
-		if reached.size() == 0 or reached.size() == reachable.size():
+		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if slider.is_none() or slider.is_full():
 			if _check_probability(OPTIONS.block_full_odd):
-				var slider_data := data.slider_list.get(slider_coord) as SliderData
-				slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
-		else:
-			is_unfull = true
-		for cell_coord in reached:
+				slider.behavior = GlobalConst.AreaBehavior.FULL
+		for i in range(slider.reached.size()):
+			var cell_coord := slider.reached[i]
 			var cell_data := data.cells_list[cell_coord] as CellData
 			if cell_data.is_blocked:
-				if _check_probability(OPTIONS.block_full_odd):
-					var slider_data := data.slider_list.get(slider_coord) as SliderData
-					slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
+				if i == 0:
+					if !_check_probability(OPTIONS.extension_rules.NONE):
+						# remove slider-block with no extension
+						filtered.erase(slider_coord)
+					break
+				slider.is_stopped = true
+				slider.reached.resize(i)
+				if _check_probability(OPTIONS.block_full_odd_on_stop):
+					slider.behavior = GlobalConst.AreaBehavior.FULL
 				break
 			# temporarily block for the next checks
 			cell_data.is_blocked = true
 			locked_cells.append(cell_data)
-		if is_unfull:
-			# slider-block mapping with extension not complete but reached
-			block_sliders_unfull.append(slider_coord)
+			var emitter_sliders: Array[Vector2i]
+			if receiver_cells.has(cell_coord):
+				emitter_sliders = receiver_cells.get(cell_coord)
+			emitter_sliders.append(slider_coord)
+			receiver_cells[cell_coord] = emitter_sliders
 	# mix other sliders
 	if !change_sliders.is_empty():
 		normal_sliders.append_array(change_sliders)
 		normal_sliders.shuffle()
 	# add other sliders
 	for slider_coord in normal_sliders:
-		var reachable := possible.get(slider_coord) as Array[Vector2i]
-		var reached := filtered.get(slider_coord) as Array[Vector2i]
-		var slider_data := data.slider_list.get(slider_coord) as SliderData
-		if reached.size() == reachable.size():
+		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if slider.is_full():
 			if _check_probability(OPTIONS.full_odd):
-				slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
-		for cell_coord in reached:
+				slider.behavior = GlobalConst.AreaBehavior.FULL
+		for i in range(slider.reached.size()):
+			var cell_coord := slider.reached[i]
 			var cell_data := data.cells_list.get(cell_coord) as CellData
 			if cell_data.is_blocked:
-				if _check_probability(OPTIONS.full_odd):
-					slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
+				if i == 0:
+					if !_check_probability(OPTIONS.extension_rules.NONE):
+						# remove other slider with no extension
+						filtered.erase(slider_coord)
+					break
+				if _check_probability(OPTIONS.full_odd_on_stop):
+					slider.behavior = GlobalConst.AreaBehavior.FULL
+				slider.is_stopped = true
+				slider.reached.resize(i)
 				break
-			_apply_slider_effect(cell_data, slider_data.area_effect)
+			_apply_slider_effect(cell_data, slider.effect)
+			var emitter_sliders: Array[Vector2i]
+			if receiver_cells.has(cell_coord):
+				emitter_sliders = receiver_cells.get(cell_coord)
+			emitter_sliders.append(slider_coord)
+			receiver_cells[cell_coord] = emitter_sliders
+	# use unfull slider-block for check behavior-full probability
+	for slider_coord: Vector2i in filtered.keys():
+		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if slider.effect != GlobalConst.AreaEffect.BLOCK:
+			continue
+		if slider.is_stopped or slider.is_full():
+			continue
+		var cell_coord := slider.reachable[slider.reached.size()] as Vector2i
+		if receiver_cells.has(cell_coord):
+			var emitter_sliders := receiver_cells.get(cell_coord) as Array[Vector2i]
+			if emitter_sliders.size() == 1:
+				if _is_opposite_slider(emitter_sliders[0], slider_coord):
+					var opposite := filtered.get(emitter_sliders[0]) as RandomizerSlider
+					if opposite.behavior == GlobalConst.AreaBehavior.FULL:
+						continue
+			if _check_probability(OPTIONS.block_full_odd_on_stop):
+				slider.behavior = GlobalConst.AreaBehavior.FULL
+		#else:
+			## use stopped slider for check retractable slider-block
+			#if slider.is_stopped and slider.behavior == GlobalConst.AreaBehavior.FULL:
+				#if _check_probability(OPTIONS.block_full_retract_odd):
+					#var cell_coord := slider.reachable[slider.reached.size()] as Vector2i
+					#var emitter_slider := receiver_cells.get(cell_coord) as Array[Vector2i]
+					#var slider_data := filtered.get(emitter_slider[0]) as RandomizerSlider
+					#for coord in slider_data.reached:
+						#var cell_data := data.cells_list[coord] as CellData
+						#cell_data.is_blocked = false
+						#locked_cells.erase(cell_data)
+	# add slider to level data
+	for slider_coord in filtered.keys():
+		var slider := filtered.get(slider_coord) as RandomizerSlider
+		var slider_data := SliderData.new()
+		slider_data.area_effect = slider.effect
+		slider_data.area_behavior = slider.behavior
+		data.slider_list[slider_coord] = slider_data
 	# remove temporarily block
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
 		_apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
-	# use unfull slider-block for check behavior-full probability
-	for slider_coord in block_sliders_unfull:
-		var reachable := possible.get(slider_coord) as Array[Vector2i]
-		var reached := filtered.get(slider_coord) as Array[Vector2i]
 
 
 static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
@@ -157,6 +202,7 @@ static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
 	var slider_count := 0
 	var max_diffusion := possible.size() if possible.size() % 2 == 0 else possible.size() + 1
 	var diffusion_range := OPTIONS.occupation_std.get(max_diffusion) as Vector2i
+	max_diffusion = possible.size()
 	match _get_rule(OPTIONS.occupation_rules):
 		"STANDARD":
 			slider_count = randi_range(diffusion_range.x, diffusion_range.y)
@@ -178,16 +224,17 @@ static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
 	filterd.resize(slider_count)
 	# calculate sliders extesion
 	for slider_coord in filterd:
-		var reachable := possible.get(slider_coord).duplicate() as Array[Vector2i]
+		var slider_data := RandomizerSlider.new()
+		slider_data.reachable = possible.get(slider_coord) as Array[Vector2i]
+		var reached := possible.get(slider_coord).duplicate() as Array[Vector2i]
 		match _get_rule(OPTIONS.extension_rules):
-			"MAX":
-				pass
 			"NONE":
-				reachable.clear()
+				reached.clear()
 			"RANDOM":
-				if reachable.size() > 1:
-					reachable.resize(randi_range(1, reachable.size() - 1))
-		result[slider_coord] = reachable
+				if reached.size() > 1:
+					reached.resize(randi_range(1, reached.size() - 1))
+		slider_data.reached = reached
+		result[slider_coord] = slider_data
 	return result
 
 
@@ -201,17 +248,23 @@ static func _apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEf
 			cell.value *= -1
 		GlobalConst.AreaEffect.BLOCK:
 			# applies a random effect to mask the slider-block effect
-			match randi_range(1, 3):
+			match randi_range(1, 2):
 				1:
-					cell.value -= 1
+					cell.value -= randi_range(1, 2)
+					cell.value = clamp(cell.value, -4, 4)
 				2:
-					cell.value += 1
-				3:
-					if cell.value != 0:
-						cell.value *= -1
-					else:
-						cell.value = 1
+					cell.value += randi_range(1, 2)
+					cell.value = clamp(cell.value, -4, 4)
 
+
+static func _is_opposite_slider(a: Vector2i, b: Vector2i) -> bool:
+	if a.y != b.y:
+		return false
+	if a.x != b.x:
+		if a.x % 2 == b.x % 2:
+			return true
+	return false
+	
 
 static func _get_possible_sliders(data: LevelData) -> Dictionary:
 	var result: Dictionary
