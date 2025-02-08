@@ -97,21 +97,31 @@ static func _add_sliders(data: LevelData, possible: Dictionary, filtered: Dictio
 			"BLOCK": 
 				slider_data.area_effect = GlobalConst.AreaEffect.BLOCK
 				block_sliders.append(slider_coord)
-	# add block sliders			
+	# add slider-block
+	var block_sliders_unfull: Array[Vector2i]		
 	for slider_coord in block_sliders:
 		var reachable := possible.get(slider_coord) as Array[Vector2i]
 		var reached := filtered.get(slider_coord) as Array[Vector2i]
+		var is_unfull := false
 		if reached.size() == 0 or reached.size() == reachable.size():
 			if _check_probability(OPTIONS.BLOCK_FULL_ODD):
 				var slider_data := data.slider_list.get(slider_coord) as SliderData
 				slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
+		else:
+			is_unfull = true
 		for cell_coord in reached:
 			var cell_data := data.cells_list[cell_coord] as CellData
 			if cell_data.is_blocked:
+				if _check_probability(OPTIONS.BLOCK_FULL_ODD):
+					var slider_data := data.slider_list.get(slider_coord) as SliderData
+					slider_data.area_behavior = GlobalConst.AreaBehavior.FULL
 				break
 			# temporarily block for the next checks
 			cell_data.is_blocked = true
 			locked_cells.append(cell_data)
+		if is_unfull:
+			# slider-block mapping with extension not complete but reached
+			block_sliders_unfull.append(slider_coord)
 	# mix other sliders			
 	if !change_sliders.is_empty():
 		normal_sliders.append_array(change_sliders)
@@ -135,10 +145,14 @@ static func _add_sliders(data: LevelData, possible: Dictionary, filtered: Dictio
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
 		_apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
+	# use unfull slider-block for check behavior-full probability
+	for slider_coord in block_sliders_unfull:
+		var reachable := possible.get(slider_coord) as Array[Vector2i]
+		var reached := filtered.get(slider_coord) as Array[Vector2i]
 
 
 static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
-	# diffusion
+	# calculate sliders diffusion
 	var result: Dictionary
 	var filterd := possible.keys()
 	var slider_count := 0
@@ -163,7 +177,7 @@ static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
 					break
 	filterd.shuffle()
 	filterd.resize(slider_count)
-	# extesion
+	# calculate sliders extesion
 	for slider_coord in filterd:
 		var reachable := possible.get(slider_coord).duplicate() as Array[Vector2i]
 		match _get_rule(OPTIONS.EXTENSION_RULES):
@@ -187,7 +201,7 @@ static func _apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEf
 		GlobalConst.AreaEffect.CHANGE_SIGN:
 			cell.value *= -1
 		GlobalConst.AreaEffect.BLOCK:
-			# applies a random effect to mask the block effect
+			# applies a random effect to mask the slider-block effect
 			match randi_range(1, 3):
 				1:
 					cell.value -= 1
