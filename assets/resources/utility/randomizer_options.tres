@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource("1_q6vmi")
-OCCUPATION_RULES = {
+occupation_rules = {
 "LOWER": 10,
 "STANDARD": 70,
 "UPPER": 20
 }
-OCCUPATION_STD = {
+occupation_std = {
 4: Vector2i(2, 3),
 6: Vector2i(3, 4),
 8: Vector2i(3, 5),
@@ -20,16 +20,16 @@ OCCUPATION_STD = {
 18: Vector2i(7, 11),
 20: Vector2i(8, 14)
 }
-OCCUPATION_LOWER = 30
-OCCUPATION_UPPER = 60
-EXTENSION_RULES = {
+occupation_lower = 30
+occupation_upper = 60
+extension_rules = {
 "MAX": 60,
 "NONE": 10,
 "RANDOM": 30
 }
-FULL_ODD = 15
-BLOCK_FULL_ODD = 50
-TYPE_RULES = {
+full_odd = 15
+block_full_odd = 50
+type_rules = {
 "ADD": 45,
 "BLOCK": 7,
 "CHANGE_SIGN": 3,
