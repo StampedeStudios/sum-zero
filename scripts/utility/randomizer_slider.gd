@@ -9,7 +9,7 @@ var behavior: GlobalConst.AreaBehavior
 
 func is_full() -> bool:
 	return reachable.size() == reached.size()
-	
+
 
 func is_none() -> bool:
 	return reached.is_empty()
