@@ -28,6 +28,7 @@ AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
 window/size/viewport_width=720
 window/size/viewport_height=1280
+window/size/resizable=false
 window/size/extend_to_title=true
 window/handheld/orientation=1
 
@@ -74,5 +75,6 @@ locale/translations=PackedStringArray("res://assets/resources/localization/text.
 
 [rendering]
 
+renderer/rendering_method="mobile"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.827451, 0.913725, 0.823529, 1)
