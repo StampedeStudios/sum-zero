@@ -72,10 +72,14 @@ func _get_minimum_size() -> Vector2:
 func construct(level_id: int, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
 	if !progress.is_unlocked:
 		icon = LOCK_ICON
+		add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+
 		add_theme_color_override("icon_normal_color", BROWN)
 		add_theme_color_override("icon_hover_color", BROWN)
 		add_theme_color_override("icon_pressed_color", BROWN)
 	else:
+		remove_theme_constant_override("icon_max_width")
+
 		remove_theme_color_override("icon_normal_color")
 		remove_theme_color_override("icon_hover_color")
 		remove_theme_color_override("icon_pressed_color")
@@ -118,6 +122,7 @@ func _unlock_level() -> void:
 	remove_theme_color_override("icon_normal_color")
 	remove_theme_color_override("icon_hover_color")
 	remove_theme_color_override("icon_pressed_color")
+	remove_theme_constant_override("icon_max_width")
 
 	icon = ZERO_STARS
 	get_child(0).show()

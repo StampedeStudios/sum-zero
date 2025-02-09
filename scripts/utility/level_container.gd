@@ -14,5 +14,6 @@ func add_level(level_data: LevelData) -> void:
 
 func get_tutorial(id: int) -> TutorialData:
 	if tutorials.has(id):
+		print("Retrieving tutorial for level having id %s" % id)
 		return tutorials.get(id)
 	return null
