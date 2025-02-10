@@ -28,7 +28,10 @@ extension_rules = {
 "RANDOM": 30
 }
 full_odd = 15
+full_odd_on_stop = 60
 block_full_odd = 50
+block_full_odd_on_stop = 80
+block_full_retract_odd = 80
 type_rules = {
 "ADD": 45,
 "BLOCK": 7,

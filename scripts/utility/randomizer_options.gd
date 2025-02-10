@@ -26,12 +26,12 @@ class_name RandomizerOptions extends Resource
 ## Slider full probability
 @export var full_odd := 10
 ## Slider full probability when stopped by another block
-@export var full_odd_on_stop := 60
+@export var full_odd_on_stop := 30
 ## Slider block full probability
 @export var block_full_odd := 20
 ## Slider block full probability when stopped by another block
-@export var block_full_odd_on_stop := 80
+@export var block_full_odd_on_stop := 50
 ## Slider block retractable after stop other sliders
-@export var block_full_retract_odd := 80
+@export var block_full_retract_odd := 50
 ## Sliders type rules
 @export var type_rules := {"ADD": 45, "SUBTRACT": 45, "CHANGE_SIGN": 3, "BLOCK": 7}
