@@ -81,13 +81,17 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	var normal_sliders: Array[Vector2i]
 	var locked_cells: Array[CellData]
 	var receiver_cells: Dictionary
+	
+	var effect_slider_count := 0
 	for slider_coord: Vector2i in filtered.keys():
 		var slider_data := filtered.get(slider_coord) as RandomizerSlider
 		match _get_rule(OPTIONS.type_rules):
 			"ADD":
+				effect_slider_count += 1
 				slider_data.effect = GlobalConst.AreaEffect.ADD
 				normal_sliders.append(slider_coord)
 			"SUBTRACT":
+				effect_slider_count += 1
 				slider_data.effect = GlobalConst.AreaEffect.SUBTRACT
 				normal_sliders.append(slider_coord)
 			"CHANGE_SIGN":
@@ -96,6 +100,16 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 			"BLOCK":
 				slider_data.effect = GlobalConst.AreaEffect.BLOCK
 				block_sliders.append(slider_coord)
+				
+	# check that at least one slider affects the grid 
+	if effect_slider_count == 0:
+		var slider_coord := filtered.keys()[0] as Vector2i
+		var slider_data := filtered.get(slider_coord) as RandomizerSlider
+		slider_data.effect = GlobalConst.AreaEffect.ADD
+		normal_sliders.append(slider_coord)
+		block_sliders.erase(slider_coord)
+		change_sliders.erase(slider_coord)
+	
 	# add slider-block
 	for slider_coord in block_sliders:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
@@ -124,6 +138,7 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
+			
 	# mix other sliders
 	if !change_sliders.is_empty():
 		normal_sliders.append_array(change_sliders)
@@ -154,6 +169,7 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
+			
 	# use unfull slider-block for check behavior-full probability
 	for slider_coord: Vector2i in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
@@ -171,17 +187,48 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						continue
 			if _check_probability(OPTIONS.block_full_odd_on_stop):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
-		#else:
-			## use stopped slider for check retractable slider-block
-			#if slider.is_stopped and slider.behavior == GlobalConst.AreaBehavior.FULL:
-				#if _check_probability(OPTIONS.block_full_retract_odd):
-					#var cell_coord := slider.reachable[slider.reached.size()] as Vector2i
-					#var emitter_slider := receiver_cells.get(cell_coord) as Array[Vector2i]
-					#var slider_data := filtered.get(emitter_slider[0]) as RandomizerSlider
-					#for coord in slider_data.reached:
-						#var cell_data := data.cells_list[coord] as CellData
-						#cell_data.is_blocked = false
-						#locked_cells.erase(cell_data)
+				
+	# use stopped slider for check retractable slider-block
+	var stopped_sliders: Dictionary
+	for slider_coord: Vector2i in filtered.keys():
+		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if slider.effect == GlobalConst.AreaEffect.BLOCK:
+			continue
+		if slider.is_stopped:
+			stopped_sliders[slider_coord] = slider.reachable[slider.reached.size()]
+	if stopped_sliders.size() > 1:
+		for slider_coord in block_sliders:
+			var blocked_sliders: Array[Vector2i]
+			var slider_data := filtered.get(slider_coord) as RandomizerSlider
+			for cell_coord in slider_data.reached:
+				while true:
+					var coord = stopped_sliders.find_key(cell_coord)
+					if coord == null:
+						break
+					stopped_sliders.erase(coord)
+					blocked_sliders.append(coord)
+			if blocked_sliders.size() <= 1:
+				continue
+			if _check_probability(OPTIONS.block_full_retract_odd):
+				# retract slider-block
+				for coord in slider_data.reached:
+					var cell_data := data.cells_list[coord] as CellData
+					cell_data.is_blocked = false
+					locked_cells.erase(cell_data)
+				# extend other slider but last
+				for i in range(blocked_sliders.size()):
+					var slider := filtered.get(blocked_sliders[i]) as RandomizerSlider
+					if i == blocked_sliders.size() - 1:
+						# last slider blocked
+						slider.behavior = GlobalConst.AreaBehavior.FULL
+					else:
+						if slider.effect != GlobalConst.AreaEffect.CHANGE_SIGN:
+							for j in range(slider.reached.size(), slider.reachable.size()):
+								var cell := data.cells_list[slider.reachable[j]] as CellData
+								if cell.is_blocked:
+									break
+								_apply_slider_effect(cell, slider.effect)
+								
 	# add slider to level data
 	for slider_coord in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
@@ -189,6 +236,7 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		slider_data.area_effect = slider.effect
 		slider_data.area_behavior = slider.behavior
 		data.slider_list[slider_coord] = slider_data
+		
 	# remove temporarily block
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
@@ -223,18 +271,25 @@ static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
 	filterd.shuffle()
 	filterd.resize(slider_count)
 	# calculate sliders extesion
+	var extended_count := 0
 	for slider_coord in filterd:
 		var slider_data := RandomizerSlider.new()
 		slider_data.reachable = possible.get(slider_coord) as Array[Vector2i]
 		var reached := possible.get(slider_coord).duplicate() as Array[Vector2i]
 		match _get_rule(OPTIONS.extension_rules):
+			"MAX":
+				extended_count += 1
 			"NONE":
 				reached.clear()
 			"RANDOM":
+				extended_count += 1
 				if reached.size() > 1:
 					reached.resize(randi_range(1, reached.size() - 1))
 		slider_data.reached = reached
 		result[slider_coord] = slider_data
+	if extended_count == 0:
+		var slider_data := result.get(result.keys()[0]) as RandomizerSlider
+		slider_data.reached = slider_data.reachable
 	return result
 
 
@@ -264,7 +319,7 @@ static func _is_opposite_slider(a: Vector2i, b: Vector2i) -> bool:
 		if a.x % 2 == b.x % 2:
 			return true
 	return false
-	
+
 
 static func _get_possible_sliders(data: LevelData) -> Dictionary:
 	var result: Dictionary
