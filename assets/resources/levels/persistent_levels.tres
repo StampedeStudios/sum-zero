@@ -1,15 +1,15 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=1376 format=3]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=1376 format=3 uid="uid://cnc8kw1l4ln8p"]
 
 [ext_resource type="Script" path="res://scripts/utility/level_data.gd" id="2_0gd78"]
 [ext_resource type="Script" path="res://scripts/utility/cell_data.gd" id="2_08p0w"]
 [ext_resource type="Script" path="res://scripts/utility/slider_data.gd" id="3_cr51g"]
 [ext_resource type="Script" path="res://scripts/utility/level_container.gd" id="4_v7vmu"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/slider_tutorial.tres" id="5_w6l3t"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/symbols_tutorial.tres" id="6_dak7y"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="7_k86s7"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="8_www21"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="9_up8js"]
-[ext_resource type="Resource" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="10_fk02p"]
+[ext_resource type="Resource" uid="uid://g4xb4c18wx6d" path="res://assets/resources/tutorial/slider_tutorial.tres" id="5_w6l3t"]
+[ext_resource type="Resource" uid="uid://di7kanjcci6e6" path="res://assets/resources/tutorial/symbols_tutorial.tres" id="6_dak7y"]
+[ext_resource type="Resource" uid="uid://cexkhgb6rb2ip" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="7_k86s7"]
+[ext_resource type="Resource" uid="uid://df5xj4eoouci8" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="8_www21"]
+[ext_resource type="Resource" uid="uid://wor27ovpdofm" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="9_up8js"]
+[ext_resource type="Resource" uid="uid://bh8t8odtplmtn" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="10_fk02p"]
 
 [sub_resource type="Resource" id="Resource_qujjk"]
 script = ExtResource("2_08p0w")
@@ -7588,32 +7588,22 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_ai5x8"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_ethug"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -2
-
 [sub_resource type="Resource" id="Resource_nimx1"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -3
 
-[sub_resource type="Resource" id="Resource_n5bwx"]
+[sub_resource type="Resource" id="Resource_pdonf"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_8etq5"]
+[sub_resource type="Resource" id="Resource_ai5x8"]
 script = ExtResource("2_08p0w")
 is_blocked = false
-value = -1
+value = 1
 
-[sub_resource type="Resource" id="Resource_pdonf"]
+[sub_resource type="Resource" id="Resource_n5bwx"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
@@ -7622,6 +7612,16 @@ value = 0
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
+
+[sub_resource type="Resource" id="Resource_ethug"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -2
+
+[sub_resource type="Resource" id="Resource_8etq5"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
 
 [sub_resource type="Resource" id="Resource_xawvm"]
 script = ExtResource("2_08p0w")
@@ -7713,37 +7713,47 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_y1kna"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 2
-
-[sub_resource type="Resource" id="Resource_nvu3n"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 2
-
 [sub_resource type="Resource" id="Resource_1cl1b"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
-
-[sub_resource type="Resource" id="Resource_kf2pt"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 0
-
-[sub_resource type="Resource" id="Resource_4341w"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 0
 
 [sub_resource type="Resource" id="Resource_437tl"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
+[sub_resource type="Resource" id="Resource_jvvxa"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 2
+
+[sub_resource type="Resource" id="Resource_y1kna"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 2
+
+[sub_resource type="Resource" id="Resource_kf2pt"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
 [sub_resource type="Resource" id="Resource_4rec4"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 0
+
+[sub_resource type="Resource" id="Resource_j4b4d"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 3
+
+[sub_resource type="Resource" id="Resource_nvu3n"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 2
+
+[sub_resource type="Resource" id="Resource_4341w"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
@@ -7752,16 +7762,6 @@ value = 0
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
-
-[sub_resource type="Resource" id="Resource_jvvxa"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 2
-
-[sub_resource type="Resource" id="Resource_j4b4d"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 3
 
 [sub_resource type="Resource" id="Resource_faotn"]
 script = ExtResource("2_08p0w")
@@ -8149,22 +8149,17 @@ Vector2i(3, 3): SubResource("Resource_26kl2")
 }
 moves_left = 8
 
-[sub_resource type="Resource" id="Resource_lyge1"]
+[sub_resource type="Resource" id="Resource_2f77i"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_fan4n"]
+[sub_resource type="Resource" id="Resource_1f4v3"]
 script = ExtResource("2_08p0w")
 is_blocked = false
-value = -2
+value = 1
 
-[sub_resource type="Resource" id="Resource_lbo8r"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -2
-
-[sub_resource type="Resource" id="Resource_2f77i"]
+[sub_resource type="Resource" id="Resource_lyge1"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
@@ -8174,35 +8169,40 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_6cnvc"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 1
-
-[sub_resource type="Resource" id="Resource_1f4v3"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 1
-
 [sub_resource type="Resource" id="Resource_0jjsc"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
+
+[sub_resource type="Resource" id="Resource_vr2ag"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
+
+[sub_resource type="Resource" id="Resource_fan4n"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -2
 
 [sub_resource type="Resource" id="Resource_4q7l3"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
+[sub_resource type="Resource" id="Resource_lbo8r"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -2
+
+[sub_resource type="Resource" id="Resource_6cnvc"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
+
 [sub_resource type="Resource" id="Resource_h7lxe"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
-
-[sub_resource type="Resource" id="Resource_vr2ag"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 1
 
 [sub_resource type="Resource" id="Resource_5p2i7"]
 script = ExtResource("2_08p0w")
@@ -8285,55 +8285,55 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = -2
 
-[sub_resource type="Resource" id="Resource_nls11"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -1
-
-[sub_resource type="Resource" id="Resource_7pnnk"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -3
-
-[sub_resource type="Resource" id="Resource_odmw5"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -1
-
 [sub_resource type="Resource" id="Resource_u3nsx"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
-
-[sub_resource type="Resource" id="Resource_e0ucf"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 2
 
 [sub_resource type="Resource" id="Resource_22csf"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 0
 
-[sub_resource type="Resource" id="Resource_goj1u"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 1
-
 [sub_resource type="Resource" id="Resource_qwe0j"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
+
+[sub_resource type="Resource" id="Resource_nls11"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_goj1u"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 1
 
 [sub_resource type="Resource" id="Resource_namko"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
+[sub_resource type="Resource" id="Resource_7pnnk"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -3
+
 [sub_resource type="Resource" id="Resource_xgebe"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
+
+[sub_resource type="Resource" id="Resource_odmw5"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -1
+
+[sub_resource type="Resource" id="Resource_e0ucf"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = 2
 
 [sub_resource type="Resource" id="Resource_e7p5n"]
 script = ExtResource("2_08p0w")
@@ -8440,17 +8440,17 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = -1
 
-[sub_resource type="Resource" id="Resource_h0k2p"]
+[sub_resource type="Resource" id="Resource_vk146"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
 
-[sub_resource type="Resource" id="Resource_1vipw"]
+[sub_resource type="Resource" id="Resource_7pmyg"]
 script = ExtResource("2_08p0w")
 is_blocked = false
-value = -2
+value = 2
 
-[sub_resource type="Resource" id="Resource_vk146"]
+[sub_resource type="Resource" id="Resource_h0k2p"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
@@ -8460,20 +8460,20 @@ script = ExtResource("2_08p0w")
 is_blocked = false
 value = 2
 
-[sub_resource type="Resource" id="Resource_41jm7"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = -2
-
-[sub_resource type="Resource" id="Resource_7pmyg"]
-script = ExtResource("2_08p0w")
-is_blocked = false
-value = 2
-
 [sub_resource type="Resource" id="Resource_i11wv"]
 script = ExtResource("2_08p0w")
 is_blocked = false
 value = 1
+
+[sub_resource type="Resource" id="Resource_1vipw"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -2
+
+[sub_resource type="Resource" id="Resource_41jm7"]
+script = ExtResource("2_08p0w")
+is_blocked = false
+value = -2
 
 [sub_resource type="Resource" id="Resource_hwpv1"]
 script = ExtResource("2_08p0w")
