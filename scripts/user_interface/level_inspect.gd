@@ -26,7 +26,7 @@ func _ready() -> void:
 
 
 func init_inspector(level_id: int, progress: LevelProgress):
-	label.text = progress.name
+	label.text = str("%02d" % [level_id + 1])
 	_level_id = level_id
 
 	var num_stars = clamp(
