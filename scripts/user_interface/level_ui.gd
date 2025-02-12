@@ -77,7 +77,7 @@ func update_content() -> void:
 		GlobalConst.LevelGroup.MAIN:
 			_update_buttons(levels_progress.size() > PAGE_SIZE)
 			var num_pages: int = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-			title.text = "%d of %d" % [_current_page, num_pages]
+			title.text = "%02d of %d" % [_current_page, num_pages]
 		GlobalConst.LevelGroup.CUSTOM:
 			_update_buttons(levels_progress.size() > PAGE_SIZE - 1)
 
