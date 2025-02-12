@@ -26,7 +26,7 @@ func _ready() -> void:
 
 
 func init_inspector(level_id: int, progress: LevelProgress):
-	label.text = str("%02d" % [level_id + 1])
+	label.text = str("%03d" % [level_id + 1])
 	_level_id = level_id
 
 	var num_stars = clamp(
@@ -109,7 +109,7 @@ func _update_buttons(is_unlocked: bool) -> void:
 
 func _on_unlock_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.unlock_level(GlobalConst.LevelGroup.MAIN, _level_id)
+	GameManager.unlock_level(_level_id)
 	_update_buttons(true)
 	level_unlocked.emit()
 

@@ -144,6 +144,8 @@ static func encode(data: LevelData) -> String:
 		encode_data += encode_orizzontal
 	encode_data += "-"
 	encode_data += _encode_sliders(data.slider_list, level_size)
+	encode_data += "-"
+	encode_data += data.name
 	return encode_data
 
 
@@ -250,7 +252,7 @@ static func _encode_slider(slider_data: SliderData) -> String:
 static func decode(encode_data: String) -> LevelData:
 	var data := LevelData.new()
 	var splitted_data := encode_data.split("-")
-	if splitted_data.size() != 3:
+	if splitted_data.size() < 3:
 		push_warning("Invalid code format")
 		return null
 	var moves_left := _decode_moves(encode_data[0])
@@ -278,7 +280,16 @@ static func decode(encode_data: String) -> LevelData:
 		push_warning("Invalid sliders")
 		return null
 	data.slider_list = slider_list
+	if splitted_data.size() > 3:
+		data.name = splitted_data[3]
 	return data
+
+
+static func decode_name(encode_data: String) -> String:
+	var splitted_data := encode_data.split("-")
+	if splitted_data.size() > 3:
+		return splitted_data[3]
+	return ""
 
 
 static func _decode_moves(letter: String) -> int:
