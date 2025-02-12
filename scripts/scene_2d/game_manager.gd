@@ -132,54 +132,40 @@ func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 
 func get_start_level_playable() -> LevelData:
 	set_levels_context(GlobalConst.LevelGroup.MAIN)
-	_active_level_id = 0
 	# get the first level unlocked and not completed
-	for id in range(_persistent_save.levels.size()):
-		var progress := _player_save.persistent_progress[id] as LevelProgress
+	for id in range(_persistent_save.levels_hash.size()):
+		var progress := _player_save.get_progress(_context, id)
 		if progress.is_unlocked and !progress.is_completed:
-			_active_level_id = id
-			break
-	return get_active_level(_active_level_id)
+			return get_active_level(id)
+	# fist play
+	_player_save.unlock_level(0)
+	return get_active_level(0)
 
 
 func save_persistent_level(level_data: LevelData) -> void:
-	_persistent_save.add_level(level_data.duplicate())
-	_player_save.add_progress(GlobalConst.LevelGroup.MAIN, level_data.name)
+	var level_hash := _persistent_save.add_level(level_data)
 	ResourceSaver.save.call_deferred(_persistent_save, PERSISTENT_SAVE_PATH)
+	_player_save.add_world_progress(level_hash)
 	save_player_data()
 
 
 func save_custom_level(level_data: LevelData) -> void:
-	_player_save.custom_levels.append(level_data.duplicate())
-	_player_save.add_progress(GlobalConst.LevelGroup.CUSTOM, level_data.name)
+	_player_save.add_custom_level(level_data)
 	save_player_data()
 
 
-func _get_levels() -> Array[LevelData]:
-	match _context:
-		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_levels
-		GlobalConst.LevelGroup.MAIN:
-			return _persistent_save.levels
-	return []
-
-
-func _get_progress() -> Array[LevelProgress]:
-	match _context:
-		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_progress
-		GlobalConst.LevelGroup.MAIN:
-			return _player_save.persistent_progress
-	return []
-
-
 func set_next_level() -> bool:
-	var is_valid_level: bool
-	_next_level_id = _active_level_id + 1
-	is_valid_level = _get_levels().size() > _next_level_id
-	if is_valid_level:
-		_player_save.unlock_level(_context, _next_level_id)
-	return is_valid_level
+	match _context:
+		GlobalConst.LevelGroup.CUSTOM:
+			if _player_save.custom_levels_hash.size() - 1 > _active_level_id:
+				_next_level_id = _active_level_id + 1
+				return true
+		GlobalConst.LevelGroup.MAIN:
+			if _persistent_save.levels_hash.size() - 1 > _active_level_id:
+				_next_level_id = _active_level_id + 1
+				_player_save.unlock_level(_next_level_id)
+				return true
+	return false
 
 
 func get_active_level_id() -> int:
@@ -189,7 +175,12 @@ func get_active_level_id() -> int:
 func get_active_level(level_id: int = -1) -> LevelData:
 	if level_id > -1:
 		_active_level_id = level_id
-	return _get_levels()[_active_level_id] as LevelData
+	match _context:
+		GlobalConst.LevelGroup.CUSTOM:
+			return _player_save.get_level(_active_level_id)
+		GlobalConst.LevelGroup.MAIN:
+			return _persistent_save.get_level(_active_level_id)
+	return null
 
 
 func set_level_scale(level_width: int, level_height: int) -> void:
@@ -201,54 +192,53 @@ func set_level_scale(level_width: int, level_height: int) -> void:
 
 
 func get_next_level() -> LevelData:
-	_active_level_id = _next_level_id
-	return get_active_level()
+	return get_active_level(_next_level_id)
 
 
 func update_level_progress(move_left: int) -> bool:
 	var active_progress: LevelProgress
 	var is_record: bool
-	active_progress = _get_progress()[_active_level_id]
-	if !active_progress.is_completed != (move_left > active_progress.move_left):
-		active_progress.move_left = move_left
-		is_record = true
+	active_progress = _player_save.get_progress(_context, _active_level_id)
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
-
+	if move_left > active_progress.move_left:
+		active_progress.move_left = move_left
+		is_record = true
+	_player_save.set_progress(_context, _active_level_id, active_progress)
 	save_player_data()
 	return is_record
 
 
 func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
-	match group:
-		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_progress.slice(first - 1, last)
-		GlobalConst.LevelGroup.MAIN:
-			return _player_save.persistent_progress.slice(first - 1, last)
-	return []
+	var result: Array[LevelProgress]
+	for id in range(first - 1, last):
+		var progress := _player_save.get_progress(group, id)
+		if progress != null:
+			result.append(progress)
+	return result
 
 
 func get_num_levels(group: GlobalConst.LevelGroup) -> int:
 	match group:
 		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_levels.size()
+			return _player_save.custom_levels_hash.size()
 		GlobalConst.LevelGroup.MAIN:
-			return _player_save.persistent_progress.size()
+			return _persistent_save.levels_hash.size()
 		_:
 			return 0
 
 
 func is_level_completed() -> bool:
-	return _get_progress()[_active_level_id].is_completed
+	return _player_save.get_progress(_context, _active_level_id).is_completed
 
 
-func unlock_level(group: GlobalConst.LevelGroup, level_id: int) -> void:
-	_player_save.unlock_level(group, level_id)
+func unlock_level(level_id: int) -> void:
+	_player_save.unlock_level(level_id)
 	save_player_data()
 
 
 func delete_level(level_id: int) -> void:
-	_player_save.delete_level(level_id)
+	_player_save.delete_custom_level(level_id)
 	save_player_data()
 
 

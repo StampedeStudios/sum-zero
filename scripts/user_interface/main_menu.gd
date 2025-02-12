@@ -21,7 +21,6 @@ func _ready():
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 	GameManager.on_state_change.connect(_on_state_change)
-	_playable_level = GameManager.get_start_level_playable()
 
 	self.scale = GameManager.ui_scale
 	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
@@ -30,6 +29,7 @@ func _ready():
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
+			_playable_level = GameManager.get_start_level_playable()
 			self.visible = true
 		GlobalConst.GameState.OPTION_MENU:
 			pass
