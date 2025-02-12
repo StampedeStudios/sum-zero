@@ -7,6 +7,7 @@ const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collect
 const MAX_EXTENSION: int = 5 * 256
 const MAX_PITCH: float = 1.5
 const SFX_STEP: int = 64
+const HANDLE_START: int = 110
 
 @export var block_texture: Texture
 @export var block_shader: Shader
@@ -29,14 +30,12 @@ var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
 var _last_percentage: float = 0.1
 var _last_affected_cells: Dictionary
-var _has_half_collision: bool = false
 
 @onready var area_outline: NinePatchRect = %AreaOutline
-@onready var handle: Area2D = %Handle
 @onready var area_effect: Sprite2D = %AreaEffect
 @onready var area_behavior = %AreaBehavior
 @onready var ray: RayCast2D = %Ray
-@onready var collision_shape: CollisionPolygon2D = %CollisionShape
+@onready var handle: Node2D = %Handle
 
 
 func init_slider(data: SliderData) -> void:
@@ -60,7 +59,10 @@ func reset() -> void:
 	_last_scale = 0
 	_is_extended = false
 	_apply_scaling(_current_scale)
-	set_handle_collision(false)
+
+
+func get_slider_position() -> Vector2:
+	return handle.global_position
 
 
 func release_handle() -> void:
@@ -68,37 +70,22 @@ func release_handle() -> void:
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
+	alter_grid.emit()
 	if _current_scale != _last_scale:
 		_last_scale = _current_scale
-		_alter_grid()
+		_count_move()
 	else:
 		for cell: Cell in _last_affected_cells:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
-				_alter_grid()
+				_count_move()
 				break
-	_check_intersection()
 
 
-func set_handle_collision(is_half_collision) -> void:
-	_has_half_collision = is_half_collision
-	collision_shape.polygon = half_collision if is_half_collision else full_collision
-
-
-func _check_intersection() -> void:
-	await get_tree().create_timer(0.1).timeout  # await physic
-	for other_handle in handle.get_overlapping_areas():
-		var other_area: SliderArea = other_handle.get_parent()
-		if other_area != null:
-			set_handle_collision(true)
-			other_area.set_handle_collision(true)
-
-
-func _alter_grid() -> void:
+func _count_move() -> void:
 	if GameManager.game_ui != null:
 		GameManager.game_ui.consume_move()
 	if GameManager.builder_test != null:
 		GameManager.builder_test.add_move()
-	alter_grid.emit()
 
 
 func _process(_delta: float) -> void:
@@ -176,45 +163,30 @@ func _apply_scaling(_new_scale: float) -> void:
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
-
 	if _is_manually_controlled:
-		handle.position.x = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
+		handle.position.x = HANDLE_START + _new_scale * GlobalConst.CELL_SIZE
 
 
-func _on_handle_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			if _has_half_collision:
-				_reset_handle_collision()
-			match _area_behavior:
-				# move the area handle manually with your finger
-				GlobalConst.AreaBehavior.BY_STEP:
-					area_outline.material.set_shader_parameter(
-						Literals.Parameters.IS_SELECTED, true
-					)
-					_check_limit()
-					_last_scale = _current_scale
-					_is_manually_controlled = true
-					_is_scaling = true
-					_last_affected_cells.clear()
-					for cell_index in range(_current_scale):
-						var cell: Cell = _reachable_cells[cell_index]
-						_last_affected_cells[cell] = cell.get_cell_value()
+func activate_slider() -> void:
+	match _area_behavior:
+		# move the area handle manually with your finger
+		GlobalConst.AreaBehavior.BY_STEP:
+			area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
+			_check_limit()
+			_last_scale = _current_scale
+			_is_manually_controlled = true
+			_is_scaling = true
+			_last_affected_cells.clear()
+			for cell_index in range(_current_scale):
+				var cell: Cell = _reachable_cells[cell_index]
+				_last_affected_cells[cell] = cell.get_cell_value()
 
-				# extend the area to the maximum reachable cell
-				GlobalConst.AreaBehavior.FULL:
-					_check_limit()
-					_is_extended = !_is_extended
-					_is_manually_controlled = false
-					_is_scaling = true
-
-
-func _reset_handle_collision() -> void:
-	set_handle_collision(false)
-	for other_handle in handle.get_overlapping_areas():
-		var other_area: SliderArea = other_handle.get_parent()
-		if other_area != null:
-			other_area.set_handle_collision(false)
+		# extend the area to the maximum reachable cell
+		GlobalConst.AreaBehavior.FULL:
+			_check_limit()
+			_is_extended = !_is_extended
+			_is_manually_controlled = false
+			_is_scaling = true
 
 
 func _check_limit() -> void:

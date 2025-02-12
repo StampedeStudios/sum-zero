@@ -5,9 +5,13 @@ const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
 const LEVEL_END = preload("res://packed_scene/user_interface/LevelEnd.tscn")
 
 var grid_cells: Array[Cell]
+var grid_sliders: Array[SliderArea]
 var _is_test_mode: bool
+var _has_slider_active: bool
 
 @onready var grid = %Grid
+@onready var playable_area: Area2D = %PlayableArea
+@onready var collider: CollisionShape2D = %Collider
 
 
 func _ready() -> void:
@@ -41,14 +45,10 @@ func init_level(current_level: LevelData) -> void:
 
 	var level_size: Vector2i
 	var half_grid_size: Vector2
-
-	GameManager.set_level_scale(current_level.width, current_level.height)
-	var offset := Vector2(0, GameManager.cell_size / 4)
-	grid.position = get_viewport_rect().get_center() - offset
-
-	grid.scale = GameManager.level_scale
 	level_size = Vector2i(current_level.width, current_level.height)
 	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
+
+	_init_grid(level_size)
 
 	# placing cells
 	for coord in current_level.cells_list.keys():
@@ -98,18 +98,22 @@ func init_level(current_level: LevelData) -> void:
 		sc_instance.rotation_degrees = angle
 		sc_instance.init_slider(current_level.slider_list.get(coord))
 		sc_instance.alter_grid.connect(check_grid)
+		grid_sliders.append(sc_instance)
 
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
 func _clear() -> void:
+	_has_slider_active = false
 	for child in grid.get_children():
 		child.queue_free()
 	grid_cells.clear()
+	grid_sliders.clear()
 
 
 func check_grid() -> void:
 	var level_complete: bool
+	_has_slider_active = false
 	for cell in grid_cells:
 		if cell.get_cell_value() == 0:
 			level_complete = true
@@ -129,3 +133,31 @@ func _reset_level() -> void:
 	for child in grid.get_children():
 		child.reset()
 	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+
+
+func _init_grid(level_size: Vector2i) -> void:
+	GameManager.set_level_scale(level_size.x, level_size.y)
+	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.cell_size / 4)
+	var grid_size := (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE
+	grid.position = grid_pos
+	grid.scale = GameManager.level_scale
+	playable_area.position = grid_pos
+	playable_area.scale = GameManager.level_scale
+	collider.shape.size = grid_size
+
+
+func _on_playable_area_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
+	if _event is InputEventMouse:
+		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_slider_active:
+			print("eccolo")
+			var min_distance: float = GameManager.cell_size / 2
+			var selected_slider: SliderArea
+			for slider in grid_sliders:
+				var pos := slider.get_slider_position()
+				var distance := pos.distance_to(_event.global_position)
+				if distance < min_distance:
+					min_distance = distance
+					selected_slider = slider
+			if selected_slider != null:
+				_has_slider_active = true
+				selected_slider.activate_slider()
