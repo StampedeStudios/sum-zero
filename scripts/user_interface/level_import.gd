@@ -5,18 +5,14 @@ const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
 
 var _inserted_code: String
 
-@onready var code: Button = %Code
+@onready var paste: Button = %Paste
 @onready var level_name: LineEdit = %LevelName
 @onready var save_btn: Button = %SaveBtn
-@onready var persist_btn: Button = %PersistBtn
 @onready var panel: Panel = %Panel
+@onready var code: LineEdit = %Code
 
 
 func _ready() -> void:
-	if OS.has_feature("debug"):
-		persist_btn.show()
-	else:
-		persist_btn.hide()
 	GameManager.on_state_change.connect(_on_state_change)
 
 	panel.scale = GameManager.ui_scale
@@ -42,24 +38,10 @@ func _on_save_btn_pressed() -> void:
 		self.hide()
 
 
-func _on_persist_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	var level_data: LevelData = Encoder.decode(_inserted_code)
-	if level_data == null:
-		_show_error()
-	else:
-		level_data.name = level_name.text
-		GameManager.save_persistent_level(level_data)
-		code.text = ""
-		level_name.text = ""
-		self.hide()
-
-
 func _on_code_pressed() -> void:
 	AudioManager.play_click_sound()
 	var cb_content := DisplayServer.clipboard_get()
 	_inserted_code = cb_content.split("\n")[0]
-
 	code.text = " " + _inserted_code
 	_update_save_btn()
 
@@ -74,17 +56,27 @@ func _on_level_name_text_changed(new_text: String) -> void:
 		level_name.caret_column = level_name.text.length()
 	else:
 		level_name.text = ""
+	_update_save_btn()
 
+
+func _on_code_text_changed(new_text: String) -> void:
+	var regex = RegEx.new()
+	regex.compile("^[A-Za-z0-9-]+$")
+
+	var result := regex.search(new_text)
+	if result:
+		code.text = result.get_string()
+		code.caret_column = code.text.length()
+	else:
+		code.text = ""
 	_update_save_btn()
 
 
 func _update_save_btn() -> void:
 	if code.text == "" or level_name.text == "":
 		save_btn.disabled = true
-		persist_btn.disabled = true
 	else:
 		save_btn.disabled = false
-		persist_btn.disabled = false
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -103,14 +95,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _show_error() -> void:
 	save_btn.disabled = true
-	persist_btn.disabled = true
-	code.add_theme_stylebox_override("normal", BUTTON_ERROR)
-	code.add_theme_color_override("icon_normal_color", Color.DARK_RED)
+	paste.add_theme_stylebox_override("normal", BUTTON_ERROR)
+	paste.add_theme_color_override("icon_normal_color", Color.DARK_RED)
 	code.add_theme_color_override("font_color", Color.DARK_RED)
 
 	await get_tree().create_timer(1).timeout
-	code.add_theme_stylebox_override("normal", BUTTON_NORMAL)
-	code.remove_theme_color_override("icon_normal_color")
+	paste.add_theme_stylebox_override("normal", BUTTON_NORMAL)
+	paste.remove_theme_color_override("icon_normal_color")
 	code.remove_theme_color_override("font_color")
 	code.text = ""
 

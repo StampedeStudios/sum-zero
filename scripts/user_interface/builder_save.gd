@@ -11,15 +11,10 @@ var _invalid_moves: bool
 @onready var level_name = %LevelName
 @onready var moves = %Moves
 @onready var save_btn = %SaveBtn
-@onready var persist_btn: Button = %PersistBtn
 @onready var panel: Panel = %Panel
 
 
 func _ready():
-	if OS.has_feature("debug"):
-		persist_btn.show()
-	else:
-		persist_btn.hide()
 	GameManager.on_state_change.connect(_on_state_change)
 	_invalid_moves = true
 	_invalid_name = true
@@ -62,12 +57,6 @@ func _on_save_btn_pressed():
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
-func _on_persist_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	on_query_close.emit(true, level_name.text, int(moves.text))
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
-
-
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""
 
@@ -86,7 +75,6 @@ func _on_moves_text_changed(new_text: String) -> void:
 
 func _check_valid_info() -> void:
 	save_btn.disabled = _invalid_moves or _invalid_name
-	persist_btn.disabled = _invalid_moves or _invalid_name
 
 
 func _on_level_name_text_changed(new_text: String) -> void:
