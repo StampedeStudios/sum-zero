@@ -8,8 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="6_q6q01"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_7obcj"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ud3al"]
-load_path = "res://.godot/imported/save_icon.png-bb729b418ac7c5fcd58f67cd4ad6fc4c.ctex"
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obo31"]
 
 [node name="SaveQuery" type="Control"]
 layout_mode = 3
@@ -98,30 +97,12 @@ selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
-theme_override_constants/separation = 20
-alignment = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_obo31")
 
-[node name="PersistBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 8
-focus_mode = 0
-theme = ExtResource("2_q3qhm")
-theme_override_colors/icon_normal_color = Color(0.784314, 0, 0, 1)
-theme_override_colors/icon_focus_color = Color(0.784314, 0, 0, 1)
-theme_override_colors/icon_pressed_color = Color(1, 0, 0, 1)
-theme_override_colors/icon_hover_color = Color(1, 0, 0, 1)
-theme_override_colors/icon_hover_pressed_color = Color(1, 0, 0, 1)
-theme_override_constants/icon_max_width = 128
-icon = SubResource("CompressedTexture2D_ud3al")
-flat = true
-
-[node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/Controls"]
+[node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -152,6 +133,5 @@ icon_alignment = 1
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/Moves" to="." method="_on_moves_text_changed"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/PersistBtn" to="." method="_on_persist_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/Controls/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

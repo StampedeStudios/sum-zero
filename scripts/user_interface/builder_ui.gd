@@ -12,6 +12,11 @@ const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn
 
 
 func _ready():
+	if OS.has_feature("debug"):
+		top_buttons.show()
+	else:
+		top_buttons.hide()
+		
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
