@@ -149,7 +149,6 @@ func _init_grid(level_size: Vector2i) -> void:
 func _on_playable_area_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_slider_active:
-			print("eccolo")
 			var min_distance: float = GameManager.cell_size / 2
 			var selected_slider: SliderArea
 			for slider in grid_sliders:
