@@ -33,6 +33,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 		GlobalConst.GameState.OPTION_MENU:
 			pass
+		GlobalConst.GameState.CREDITS:
+			pass
 		_:
 			self.visible = false
 

@@ -27,7 +27,7 @@ grow_vertical = 2
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-color = Color(0.94902, 0.878431, 0.815686, 1)
+color = Color(0.64255, 0.71, 0.639, 0.776471)
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect"]
 unique_name_in_owner = true

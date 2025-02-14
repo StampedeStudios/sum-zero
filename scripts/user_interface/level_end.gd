@@ -5,6 +5,7 @@ signal restart_level
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
 const ANIMATION_DURATION = 300
+const CREDITS = preload("res://packed_scene/user_interface/CreditsScreen.tscn")
 
 var _has_next_level: bool
 
@@ -103,7 +104,9 @@ func _on_next_btn_pressed():
 	AudioManager.play_click_sound()
 
 	if !_has_next_level:
-		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		var credits := CREDITS.instantiate()
+		get_tree().root.add_child.call_deferred(credits)
+		GameManager.change_state(GlobalConst.GameState.CREDITS)
 	else:
 		var level: LevelData = GameManager.get_next_level()
 		GameManager.level_manager.init_level.call_deferred(level)
