@@ -35,9 +35,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -275.0
-offset_top = -200.0
+offset_top = -275.0
 offset_right = 275.0
-offset_bottom = 300.0
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
@@ -73,56 +73,69 @@ popup/item_3/id = 3
 popup/item_4/text = "Deutsch"
 popup/item_4/id = 4
 
-[node name="Options" type="HBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="Options" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = 20
 
-[node name="Labels" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Labels" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 size_flags_stretch_ratio = 3.7
 theme_override_constants/separation = 20
 
-[node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
+[node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "MUSIC"
 
-[node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
+[node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "SFX"
 
-[node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/Labels"]
+[node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "TUTORIAL"
 
-[node name="Buttons" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+[node name="Buttons" type="VBoxContainer" parent="Background/Panel/MarginContainer/Options/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_stretch_ratio = 1.5
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="MusicBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="MusicBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("1_ncc3j")
 flat = true
 
-[node name="SfxBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="SfxBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 button_pressed = true
 flat = true
 
-[node name="TutorialBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/Buttons"]
+[node name="TutorialBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 button_pressed = true
 flat = true
+
+[node name="LinkButton" type="LinkButton" parent="Background/Panel/MarginContainer/Options"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
+theme_override_colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+theme_override_colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+text = "About us"
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
 layout_mode = 1
@@ -144,7 +157,8 @@ icon_alignment = 1
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="item_selected" from="Background/Panel/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/MusicBtn" to="." method="_on_music_btn_toggled"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/SfxBtn" to="." method="_on_sfx_btn_toggled"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/Buttons/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
+[connection signal="toggled" from="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons/MusicBtn" to="." method="_on_music_btn_toggled"]
+[connection signal="toggled" from="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons/SfxBtn" to="." method="_on_sfx_btn_toggled"]
+[connection signal="toggled" from="Background/Panel/MarginContainer/Options/HBoxContainer/Buttons/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/Options/LinkButton" to="." method="_on_link_button_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

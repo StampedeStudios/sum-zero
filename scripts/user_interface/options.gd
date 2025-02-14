@@ -1,6 +1,7 @@
 class_name Options extends Control
 
 const PANEL = preload("res://assets/resources/themes/panel.tres")
+const CREDITS = preload("res://packed_scene/user_interface/CreditsScreen.tscn")
 
 var _player_options: PlayerOptions
 
@@ -68,3 +69,10 @@ func _on_option_button_item_selected(index: int) -> void:
 	var preferred_locale: String = GlobalConst.AVAILABLE_LANGS[index]
 	_player_options.language = preferred_locale
 	TranslationServer.set_locale(preferred_locale)
+
+
+func _on_link_button_pressed() -> void:
+	var credits := CREDITS.instantiate()
+	get_tree().root.add_child.call_deferred(credits)
+	GameManager.credits = credits
+	GameManager.change_state(GlobalConst.GameState.CREDITS)
