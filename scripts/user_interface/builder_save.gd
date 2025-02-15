@@ -1,16 +1,17 @@
 class_name BuilderSave extends Control
 
-signal on_query_close(is_persistent_level: bool, level_name: String, level_moves: int)
+signal on_query_close(level_name: String, level_moves: int)
 
 const MAX_MOVES_CHAR: int = 2
 const MAX_NAME_CHAR: int = 10
 
 var _invalid_name: bool
 var _invalid_moves: bool
+var _invalid_level: bool
 
-@onready var level_name = %LevelName
-@onready var moves = %Moves
-@onready var save_btn = %SaveBtn
+@onready var level_name: LineEdit = %LevelName
+@onready var moves: LineEdit = %Moves
+@onready var save_btn: Button = %SaveBtn
 @onready var panel: Panel = %Panel
 
 
@@ -24,13 +25,16 @@ func _ready():
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
-func initialize_info(old_name: String, old_moves: String) -> void:
-	level_name.text = old_name
-	moves.text = old_moves
+func init_info(old_name: String, old_moves: String, invalid_level: bool) -> void:
+	if old_name != "":
+		level_name.text = old_name
+	if old_moves != "":
+		moves.text = old_moves
 	level_name.caret_column = old_name.length()
 	moves.caret_column = old_moves.length()
-	_invalid_moves = false
-	_invalid_name = false
+	_invalid_moves = moves.text.is_empty()
+	_invalid_name = level_name.text.is_empty()
+	_invalid_level = invalid_level
 	_check_valid_info()
 
 
@@ -39,13 +43,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.BUILDER_SAVE:
-			_invalid_moves = true
-			_invalid_name = true
-			level_name.text = ""
-			level_name.caret_column = 0
-			moves.text = ""
-			moves.caret_column = 0
-			_check_valid_info()
 			self.visible = true
 		_:
 			self.visible = false
@@ -53,7 +50,11 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_save_btn_pressed():
 	AudioManager.play_click_sound()
-	on_query_close.emit(false, level_name.text, int(moves.text))
+	on_query_close.emit(level_name.text, int(moves.text))
+	level_name.text = ""
+	level_name.caret_column = 0
+	moves.text = ""
+	moves.caret_column = 0
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
@@ -74,7 +75,7 @@ func _on_moves_text_changed(new_text: String) -> void:
 
 
 func _check_valid_info() -> void:
-	save_btn.disabled = _invalid_moves or _invalid_name
+	save_btn.disabled = _invalid_moves or _invalid_name or _invalid_level
 
 
 func _on_level_name_text_changed(new_text: String) -> void:

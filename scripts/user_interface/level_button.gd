@@ -132,8 +132,7 @@ func _unlock_level() -> void:
 
 func _delete_level_button() -> void:
 	AudioManager.play_click_sound()
-	on_delete_level_button.emit(self)
-	self.queue_free.call_deferred()
+	on_delete_level_button.emit()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:

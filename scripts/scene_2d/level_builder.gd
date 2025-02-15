@@ -53,9 +53,12 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				get_tree().root.add_child.call_deferred(builder_save)
 				builder_save.on_query_close.connect(_on_save_query_received)
 				GameManager.builder_save = builder_save
+			var level_name := ""
+			var moves := ""
 			if _level_data.name != "":
-				var moves := String.num_int64(_level_data.moves_left)
-				GameManager.builder_save.initialize_info.call_deferred(_level_data.name, moves)
+				level_name = _level_data.name
+				moves = String.num_int64(_level_data.moves_left)
+			GameManager.builder_save.init_info.call_deferred(level_name, moves, invalid_level())
 
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
@@ -365,6 +368,14 @@ func move_grid(offset: Vector2) -> void:
 
 func get_level_data() -> LevelData:
 	return _level_data
+
+
+func invalid_level() -> bool:
+	if _level_data.cells_list.is_empty():
+		return true
+	if _level_data.slider_list.is_empty():
+		return true
+	return false
 
 
 func generate_level(element: GlobalConst.GenerationElement) -> void:

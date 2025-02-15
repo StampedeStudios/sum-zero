@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=13 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bpffu8oqt7i7m" path="res://assets/ui/lamp.png" id="6_a5f4w"]
 [ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
+[ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tivdf"]
 
@@ -154,70 +155,14 @@ grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 0
 
-[node name="LeftPage" type="MarginContainer" parent="Pages"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/LeftPage"]
+[node name="Page" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
-[node name="LevelGridSx" type="GridContainer" parent="Pages/LeftPage/AspectRatioContainer"]
-unique_name_in_owner = true
-visible = false
+[node name="Page2" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
-theme_override_constants/h_separation = 60
-theme_override_constants/v_separation = 60
-columns = 3
 
-[node name="CurrentPage" type="MarginContainer" parent="Pages"]
-unique_name_in_owner = true
+[node name="Page3" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/CurrentPage"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LevelGrid" type="GridContainer" parent="Pages/CurrentPage/AspectRatioContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 60
-theme_override_constants/v_separation = 60
-columns = 3
-
-[node name="RightPage" type="MarginContainer" parent="Pages"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/RightPage"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LevelGridDx" type="GridContainer" parent="Pages/RightPage/AspectRatioContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/h_separation = 60
-theme_override_constants/v_separation = 60
-columns = 3
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Top/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/WorldBtn" to="." method="_on_world_btn_pressed"]
