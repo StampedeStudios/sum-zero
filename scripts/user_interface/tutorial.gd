@@ -4,7 +4,7 @@ class_name Tutorial extends Control
 @onready var animation: AnimatedSprite2D = %Animation
 @onready var texture: TextureRect = %Texture
 @onready var static_tutorial: Control = %StaticTutorial
-@onready var animation_text: Label = %AnimationText
+@onready var animation_text: RichTextLabel = %AnimationText
 @onready var static_text: Label = %StaticText
 
 

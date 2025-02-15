@@ -42,7 +42,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AnimationText" type="Label" parent="AnimatedTutorial"]
+[node name="AnimationText" type="RichTextLabel" parent="AnimatedTutorial"]
 unique_name_in_owner = true
 z_index = 200
 custom_minimum_size = Vector2(800, 0)
@@ -52,15 +52,17 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -795.5
-offset_right = 250.0
-offset_bottom = -554.5
+offset_left = -400.0
+offset_top = -794.5
+offset_right = 400.0
+offset_bottom = -553.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_pl66g")
-horizontal_alignment = 1
-vertical_alignment = 2
+theme_override_font_sizes/normal_font_size = 45
+bbcode_enabled = true
+text = "[center][color=black]Complete the levels by resetting the matrix!\\nDrag the 'Slider' to apply its effect to the cells!\\n([color=red]-[/color]) subtracts one unit."
+fit_content = true
 autowrap_mode = 2
 
 [node name="Animation" type="AnimatedSprite2D" parent="AnimatedTutorial"]
