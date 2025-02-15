@@ -389,7 +389,7 @@ static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Di
 			if slider_count == 0:
 				break
 	return slider_list
-
+	
 
 static func _get_next_slider_coord(
 	last_coord: Vector2i, level_size: Vector2i, offset: int
