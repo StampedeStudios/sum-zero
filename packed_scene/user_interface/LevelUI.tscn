@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=12 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://bpffu8oqt7i7m" path="res://assets/ui/lamp.png" id="6_a5f4w"]
 [ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tivdf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_28173"]
 resource_local_to_scene = true
@@ -100,32 +102,17 @@ text = "CUSTOM"
 icon = ExtResource("6_a5f4w")
 icon_alignment = 2
 
-[node name="Content" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="MarginContainer/VBoxContainer/Content"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="LevelGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Content/AspectRatioContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 60
-theme_override_constants/v_separation = 60
-columns = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_tivdf")
 
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="LeftBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Controls"]
-layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="Left" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls/LeftBox"]
+[node name="Left" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_28173")
 layout_mode = 2
@@ -142,11 +129,7 @@ text = "1 ~ 9"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="RightBox" type="BoxContainer" parent="MarginContainer/VBoxContainer/Controls"]
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="Right" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls/RightBox"]
+[node name="Right" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_3vuwy")
 layout_mode = 2
@@ -154,8 +137,91 @@ size_flags_vertical = 4
 texture_normal = ExtResource("3_2fw0e")
 flip_h = true
 
+[node name="Pages" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1080.0
+offset_top = -340.0
+offset_right = 1080.0
+offset_bottom = 460.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+mouse_filter = 0
+
+[node name="LeftPage" type="MarginContainer" parent="Pages"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/LeftPage"]
+layout_mode = 2
+
+[node name="LevelGridSx" type="GridContainer" parent="Pages/LeftPage/AspectRatioContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_override_constants/h_separation = 60
+theme_override_constants/v_separation = 60
+columns = 3
+
+[node name="CurrentPage" type="MarginContainer" parent="Pages"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/CurrentPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGrid" type="GridContainer" parent="Pages/CurrentPage/AspectRatioContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 60
+theme_override_constants/v_separation = 60
+columns = 3
+
+[node name="RightPage" type="MarginContainer" parent="Pages"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 40
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Pages/RightPage"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LevelGridDx" type="GridContainer" parent="Pages/RightPage/AspectRatioContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 60
+theme_override_constants/v_separation = 60
+columns = 3
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Top/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/WorldBtn" to="." method="_on_world_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/CustomBtn" to="." method="_on_custom_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/LeftBox/Left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/RightBox/Right" to="." method="_on_right_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Right" to="." method="_on_right_pressed"]
+[connection signal="gui_input" from="Pages" to="." method="_on_pages_gui_input"]

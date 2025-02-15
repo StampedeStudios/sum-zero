@@ -27,8 +27,8 @@ func _draw():
 	# Set size flags to allow expansion inside containers
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
-
 	focus_mode = Control.FocusMode.FOCUS_NONE
+	mouse_filter = Control.MouseFilter.MOUSE_FILTER_PASS
 
 
 func _init() -> void:
@@ -42,6 +42,8 @@ func _init() -> void:
 
 
 func _pressed() -> void:
+	if GameManager.level_ui.has_consume_input:
+		return
 	AudioManager.play_click_sound()
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
