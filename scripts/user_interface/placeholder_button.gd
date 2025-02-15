@@ -27,7 +27,7 @@ func _init() -> void:
 	add_theme_stylebox_override("pressed", HOVER_STYLE)
 	icon_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	vertical_icon_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
-
+	mouse_filter = Control.MouseFilter.MOUSE_FILTER_PASS
 	expand_icon = true
 
 
