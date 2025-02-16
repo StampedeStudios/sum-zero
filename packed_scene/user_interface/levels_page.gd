@@ -18,7 +18,7 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 	level_grid.add_theme_constant_override("h_separation", GameManager.vertical_margin)
 	level_grid.add_theme_constant_override("v_separation", GameManager.vertical_margin)
-	
+
 
 func toggle_page(page_visible: bool) -> void:
 	if page_visible:
@@ -36,10 +36,10 @@ func update_page(world: GlobalConst.LevelGroup, page: int) -> void:
 	var last_level: int = page * PAGE_SIZE
 	var levels_progress: Array[LevelProgress]
 	levels_progress = GameManager.get_page_levels(world, first_level, last_level)
-	
+
 	# add level buttons
 	for i in range(levels_progress.size()):
-		var button : LevelButton
+		var button: LevelButton
 		if _level_buttons.is_empty():
 			button = LevelButton.new()
 			button.on_delete_level_button.connect(_on_level_deleted)
@@ -51,7 +51,7 @@ func update_page(world: GlobalConst.LevelGroup, page: int) -> void:
 		var id := (page - 1) * PAGE_SIZE + i
 		button.construct(id, levels_progress[i], world)
 		level_grid.move_child(button, i)
-	
+
 	# add placeholder when level buttons don't fill the page
 	for i in range(levels_progress.size(), PAGE_SIZE):
 		var button: PlaceholderButton
@@ -84,7 +84,7 @@ func _remove_extra_buttons() -> void:
 	for button in _placeholder_buttons:
 		button.queue_free.call_deferred()
 	_placeholder_buttons.clear()
-	
+
 
 func _on_level_deleted() -> void:
 	level_deleted.emit()
