@@ -87,13 +87,11 @@ func _on_exit_btn_pressed() -> void:
 func _check_pages() -> void:
 	match _world:
 		GlobalConst.LevelGroup.MAIN:
-			_update_buttons(levels_progress.size() > PAGE_SIZE)
-			var num_pages: int = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
-			title.text = "%02d of %d" % [_current_page, num_pages]
+			_num_pages = ceil(float(GameManager.get_num_levels(_world)) / PAGE_SIZE)
 		GlobalConst.LevelGroup.CUSTOM:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
-	title.text = "%d of %d" % [_current_page, _num_pages]
+	title.text = "%02d of %d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
 		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
