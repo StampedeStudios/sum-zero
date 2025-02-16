@@ -16,7 +16,7 @@ func _ready():
 		top_buttons.show()
 	else:
 		top_buttons.hide()
-		
+
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)

@@ -36,7 +36,6 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-
 	world_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	custom_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
@@ -48,7 +47,7 @@ func _ready() -> void:
 	pages.size.y = get_viewport().size.y - 350 - GameManager.vertical_margin * 2
 	pages.position.x = _page_width / 2 - pages.size.x / 2
 	pages.position.y = get_viewport().size.y - 128 - GameManager.vertical_margin - pages.size.y
-	
+
 	for child in pages.get_children():
 		if child is LevelPage:
 			_levels_page.append(child)
@@ -60,7 +59,6 @@ func _ready() -> void:
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
 	_check_pages()
 	_init_pages()
-
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -96,12 +94,6 @@ func _check_pages() -> void:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
 	title.text = "%d of %d" % [_current_page, _num_pages]
-<<<<<<< HEAD
-	_scroll_range = Vector2(-_page_width, _page_width)
-
-=======
-	
->>>>>>> 494f102 (fix: improve level UI performance)
 	if _current_page == 1:
 		left.disabled = true
 		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
@@ -110,12 +102,8 @@ func _check_pages() -> void:
 	else:
 		left.disabled = false
 		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
-<<<<<<< HEAD
-		level_grid_sx.show()
-=======
 		_levels_page[0].toggle_page(true)
 		_scroll_range.y = _page_width
->>>>>>> 494f102 (fix: improve level UI performance)
 
 	if _current_page >= _num_pages:
 		right.disabled = true
@@ -129,150 +117,6 @@ func _check_pages() -> void:
 		_scroll_range.x = -_page_width
 
 
-<<<<<<< HEAD
-func _update_left_page() -> void:
-	_unfill_grid(level_grid_sx)
-	if _current_page == 1:
-		return
-
-	var first_level: int = (_current_page - 2) * PAGE_SIZE + 1
-	var last_level: int = (_current_page - 1) * PAGE_SIZE
-	var levels_progress: Array[LevelProgress]
-	levels_progress = GameManager.get_page_levels(_world, first_level, last_level)
-
-	for i in range(levels_progress.size()):
-		var button: LevelButton
-		if _level_buttons.is_empty():
-			button = LevelButton.new()
-			button.on_delete_level_button.connect(_on_level_deleted)
-			level_grid_sx.add_child(button)
-		else:
-			button = _level_buttons.pop_back() as LevelButton
-			if button.get_parent() == null:
-				level_grid_sx.add_child(button)
-			else:
-				button.reparent(level_grid_sx)
-		var id := (_current_page - 2) * PAGE_SIZE + i
-		button.construct(id, levels_progress[i], _world)
-		level_grid_sx.move_child(button, i)
-
-
-func _update_current_page() -> void:
-	_unfill_grid(level_grid)
-
-	var first_level: int = (_current_page - 1) * PAGE_SIZE + 1
-	var last_level: int = _current_page * PAGE_SIZE
-	var levels_progress: Array[LevelProgress]
-	levels_progress = GameManager.get_page_levels(_world, first_level, last_level)
-	# add level buttons
-	for i in range(levels_progress.size()):
-		var button: LevelButton
-		if _level_buttons.is_empty():
-			button = LevelButton.new()
-			button.on_delete_level_button.connect(_on_level_deleted)
-			level_grid.add_child(button)
-		else:
-			button = _level_buttons.pop_back() as LevelButton
-			if button.get_parent() == null:
-				level_grid.add_child(button)
-			else:
-				button.reparent(level_grid)
-		var id := (_current_page - 1) * PAGE_SIZE + i
-		button.construct(id, levels_progress[i], _world)
-		level_grid.move_child(button, i)
-	# add placeholder when level buttons don't fill the page
-	if levels_progress.size() < PAGE_SIZE:
-		for i in range(levels_progress.size(), PAGE_SIZE):
-			var button: PlaceholderButton
-			if _placeholder_buttons.is_empty():
-				button = PlaceholderButton.new()
-				level_grid.add_child(button)
-			else:
-				button = _placeholder_buttons.pop_back() as PlaceholderButton
-			if button.get_parent() == null:
-				level_grid.add_child(button)
-			else:
-				button.reparent(level_grid)
-			level_grid.move_child(button, i)
-			button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
-
-
-func _update_right_page() -> void:
-	_unfill_grid(level_grid_dx)
-
-	var first_level: int = _current_page * PAGE_SIZE + 1
-	var last_level: int = (_current_page + 1) * PAGE_SIZE
-	var levels_progress: Array[LevelProgress]
-	levels_progress = GameManager.get_page_levels(_world, first_level, last_level)
-	# add level buttons
-	for i in range(levels_progress.size()):
-		var button: LevelButton
-		if _level_buttons.is_empty():
-			button = LevelButton.new()
-			button.on_delete_level_button.connect(_on_level_deleted)
-			level_grid_dx.add_child(button)
-		else:
-			button = _level_buttons.pop_back() as LevelButton
-			if button.get_parent() == null:
-				level_grid_dx.add_child(button)
-			else:
-				button.reparent(level_grid_dx)
-		var id := _current_page * PAGE_SIZE + i
-		button.construct(id, levels_progress[i], _world)
-		level_grid_dx.move_child(button, i)
-	# add placeholder when level buttons don't fill the page
-	if levels_progress.size() < PAGE_SIZE:
-		for i in range(levels_progress.size(), PAGE_SIZE):
-			var button: PlaceholderButton
-			if _placeholder_buttons.is_empty():
-				button = PlaceholderButton.new()
-				level_grid_dx.add_child(button)
-			else:
-				button = _placeholder_buttons.pop_back() as PlaceholderButton
-			if button.get_parent() == null:
-				level_grid_dx.add_child(button)
-			else:
-				button.reparent(level_grid_dx)
-			level_grid_dx.move_child(button, i)
-			button.construct(_world == GlobalConst.LevelGroup.CUSTOM)
-
-
-func _unfill_grid(grid: GridContainer) -> void:
-	for child in grid.get_children():
-		if child is LevelButton:
-			_level_buttons.append(child)
-		elif child is PlaceholderButton:
-			_placeholder_buttons.append(child)
-		else:
-			child.queue_free.call_deferred()
-
-
-func _transfer_page(current: GridContainer, to: GridContainer) -> void:
-	for child in current.get_children():
-		child.reparent(to)
-
-
-func _remove_extra_buttons() -> void:
-	for button in _level_buttons:
-		button.queue_free.call_deferred()
-	_level_buttons.clear()
-	for button in _placeholder_buttons:
-		button.queue_free.call_deferred()
-	_placeholder_buttons.clear()
-
-
-func _on_level_deleted(ref: LevelButton) -> void:
-	_level_buttons.erase(ref)
-	_update_current_page()
-	_update_right_page()
-	_remove_extra_buttons()
-
-
-func _on_left_pressed() -> void:
-	if _has_movement:
-		_tween.set_speed_scale(3)
-	else:
-=======
 func _init_pages() -> void:
 	# previous page
 	if _current_page > 1:
@@ -286,7 +130,6 @@ func _init_pages() -> void:
 
 func _on_left_pressed() -> void:
 	if !_has_movement:
->>>>>>> 494f102 (fix: improve level UI performance)
 		AudioManager.play_click_sound()
 		_start_position = pages.global_position.x
 		_target_position = _start_position + _page_width
@@ -294,13 +137,7 @@ func _on_left_pressed() -> void:
 
 
 func _on_right_pressed() -> void:
-<<<<<<< HEAD
-	if _has_movement:
-		_tween.set_speed_scale(3)
-	else:
-=======
 	if !_has_movement:
->>>>>>> 494f102 (fix: improve level UI performance)
 		AudioManager.play_click_sound()
 		_start_position = pages.global_position.x
 		_target_position = _start_position - _page_width
@@ -334,7 +171,7 @@ func _move_right(transition_time: float) -> void:
 	_levels_page.push_front(page)
 	pages.global_position.x = _start_position
 	if _current_page > 1:
-		page.update_page(_world, _current_page - 1)		
+		page.update_page(_world, _current_page - 1)
 	_check_pages()
 	_end_animation.call_deferred()
 
@@ -364,8 +201,8 @@ func _on_custom_btn_pressed() -> void:
 func _on_level_deleted() -> void:
 	_check_pages()
 	_init_pages()
-	
-	
+
+
 func update_content() -> void:
 	_check_pages()
 	_init_pages()
