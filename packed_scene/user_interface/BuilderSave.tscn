@@ -91,6 +91,7 @@ placeholder_text = "MOVES"
 alignment = 1
 max_length = 2
 context_menu_enabled = false
+virtual_keyboard_type = 2
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 selecting_enabled = false
