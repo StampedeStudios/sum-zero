@@ -6,8 +6,6 @@ const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
 
 var moves_left: int
 
-var _has_next_level: bool
-
 @onready var skip_btn: Button = %SkipBtn
 @onready var exit_btn: Button = %ExitBtn
 
@@ -51,9 +49,7 @@ func _initialize_ui():
 	moves_left = GameManager.get_active_level().moves_left
 	skip_btn.hide()
 	if GameManager.is_level_completed():
-		_has_next_level = GameManager.set_next_level()
-		if _has_next_level:
-			skip_btn.show()
+		skip_btn.visible = GameManager.set_next_level()
 	var tutorial: TutorialData = GameManager.get_tutorial()
 	if tutorial != null:
 		var tutorial_ui: Tutorial = TUTORIAL.instantiate()
@@ -72,9 +68,6 @@ func _on_reset_btn_pressed():
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	if !_has_next_level:
-		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
-	else:
-		var level: LevelData
-		level = GameManager.get_next_level()
-		GameManager.level_manager.init_level.call_deferred(level)
+	var level: LevelData
+	level = GameManager.get_next_level()
+	GameManager.level_manager.init_level.call_deferred(level)
