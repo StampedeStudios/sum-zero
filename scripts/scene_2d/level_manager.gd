@@ -30,6 +30,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
+		GlobalConst.GameState.LEVEL_PICK:
+			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
 		_:

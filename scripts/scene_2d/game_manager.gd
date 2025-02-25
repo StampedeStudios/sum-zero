@@ -45,7 +45,7 @@ var _player_save: PlayerSave
 var _persistent_save: LevelContainer
 var _active_level_id: int
 var _next_level_id: int
-var _context: GlobalConst.LevelGroup
+var _context: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 
 
 func _ready() -> void:
@@ -131,16 +131,16 @@ func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 	_context = level_group
 
 
-func get_start_level_playable() -> LevelData:
+func get_start_level_playable() -> int:
 	set_levels_context(GlobalConst.LevelGroup.MAIN)
 	# get the first level unlocked and not completed
 	for id in range(_persistent_save.levels_hash.size()):
 		var progress := _player_save.get_progress(_context, id)
 		if progress.is_unlocked and !progress.is_completed:
-			return get_active_level(id)
+			return id
 	# fist play
 	_player_save.unlock_level(0)
-	return get_active_level(0)
+	return 0
 
 
 func save_persistent_level(level_data: LevelData) -> void:
@@ -171,6 +171,10 @@ func set_next_level() -> bool:
 
 func get_active_level_id() -> int:
 	return _active_level_id
+	
+
+func get_active_context() -> GlobalConst.LevelGroup:
+	return _context
 
 
 func get_active_level(level_id: int = -1) -> LevelData:

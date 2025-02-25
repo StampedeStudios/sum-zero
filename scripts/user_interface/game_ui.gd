@@ -3,8 +3,10 @@ class_name GameUI extends Control
 signal reset_level
 
 const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
+const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 
 var moves_left: int
+var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
 
 @onready var skip_btn: Button = %SkipBtn
 @onready var exit_btn: Button = %ExitBtn
@@ -28,15 +30,24 @@ func _ready() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	match _return_to:
+		GlobalConst.GameState.MAIN_MENU:
+			GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		GlobalConst.GameState.LEVEL_PICK:
+			var level_ui: LevelUI
+			level_ui = LEVEL_UI.instantiate()
+			get_tree().root.add_child.call_deferred(level_ui)
+			GameManager.level_ui = level_ui
+			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
+		GlobalConst.GameState.LEVEL_PICK:
+			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
-			_initialize_ui()
 			self.visible = true
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false
@@ -45,7 +56,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _initialize_ui():
+func initialize_ui(prev_state: GlobalConst.GameState):
+	_return_to = prev_state
+	match _return_to:
+		GlobalConst.GameState.MAIN_MENU:
+			exit_btn.text = tr("BACK")
+		GlobalConst.GameState.LEVEL_PICK:
+			exit_btn.text = tr("LEVELS")
 	moves_left = GameManager.get_active_level().moves_left
 	skip_btn.hide()
 	if GameManager.is_level_completed():

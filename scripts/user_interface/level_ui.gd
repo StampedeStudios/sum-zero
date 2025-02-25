@@ -7,7 +7,7 @@ const PAGE_PER_SECOND: float = 5
 
 var has_consume_input: bool
 
-var _world: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
+var _world: GlobalConst.LevelGroup
 var _current_page: int = 1
 var _start_drag: float
 var _start_position: float
@@ -54,11 +54,19 @@ func _ready() -> void:
 			child.level_deleted.connect(_on_level_deleted)
 
 	GameManager.on_state_change.connect(_on_state_change)
-	# Set starting page where the next playable level is
-	var active_level_id: int = GameManager.get_active_level_id()
-	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
+	_set_start_point()
 	_check_pages()
 	_init_pages()
+
+
+func _set_start_point() -> void:
+	# Set starting page where the next playable level is
+	var active_level_id: int = GameManager.get_start_level_playable()
+	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
+	# Set starting world where the next playable level is
+	_world = GameManager.get_active_context()
+	world_btn.visible = _world == GlobalConst.LevelGroup.CUSTOM
+	custom_btn.visible = _world == GlobalConst.LevelGroup.MAIN	
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -178,8 +186,8 @@ func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = GlobalConst.LevelGroup.MAIN
 	# Set starting page where the next playable level is
-	var active_level_id: int = GameManager.get_active_level_id()
-	_current_page = ceil(float(active_level_id + 1) / PAGE_SIZE)
+	var active_level_id: int = GameManager.get_start_level_playable()
+	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
 	world_btn.hide()
 	custom_btn.show()
 	_check_pages()
