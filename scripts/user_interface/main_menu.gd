@@ -7,8 +7,6 @@ const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
 const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
 
-var _playable_level: LevelData
-
 @onready var version_label: Label = %VersionLabel
 @onready var margin: MarginContainer = %MarginContainer
 
@@ -29,7 +27,6 @@ func _ready():
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
-			_playable_level = GameManager.get_start_level_playable()
 			self.visible = true
 		GlobalConst.GameState.OPTION_MENU:
 			pass
@@ -41,10 +38,12 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_play_btn_pressed():
 	AudioManager.play_click_sound()
-	if _playable_level != null:
+	var playable_level = GameManager.get_active_level(GameManager.get_start_level_playable())
+	if playable_level != null:
 		var game_ui: GameUI
 		game_ui = GAME_UI.instantiate()
 		get_tree().root.add_child.call_deferred(game_ui)
+		game_ui.initialize_ui.call_deferred(GlobalConst.GameState.MAIN_MENU)
 		GameManager.game_ui = game_ui
 
 		var level_manager: LevelManager
@@ -53,7 +52,7 @@ func _on_play_btn_pressed():
 		level_manager.set_manager_mode.call_deferred(false)
 		GameManager.level_manager = level_manager
 
-		level_manager.init_level.call_deferred(_playable_level)
+		level_manager.init_level.call_deferred(playable_level)
 
 
 func _on_level_btn_pressed():
@@ -61,7 +60,6 @@ func _on_level_btn_pressed():
 	var level_ui: LevelUI
 	level_ui = LEVEL_UI.instantiate()
 	get_tree().root.add_child.call_deferred(level_ui)
-
 	GameManager.level_ui = level_ui
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 
