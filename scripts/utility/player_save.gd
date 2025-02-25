@@ -75,8 +75,10 @@ func add_world_progress(level_hash) -> void:
 
 func unlock_level(level_id: int) -> void:
 	var level_hash = _persistent.levels_hash[level_id]
-	var progress := Vector3i(1, 0, -1000)
-	persistent_progress[level_hash] = progress
+	var current_progress = persistent_progress.get(level_hash) as Vector3i
+	if current_progress.x == 0:
+		var progress := Vector3i(1, 0, -1000)
+		persistent_progress[level_hash] = progress
 
 
 func delete_custom_level(level_id: int) -> void:
