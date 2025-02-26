@@ -34,7 +34,6 @@ var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
 var main_menu: MainMenu
-var credits: CreditsScreen
 var splash_screen: SplashScreen
 var level_end: LevelEnd
 var level_ui: LevelUI

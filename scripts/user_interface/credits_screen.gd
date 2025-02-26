@@ -5,23 +5,13 @@ class_name CreditsScreen extends Control
 
 
 func _ready() -> void:
-	GameManager.on_state_change.connect(_on_state_change)
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 	await get_tree().create_timer(1).timeout
-
 	start_credits_scroll()
-
-
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.CREDITS:
-			self.visible = true
-		_:
-			self.visible = false
 
 
 func start_credits_scroll():
@@ -34,6 +24,7 @@ func start_credits_scroll():
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	queue_free.call_deferred()
 
 
 func _on_git_hub_btn_pressed() -> void:

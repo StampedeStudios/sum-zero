@@ -1,8 +1,6 @@
 class_name Options extends Control
 
-const PANEL = preload("res://assets/resources/themes/panel.tres")
-const CREDITS = preload("res://packed_scene/user_interface/CreditsScreen.tscn")
-
+const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 var _player_options: PlayerOptions
 
 @onready var panel: Panel = %Panel
@@ -13,7 +11,6 @@ var _player_options: PlayerOptions
 
 
 func _ready():
-	GameManager.on_state_change.connect(_on_state_change)
 	_player_options = GameManager.get_options()
 
 	music_btn.set_pressed_no_signal(_player_options.music_on)
@@ -23,25 +20,25 @@ func _ready():
 	var index: int = GlobalConst.AVAILABLE_LANGS.find(_player_options.language)
 	options_btn.selected = index
 
-	panel.scale = GameManager.ui_scale
+	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+
+
+func animate(animated_scale: Vector2) -> void:
+	panel.scale = animated_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-
-
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
-			GameManager.save_player_data()
-			self.queue_free.call_deferred()
-		GlobalConst.GameState.OPTION_MENU:
-			self.visible = true
-		_:
-			self.visible = false
+	
+	
+func _exit_options() -> void:
+	GameManager.save_player_data()
+	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	queue_free.call_deferred()
 
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()
-		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		_exit_options()
 
 
 func _on_music_btn_toggled(toggled_on: bool) -> void:
@@ -62,7 +59,7 @@ func _on_tutorial_btn_toggled(toggled_on: bool) -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	_exit_options()
 
 
 func _on_option_button_item_selected(index: int) -> void:
@@ -71,8 +68,9 @@ func _on_option_button_item_selected(index: int) -> void:
 	TranslationServer.set_locale(preferred_locale)
 
 
-func _on_link_button_pressed() -> void:
-	var credits := CREDITS.instantiate()
+func _on_link_button_pressed() -> void:	
+	var credits_scene := ResourceLoader.load(CREDITS) as PackedScene
+	var credits := credits_scene.instantiate()
 	get_tree().root.add_child.call_deferred(credits)
-	GameManager.credits = credits
 	GameManager.change_state(GlobalConst.GameState.CREDITS)
+	queue_free.call_deferred()
