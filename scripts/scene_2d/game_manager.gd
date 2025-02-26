@@ -2,15 +2,14 @@ extends Node
 
 signal on_state_change(new_state: GlobalConst.GameState)
 
-const MAIN_MENU = preload("res://packed_scene/user_interface/MainMenu.tscn")
-const SPLASH_SCREEN = preload("res://packed_scene/user_interface/SplashScreen.tscn")
+const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
+const SPLASH_SCREEN = "res://packed_scene/user_interface/SplashScreen.tscn"
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 
 @export var palette: ColorPalette
-@export var slider_collection: SliderCollection
 
 var ui_scale: Vector2
 var title_font_size: int
@@ -33,8 +32,6 @@ var builder_selection: BuilderSelection
 var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
-var main_menu: MainMenu
-var splash_screen: SplashScreen
 var level_end: LevelEnd
 var level_ui: LevelUI
 var level_inspect: LevelInspect
@@ -49,7 +46,9 @@ var _context: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 
 func _ready() -> void:
 	_set_ui_scale()
-	splash_screen = SPLASH_SCREEN.instantiate()
+	var mode := ResourceLoader.CACHE_MODE_IGNORE_DEEP
+	var	scene := ResourceLoader.load(SPLASH_SCREEN, "", mode) as PackedScene
+	var splash_screen := scene.instantiate() as SplashScreen
 	get_tree().root.add_child.call_deferred(splash_screen)
 
 	if !_try_load_saved_data():
@@ -64,7 +63,8 @@ func start() -> void:
 	AudioManager.start_music()
 
 	# Instantiate main menu
-	main_menu = MAIN_MENU.instantiate()
+	var	scene := ResourceLoader.load(MAIN_MENU) as PackedScene
+	var main_menu := scene.instantiate() as MainMenu
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
 
