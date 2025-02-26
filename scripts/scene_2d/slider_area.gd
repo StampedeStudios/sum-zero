@@ -1,5 +1,4 @@
-class_name SliderArea
-extends Node2D
+class_name SliderArea extends Node2D
 
 signal alter_grid
 
@@ -8,11 +7,6 @@ const MAX_EXTENSION: int = 5 * 256
 const MAX_PITCH: float = 1.5
 const SFX_STEP: int = 64
 const HANDLE_START: int = 110
-
-@export var block_texture: Texture
-@export var block_shader: Shader
-@export var full_collision: PackedVector2Array
-@export var half_collision: PackedVector2Array
 
 var _target_scale: float
 var _is_scaling: bool
@@ -132,9 +126,9 @@ func _process(_delta: float) -> void:
 func _create_blocked_cell() -> void:
 	for i in range(0, _moves):
 		var sprite := Sprite2D.new()
-		sprite.texture = block_texture
+		sprite.texture = SLIDER_COLLECTION.get_block_texture()
 		sprite.material = ShaderMaterial.new()
-		sprite.material.shader = block_shader
+		sprite.material.shader = SLIDER_COLLECTION.get_block_shader()
 		sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
 		add_child.call_deferred(sprite)
 		_blocking_sprite.append(sprite)

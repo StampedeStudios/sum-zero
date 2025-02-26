@@ -2,7 +2,7 @@ class_name LevelManager extends Node2D
 
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
-const LEVEL_END = preload("res://packed_scene/user_interface/LevelEnd.tscn")
+const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 
 var grid_cells: Array[Cell]
 var grid_sliders: Array[SliderArea]
@@ -124,16 +124,20 @@ func check_grid() -> void:
 			break
 	if level_complete and !_is_test_mode:
 		if GameManager.level_end == null:
-			var level_end := LEVEL_END.instantiate()
-			get_tree().root.add_child.call_deferred(level_end)
+			var scene := ResourceLoader.load(LEVEL_END) as PackedScene
+			var level_end := scene.instantiate() as LevelEnd
 			level_end.restart_level.connect(_reset_level)
+			get_tree().root.add_child.call_deferred(level_end)
 			GameManager.level_end = level_end
 		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 
 
 func _reset_level() -> void:
 	for child in grid.get_children():
-		child.reset()
+		if child is SliderArea:
+			child.reset()
+		elif child is Cell:
+			child.reset()
 	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 
 
