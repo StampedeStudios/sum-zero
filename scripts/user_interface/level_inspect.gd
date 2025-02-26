@@ -3,6 +3,7 @@ class_name LevelInspect extends Control
 signal level_unlocked
 
 const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
+const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
 const STARS_SPRITE_SIZE := Vector2(350, 239)
@@ -65,8 +66,8 @@ func _on_build_btn_pressed() -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var game_ui: GameUI
-	game_ui = GameManager.main_menu.GAME_UI.instantiate()
+	var scene := ResourceLoader.load(GAME_UI) as PackedScene
+	var game_ui := scene.instantiate() as GameUI
 	get_tree().root.add_child.call_deferred(game_ui)
 	game_ui.initialize_ui.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 	GameManager.game_ui = game_ui

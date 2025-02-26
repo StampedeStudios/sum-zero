@@ -106,7 +106,7 @@ func _on_next_btn_pressed():
 	if !_has_next_level:
 		var credits := CREDITS.instantiate()
 		get_tree().root.add_child.call_deferred(credits)
-		GameManager.change_state(GlobalConst.GameState.CREDITS)
+		queue_free.call_deferred()
 	else:
 		var level: LevelData = GameManager.get_next_level()
 		GameManager.level_manager.init_level.call_deferred(level)

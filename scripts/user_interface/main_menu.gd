@@ -1,11 +1,11 @@
 class_name MainMenu extends Control
 
-const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
-const OPTIONS = preload("res://packed_scene/user_interface/Options.tscn")
-const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
-const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
-const GAME_UI = preload("res://packed_scene/user_interface/GameUI.tscn")
-const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
+const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
+const OPTIONS = "res://packed_scene/user_interface/Options.tscn"
+const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
+const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
+const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
+const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 
 @onready var version_label: Label = %VersionLabel
 @onready var margin: MarginContainer = %MarginContainer
@@ -28,10 +28,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.visible = true
-		GlobalConst.GameState.OPTION_MENU:
-			pass
-		GlobalConst.GameState.CREDITS:
-			pass
 		_:
 			self.visible = false
 
@@ -40,14 +36,14 @@ func _on_play_btn_pressed():
 	AudioManager.play_click_sound()
 	var playable_level = GameManager.get_active_level(GameManager.get_start_level_playable())
 	if playable_level != null:
-		var game_ui: GameUI
-		game_ui = GAME_UI.instantiate()
+		var scene := ResourceLoader.load(GAME_UI) as PackedScene
+		var game_ui := scene.instantiate() as GameUI
 		get_tree().root.add_child.call_deferred(game_ui)
 		game_ui.initialize_ui.call_deferred(GlobalConst.GameState.MAIN_MENU)
 		GameManager.game_ui = game_ui
 
-		var level_manager: LevelManager
-		level_manager = LEVEL_MANAGER.instantiate()
+		scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+		var level_manager := scene.instantiate() as LevelManager
 		get_tree().root.add_child.call_deferred(level_manager)
 		level_manager.set_manager_mode.call_deferred(false)
 		GameManager.level_manager = level_manager
@@ -57,8 +53,8 @@ func _on_play_btn_pressed():
 
 func _on_level_btn_pressed():
 	AudioManager.play_click_sound()
-	var level_ui: LevelUI
-	level_ui = LEVEL_UI.instantiate()
+	var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
+	var level_ui := scene.instantiate() as LevelUI
 	get_tree().root.add_child.call_deferred(level_ui)
 	GameManager.level_ui = level_ui
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
@@ -66,13 +62,13 @@ func _on_level_btn_pressed():
 
 func _on_editor_btn_pressed():
 	AudioManager.play_click_sound()
-	var builder_ui: BuilderUI
-	builder_ui = BUILDER_UI.instantiate()
+	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
+	var builder_ui := scene.instantiate() as BuilderUI
 	get_tree().root.add_child.call_deferred(builder_ui)
 	GameManager.builder_ui = builder_ui
 
-	var level_builder: LevelBuilder
-	level_builder = LEVEL_BUILDER.instantiate()
+	scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene	
+	var level_builder := scene.instantiate() as LevelBuilder
 	get_tree().root.add_child.call_deferred(level_builder)
 	level_builder.construct_level.call_deferred(LevelData.new())
 	GameManager.level_builder = level_builder
@@ -86,7 +82,6 @@ func _on_quit_btn_pressed():
 
 func _on_option_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var option_ui: Options = OPTIONS.instantiate()
+	var scene := ResourceLoader.load(OPTIONS) as PackedScene
+	var option_ui := scene.instantiate() as Options
 	get_tree().root.add_child.call_deferred(option_ui)
-	GameManager.option_ui = option_ui
-	GameManager.change_state.call_deferred(GlobalConst.GameState.OPTION_MENU)

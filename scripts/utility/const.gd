@@ -4,7 +4,6 @@ enum AreaEffect { ADD, SUBTRACT, CHANGE_SIGN, BLOCK }
 enum AreaBehavior { BY_STEP, FULL }
 enum GameState {
 	MAIN_MENU,
-	OPTION_MENU,
 	LEVEL_PICK,
 	LEVEL_START,
 	LEVEL_END,
@@ -15,8 +14,7 @@ enum GameState {
 	BUILDER_RESIZE,
 	LEVEL_INSPECT,
 	LEVEL_IMPORT,
-	CUSTOM_LEVEL_INSPECT,
-	CREDITS
+	CUSTOM_LEVEL_INSPECT
 }
 enum LevelGroup { CUSTOM, MAIN }
 enum GenerationElement { HOLE, BLOCK, SLIDER }
