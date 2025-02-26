@@ -72,5 +72,4 @@ func _on_link_button_pressed() -> void:
 	var credits_scene := ResourceLoader.load(CREDITS) as PackedScene
 	var credits := credits_scene.instantiate()
 	get_tree().root.add_child.call_deferred(credits)
-	GameManager.change_state(GlobalConst.GameState.CREDITS)
 	queue_free.call_deferred()

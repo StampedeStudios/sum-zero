@@ -2,6 +2,7 @@ class_name CustomLevelInspect extends Control
 
 signal level_deleted
 
+const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_BUILDER = preload("res://packed_scene/scene_2d/LevelBuilder.tscn")
 const BUILDER_UI = preload("res://packed_scene/user_interface/BuilderUI.tscn")
 const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
@@ -70,8 +71,8 @@ func _on_build_btn_pressed() -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var game_ui: GameUI
-	game_ui = GameManager.main_menu.GAME_UI.instantiate()
+	var scene := ResourceLoader.load(GAME_UI) as PackedScene
+	var game_ui := scene.instantiate() as GameUI
 	get_tree().root.add_child.call_deferred(game_ui)		
 	game_ui.initialize_ui.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 	GameManager.game_ui = game_ui
