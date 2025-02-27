@@ -21,9 +21,9 @@ var btn_icon_max_width: int
 var btns_separation: int
 var vertical_margin: int
 var horizontal_margin: int
-
 var cell_size: float
 var level_scale: Vector2
+
 var level_manager: LevelManager
 var level_builder: LevelBuilder
 var game_ui: GameUI
@@ -32,7 +32,6 @@ var builder_selection: BuilderSelection
 var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
-var level_end: LevelEnd
 var level_ui: LevelUI
 
 var _player_save: PlayerSave

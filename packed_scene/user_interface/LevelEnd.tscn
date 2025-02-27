@@ -31,6 +31,7 @@ mouse_filter = 1
 script = ExtResource("1_2umli")
 
 [node name="Panel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

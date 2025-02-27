@@ -5,33 +5,34 @@ signal restart_level
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
 const ANIMATION_DURATION = 300
-const CREDITS = preload("res://packed_scene/user_interface/CreditsScreen.tscn")
+const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 
 var _has_next_level: bool
 
 @onready var score_sprite: AnimatedSprite2D = %LevelScoreImg
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
+@onready var panel: Panel = %Panel
 
 
 func _ready():
-	GameManager.on_state_change.connect(_on_state_change)
-
-	self.scale = GameManager.ui_scale
-	self.position = Vector2(get_viewport().size) / 2 - (self.scale * self.size / 2)
+	await create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
+	update_score()
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_END:
-			self.visible = true
-		_:
-			self.visible = false
+func close() -> void:
+	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	self.queue_free.call_deferred()
 
 
-func update_score(move_left: int) -> void:
+func animate(animated_scale: Vector2) -> void:
+	panel.scale = animated_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
+
+
+func update_score() -> void:
+	var move_left: int = GameManager.game_ui.moves_left
 	GameManager.update_level_progress(move_left)
 	_has_next_level = GameManager.set_next_level()
 	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
@@ -95,7 +96,6 @@ func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
 
 func _on_replay_btn_pressed():
 	AudioManager.play_click_sound()
-
 	restart_level.emit()
 	queue_free()
 
@@ -104,9 +104,10 @@ func _on_next_btn_pressed():
 	AudioManager.play_click_sound()
 
 	if !_has_next_level:
-		var credits := CREDITS.instantiate()
+		var scene := ResourceLoader.load(CREDITS) as PackedScene
+		var credits := scene.instantiate() as CreditsScreen
 		get_tree().root.add_child.call_deferred(credits)
-		queue_free.call_deferred()
+		queue_free()
 	else:
 		var level: LevelData = GameManager.get_next_level()
 		GameManager.level_manager.init_level.call_deferred(level)
