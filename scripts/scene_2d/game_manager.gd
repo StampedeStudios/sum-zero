@@ -28,15 +28,12 @@ var level_manager: LevelManager
 var level_builder: LevelBuilder
 var game_ui: GameUI
 var builder_ui: BuilderUI
-var option_ui: Options
 var builder_selection: BuilderSelection
 var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
 var level_end: LevelEnd
 var level_ui: LevelUI
-var level_inspect: LevelInspect
-var custom_inspect: CustomLevelInspect
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer
