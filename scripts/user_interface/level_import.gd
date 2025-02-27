@@ -1,4 +1,4 @@
-extends Control
+class_name LevelImport extends Control
 
 const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
 const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
@@ -13,15 +13,13 @@ var _inserted_code: String
 
 
 func _ready() -> void:
-	GameManager.on_state_change.connect(_on_state_change)
-
-	panel.scale = GameManager.ui_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
+	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		self.queue_free()
+		AudioManager.play_click_sound()
+		close()
 
 
 func _on_save_btn_pressed() -> void:
@@ -35,7 +33,7 @@ func _on_save_btn_pressed() -> void:
 		GameManager.level_ui.update_content()
 		code.text = ""
 		level_name.text = ""
-		self.hide()
+		close()
 
 
 func _on_code_pressed() -> void:
@@ -79,18 +77,14 @@ func _update_save_btn() -> void:
 		save_btn.disabled = false
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.LEVEL_IMPORT:
-			self.show()
-		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_IDLE:
-			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_START:
-			self.queue_free.call_deferred()
-		_:
-			self.hide()
+func close() -> void:
+	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	self.queue_free.call_deferred()
+
+
+func animate(animated_scale: Vector2) -> void:
+	panel.scale = animated_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _show_error() -> void:
@@ -107,4 +101,5 @@ func _show_error() -> void:
 
 
 func _on_exit_btn_pressed() -> void:
-	self.queue_free()
+	AudioManager.play_click_sound()
+	close()

@@ -5,11 +5,11 @@ const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_
 const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
 
 # Icons
-const IMPORT_ICON: CompressedTexture2D = preload("res://assets/ui/import_icon.png")
-const PLACEHOLDER_ICON: CompressedTexture2D = preload("res://assets/ui/gear_icon.png")
+const IMPORT_ICON = "res://assets/ui/import_icon.png"
+const PLACEHOLDER_ICON = "res://assets/ui/gear_icon.png"
 
 const BROWN: Color = Color8(64, 47, 27)
-const LEVEL_IMPORT = preload("res://packed_scene/user_interface/LevelImport.tscn")
+const LEVEL_IMPORT = "res://packed_scene/user_interface/LevelImport.tscn"
 
 var _is_custom: bool
 
@@ -32,14 +32,17 @@ func _init() -> void:
 
 
 func _pressed() -> void:
+	AudioManager.play_click_sound()
 	if _is_custom:
-		var level_import := LEVEL_IMPORT.instantiate()
+		var scene := ResourceLoader.load(LEVEL_IMPORT) as PackedScene
+		var level_import := scene.instantiate() as LevelImport
 		get_tree().root.add_child(level_import)
 
 
 func construct(is_custom: bool) -> void:
 	_is_custom = is_custom
-	icon = IMPORT_ICON if _is_custom else PLACEHOLDER_ICON
+	var icon_path := IMPORT_ICON if _is_custom else PLACEHOLDER_ICON
+	icon = ResourceLoader.load(icon_path) as Texture2D
 	add_theme_color_override("icon_normal_color", BROWN)
 	add_theme_color_override("icon_hover_color", BROWN)
 	add_theme_color_override("icon_pressed_color", BROWN)

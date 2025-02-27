@@ -5,17 +5,17 @@ signal on_delete_level_button(ref: LevelButton)
 # Styles
 const NORMAL_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button.tres")
 const HOVER_STYLE: StyleBoxFlat = preload("res://assets/resources/themes/level_button_hover.tres")
-const LEVEL_INSPECT = preload("res://packed_scene/user_interface/LevelInspect.tscn")
-const CUSTOM_LEVEL_INSPECT = preload("res://packed_scene/user_interface/CustomLevelInspect.tscn")
-const THEME = preload("res://assets/resources/themes/default.tres")
+const THEME = "res://assets/resources/themes/default.tres"
 
 # Icons
-const LOCK_ICON: CompressedTexture2D = preload("res://assets/ui/lock_icon.png")
-const ZERO_STARS = preload("res://assets/ui/zero_stars.png")
-const ONE_STAR = preload("res://assets/ui/one_star.png")
-const TWO_STARS = preload("res://assets/ui/two_stars.png")
-const THREE_STARS = preload("res://assets/ui/three_stars.png")
+const LOCK_ICON = "res://assets/ui/lock_icon.png"
+const ZERO_STARS = "res://assets/ui/zero_stars.png"
+const ONE_STAR = "res://assets/ui/one_star.png"
+const TWO_STARS = "res://assets/ui/two_stars.png"
+const THREE_STARS = "res://assets/ui/three_stars.png"
 
+const LEVEL_INSPECT = "res://packed_scene/user_interface/LevelInspect.tscn"
+const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspect.tscn"
 const BROWN: Color = Color8(64, 47, 27)
 
 var _level_id: int
@@ -47,23 +47,19 @@ func _pressed() -> void:
 	AudioManager.play_click_sound()
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
-			if !GameManager.level_inspect:
-				var inspect_instance = LEVEL_INSPECT.instantiate()
-				get_tree().root.add_child(inspect_instance)
-				GameManager.level_inspect = inspect_instance
-
-			_toggle_connection.call_deferred(true)
-			GameManager.level_inspect.init_inspector.call_deferred(_level_id, _progress)
+			var scene := ResourceLoader.load(LEVEL_INSPECT) as PackedScene
+			var inspect_instance = scene.instantiate() as LevelInspect
+			inspect_instance.level_unlocked.connect(_unlock_level)
+			get_tree().root.add_child(inspect_instance)
+			inspect_instance.init_inspector.call_deferred(_level_id, _progress)
 			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_INSPECT)
 
 		GlobalConst.LevelGroup.CUSTOM:
-			if !GameManager.custom_inspect:
-				var inspect_instance = CUSTOM_LEVEL_INSPECT.instantiate()
-				get_tree().root.add_child(inspect_instance)
-				GameManager.custom_inspect = inspect_instance
-
-			_toggle_connection.call_deferred(true)
-			GameManager.custom_inspect.init_inspector.call_deferred(_level_id, _progress)
+			var scene := ResourceLoader.load(CUSTOM_LEVEL_INSPECT) as PackedScene
+			var inspect_instance = scene.instantiate() as CustomLevelInspect
+			inspect_instance.level_deleted.connect(_delete_level_button)
+			get_tree().root.add_child(inspect_instance)
+			inspect_instance.init_inspector.call_deferred(_level_id, _progress)
 			GameManager.change_state.call_deferred(GlobalConst.GameState.CUSTOM_LEVEL_INSPECT)
 
 
@@ -73,7 +69,7 @@ func _get_minimum_size() -> Vector2:
 
 func construct(level_id: int, progress: LevelProgress, group: GlobalConst.LevelGroup) -> void:
 	if !progress.is_unlocked:
-		icon = LOCK_ICON
+		icon = ResourceLoader.load(LOCK_ICON) as Texture2D
 		add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
 
 		add_theme_color_override("icon_normal_color", BROWN)
@@ -86,12 +82,13 @@ func construct(level_id: int, progress: LevelProgress, group: GlobalConst.LevelG
 		remove_theme_color_override("icon_hover_color")
 		remove_theme_color_override("icon_pressed_color")
 
+		var icon_path: String
 		if progress.is_completed:
 			var stars_amount := _count_stars(progress.move_left)
-			icon = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS][stars_amount]
+			icon_path = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS][stars_amount]
 		else:
-			icon = ZERO_STARS
-
+			icon_path = ZERO_STARS
+		icon = ResourceLoader.load(icon_path) as Texture2D
 	_level_id = level_id
 	_progress = progress
 	_level_group = group
@@ -108,7 +105,7 @@ func _create_label(index: int) -> Label:
 
 	lab.vertical_alignment = VerticalAlignment.VERTICAL_ALIGNMENT_CENTER
 	lab.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
-	lab.theme = THEME
+	lab.theme = ResourceLoader.load(THEME) as Theme
 	lab.add_theme_font_size_override("font_size", GameManager.text_font_size)
 
 	lab.set_anchors_preset(PRESET_FULL_RECT)
@@ -126,33 +123,10 @@ func _unlock_level() -> void:
 	remove_theme_color_override("icon_pressed_color")
 	remove_theme_constant_override("icon_max_width")
 
-	icon = ZERO_STARS
+	icon = ResourceLoader.load(ZERO_STARS) as Texture2D
 	get_child(0).show()
 
 
 func _delete_level_button() -> void:
 	AudioManager.play_click_sound()
 	on_delete_level_button.emit()
-
-
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.LEVEL_PICK:
-			_toggle_connection.call_deferred(false)
-
-
-func _toggle_connection(is_connect: bool) -> void:
-	if is_connect:
-		GameManager.on_state_change.connect(_on_state_change)
-		match _level_group:
-			GlobalConst.LevelGroup.MAIN:
-				GameManager.level_inspect.level_unlocked.connect(_unlock_level)
-			GlobalConst.LevelGroup.CUSTOM:
-				GameManager.custom_inspect.level_deleted.connect(_delete_level_button)
-	else:
-		GameManager.on_state_change.disconnect(_on_state_change)
-		match _level_group:
-			GlobalConst.LevelGroup.MAIN:
-				GameManager.level_inspect.level_unlocked.disconnect(_unlock_level)
-			GlobalConst.LevelGroup.CUSTOM:
-				GameManager.custom_inspect.level_deleted.disconnect(_delete_level_button)
