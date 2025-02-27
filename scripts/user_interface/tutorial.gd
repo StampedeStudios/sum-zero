@@ -9,7 +9,7 @@ class_name Tutorial extends Control
 
 
 func _ready() -> void:
-	var offset := Vector2(0, GameManager.cell_size / 4)
+	var offset := Vector2(0, GameManager.CENTER_OFFSET)
 	animated_tutorial.position = animated_tutorial.position - offset
 
 

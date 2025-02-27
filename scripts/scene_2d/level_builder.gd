@@ -2,10 +2,10 @@ class_name LevelBuilder extends Node2D
 
 const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
 const BUILDER_SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
-const BUILDER_RESIZE = preload("res://packed_scene/user_interface/BuilderResize.tscn")
-const BUILDER_SAVE = preload("res://packed_scene/user_interface/BuilderSave.tscn")
 const PANEL = preload("res://assets/resources/themes/panel.tres")
-const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
+const BUILDER_RESIZE = "res://packed_scene/user_interface/BuilderResize.tscn"
+const BUILDER_SAVE = "res://packed_scene/user_interface/BuilderSave.tscn"
+const BUILDER_SELECTION = "res://packed_scene/user_interface/BuilderSelection.tscn"
 
 var _level_data: LevelData
 var _cell_collection: Dictionary
@@ -17,22 +17,25 @@ var _multiselection_area: Area2D
 var _multiselection_coll: CollisionShape2D
 var _multiselection_cells: Array[BuilderCell]
 
-@onready var grid = %Grid
+@onready var grid: Node2D = %Grid
 
 
 func _ready():
+	GameManager.set_level_scale(3, 3)	
+	grid.position = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
+	grid.scale = Vector2.ZERO
 	GameManager.on_state_change.connect(_on_state_change)
 	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
-
+	if !GameManager.builder_selection:
+		var scene := ResourceLoader.load(BUILDER_SELECTION) as PackedScene
+		var builder_selection := scene.instantiate() as BuilderSelection
+		builder_selection.hide()
+		get_tree().root.add_child.call_deferred(builder_selection)
+		GameManager.builder_selection = builder_selection
+		
 
 func _on_scale_change(new_scale: Vector2) -> void:
-	grid.scale = new_scale
-	set_grid_position()
-
-
-func set_grid_position() -> void:
-	var offset := Vector2(0, GameManager.cell_size / 4)
-	grid.position = get_viewport_rect().get_center() - offset
+	create_tween().tween_property(grid, "scale", new_scale, 0.05).from_current()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -42,14 +45,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 		GlobalConst.GameState.BUILDER_IDLE:
 			self.visible = true
-			_on_scale_change(GameManager.level_scale)
 			_multiselection_cells.clear()
+			_on_scale_change(GameManager.level_scale)
 
 		GlobalConst.GameState.BUILDER_SAVE:
 			self.visible = true
 			if !GameManager.builder_save:
-				var builder_save: BuilderSave
-				builder_save = BUILDER_SAVE.instantiate()
+				var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
+				var builder_save := scene.instantiate() as BuilderSave
 				get_tree().root.add_child.call_deferred(builder_save)
 				builder_save.on_query_close.connect(_on_save_query_received)
 				GameManager.builder_save = builder_save
@@ -63,8 +66,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
 			if !GameManager.builder_resize:
-				var builder_resize: BuilderResize
-				builder_resize = BUILDER_RESIZE.instantiate()
+				var scene := ResourceLoader.load(BUILDER_RESIZE) as PackedScene
+				var builder_resize := scene.instantiate() as BuilderResize
 				get_tree().root.add_child.call_deferred(builder_resize)
 				builder_resize.on_height_change.connect(_on_height_change)
 				builder_resize.on_width_change.connect(_on_width_change)
@@ -77,12 +80,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 		GlobalConst.GameState.BUILDER_SELECTION:
 			self.visible = true
-			if _multiselection_cells.size() > 0:
-				if !GameManager.builder_selection:
-					var builder_selection: BuilderSelection
-					builder_selection = BUILDER_SELECTION.instantiate()
-					get_tree().root.add_child.call_deferred(builder_selection)
-					GameManager.builder_selection = builder_selection
+			if _multiselection_cells.size() > 0:				
 				var size: Vector2
 				var pos: Vector2
 				var top_left := _multiselection_cells[0].global_position
@@ -103,7 +101,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 				size += Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
 				pos = top_left + (bottom_right - top_left) / 2
 				GameManager.builder_selection.init_selection.call_deferred(true, pos, size)
-
 		_:
 			self.visible = false
 
@@ -357,10 +354,12 @@ func _on_height_change(new_height: int) -> void:
 
 
 func move_grid(offset: Vector2) -> void:
+	var new_pos: Vector2
 	if offset == Vector2.ZERO:
-		set_grid_position()
-		return
-	grid.position += offset
+		new_pos = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
+	else:
+		new_pos = grid.position + offset		
+	await create_tween().tween_property(grid, "position", new_pos, 0.05).from_current().finished
 
 
 func get_level_data() -> LevelData:

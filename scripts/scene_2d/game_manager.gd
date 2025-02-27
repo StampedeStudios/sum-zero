@@ -8,6 +8,7 @@ const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tr
 const PLAYER_SAVE_PATH = "user://sumzero.tres"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
+const CENTER_OFFSET: int = 40
 
 @export var palette: ColorPalette
 

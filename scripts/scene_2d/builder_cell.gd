@@ -3,8 +3,6 @@ class_name BuilderCell extends Node2D
 signal on_cell_change(ref: BuilderCell, data: CellData)
 signal start_multiselection
 
-const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
-
 var _data: CellData
 
 @onready var cell = $Cell

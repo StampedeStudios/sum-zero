@@ -2,7 +2,6 @@ class_name BuilderSlider extends Node2D
 
 signal on_slider_change(ref: BuilderSlider, data: SliderData)
 
-const BUILDER_SELECTION = preload("res://packed_scene/user_interface/BuilderSelection.tscn")
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
 
 var _data: SliderData
@@ -37,14 +36,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			_toggle_ui.call_deferred(false)
 
 		GlobalConst.GameState.BUILDER_SELECTION:
-			if !GameManager.builder_selection:
-				var builder_selection: BuilderSelection
-				builder_selection = BUILDER_SELECTION.instantiate()
-				get_tree().root.add_child.call_deferred(builder_selection)
-				GameManager.builder_selection = builder_selection
 			self.z_index = 10
 			_check_screen_margin.call_deferred()
-			_toggle_ui.call_deferred(true)
 
 
 func _check_screen_margin() -> void:
@@ -66,7 +59,10 @@ func _check_screen_margin() -> void:
 		offset.y = screen_size.y - margin - global_position.y
 	# valid offset
 	if offset != Vector2.ZERO:
-		GameManager.level_builder.move_grid(offset)
+		await GameManager.level_builder.move_grid(offset)
+		_toggle_ui.call_deferred(true)
+	else:
+		_toggle_ui.call_deferred(true)
 
 
 func _toggle_ui(ui_visible: bool) -> void:

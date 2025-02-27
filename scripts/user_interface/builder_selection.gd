@@ -32,8 +32,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_SELECTION:
-			self.visible = true
 		_:
 			self.visible = false
 
@@ -54,6 +52,7 @@ func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
 	special.position.y = -area_size.y / 2 - AREA_DISTANCE - remove.size.y
 	remove.position.y = area_size.y / 2 + AREA_DISTANCE
 	control.global_position = center
+	self.show.call_deferred()
 
 
 func _on_backward_pressed():

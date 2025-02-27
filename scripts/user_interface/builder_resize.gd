@@ -14,7 +14,7 @@ var _scale: float
 func _ready():
 	GameManager.on_state_change.connect(_on_state_change)
 	for child: TextureRect in control.get_children():
-		child.position.y = child.position.y - GameManager.cell_size / 4
+		child.position.y = child.position.y - GameManager.CENTER_OFFSET
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
