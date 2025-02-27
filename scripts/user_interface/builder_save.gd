@@ -23,7 +23,13 @@ func _ready():
 
 	panel.scale = GameManager.ui_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
+	self.hide()
 
+
+func animate(animated_scale: Vector2) -> void:
+	panel.scale = animated_scale
+	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
+	
 
 func init_info(old_name: String, old_moves: String, invalid_level: bool) -> void:
 	if old_name != "":
@@ -36,16 +42,20 @@ func init_info(old_name: String, old_moves: String, invalid_level: bool) -> void
 	_invalid_name = level_name.text.is_empty()
 	_invalid_level = invalid_level
 	_check_valid_info()
+	self.visible = true
+	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_SAVE:
-			self.visible = true
-		_:
-			self.visible = false
+
+
+func close() -> void:
+	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	self.visible = false
+	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
 func _on_save_btn_pressed():
@@ -55,8 +65,8 @@ func _on_save_btn_pressed():
 	level_name.caret_column = 0
 	moves.text = ""
 	moves.caret_column = 0
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
-
+	close()
+	
 
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""
@@ -96,9 +106,9 @@ func _on_level_name_text_changed(new_text: String) -> void:
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()
-		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+		close()
 
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	close()

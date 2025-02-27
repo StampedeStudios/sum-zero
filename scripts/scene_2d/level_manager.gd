@@ -143,7 +143,7 @@ func _reset_level() -> void:
 
 func _init_grid(level_size: Vector2i) -> void:
 	GameManager.set_level_scale(level_size.x, level_size.y)
-	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.cell_size / 4)
+	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
 	var grid_size := (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE
 	grid.position = grid_pos
 	grid.scale = GameManager.level_scale

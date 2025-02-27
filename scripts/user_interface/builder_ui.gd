@@ -2,8 +2,8 @@ class_name BuilderUI extends Control
 
 signal reset_builder_level
 
-const LEVEL_MANAGER = preload("res://packed_scene/scene_2d/LevelManager.tscn")
-const BUILDER_TEST = preload("res://packed_scene/user_interface/BuilderTest.tscn")
+const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
+const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
@@ -55,12 +55,13 @@ func _on_resize_btn_pressed():
 func _on_play_btn_pressed():
 	AudioManager.play_click_sound()
 	if !GameManager.builder_test:
-		var builder_test: BuilderTest
-		builder_test = BUILDER_TEST.instantiate()
+		var scene := ResourceLoader.load(BUILDER_TEST) as PackedScene
+		var builder_test := scene.instantiate() as BuilderTest
 		GameManager.builder_test = builder_test
 		get_tree().root.add_child.call_deferred(builder_test)
 	if GameManager.level_manager == null:
-		var level_test = LEVEL_MANAGER.instantiate()
+		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+		var level_test = scene.instantiate() as LevelManager
 		get_tree().root.add_child.call_deferred(level_test)
 		level_test.set_manager_mode.call_deferred(true)
 		GameManager.level_manager = level_test
