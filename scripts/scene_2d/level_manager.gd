@@ -123,12 +123,10 @@ func check_grid() -> void:
 			level_complete = false
 			break
 	if level_complete and !_is_test_mode:
-		if GameManager.level_end == null:
-			var scene := ResourceLoader.load(LEVEL_END) as PackedScene
-			var level_end := scene.instantiate() as LevelEnd
-			level_end.restart_level.connect(_reset_level)
-			get_tree().root.add_child.call_deferred(level_end)
-			GameManager.level_end = level_end
+		var scene := ResourceLoader.load(LEVEL_END) as PackedScene
+		var level_end := scene.instantiate() as LevelEnd
+		level_end.restart_level.connect(_reset_level)
+		get_tree().root.add_child.call_deferred(level_end)
 		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 
 

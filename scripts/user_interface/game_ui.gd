@@ -2,8 +2,8 @@ class_name GameUI extends Control
 
 signal reset_level
 
-const TUTORIAL = preload("res://packed_scene/user_interface/Tutorial.tscn")
-const LEVEL_UI = preload("res://packed_scene/user_interface/LevelUI.tscn")
+const TUTORIAL = "res://packed_scene/user_interface/Tutorial.tscn"
+const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 
 var moves_left: int
 var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
@@ -34,8 +34,8 @@ func _on_exit_btn_pressed() -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 		GlobalConst.GameState.LEVEL_PICK:
-			var level_ui: LevelUI
-			level_ui = LEVEL_UI.instantiate()
+			var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
+			var level_ui := scene.instantiate() as LevelUI
 			get_tree().root.add_child.call_deferred(level_ui)
 			GameManager.level_ui = level_ui
 			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
@@ -48,10 +48,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
+			moves_left = GameManager.get_active_level().moves_left
 			self.visible = true
-		GlobalConst.GameState.LEVEL_END:
-			self.visible = false
-			GameManager.level_end.update_score(moves_left)
 		_:
 			self.visible = false
 
@@ -63,13 +61,13 @@ func initialize_ui(prev_state: GlobalConst.GameState):
 			exit_btn.text = tr("BACK")
 		GlobalConst.GameState.LEVEL_PICK:
 			exit_btn.text = tr("LEVELS")
-	moves_left = GameManager.get_active_level().moves_left
 	skip_btn.hide()
 	if GameManager.is_level_completed():
 		skip_btn.visible = GameManager.set_next_level()
 	var tutorial: TutorialData = GameManager.get_tutorial()
 	if tutorial != null:
-		var tutorial_ui: Tutorial = TUTORIAL.instantiate()
+		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
+		var tutorial_ui := scene.instantiate() as Tutorial
 		get_tree().root.add_child(tutorial_ui)
 		tutorial_ui.setup.call_deferred(tutorial)
 
