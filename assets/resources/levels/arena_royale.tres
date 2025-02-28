@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=2 format=3 uid="uid://dpfok1scpwlwg"]
+
+[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="1_nqv6q"]
+
+[resource]
+script = ExtResource("1_nqv6q")
+mode_name = "ROYALE"
+mode_description = "Last man standing as the map shrinks."

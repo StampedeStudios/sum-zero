@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=2 format=3 uid="uid://d3ourb4tybhnc"]
+
+[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="1_2h3x1"]
+
+[resource]
+script = ExtResource("1_2h3x1")
+mode_name = "BLITZ"
+mode_description = "Fast-paced fights, short matches for pure adrenaline."

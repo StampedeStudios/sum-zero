@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=2 format=3 uid="uid://c0t3k3r7obeqq"]
+
+[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="1_eer3o"]
+
+[resource]
+script = ExtResource("1_eer3o")
+mode_name = "ARCADE"
+mode_description = "Unconventional and fun rule-based mode."

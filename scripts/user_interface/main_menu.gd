@@ -6,6 +6,7 @@ const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
+const ARENA_MENU = "res://packed_scene/user_interface/ArenaMenu.tscn"
 
 @onready var version_label: Label = %VersionLabel
 @onready var margin: MarginContainer = %MarginContainer
@@ -85,3 +86,11 @@ func _on_option_btn_pressed() -> void:
 	var scene := ResourceLoader.load(OPTIONS) as PackedScene
 	var option_ui := scene.instantiate() as Options
 	get_tree().root.add_child.call_deferred(option_ui)
+
+
+func _on_arena_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	var scene := ResourceLoader.load(ARENA_MENU) as PackedScene
+	var arena_menu := scene.instantiate() as ArenaMenu
+	get_tree().root.add_child.call_deferred(arena_menu)
+	
