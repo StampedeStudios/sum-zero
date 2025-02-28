@@ -116,6 +116,21 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_s6f4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6f4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6f4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6f4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6f4b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s6f4b")
 }],
 "loop": false,
 "name": &"default",

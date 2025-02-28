@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=12 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
@@ -6,6 +6,7 @@
 [ext_resource type="SpriteFrames" uid="uid://bwcqlsnglsfub" path="res://assets/vfx/stars.tres" id="5_7jbgv"]
 [ext_resource type="Shader" path="res://scripts/shaders/LinearReveal.gdshader" id="6_211iv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
+[ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="6_uge2i"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="7_dngta"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="7_e8pvp"]
 
@@ -81,6 +82,13 @@ material = SubResource("ShaderMaterial_4fm4t")
 position = Vector2(237, 24)
 sprite_frames = ExtResource("5_7jbgv")
 frame_progress = 1.0
+
+[node name="NewRecord" type="Sprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/LevelScoreImg"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(147, -67)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_uge2i")
 
 [node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
