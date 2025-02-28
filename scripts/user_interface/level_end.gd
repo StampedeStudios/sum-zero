@@ -13,6 +13,7 @@ var _has_next_level: bool
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
 @onready var panel: Panel = %Panel
+@onready var new_record: Sprite2D = %NewRecord
 
 
 func _ready():
@@ -33,12 +34,13 @@ func animate(animated_scale: Vector2) -> void:
 
 func update_score() -> void:
 	var move_left: int = GameManager.game_ui.moves_left
-	GameManager.update_level_progress(move_left)
+	var is_record: bool = GameManager.update_level_progress(move_left)
 	_has_next_level = GameManager.set_next_level()
 	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
 
 	await _animate_stars(move_left)
 	await _animate_hint(move_left)
+	new_record.visible = is_record
 
 
 func _animate_stars(move_left: int) -> void:
@@ -49,15 +51,20 @@ func _animate_stars(move_left: int) -> void:
 
 	if percentage > 0:
 		await get_tree().create_timer(0.1).timeout
-		await _play_frames(0, 6, 0.02)
+		await _play_frames(0, 5, 0.02)
 
 	if percentage > 0.33:
 		await get_tree().create_timer(0.2).timeout
-		await _play_frames(6, 11, 0.02)
+		await _play_frames(6, 10, 0.02)
 
 	if percentage > 0.66:
 		await get_tree().create_timer(0.2).timeout
-		await _play_frames(11, 16, 0.02)
+		await _play_frames(11, 15, 0.02)
+
+	# extra reward for beating the developers (you think ...)
+	if percentage > 1:
+		await get_tree().create_timer(0.2).timeout
+		await _play_frames(16, 20, 0.02)
 
 
 func _animate_hint(move_left: int):
@@ -76,20 +83,22 @@ func _update_shader_percentage(value: float):
 
 
 func _select_random_text(move_left) -> String:
-	var num_stars = clamp(GlobalConst.MAX_STARS_GAIN + move_left, 0, GlobalConst.MAX_STARS_GAIN)
+	var num_stars = GlobalConst.MAX_STARS_GAIN + move_left
 
-	if num_stars == 0:
+	if num_stars <= 0:
 		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
-	if num_stars == 1:
+	elif num_stars == 1:
 		return tr(GlobalConst.ONE_STARS_MSGS.pick_random())
-	if num_stars == 2:
+	elif num_stars == 2:
 		return tr(GlobalConst.TWO_STARS_MSGS.pick_random())
-
-	return tr(GlobalConst.THREE_STARS_MSGS.pick_random())
+	elif num_stars == 3:
+		return tr(GlobalConst.THREE_STARS_MSGS.pick_random())
+	# extra reward for beating the developers (you think ...)
+	return tr(GlobalConst.EXTRA_STARS_MSGS.pick_random())
 
 
 func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
-	for frame in range(start_frame, end_frame):
+	for frame in range(start_frame, end_frame + 1):
 		score_sprite.frame = frame
 		await get_tree().create_timer(delay).timeout
 

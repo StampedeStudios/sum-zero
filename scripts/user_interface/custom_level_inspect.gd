@@ -40,17 +40,19 @@ func init_inspector(level_id: int, progress: LevelProgress):
 	label.text = progress.name
 	_level_id = level_id
 
-	var num_stars = clamp(
-		GlobalConst.MAX_STARS_GAIN + progress.move_left, 0, GlobalConst.MAX_STARS_GAIN
-	)
+	var num_stars: int
 	if !progress.is_completed:
 		num_stars = 0
+	else:
+		num_stars = GlobalConst.MAX_STARS_GAIN + progress.move_left
+		if num_stars < 0:
+			num_stars = 0
+		# extra reward for beating the developers (you think ...)
+		elif num_stars > 3:
+			num_stars = 4
 
-	var frame_per_star = 5
-
-	stars.region_rect = Rect2(
-		Vector2(frame_per_star * STARS_SPRITE_SIZE.x * num_stars, 0), STARS_SPRITE_SIZE
-	)
+	var start_cut := Vector2(5 * STARS_SPRITE_SIZE.x * num_stars, 0)
+	stars.region_rect = Rect2(start_cut, STARS_SPRITE_SIZE)
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
