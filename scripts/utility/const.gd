@@ -21,10 +21,10 @@ enum LevelGroup { CUSTOM, MAIN }
 enum GenerationElement { HOLE, BLOCK, SLIDER }
 
 # Default sizes
-const SCREEN_SIZE_X = 720
-const SCREEN_SIZE_Y = 1280
-const CELL_SIZE: float = 256
-const SLIDER_SIZE: float = 128
+const SCREEN_SIZE_X: int = 720
+const SCREEN_SIZE_Y: int = 1280
+const CELL_SIZE: int = 256
+const SLIDER_SIZE: int = 128
 const Y_MARGIN_PERCENTAGE: float = 0.05
 const X_MARGIN_PERCENTAGE: float = 0.1
 const TITLE_FONT_SIZE: int = 60

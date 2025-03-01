@@ -22,7 +22,7 @@ func _ready() -> void:
 	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
 
-func init_inspector(level_id: int, progress: LevelProgress):
+func init_inspector(level_id: int, progress: LevelProgress) -> void:
 	label.text = str("%03d" % [level_id + 1])
 	_level_id = level_id
 

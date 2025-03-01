@@ -15,8 +15,8 @@ static func _remove_holes(data: LevelData) -> void:
 
 static func create_holes(data: LevelData) -> void:
 	_remove_holes(data)
-	var cells = data.cells_list.keys()
-	var origin = cells.pick_random() as Vector2i
+	var cells := data.cells_list.keys()
+	var origin := cells.pick_random() as Vector2i
 	data.cells_list.erase(origin)
 	# maximum holes 25% of cells including start
 	var number := roundi(float(cells.size()) / 4) - 1
@@ -30,8 +30,8 @@ static func create_holes(data: LevelData) -> void:
 
 
 static func _remove_blocks(data: LevelData) -> void:
-	for coord in data.cells_list.keys():
-		var cell_data = data.cells_list.get(coord) as CellData
+	for coord: Vector2i in data.cells_list.keys():
+		var cell_data := data.cells_list.get(coord) as CellData
 		cell_data.is_blocked = false
 
 
@@ -39,8 +39,8 @@ static func create_block(data: LevelData) -> void:
 	if data.cells_list.is_empty():
 		_remove_holes(data)
 	_remove_blocks(data)
-	var cells = data.cells_list.keys()
-	var origin = cells.pick_random() as Vector2i
+	var cells := data.cells_list.keys()
+	var origin := cells.pick_random() as Vector2i
 	var cell_data: CellData
 	cell_data = data.cells_list.get(origin) as CellData
 	cell_data.is_blocked = true
@@ -202,7 +202,7 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 			var slider_data := filtered.get(slider_coord) as RandomizerSlider
 			for cell_coord in slider_data.reached:
 				while true:
-					var coord = stopped_sliders.find_key(cell_coord)
+					var coord := stopped_sliders.find_key(cell_coord) as Vector2i
 					if coord == null:
 						break
 					stopped_sliders.erase(coord)
@@ -230,7 +230,7 @@ static func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 								_apply_slider_effect(cell, slider.effect)
 
 	# add slider to level data
-	for slider_coord in filtered.keys():
+	for slider_coord: Vector2i in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		var slider_data := SliderData.new()
 		slider_data.area_effect = slider.effect
@@ -272,7 +272,7 @@ static func _get_filtered_sliders(possible: Dictionary) -> Dictionary:
 	filterd.resize(slider_count)
 	# calculate sliders extesion
 	var extended_count := 0
-	for slider_coord in filterd:
+	for slider_coord: Vector2i in filterd:
 		var slider_data := RandomizerSlider.new()
 		slider_data.reachable = possible.get(slider_coord) as Array[Vector2i]
 		var reached := possible.get(slider_coord).duplicate() as Array[Vector2i]
@@ -381,7 +381,7 @@ static func _get_slider_extension(edge: int, origin: Vector2i, data: LevelData) 
 
 static func _get_adiacent_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
 	var result: Array[Vector2i]
-	for direction in SQUARE_DIRECTION + CROSS_DIRECTION:
+	for direction: Vector2i in SQUARE_DIRECTION + CROSS_DIRECTION:
 		var adiacent: Vector2i = pos + direction
 		if cells.has(adiacent):
 			result.append(adiacent)

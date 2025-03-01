@@ -14,7 +14,7 @@ const LEVEL_IMPORT = "res://packed_scene/user_interface/LevelImport.tscn"
 var _is_custom: bool
 
 
-func _draw():
+func _draw() -> void:
 	# Set size flags to allow expansion inside containers
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL

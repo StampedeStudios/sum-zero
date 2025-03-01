@@ -10,7 +10,7 @@ var grid_cells: Array[Cell]
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
 
-@onready var grid = %Grid
+@onready var grid: Node2D = %Grid
 @onready var playable_area: Area2D = %PlayableArea
 @onready var collider: CollisionShape2D = %Collider
 
@@ -40,13 +40,14 @@ func init_level(current_level: LevelData) -> void:
 
 	var level_size: Vector2i
 	var half_grid_size: Vector2
+	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
 	level_size = Vector2i(current_level.width, current_level.height)
 	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
 
 	_init_grid(level_size)
 
 	# placing cells
-	for coord in current_level.cells_list.keys():
+	for coord: Vector2i in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
 		var relative_pos: Vector2
 		var cell_offset: Vector2
@@ -58,7 +59,7 @@ func init_level(current_level: LevelData) -> void:
 		grid_cells.append(cell_instance)
 
 	# placing slider areas clockwise
-	for coord in current_level.slider_list.keys():
+	for coord: Vector2i in current_level.slider_list.keys():
 		var edge: int = coord.x
 		var dist: int = coord.y * GlobalConst.CELL_SIZE
 		var x_pos: float
@@ -69,25 +70,25 @@ func init_level(current_level: LevelData) -> void:
 			# TOP
 			0:
 				angle = 90
-				x_pos = -half_grid_size.x + GlobalConst.CELL_SIZE / 2 + dist
-				y_pos = -half_grid_size.y - GlobalConst.CELL_SIZE / 2
+				x_pos = -half_grid_size.x + half_cell + dist
+				y_pos = -half_grid_size.y - half_cell
 			# LEFT
 			1:
 				angle = 180
-				x_pos = half_grid_size.x + GlobalConst.CELL_SIZE / 2
-				y_pos = -half_grid_size.y + GlobalConst.CELL_SIZE / 2 + dist
+				x_pos = half_grid_size.x + half_cell
+				y_pos = -half_grid_size.y + half_cell + dist
 			# BOTTOM
 			2:
 				angle = 270
-				x_pos = -half_grid_size.x + GlobalConst.CELL_SIZE / 2 + dist
-				y_pos = half_grid_size.y + GlobalConst.CELL_SIZE / 2
+				x_pos = -half_grid_size.x + half_cell + dist
+				y_pos = half_grid_size.y + half_cell
 			# RIGHT
 			3:
 				angle = 0
-				x_pos = -half_grid_size.x - GlobalConst.CELL_SIZE / 2
-				y_pos = -half_grid_size.y + GlobalConst.CELL_SIZE / 2 + dist
+				x_pos = -half_grid_size.x - half_cell
+				y_pos = -half_grid_size.y + half_cell + dist
 
-		var sc_instance = SLIDER_AREA.instantiate()
+		var sc_instance := SLIDER_AREA.instantiate() as SliderArea
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle

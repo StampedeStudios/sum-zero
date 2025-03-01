@@ -22,7 +22,7 @@ const STD_SIZE := Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
 @onready var panel: Panel = %Panel
 
 
-func _ready():
+func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	control.scale = GameManager.level_scale
 	panel.size = get_viewport_rect().size
@@ -55,26 +55,26 @@ func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
 	self.show.call_deferred()
 
 
-func _on_backward_pressed():
+func _on_backward_pressed() -> void:
 	AudioManager.play_click_sound()
 	backward_action.emit()
 
 
-func _on_forward_pressed():
+func _on_forward_pressed() -> void:
 	AudioManager.play_click_sound()
 	forward_action.emit()
 
 
-func _on_remove_pressed():
+func _on_remove_pressed() -> void:
 	AudioManager.play_click_sound()
 	remove_action.emit()
 
 
-func _on_special_pressed():
+func _on_special_pressed() -> void:
 	AudioManager.play_click_sound()
 	special_action.emit()
 
 
-func _on_panel_gui_input(event):
+func _on_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_released(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)

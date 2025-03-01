@@ -66,7 +66,7 @@ func _on_level_complete() -> void:
 	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 
 
-func initialize_ui(prev_state: GlobalConst.GameState):
+func initialize_ui(prev_state: GlobalConst.GameState) -> void:
 	_return_to = prev_state
 	match _return_to:
 		GlobalConst.GameState.MAIN_MENU:
@@ -88,7 +88,7 @@ func _consume_move() -> void:
 	moves_left -= 1
 
 
-func _on_reset_btn_pressed():
+func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.level_manager.reset_level()
 

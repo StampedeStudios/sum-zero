@@ -23,7 +23,7 @@ var _progress: LevelProgress
 var _level_group: GlobalConst.LevelGroup
 
 
-func _draw():
+func _draw() -> void:
 	# Set size flags to allow expansion inside containers
 	size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -48,7 +48,7 @@ func _pressed() -> void:
 	match _level_group:
 		GlobalConst.LevelGroup.MAIN:
 			var scene := ResourceLoader.load(LEVEL_INSPECT) as PackedScene
-			var inspect_instance = scene.instantiate() as LevelInspect
+			var inspect_instance := scene.instantiate() as LevelInspect
 			inspect_instance.level_unlocked.connect(_unlock_level)
 			get_tree().root.add_child(inspect_instance)
 			inspect_instance.init_inspector.call_deferred(_level_id, _progress)
@@ -56,7 +56,7 @@ func _pressed() -> void:
 
 		GlobalConst.LevelGroup.CUSTOM:
 			var scene := ResourceLoader.load(CUSTOM_LEVEL_INSPECT) as PackedScene
-			var inspect_instance = scene.instantiate() as CustomLevelInspect
+			var inspect_instance := scene.instantiate() as CustomLevelInspect
 			inspect_instance.level_deleted.connect(_delete_level_button)
 			get_tree().root.add_child(inspect_instance)
 			inspect_instance.init_inspector.call_deferred(_level_id, _progress)

@@ -8,10 +8,10 @@ var _width: int
 var _height: int
 var _scale: float
 
-@onready var control = %Control
+@onready var control: Control = %Control
 
 
-func _ready():
+func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	for child: TextureRect in control.get_children():
 		child.position.y = child.position.y - GameManager.CENTER_OFFSET
@@ -27,35 +27,35 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func init_query(level_size: Vector2i):
+func init_query(level_size: Vector2i) -> void:
 	_width = level_size.x
 	_height = level_size.y
 	_scale = 0
 	_update_zoom.call_deferred()
 
 
-func _on_minus_width_gui_input(event):
+func _on_minus_width_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_width: int
 		new_width = clamp(_width - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
 		_update_width(new_width)
 
 
-func _on_plus_width_gui_input(event):
+func _on_plus_width_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_width: int
 		new_width = clamp(_width + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
 		_update_width(new_width)
 
 
-func _on_minus_height_gui_input(event):
+func _on_minus_height_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_height: int
 		new_height = clamp(_height - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
 		_update_height(new_height)
 
 
-func _on_plus_height_gui_input(event):
+func _on_plus_height_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_height: int
 		new_height = clamp(_height + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
@@ -85,11 +85,11 @@ func _update_zoom() -> void:
 		on_zoom_change.emit(Vector2(_scale, _scale))
 
 
-func _on_background_gui_input(event):
+func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
-func _on_control_gui_input(event):
+func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)

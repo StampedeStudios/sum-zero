@@ -3,11 +3,11 @@ class_name BuilderTest extends Control
 var _moves: int
 
 @onready var margin: MarginContainer = %MarginContainer
-@onready var moves_count = %MovesCount
+@onready var moves_count: Label = %MovesCount
 @onready var buttons: HBoxContainer = %BottomContainer
 
 
-func _ready():
+func _ready() -> void:
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
@@ -33,13 +33,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _on_exit_btn_pressed():
+func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 	_reset_moves()
 
 
-func _on_reset_btn_pressed():
+func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.level_manager.reset_level()
 	_reset_moves()

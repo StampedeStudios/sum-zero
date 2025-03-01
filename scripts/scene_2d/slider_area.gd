@@ -27,7 +27,7 @@ var _last_affected_cells: Dictionary
 
 @onready var area_outline: NinePatchRect = %AreaOutline
 @onready var area_effect: Sprite2D = %AreaEffect
-@onready var area_behavior = %AreaBehavior
+@onready var area_behavior: Sprite2D = %AreaBehavior
 @onready var ray: RayCast2D = %Ray
 @onready var handle: Node2D = %Handle
 
@@ -145,7 +145,7 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 
 func _apply_scaling(_new_scale: float) -> void:
-	var area_extension = GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
+	var area_extension := GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
 	_play_sound(area_extension)
 	area_outline.size.x = area_extension
 	if _area_effect == GlobalConst.AreaEffect.BLOCK:
@@ -182,7 +182,7 @@ func _check_limit() -> void:
 	is_obstacle_slider = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
 	_reachable_cells.clear()
-	ray.target_position.x = GlobalConst.CELL_SIZE / 2
+	ray.target_position.x = float(GlobalConst.CELL_SIZE) / 2
 
 	ray.force_raycast_update()
 	while ray.is_colliding():

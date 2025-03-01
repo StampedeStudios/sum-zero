@@ -10,7 +10,7 @@ var _player_options: PlayerOptions
 @onready var options_btn: OptionButton = %OptionButton
 
 
-func _ready():
+func _ready() -> void:
 	_player_options = GameManager.get_options()
 
 	music_btn.set_pressed_no_signal(_player_options.music_on)

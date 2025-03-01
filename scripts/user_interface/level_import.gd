@@ -45,7 +45,7 @@ func _on_code_pressed() -> void:
 
 
 func _on_level_name_text_changed(new_text: String) -> void:
-	var regex = RegEx.new()
+	var regex := RegEx.new()
 	regex.compile("\\w+")
 
 	var result := regex.search(new_text)
@@ -58,7 +58,7 @@ func _on_level_name_text_changed(new_text: String) -> void:
 
 
 func _on_code_text_changed(new_text: String) -> void:
-	var regex = RegEx.new()
+	var regex := RegEx.new()
 	regex.compile("^[A-Za-z0-9-]+$")
 
 	var result := regex.search(new_text)

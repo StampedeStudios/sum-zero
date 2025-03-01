@@ -11,7 +11,7 @@ const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 @onready var top_buttons: HBoxContainer = %HBoxContainer
 
 
-func _ready():
+func _ready() -> void:
 	if OS.has_feature("debug"):
 		top_buttons.show()
 	else:
@@ -42,17 +42,17 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _on_reset_btn_pressed():
+func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	reset_builder_level.emit()
 
 
-func _on_resize_btn_pressed():
+func _on_resize_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_RESIZE)
 
 
-func _on_play_btn_pressed():
+func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	if !GameManager.builder_test:
 		var scene := ResourceLoader.load(BUILDER_TEST) as PackedScene
@@ -61,7 +61,7 @@ func _on_play_btn_pressed():
 		get_tree().root.add_child.call_deferred(builder_test)
 	if GameManager.level_manager == null:
 		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
-		var level_test = scene.instantiate() as LevelManager
+		var level_test := scene.instantiate() as LevelManager
 		get_tree().root.add_child.call_deferred(level_test)
 		GameManager.level_manager = level_test
 
@@ -69,12 +69,12 @@ func _on_play_btn_pressed():
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
-func _on_save_btn_pressed():
+func _on_save_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_SAVE)
 
 
-func _on_exit_btn_pressed():
+func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 

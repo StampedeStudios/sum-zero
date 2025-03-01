@@ -218,7 +218,7 @@ static func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> St
 		var max_pos: int
 		max_pos = level_size.x if edge % 2 == 0 else level_size.y
 		for pos in range(max_pos):
-			var slider_coord = Vector2i(edge, pos)
+			var slider_coord := Vector2i(edge, pos)
 			if slider_list.has(slider_coord):
 				if empty_count > 0:
 					encode_sliders += String.num_int64(empty_count)

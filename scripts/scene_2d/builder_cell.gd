@@ -5,20 +5,20 @@ signal start_multiselection
 
 var _data: CellData
 
-@onready var cell = $Cell
-@onready var target_value_txt = %TargetValueTxt
-@onready var block = %Block
+@onready var cell: Sprite2D = $Cell
+@onready var target_value_txt: Label = %TargetValueTxt
+@onready var block: Sprite2D = %Block
 
 
-func _ready():
+func _ready() -> void:
 	_data = CellData.new()
 	block.visible = false
 	target_value_txt.visible = false
 	_change_color(GameManager.palette.builder_cell_color)
 
 
-func _on_collision_input_event(_viewport, _event, _shape_idx):
-	if _event is InputEventMouse and _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+func _on_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		start_multiselection.emit()
 
 
@@ -44,7 +44,7 @@ func toggle_connection(ui_visible: bool) -> void:
 		GameManager.builder_selection.remove_action.disconnect(clear_cell)
 
 
-func _decrease_value():
+func _decrease_value() -> void:
 	var value: int
 	if target_value_txt.visible:
 		value = _data.value
@@ -54,7 +54,7 @@ func _decrease_value():
 	_change_value(value)
 
 
-func _increase_value():
+func _increase_value() -> void:
 	var value: int
 	if target_value_txt.visible:
 		value = _data.value
@@ -74,7 +74,7 @@ func _change_value(new_value: int) -> void:
 	on_cell_change.emit(self, _data)
 
 
-func _block_cell():
+func _block_cell() -> void:
 	_data.is_blocked = !_data.is_blocked
 	_data.value = 0
 	_change_aspect()

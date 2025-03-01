@@ -68,7 +68,7 @@ func start() -> void:
 
 
 func _set_ui_scale() -> void:
-	var screen_size = get_viewport().size
+	var screen_size: Vector2 = get_viewport().size
 	var max_screen_width: float = screen_size.x
 	var max_screen_height: float = screen_size.y
 	var min_scale: float = min(
@@ -85,8 +85,8 @@ func _set_ui_scale() -> void:
 	btns_separation = int(ui_scale.x * GlobalConst.BTN_SEPARATION)
 
 	# Update margin percentage
-	vertical_margin = screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE
-	horizontal_margin = screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE
+	vertical_margin = roundi(screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE)
+	horizontal_margin = roundi(screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE)
 
 	# Update themes
 	DEFAULT_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)

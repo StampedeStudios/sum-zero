@@ -14,10 +14,10 @@ func _ready() -> void:
 	start_credits_scroll()
 
 
-func start_credits_scroll():
-	var tween = create_tween()
-	var scrollbar = text.get_v_scroll_bar()
-	var max_scroll = scrollbar.max_value
+func start_credits_scroll() -> void:
+	var tween := create_tween()
+	var scrollbar := text.get_v_scroll_bar()
+	var max_scroll := scrollbar.max_value
 	tween.tween_property(scrollbar, "value", max_scroll, 45.0).from(0)
 
 

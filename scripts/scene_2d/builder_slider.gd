@@ -7,12 +7,12 @@ const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collect
 var _data: SliderData
 var _is_valid: bool = false
 
-@onready var slider = %Slider
-@onready var slider_effect = %SliderEffect
-@onready var slider_behavior = %SliderBehavior
+@onready var slider: Sprite2D = %Slider
+@onready var slider_effect: Sprite2D = %SliderEffect
+@onready var slider_behavior: Sprite2D = %SliderBehavior
 
 
-func _ready():
+func _ready() -> void:
 	var color: Color
 	color = GameManager.palette.builder_slider_color
 	_data = SliderData.new()
@@ -21,9 +21,8 @@ func _ready():
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 
-func _on_collision_input_event(_viewport, _event, _shape_idx):
-	if _event is InputEventMouse:
-		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+func _on_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 			GameManager.on_state_change.connect(_on_state_change)
 			GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
 

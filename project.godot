@@ -24,6 +24,10 @@ config/windows_native_icon="res://assets/game/logo.ico"
 GameManager="*res://packed_scene/scene_2d/GameManager.tscn"
 AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+
 [display]
 
 window/size/viewport_width=720

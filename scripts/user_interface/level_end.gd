@@ -14,7 +14,7 @@ var _has_next_level: bool
 @onready var new_record: Sprite2D = %NewRecord
 
 
-func _ready():
+func _ready() -> void:
 	await create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
 	update_score()
 
@@ -65,7 +65,7 @@ func _animate_stars(move_left: int) -> void:
 		await _play_frames(16, 20, 0.02)
 
 
-func _animate_hint(move_left: int):
+func _animate_hint(move_left: int) -> void:
 	hint.text = _select_random_text(move_left)
 	var tween := create_tween()
 
@@ -74,14 +74,15 @@ func _animate_hint(move_left: int):
 
 	# Tween from 0 to 100
 	tween.tween_method(_update_shader_percentage, 0.0, 100.0, ANIMATION_DURATION)
+	await tween.finished
 
 
-func _update_shader_percentage(value: float):
+func _update_shader_percentage(value: float) -> void:
 	hint.material.set_shader_parameter("percentage", value)
 
 
-func _select_random_text(move_left) -> String:
-	var num_stars = GlobalConst.MAX_STARS_GAIN + move_left
+func _select_random_text(move_left: int) -> String:
+	var num_stars := GlobalConst.MAX_STARS_GAIN + move_left
 
 	if num_stars <= 0:
 		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
@@ -101,13 +102,13 @@ func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
 		await get_tree().create_timer(delay).timeout
 
 
-func _on_replay_btn_pressed():
+func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.level_manager.reset_level()
 	queue_free()
 
 
-func _on_next_btn_pressed():
+func _on_next_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 
 	if !_has_next_level:

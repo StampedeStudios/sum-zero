@@ -12,7 +12,7 @@ const ARENA_MENU = "res://packed_scene/user_interface/ArenaMenu.tscn"
 @onready var margin: MarginContainer = %MarginContainer
 
 
-func _ready():
+func _ready() -> void:
 	version_label.text = ProjectSettings.get("application/config/version")
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
@@ -33,9 +33,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _on_play_btn_pressed():
+func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var playable_level = GameManager.get_active_level(GameManager.get_start_level_playable())
+	var playable_id: int = GameManager.get_start_level_playable()
+	var playable_level: LevelData = GameManager.get_active_level(playable_id)
 	if playable_level != null:
 		var scene := ResourceLoader.load(GAME_UI) as PackedScene
 		var game_ui := scene.instantiate() as GameUI
@@ -51,7 +52,7 @@ func _on_play_btn_pressed():
 		level_manager.init_level.call_deferred(playable_level)
 
 
-func _on_level_btn_pressed():
+func _on_level_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
 	var level_ui := scene.instantiate() as LevelUI
@@ -60,7 +61,7 @@ func _on_level_btn_pressed():
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 
 
-func _on_editor_btn_pressed():
+func _on_editor_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
 	var builder_ui := scene.instantiate() as BuilderUI
@@ -76,7 +77,7 @@ func _on_editor_btn_pressed():
 	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
 
 
-func _on_quit_btn_pressed():
+func _on_quit_btn_pressed() -> void:
 	get_tree().quit()
 
 

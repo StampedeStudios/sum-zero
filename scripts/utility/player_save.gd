@@ -38,13 +38,13 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 			has_change = true
 
 	# check persistent progress (remove extra progress)
-	for level_hash in persistent_progress.keys():
+	for level_hash: String in persistent_progress.keys():
 		if !persistent_progress.has(level_hash):
 			persistent_progress.erase(level_hash)
 			has_change = true
 
 	# check persistent levels (add missing progress)
-	for level_hash in _persistent.levels_hash:
+	for level_hash: String in _persistent.levels_hash:
 		if !persistent_progress.has(level_hash):
 			add_world_progress(level_hash)
 			has_change = true
@@ -68,14 +68,14 @@ func _add_custom_progress(level_hash: String) -> void:
 	custom_progress[level_hash] = progress
 
 
-func add_world_progress(level_hash) -> void:
+func add_world_progress(level_hash: String) -> void:
 	var progress := Vector3i(0, 0, -1000)
 	persistent_progress[level_hash] = progress
 
 
 func unlock_level(level_id: int) -> void:
-	var level_hash = _persistent.levels_hash[level_id]
-	var current_progress = persistent_progress.get(level_hash) as Vector3i
+	var level_hash := _persistent.levels_hash[level_id] as String
+	var current_progress := persistent_progress.get(level_hash) as Vector3i
 	if current_progress.x == 0:
 		var progress := Vector3i(1, 0, -1000)
 		persistent_progress[level_hash] = progress

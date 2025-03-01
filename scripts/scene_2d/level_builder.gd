@@ -20,7 +20,7 @@ var _multiselection_cells: Array[BuilderCell]
 @onready var grid: Node2D = %Grid
 
 
-func _ready():
+func _ready() -> void:
 	GameManager.set_level_scale(3, 3)	
 	grid.position = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
 	grid.scale = Vector2.ZERO
@@ -110,8 +110,8 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		_level_data = level_data
 
 	GameManager.set_level_scale(_level_data.width, _level_data.height)
-	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
 	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
+	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
 	var old_collection: Dictionary
 
 	# add cell space
@@ -119,7 +119,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 	for column in range(0, _level_data.width):
 		for row in range(0, _level_data.height):
 			var cell_coord := Vector2i(column, row)
-			var cell_pos := cell_coord * GlobalConst.CELL_SIZE
+			var cell_pos := Vector2(cell_coord) * GlobalConst.CELL_SIZE
 			var cell: BuilderCell
 
 			if _cell_collection.has(cell_coord):
@@ -143,7 +143,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 
 			cell.position = -half_grid + half_cell + cell_pos
 
-	for coord in old_collection.keys():
+	for coord: Vector2i in old_collection.keys():
 		_cell_collection.erase(coord)
 		_level_data.cells_list.erase(coord)
 		old_collection.get(coord).queue_free()
@@ -246,14 +246,14 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		slider.position = edge_start_pos + slider_pos
 		slider.rotation_degrees = 0
 
-	for coord in old_collection.keys():
+	for coord: Vector2i in old_collection.keys():
 		_slider_collection.erase(coord)
 		_level_data.slider_list.erase(coord)
 		old_collection.get(coord).queue_free()
 
 
 func _on_cell_change(ref: BuilderCell, data: CellData) -> void:
-	for key in _cell_collection.keys():
+	for key: Vector2i in _cell_collection.keys():
 		if ref == _cell_collection.get(key):
 			if data:
 				_level_data.cells_list[key] = data
@@ -262,7 +262,7 @@ func _on_cell_change(ref: BuilderCell, data: CellData) -> void:
 
 
 func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
-	for key in _slider_collection.keys():
+	for key: Vector2i in _slider_collection.keys():
 		if ref == _slider_collection.get(key):
 			if data:
 				_level_data.slider_list[key] = data
@@ -270,7 +270,7 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 				_level_data.slider_list.erase(key)
 
 
-func _on_save_query_received(level_name: String, level_moves: int):
+func _on_save_query_received(level_name: String, level_moves: int) -> void:
 	_level_data.moves_left = level_moves
 	_level_data.name = level_name
 	GameManager.save_custom_level(_level_data)
@@ -312,8 +312,8 @@ func _process(_delta: float) -> void:
 		if !Input.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 			_end_multiselection()
 			return
-		var mouse_pos = get_global_mouse_position()
-		var size = mouse_pos - _multiselection_start_pos
+		var mouse_pos := get_global_mouse_position()
+		var size := mouse_pos - _multiselection_start_pos
 		_multiselection_panel.size = abs(size)
 		_multiselection_panel.global_position.x = minf(mouse_pos.x, _multiselection_start_pos.x)
 		_multiselection_panel.global_position.y = minf(mouse_pos.y, _multiselection_start_pos.y)
@@ -333,7 +333,7 @@ func on_multiselection_exit(area: Area2D) -> void:
 	_multiselection_cells.erase(cell)
 
 
-func _reset_builder_grid():
+func _reset_builder_grid() -> void:
 	_level_data.slider_list.clear()
 	_level_data.cells_list.clear()
 	for x in range(_level_data.width):

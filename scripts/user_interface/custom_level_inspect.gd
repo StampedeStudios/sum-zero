@@ -36,7 +36,7 @@ func animate(animated_scale: Vector2) -> void:
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
-func init_inspector(level_id: int, progress: LevelProgress):
+func init_inspector(level_id: int, progress: LevelProgress) -> void:
 	label.text = progress.name
 	_level_id = level_id
 

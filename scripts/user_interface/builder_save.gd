@@ -15,7 +15,7 @@ var _invalid_level: bool
 @onready var panel: Panel = %Panel
 
 
-func _ready():
+func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	_invalid_moves = true
 	_invalid_name = true
@@ -58,7 +58,7 @@ func close() -> void:
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
 
 
-func _on_save_btn_pressed():
+func _on_save_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	on_query_close.emit(level_name.text, int(moves.text))
 	level_name.text = ""
@@ -89,7 +89,7 @@ func _check_valid_info() -> void:
 
 
 func _on_level_name_text_changed(new_text: String) -> void:
-	var regex = RegEx.new()
+	var regex := RegEx.new()
 	regex.compile("\\w+")
 
 	var result := regex.search(new_text)

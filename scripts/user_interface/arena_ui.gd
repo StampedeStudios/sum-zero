@@ -1,6 +1,6 @@
 class_name ArenaUI extends Control
 
-const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
+const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 
 var _arena_mode: ArenaMode
 var _tween: Tween
@@ -60,7 +60,7 @@ func init_arena(selected_mode: ArenaMode = null) -> void:
 			_time = 0
 			_max_time = 12
 			_set_arena_time(_max_time)
-			timer.timeout.connect(func(): _set_arena_time(_time - 1))
+			timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
 			_get_new_random_level()
 	
 
@@ -81,14 +81,14 @@ func _start_loading() -> void:
 	_tween = create_tween()
 	_tween.set_loops(30)
 	var op := _tween.tween_property(loading, "rotation_degrees", 360, 1)
-	op.finished.connect(func(): loading.rotation_degrees = 0)
+	op.finished.connect(func() -> void: loading.rotation_degrees = 0)
 	# after 30 seconds of loading if you have not found playable levels go back to the menu
-	_tween.finished.connect(func(): GameManager.change_state(GlobalConst.GameState.MAIN_MENU))
+	_tween.finished.connect(func() -> void: GameManager.change_state(GlobalConst.GameState.MAIN_MENU))
 
 
 func _init_level() -> void:
 	if GameManager.level_manager == null:
-		var scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 		var level_manager := scene.instantiate() as LevelManager
 		GameManager.level_manager = level_manager
 		level_manager.on_level_complete.connect(_on_level_complete)
@@ -102,7 +102,7 @@ func _init_level() -> void:
 
 func _on_level_complete() -> void:
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
-	var remaing_moves = _current_level.moves_left - _moves_count
+	var remaing_moves := _current_level.moves_left - _moves_count
 	#TODO: update score and timer <--------------------------------------
 	print(remaing_moves)
 	_get_new_random_level()
