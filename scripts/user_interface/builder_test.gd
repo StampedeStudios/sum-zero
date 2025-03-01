@@ -1,7 +1,5 @@
 class_name BuilderTest extends Control
 
-signal reset_test_level
-
 var _moves: int
 
 @onready var margin: MarginContainer = %MarginContainer
@@ -26,6 +24,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
+			if !GameManager.level_manager.on_consume_move.is_connected(_add_move):
+				GameManager.level_manager.on_consume_move.connect(_add_move)
+			self.visible = true
+		GlobalConst.GameState.LEVEL_END:
 			self.visible = true
 		_:
 			self.visible = false
@@ -39,7 +41,7 @@ func _on_exit_btn_pressed():
 
 func _on_reset_btn_pressed():
 	AudioManager.play_click_sound()
-	reset_test_level.emit()
+	GameManager.level_manager.reset_level()
 	_reset_moves()
 
 
@@ -48,6 +50,6 @@ func _reset_moves() -> void:
 	moves_count.text = String.num(_moves)
 
 
-func add_move() -> void:
+func _add_move() -> void:
 	_moves += 1
 	moves_count.text = String.num(_moves)

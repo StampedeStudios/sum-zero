@@ -11,3 +11,11 @@ extends Resource
 @export var slider_list: Dictionary
 ## Moves to complete level and get three stars
 @export var moves_left: int = 0
+
+
+func is_valid_data() -> bool:
+	if cells_list.is_empty():
+		return false
+	if slider_list.is_empty():
+		return false
+	return true

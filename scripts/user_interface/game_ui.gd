@@ -1,9 +1,8 @@
 class_name GameUI extends Control
 
-signal reset_level
-
 const TUTORIAL = "res://packed_scene/user_interface/Tutorial.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
+const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 
 var moves_left: int
 var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
@@ -49,9 +48,22 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
 			moves_left = GameManager.get_active_level().moves_left
+			if !GameManager.level_manager.on_consume_move.is_connected(_consume_move):
+				GameManager.level_manager.on_consume_move.connect(_consume_move)
+			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
+				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
 			self.visible = true
+		GlobalConst.GameState.LEVEL_END:
+			self.visible = false		
 		_:
 			self.visible = false
+
+
+func _on_level_complete() -> void:
+	var scene := ResourceLoader.load(LEVEL_END) as PackedScene
+	var level_end := scene.instantiate() as LevelEnd
+	get_tree().root.add_child.call_deferred(level_end)
+	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 
 
 func initialize_ui(prev_state: GlobalConst.GameState):
@@ -72,13 +84,13 @@ func initialize_ui(prev_state: GlobalConst.GameState):
 		tutorial_ui.setup.call_deferred(tutorial)
 
 
-func consume_move() -> void:
+func _consume_move() -> void:
 	moves_left -= 1
 
 
 func _on_reset_btn_pressed():
 	AudioManager.play_click_sound()
-	reset_level.emit()
+	GameManager.level_manager.reset_level()
 
 
 func _on_skip_btn_pressed() -> void:

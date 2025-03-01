@@ -33,6 +33,7 @@ var builder_save: BuilderSave
 var builder_resize: BuilderResize
 var builder_test: BuilderTest
 var level_ui: LevelUI
+var arena_ui: ArenaUI
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer

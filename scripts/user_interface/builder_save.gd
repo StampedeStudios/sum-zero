@@ -31,7 +31,7 @@ func animate(animated_scale: Vector2) -> void:
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 	
 
-func init_info(old_name: String, old_moves: String, invalid_level: bool) -> void:
+func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
 	if old_name != "":
 		level_name.text = old_name
 	if old_moves != "":
@@ -40,7 +40,7 @@ func init_info(old_name: String, old_moves: String, invalid_level: bool) -> void
 	moves.caret_column = old_moves.length()
 	_invalid_moves = moves.text.is_empty()
 	_invalid_name = level_name.text.is_empty()
-	_invalid_level = invalid_level
+	_invalid_level = !is_valid
 	_check_valid_info()
 	self.visible = true
 	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)

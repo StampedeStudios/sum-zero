@@ -63,7 +63,6 @@ func _on_play_btn_pressed():
 		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 		var level_test = scene.instantiate() as LevelManager
 		get_tree().root.add_child.call_deferred(level_test)
-		level_test.set_manager_mode.call_deferred(true)
 		GameManager.level_manager = level_test
 
 	GameManager.level_manager.init_level.call_deferred(GameManager.level_builder.get_level_data())

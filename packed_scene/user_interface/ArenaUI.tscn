@@ -1,0 +1,129 @@
+[gd_scene load_steps=10 format=3 uid="uid://ddsr10psgusqk"]
+
+[ext_resource type="Script" path="res://scripts/user_interface/arena_ui.gd" id="1_3vb52"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_jitnk"]
+[ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2u67y"]
+[ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_k3jki"]
+[ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="5_b32ap"]
+[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="6_d0ym2"]
+[ext_resource type="Texture2D" uid="uid://bsoogs3ajwrp5" path="res://assets/ui/loading.png" id="7_cd4qi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vno4s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k7w"]
+shader = ExtResource("6_d0ym2")
+shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+
+[node name="ArenaUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+script = ExtResource("1_3vb52")
+metadata/_edit_horizontal_guides_ = [-135.0]
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TopContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("2_jitnk")
+theme_override_constants/icon_max_width = 64
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+icon = ExtResource("3_2u67y")
+flat = true
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/TopContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_vno4s")
+
+[node name="ArenaTime" type="Label" parent="MarginContainer/TopContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("2_jitnk")
+text = "00:00"
+horizontal_alignment = 1
+
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+alignment = 2
+
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_jitnk")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("4_k3jki")
+
+[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme = ExtResource("2_jitnk")
+theme_override_font_sizes/font_size = 100
+icon = ExtResource("5_b32ap")
+
+[node name="Loading" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LoadingIcon" type="TextureRect" parent="Loading"]
+material = SubResource("ShaderMaterial_x1k7w")
+layout_mode = 2
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 448.0
+offset_bottom = 448.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_cd4qi")
+stretch_mode = 3
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="pressed" from="MarginContainer/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]

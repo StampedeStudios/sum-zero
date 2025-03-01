@@ -2,6 +2,7 @@ class_name ArenaMenu extends Control
 
 const LAST_TUTORIAL_LEVEL: int = 30
 const WARNING_MSG := "⚠ \nARENA ACCESS LOCKED \n\nYou must complete level %s to join the Arena."
+const ARENA_UI := "res://packed_scene/user_interface/ArenaUI.tscn"
 
 @export var arena_modes: Array[ArenaMode]
 
@@ -18,7 +19,7 @@ var _mode_selected: int = 0
 func _ready() -> void:
 	# playable only after completing all tutorial levels
 	var is_locked: bool = GameManager.get_start_level_playable() < LAST_TUTORIAL_LEVEL
-	if !is_locked:
+	if is_locked:
 		arena_warnings.text = WARNING_MSG % [str(LAST_TUTORIAL_LEVEL)]
 		arena_warnings.show()
 		arena_selection.hide()
@@ -78,3 +79,10 @@ func _on_next_mode_gui_input(event: InputEvent) -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
+	var scene := ResourceLoader.load(ARENA_UI) as PackedScene
+	var arena_ui := scene.instantiate() as ArenaUI
+	GameManager.arena_ui = arena_ui
+	get_tree().root.add_child(arena_ui)
+	arena_ui.init_arena.call_deferred(arena_modes[_mode_selected])
+	queue_free.call_deferred()
+	

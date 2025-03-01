@@ -1,12 +1,13 @@
 class_name LevelManager extends Node2D
 
+signal on_level_complete
+signal on_consume_move
+
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
-const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 
 var grid_cells: Array[Cell]
 var grid_sliders: Array[SliderArea]
-var _is_test_mode: bool
 var _has_slider_active: bool
 
 @onready var grid = %Grid
@@ -16,14 +17,6 @@ var _has_slider_active: bool
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-
-
-func set_manager_mode(is_test_mode: bool) -> void:
-	_is_test_mode = is_test_mode
-	if _is_test_mode:
-		GameManager.builder_test.reset_test_level.connect(_reset_level)
-	else:
-		GameManager.game_ui.reset_level.connect(_reset_level)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -98,10 +91,10 @@ func init_level(current_level: LevelData) -> void:
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
-		sc_instance.init_slider(current_level.slider_list.get(coord))
+		sc_instance.init_slider.call_deferred(current_level.slider_list.get(coord))
 		sc_instance.alter_grid.connect(check_grid)
 		grid_sliders.append(sc_instance)
-
+	await get_tree().process_frame
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
 
 
@@ -113,7 +106,9 @@ func _clear() -> void:
 	grid_sliders.clear()
 
 
-func check_grid() -> void:
+func check_grid(move_count: bool) -> void:
+	if move_count:
+		on_consume_move.emit()
 	var level_complete: bool
 	_has_slider_active = false
 	for cell in grid_cells:
@@ -122,15 +117,11 @@ func check_grid() -> void:
 		else:
 			level_complete = false
 			break
-	if level_complete and !_is_test_mode:
-		var scene := ResourceLoader.load(LEVEL_END) as PackedScene
-		var level_end := scene.instantiate() as LevelEnd
-		level_end.restart_level.connect(_reset_level)
-		get_tree().root.add_child.call_deferred(level_end)
-		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+	if level_complete:
+		on_level_complete.emit()
 
 
-func _reset_level() -> void:
+func reset_level() -> void:
 	for child in grid.get_children():
 		if child is SliderArea:
 			child.reset()

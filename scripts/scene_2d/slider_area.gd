@@ -1,6 +1,6 @@
 class_name SliderArea extends Node2D
 
-signal alter_grid
+signal alter_grid(move_count: bool)
 
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
 const MAX_EXTENSION: int = 5 * 256
@@ -60,26 +60,20 @@ func get_slider_position() -> Vector2:
 
 
 func release_handle() -> void:
+	var move_count: bool
 	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
-	alter_grid.emit()
 	if _current_scale != _last_scale:
 		_last_scale = _current_scale
-		_count_move()
+		move_count = true
 	else:
 		for cell: Cell in _last_affected_cells:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
-				_count_move()
+				move_count = true
 				break
-
-
-func _count_move() -> void:
-	if GameManager.game_ui != null:
-		GameManager.game_ui.consume_move()
-	if GameManager.builder_test != null:
-		GameManager.builder_test.add_move()
+	alter_grid.emit(move_count)
 
 
 func _process(_delta: float) -> void:

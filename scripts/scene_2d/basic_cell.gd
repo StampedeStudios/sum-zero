@@ -9,7 +9,7 @@ var _effect_stack: Array[GlobalConst.AreaEffect]
 
 @onready var target_value_txt: Label = %TargetValueTxt
 @onready var tile: Sprite2D = %Tile
-@onready var area_2d = %Area2D
+@onready var area_2d: Area2D = %Area2D
 
 
 func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
@@ -31,8 +31,10 @@ func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 func init_cell(data: CellData) -> void:
 	_origin_data = data
 	if _origin_data.is_blocked:
+		_current_data = data
 		tile.texture = ResourceLoader.load(locked_cell) as Texture2D
 		target_value_txt.visible = false
+		area_2d.hide()
 		area_2d.queue_free()
 	else:
 		_current_data = CellData.new()

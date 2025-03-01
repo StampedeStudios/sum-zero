@@ -61,7 +61,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			if _level_data.name != "":
 				level_name = _level_data.name
 				moves = String.num_int64(_level_data.moves_left)
-			GameManager.builder_save.init_info.call_deferred(level_name, moves, invalid_level())
+			GameManager.builder_save.init_info.call_deferred(level_name, moves, is_valid_data())
 
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
@@ -366,12 +366,8 @@ func get_level_data() -> LevelData:
 	return _level_data
 
 
-func invalid_level() -> bool:
-	if _level_data.cells_list.is_empty():
-		return true
-	if _level_data.slider_list.is_empty():
-		return true
-	return false
+func is_valid_data() -> bool:
+	return _level_data.is_valid_data()
 
 
 func generate_level(element: GlobalConst.GenerationElement) -> void:

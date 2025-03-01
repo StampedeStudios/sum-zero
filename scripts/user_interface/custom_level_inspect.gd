@@ -91,7 +91,6 @@ func _on_play_btn_pressed() -> void:
 	scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 	var level_manager := scene.instantiate() as LevelManager
 	get_tree().root.add_child.call_deferred(level_manager)
-	level_manager.set_manager_mode.call_deferred(false)
 	GameManager.level_manager = level_manager
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)

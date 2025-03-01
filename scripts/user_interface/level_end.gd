@@ -1,7 +1,5 @@
 class_name LevelEnd extends Control
 
-signal restart_level
-
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
 const ANIMATION_DURATION = 300
@@ -105,7 +103,7 @@ func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
 
 func _on_replay_btn_pressed():
 	AudioManager.play_click_sound()
-	restart_level.emit()
+	GameManager.level_manager.reset_level()
 	queue_free()
 
 
