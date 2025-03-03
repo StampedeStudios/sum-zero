@@ -104,22 +104,6 @@ icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
-[node name="ArenaBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 70
-theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
-theme_override_styles/normal = ExtResource("4_vg1ss")
-text = "ARENA"
-icon = ExtResource("4_1eqng")
-alignment = 0
-icon_alignment = 2
-
 [node name="LevelBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -205,7 +189,6 @@ text = "1.0"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/ArenaBtn" to="." method="_on_arena_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/OptionBtn" to="." method="_on_option_btn_pressed"]

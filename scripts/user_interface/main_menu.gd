@@ -6,7 +6,7 @@ const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
-const ARENA_MENU = "res://packed_scene/user_interface/ArenaMenu.tscn"
+const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection.tscn"
 
 @onready var version_label: Label = %VersionLabel
 @onready var margin: MarginContainer = %MarginContainer
@@ -35,21 +35,9 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var playable_id: int = GameManager.get_start_level_playable()
-	var playable_level: LevelData = GameManager.get_active_level(playable_id)
-	if playable_level != null:
-		var scene := ResourceLoader.load(GAME_UI) as PackedScene
-		var game_ui := scene.instantiate() as GameUI
-		get_tree().root.add_child.call_deferred(game_ui)
-		game_ui.initialize_ui.call_deferred(GlobalConst.GameState.MAIN_MENU)
-		GameManager.game_ui = game_ui
-
-		scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
-		var level_manager := scene.instantiate() as LevelManager
-		get_tree().root.add_child.call_deferred(level_manager)
-		GameManager.level_manager = level_manager
-
-		level_manager.init_level.call_deferred(playable_level)
+	var scene := ResourceLoader.load(PLAY_MODE_SELECTION) as PackedScene
+	var play_mode_selection := scene.instantiate() as PlayModeSelection
+	get_tree().root.add_child.call_deferred(play_mode_selection)
 
 
 func _on_level_btn_pressed() -> void:
@@ -86,11 +74,3 @@ func _on_option_btn_pressed() -> void:
 	var scene := ResourceLoader.load(OPTIONS) as PackedScene
 	var option_ui := scene.instantiate() as Options
 	get_tree().root.add_child.call_deferred(option_ui)
-
-
-func _on_arena_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	var scene := ResourceLoader.load(ARENA_MENU) as PackedScene
-	var arena_menu := scene.instantiate() as ArenaMenu
-	get_tree().root.add_child.call_deferred(arena_menu)
-	

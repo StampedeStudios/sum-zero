@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StoryMode" load_steps=3 format=3 uid="uid://bn7pmxwdrvgdw"]
+
+[ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="1_tswj4"]
+[ext_resource type="Script" path="res://scripts/utility/story_mode.gd" id="1_wy4ra"]
+
+[resource]
+script = ExtResource("1_wy4ra")
+id_start = 30
+id_end = 107
+title = "CLASSIC"
+icon = ExtResource("1_tswj4")
+unlock_level_id = 29

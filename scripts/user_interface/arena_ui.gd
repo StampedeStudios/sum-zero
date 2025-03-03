@@ -2,19 +2,19 @@ class_name ArenaUI extends Control
 
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 
-var _arena_mode: ArenaMode
+var _current_mode: ArenaMode
 var _tween: Tween
 var _current_level: LevelData
 var _moves_count: int
 var _time: int
-var _max_time: int
+var _timer: Timer
 
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
 @onready var container: HBoxContainer = %BottomRightContainer
 @onready var loading: Control = %Loading
-@onready var timer: Timer = %Timer
 @onready var arena_time: Label = %ArenaTime
+@onready var loading_icon: TextureRect = %LoadingIcon
 
 
 func _ready() -> void:
@@ -28,6 +28,13 @@ func _ready() -> void:
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
 	
+	# adapt loading icon at screen size
+	var screen_size := get_viewport_rect().size
+	var min_edge := minf(screen_size.x, screen_size.y)
+	var icon_size := Vector2(min_edge / 4, min_edge / 4)
+	loading_icon.size = icon_size
+	loading_icon.position = -icon_size / 2
+	
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
@@ -38,7 +45,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			loading.hide()
 			loading.rotation_degrees = 0
 			container.hide()
-			timer.stop()
+			if _timer:
+				_timer.stop()
 			arena_time.hide()
 			_moves_count = 0
 		GlobalConst.GameState.LEVEL_START:
@@ -50,18 +58,20 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 			
 	
-func init_arena(selected_mode: ArenaMode = null) -> void:
-	if selected_mode:
-		_arena_mode = selected_mode
+func init_arena(mode: ArenaMode) -> void:
+	if mode:
+		_current_mode = mode
+	if _current_mode.is_countdown:
+		if !_timer:
+			_timer = Timer.new()
+			_timer.one_shot = false
+			_timer.autostart = false
+			_timer.wait_time = 1
+			add_child(_timer)
+		_set_arena_time(mode.max_game_time)
+		_timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
-	#TODO: manage various arena modes <----------------------------------------
-	match _arena_mode:
-		_:
-			_time = 0
-			_max_time = 12
-			_set_arena_time(_max_time)
-			timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
-			_get_new_random_level()
+	_get_new_random_level()
 	
 
 func _get_new_random_level() -> void:
@@ -97,7 +107,7 @@ func _init_level() -> void:
 	# start level
 	GameManager.level_manager.init_level.call_deferred(_current_level)
 	arena_time.show()
-	timer.start()
+	_timer.start()
 	
 
 func _on_level_complete() -> void:
@@ -130,11 +140,8 @@ func _on_skip_btn_pressed() -> void:
 
 
 func _set_arena_time(new_time: int) -> void:
-	_time = clampi(new_time, 0, _max_time)
+	_time = clampi(new_time, 0, _current_mode.max_game_time)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
-	#TODO: manage end mode <----------------------------------
-	match _arena_mode:
-		_:
-			if _time == 0:
-				GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
+	if _time == 0:
+		GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 				

@@ -1,35 +1,35 @@
 [gd_scene load_steps=17 format=3 uid="uid://cgcph1mual0b8"]
 
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_lfhu0"]
-[ext_resource type="Script" path="res://scripts/user_interface/arena_menu.gd" id="2_3p028"]
-[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_icyyr"]
-[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="3_mt6ny"]
-[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="4_hkcbn"]
-[ext_resource type="Resource" uid="uid://ojmt4p0k51qh" path="res://assets/resources/levels/arena_classic.tres" id="4_mrc7b"]
-[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="5_c8f3e"]
-[ext_resource type="Resource" uid="uid://d3ourb4tybhnc" path="res://assets/resources/levels/arena_blitz.tres" id="5_kh0qy"]
-[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="5_pxvvn"]
-[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="5_xswbk"]
-[ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="6_31sgg"]
-[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="6_nb7ih"]
-[ext_resource type="Resource" uid="uid://dpfok1scpwlwg" path="res://assets/resources/levels/arena_royale.tres" id="6_yf0np"]
-[ext_resource type="Resource" uid="uid://c0t3k3r7obeqq" path="res://assets/resources/levels/arena_arcade.tres" id="7_x2162"]
-[ext_resource type="Resource" uid="uid://ddeqdm888mhm6" path="res://assets/resources/levels/arena_tactical.tres" id="8_2hkk1"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
+[ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
+[ext_resource type="Script" path="res://scripts/utility/play_mode.gd" id="3_syb7d"]
+[ext_resource type="Resource" uid="uid://cdb1s2jwkb0yd" path="res://assets/resources/levels/tutorial_mode.tres" id="4_hwcqv"]
+[ext_resource type="Resource" uid="uid://bn7pmxwdrvgdw" path="res://assets/resources/levels/classic_mode.tres" id="4_sd7pi"]
+[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="5_fuib4"]
+[ext_resource type="Resource" uid="uid://dqws5wgs1jkj4" path="res://assets/resources/levels/blitz_3_0_mode.tres" id="6_2oxbs"]
+[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="6_wacid"]
+[ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/blitz_3_1_mode.tres" id="7_i45mq"]
+[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="7_ylopr"]
+[ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="8_du4gt"]
+[ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/puzzle.tres" id="8_gywfq"]
+[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
+[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_wkk3t"]
+[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_kkjb1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k7w"]
-shader = ExtResource("5_c8f3e")
+shader = ExtResource("7_ylopr")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 
-[node name="ArenaMenu" type="Control"]
+[node name="PlayModeSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_lfhu0")
-script = ExtResource("2_3p028")
-arena_modes = Array[ExtResource("3_mt6ny")]([ExtResource("4_mrc7b"), ExtResource("5_kh0qy"), ExtResource("6_yf0np"), ExtResource("7_x2162"), ExtResource("8_2hkk1")])
+theme = ExtResource("1_wbtf6")
+script = ExtResource("2_j1dwl")
+arena_modes = Array[ExtResource("3_syb7d")]([ExtResource("4_hwcqv"), ExtResource("4_sd7pi"), ExtResource("6_2oxbs"), ExtResource("7_i45mq"), ExtResource("8_gywfq")])
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
@@ -38,7 +38,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("3_icyyr")
+theme_override_styles/panel = ExtResource("5_fuib4")
 
 [node name="Panel" type="Panel" parent="Background"]
 unique_name_in_owner = true
@@ -49,13 +49,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -275.0
-offset_top = -325.0
+offset_top = -275.0
 offset_right = 275.0
-offset_bottom = 325.0
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("4_hkcbn")
+theme_override_styles/panel = ExtResource("6_wacid")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 1
@@ -69,22 +69,36 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="ArenaWarnings" type="Label" parent="Background/Panel/MarginContainer"]
+[node name="ArenaSelection" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="Container" type="CenterContainer" parent="Background/Panel/MarginContainer/ArenaSelection"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ModeIcon" type="TextureRect" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
 unique_name_in_owner = true
 visible = false
+material = SubResource("ShaderMaterial_x1k7w")
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_wbtf6")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="LockedMsg" type="Label" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(470, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme = ExtResource("1_lfhu0")
-text = "WARNINGS"
+theme = ExtResource("1_wbtf6")
+text = "LOCKED_MSG"
 horizontal_alignment = 1
 autowrap_mode = 3
-
-[node name="ArenaSelection" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_constants/separation = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
@@ -93,7 +107,7 @@ layout_mode = 2
 material = SubResource("ShaderMaterial_x1k7w")
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("6_31sgg")
+texture = ExtResource("8_du4gt")
 expand_mode = 2
 flip_h = true
 
@@ -102,8 +116,8 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-theme = ExtResource("1_lfhu0")
-text = "ARENA MODE"
+theme = ExtResource("1_wbtf6")
+text = "PLAY MODE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -111,25 +125,14 @@ vertical_alignment = 1
 material = SubResource("ShaderMaterial_x1k7w")
 layout_mode = 2
 mouse_filter = 0
-texture = ExtResource("6_31sgg")
+texture = ExtResource("8_du4gt")
 expand_mode = 2
-
-[node name="ModeDescription" type="Label" parent="Background/Panel/MarginContainer/ArenaSelection"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(470, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_lfhu0")
-text = "Arena mode description"
-horizontal_alignment = 1
-autowrap_mode = 3
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("5_xswbk")
+theme = ExtResource("9_r4e6y")
 text = "PLAY"
 icon_alignment = 2
 
@@ -145,10 +148,10 @@ focus_mode = 0
 theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_styles/hover = ExtResource("5_pxvvn")
-theme_override_styles/pressed = ExtResource("5_pxvvn")
-theme_override_styles/normal = ExtResource("5_pxvvn")
-icon = ExtResource("6_nb7ih")
+theme_override_styles/hover = ExtResource("10_wkk3t")
+theme_override_styles/pressed = ExtResource("10_wkk3t")
+theme_override_styles/normal = ExtResource("10_wkk3t")
+icon = ExtResource("11_kkjb1")
 icon_alignment = 1
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]

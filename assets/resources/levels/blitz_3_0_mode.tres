@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=3 format=3 uid="uid://dqws5wgs1jkj4"]
+
+[ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="1_wlhwh"]
+[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="2_xg2df"]
+
+[resource]
+script = ExtResource("2_xg2df")
+is_countdown = true
+max_game_time = 180
+title = "BLITZ 3 + 1"
+icon = ExtResource("1_wlhwh")
+unlock_level_id = 29
