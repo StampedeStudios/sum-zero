@@ -89,6 +89,7 @@ theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_k3jki")
 
 [node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
