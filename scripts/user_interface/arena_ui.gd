@@ -15,6 +15,7 @@ var _timer: Timer
 @onready var loading: Control = %Loading
 @onready var arena_time: Label = %ArenaTime
 @onready var loading_icon: TextureRect = %LoadingIcon
+@onready var skip_btn: Button = %SkipBtn
 
 
 func _ready() -> void:
@@ -70,6 +71,7 @@ func init_arena(mode: ArenaMode) -> void:
 			add_child(_timer)
 		_set_arena_time(mode.max_game_time)
 		_timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
+	skip_btn.visible = _current_mode.is_skippable
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 	_get_new_random_level()
 	
@@ -111,15 +113,18 @@ func _init_level() -> void:
 	
 
 func _on_level_complete() -> void:
+	if _current_mode.is_countdown and _timer:
+		var score := _current_mode.score_calculation
+		if score and score.time_gained_per_move > 0:
+			var extra_time := score.get_time_gained(_current_level.moves_left, _moves_count)
+			_set_arena_time(_time + extra_time)
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
-	var remaing_moves := _current_level.moves_left - _moves_count
-	#TODO: update score and timer <--------------------------------------
-	print(remaing_moves)
 	_get_new_random_level()
 
 
 func _on_consumed_move() -> void:
 	_moves_count += 1
+	print("consume")
 		
 
 func _on_exit_btn_pressed() -> void:	
@@ -135,13 +140,16 @@ func _on_reset_btn_pressed() -> void:
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
-	#TODO: manage skip cost <--------------------------------------------
+	if _time > _current_mode.score_calculation.skip_cost:
+		_set_arena_time(_time - _current_mode.score_calculation.skip_cost)
 	_get_new_random_level()
 
 
 func _set_arena_time(new_time: int) -> void:
 	_time = clampi(new_time, 0, _current_mode.max_game_time)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
+	if _current_mode.is_skippable:
+		skip_btn.visible = _time > _current_mode.score_calculation.skip_cost
 	if _time == 0:
 		GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 				
