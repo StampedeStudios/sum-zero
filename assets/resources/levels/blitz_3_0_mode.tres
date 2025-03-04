@@ -1,21 +1,21 @@
 [gd_resource type="Resource" script_class="ArenaMode" load_steps=5 format=3 uid="uid://dqws5wgs1jkj4"]
 
 [ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="1_wlhwh"]
-[ext_resource type="Script" path="res://scripts/utility/score_calculation.gd" id="2_nfe25"]
-[ext_resource type="Script" path="res://scripts/utility/arena_mode.gd" id="2_xg2df"]
+[ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_xg2df"]
+[ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_7wofm"]
 
-[sub_resource type="Resource" id="Resource_odqq1"]
-script = ExtResource("2_nfe25")
+[sub_resource type="Resource" id="Resource_b0xqm"]
+script = ExtResource("3_7wofm")
+is_countdown = true
+max_game_time = 180
 skip_cost = 15
 time_gained_per_move = 0.0
-bost_per_score = 1.0
+boost_per_score = 2.0
 
 [resource]
 script = ExtResource("2_xg2df")
 is_skippable = true
-is_countdown = true
-max_game_time = 180
-score_calculation = SubResource("Resource_odqq1")
+timer_options = SubResource("Resource_b0xqm")
 title = "BLITZ 3 + 0"
 icon = ExtResource("1_wlhwh")
 unlock_level_id = 29
