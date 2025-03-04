@@ -1,17 +1,18 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=18 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
-[ext_resource type="Script" path="res://scripts/utility/play_mode.gd" id="3_syb7d"]
+[ext_resource type="Script" path="res://scripts/utility/play_mode/play_mode.gd" id="3_syb7d"]
 [ext_resource type="Resource" uid="uid://cdb1s2jwkb0yd" path="res://assets/resources/levels/tutorial_mode.tres" id="4_hwcqv"]
 [ext_resource type="Resource" uid="uid://bn7pmxwdrvgdw" path="res://assets/resources/levels/classic_mode.tres" id="4_sd7pi"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="5_fuib4"]
+[ext_resource type="Resource" uid="uid://cqsjj643jp1lf" path="res://assets/resources/levels/endless_mode.tres" id="6_0xo1f"]
 [ext_resource type="Resource" uid="uid://dqws5wgs1jkj4" path="res://assets/resources/levels/blitz_3_0_mode.tres" id="6_2oxbs"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="6_wacid"]
 [ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/blitz_3_1_mode.tres" id="7_i45mq"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="7_ylopr"]
 [ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="8_du4gt"]
-[ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/puzzle.tres" id="8_gywfq"]
+[ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/puzzle_mode.tres" id="8_gywfq"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_wkk3t"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_kkjb1"]
@@ -29,7 +30,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_wbtf6")
 script = ExtResource("2_j1dwl")
-arena_modes = Array[ExtResource("3_syb7d")]([ExtResource("4_hwcqv"), ExtResource("4_sd7pi"), ExtResource("6_2oxbs"), ExtResource("7_i45mq"), ExtResource("8_gywfq")])
+arena_modes = Array[ExtResource("3_syb7d")]([ExtResource("4_hwcqv"), ExtResource("4_sd7pi"), ExtResource("6_0xo1f"), ExtResource("6_2oxbs"), ExtResource("7_i45mq"), ExtResource("8_gywfq")])
 
 [node name="Background" type="Panel" parent="."]
 layout_mode = 1
