@@ -11,6 +11,7 @@ var _time: int
 var _level_time: int
 var _timer: Timer
 var _levels_summary: Array[LevelSummary]
+var _randomizer: Randomizer
 
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
@@ -49,8 +50,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			_hide_UI()
 		GlobalConst.GameState.LEVEL_START:
 			self.show()
-			loading.hide()
-			_tween.kill()
 			container.show()
 		GlobalConst.GameState.LEVEL_END:
 			self.hide()
@@ -72,6 +71,10 @@ func init_arena(mode: ArenaMode) -> void:
 	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 	if mode:
 		_current_mode = mode
+		if _current_mode.level_options:
+			_randomizer = Randomizer.new(_current_mode.level_options)
+			get_tree().root.add_child(_randomizer)
+			
 	skip_btn.visible = _current_mode.is_skippable
 	if _current_mode.timer_options:
 		if !_timer:
@@ -91,15 +94,22 @@ func init_arena(mode: ArenaMode) -> void:
 
 func _get_new_random_level() -> void:
 	_start_loading()
+	_current_level = LevelData.new()
 	while true:
-		#TODO: get random level data from Randomizer <------------------------------------
-		var id := randi_range(0, GameManager._persistent_save.levels_hash.size() - 1)
-		_current_level = GameManager.get_active_level(id)
-		await get_tree().create_timer(0.2).timeout
-		if _current_level.is_valid_data(): break
+		await get_tree().process_frame
+		if _randomizer:
+			# get random level data from Randomizer
+			await _randomizer.generate_level(_current_level)
+		else:
+			# get random level from world's levels
+			var id := randi_range(0, GameManager._persistent_save.levels_hash.size() - 1)
+			_current_level = GameManager.get_active_level(id)
+		if !_current_level.is_valid_data(): break
 	# start playing level
+	await get_tree().process_frame
 	loading.hide()
 	loading.rotation_degrees = 0
+	_tween.kill()
 	_init_level()
 
 
@@ -179,6 +189,7 @@ func _set_arena_time(new_time: int) -> void:
 		skip_btn.visible = _time > _current_mode.timer_options.skip_cost
 	if _time <= 0: 
 		_time = 0
-		_timer.stop()
-		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+		if !_timer.is_stopped():
+			_timer.stop()
+			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
