@@ -2,11 +2,13 @@ class_name LevelBuilder extends Node2D
 
 const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
 const BUILDER_SLIDER := preload("res://packed_scene/scene_2d/BuilderSlider.tscn")
-const PANEL = preload("res://assets/resources/themes/panel.tres")
-const BUILDER_RESIZE = "res://packed_scene/user_interface/BuilderResize.tscn"
-const BUILDER_SAVE = "res://packed_scene/user_interface/BuilderSave.tscn"
-const BUILDER_SELECTION = "res://packed_scene/user_interface/BuilderSelection.tscn"
+const PANEL := preload("res://assets/resources/themes/panel.tres")
+const RANDOMIZER_OPTIONS = "res://assets/resources/levels/randomizer_options/builder_options.tres"
+const BUILDER_RESIZE := "res://packed_scene/user_interface/BuilderResize.tscn"
+const BUILDER_SAVE := "res://packed_scene/user_interface/BuilderSave.tscn"
+const BUILDER_SELECTION := "res://packed_scene/user_interface/BuilderSelection.tscn"
 
+var _randomizer: Randomizer
 var _level_data: LevelData
 var _cell_collection: Dictionary
 var _slider_collection: Dictionary
@@ -370,14 +372,22 @@ func is_valid_data() -> bool:
 	return _level_data.is_valid_data()
 
 
+func initialize_randomizer() -> bool:
+	var options := ResourceLoader.load(RANDOMIZER_OPTIONS) as RandomizerOptions
+	if options:
+		_randomizer = Randomizer.new(options)
+		return true
+	return false
+
+
 func generate_level(element: GlobalConst.GenerationElement) -> void:
 	match element:
 		GlobalConst.GenerationElement.HOLE:
-			Randomizer.create_holes(_level_data)
+			_randomizer.create_holes(_level_data)
 		GlobalConst.GenerationElement.BLOCK:
-			Randomizer.create_block(_level_data)
+			_randomizer.create_block(_level_data)
 		GlobalConst.GenerationElement.SLIDER:
-			Randomizer.create_sliders(_level_data)
+			_randomizer.create_sliders(_level_data)
 
 	construct_level.call_deferred(_level_data, true)
 	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
