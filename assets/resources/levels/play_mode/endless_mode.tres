@@ -1,15 +1,13 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=13 format=3 uid="uid://cqsjj643jp1lf"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=15 format=3 uid="uid://cqsjj643jp1lf"]
 
 [ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="1_gc4mv"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_lqxql"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_cell_opt.gd" id="2_uwehj"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_hole_opt.gd" id="2_uwehj"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_bwsl1"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="3_ofmn1"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="4_pe733"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_locked_opt.gd" id="4_tge6p"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/random_slider_opt.gd" id="5_24rpd"]
-
-[sub_resource type="Resource" id="Resource_mpy3t"]
-script = ExtResource("2_uwehj")
 
 [sub_resource type="Resource" id="Resource_3xdxb"]
 script = ExtResource("3_ofmn1")
@@ -21,6 +19,28 @@ size_rules = {
 lower_odd = 40
 upper_odd = 50
 std_grid_sizes = Array[Vector2i]([Vector2i(3, 3), Vector2i(4, 4)])
+
+[sub_resource type="Resource" id="Resource_hp7ig"]
+script = ExtResource("2_uwehj")
+diffusion_rules = {
+"LOWER": 50,
+"STANDARD": 40,
+"UPPER": 10
+}
+remove_odd = 60
+add_odd = 30
+std_diffusion = 25
+
+[sub_resource type="Resource" id="Resource_g4kmp"]
+script = ExtResource("4_tge6p")
+diffusion_rules = {
+"LOWER": 50,
+"MAX": 10,
+"NONE": 40
+}
+remove_odd = 60
+add_odd = 30
+std_diffusion = 15
 
 [sub_resource type="Resource" id="Resource_s2u41"]
 script = ExtResource("5_24rpd")
@@ -62,7 +82,8 @@ type_rules = {
 [sub_resource type="Resource" id="Resource_ppfa4"]
 script = ExtResource("4_pe733")
 grid_opt = SubResource("Resource_3xdxb")
-cell_opt = SubResource("Resource_mpy3t")
+hole_opt = SubResource("Resource_hp7ig")
+locked_opt = SubResource("Resource_g4kmp")
 slider_opt = SubResource("Resource_s2u41")
 
 [sub_resource type="Resource" id="Resource_ssd72"]

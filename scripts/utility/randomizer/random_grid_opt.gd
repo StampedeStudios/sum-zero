@@ -1,11 +1,11 @@
 class_name RandomGridOptions extends Resource
 
 ## Grid size rule
-@export var size_rules := {"STANDARD": 50, "LOWER": 10, "UPPER": 40}
+@export var size_rules: Dictionary = {"STANDARD": 50, "LOWER": 10, "UPPER": 40}
 ## Lower subtract probability
-@export var lower_odd := 40
+@export_range(0, 100, .1) var lower_odd: int = 40
 ## Upper addiction probability
-@export var upper_odd := 50
+@export_range(0, 100, .1) var upper_odd: int = 50
 ## Standard grid size (random size in array)
 @export var std_grid_sizes: Array[Vector2i] = [Vector2i(3, 3), Vector2i(4, 4)]
 

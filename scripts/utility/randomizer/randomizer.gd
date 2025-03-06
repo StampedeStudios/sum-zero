@@ -11,14 +11,14 @@ func _init(new_options: RandomizerOptions) -> void:
 
 func generate_level(data: LevelData) -> void:
 	await _generate_grid(data)
-	await _remove_holes(data)
-
+	await create_holes(data)
+	await create_block(data)
+	
 
 func _generate_grid(data: LevelData) -> void:
 	var size: Vector2i
 	if _options.grid_opt:
 		size = _options.grid_opt.std_grid_sizes.pick_random()
-		print(size)
 		match _get_rule(_options.grid_opt.size_rules):
 			"STANDARD":
 				pass
@@ -40,7 +40,6 @@ func _generate_grid(data: LevelData) -> void:
 						break
 	else:
 		size = Vector2i(3, 3)
-	print(size)
 	data.width = size.x
 	data.height = size.y
 	await get_tree().process_frame
@@ -56,46 +55,103 @@ func _remove_holes(data: LevelData) -> void:
 
 
 func create_holes(data: LevelData) -> void:
-	_remove_holes(data)
+	await _remove_holes(data)
+	if _options.hole_opt == null:
+		return
+	var hole_options := _options.hole_opt
+	var cell_count := data.cells_list.size()
+	var counter: int = 0
+	if hole_options.std_diffusion > 0:	
+		match _get_rule(hole_options.diffusion_rules):
+			"NONE":
+				pass
+			"LOWER":
+				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
+				while true:
+					if counter > 1 and _check_probability(hole_options.remove_odd):
+						counter -= 1
+					else:
+						break
+			"MAX":
+				# max hole count is percetage of all cells
+				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)				
+	if counter == 0:
+		return
+	await get_tree().process_frame
 	var cells := data.cells_list.keys()
 	var origin := cells.pick_random() as Vector2i
 	data.cells_list.erase(origin)
-	# maximum holes 25% of cells including start
-	var number := roundi(float(cells.size()) / 4) - 1
-	while number > 0:
+	counter -= 1
+	while counter > 0:
 		var adiacent := _get_adiacent_cells(origin, cells)
 		if adiacent.is_empty():
 			break
 		origin = adiacent.pick_random()
 		data.cells_list.erase(origin)
-		number -= 1
+		counter -= 1
+	await get_tree().process_frame
 
 
 func _remove_blocks(data: LevelData) -> void:
 	for coord: Vector2i in data.cells_list.keys():
 		var cell_data := data.cells_list.get(coord) as CellData
 		cell_data.is_blocked = false
-
+	await get_tree().process_frame
+	
 
 func create_block(data: LevelData) -> void:
 	if data.cells_list.is_empty():
-		_remove_holes(data)
-	_remove_blocks(data)
+		await _remove_holes(data)
+	await _remove_blocks(data)
+	if _options.locked_opt == null:
+		return
+	var blocked_options := _options.locked_opt
+	var cell_count := data.cells_list.size()
+	var counter: int = 0
+	if blocked_options.std_diffusion > 0:
+		match _get_rule(blocked_options.diffusion_rules):
+			"NONE":
+				pass
+			"LOWER":
+				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
+				while true:
+					if counter > 1 and _check_probability(blocked_options.remove_odd):
+						counter -= 1
+					else:
+						break
+			"MAX":
+				# max locked count is percetage of all remaing cells
+				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
+	await get_tree().process_frame
 	var cells := data.cells_list.keys()
-	var origin := cells.pick_random() as Vector2i
-	var cell_data: CellData
-	cell_data = data.cells_list.get(origin) as CellData
-	cell_data.is_blocked = true
-	# maximum holes 25% of cells including start
-	var number := roundi(float(cells.size()) / 4) - 1
-	while number > 0:
-		var adiacent := _get_adiacent_cells(origin, cells)
-		if adiacent.is_empty():
+	if counter > 0:
+		cells.shuffle()
+		while counter > 0:
+			var coord := cells.pop_back() as Vector2i
+			var cell_data := data.cells_list.get(coord) as CellData
+			cell_data.is_blocked = true
+			counter -= 1
+	await get_tree().process_frame
+	# lock orphan cells
+	while true:
+		var	has_horphan: bool
+		for coord: Vector2i in cells:
+			var adiacents := _get_side_cells(coord, cells)
+			var has_adiacent: bool
+			for adiacent: Vector2i in adiacents:
+				var cell_data := data.cells_list.get(coord) as CellData
+				if !cell_data.is_blocked:
+					has_adiacent = true
+					break
+			if !has_adiacent:
+				var cell_data := data.cells_list.get(coord) as CellData
+				cell_data.is_blocked = true
+				cells.erase(coord)
+				has_horphan = true
+				break
+		await get_tree().process_frame
+		if !has_horphan:
 			break
-		origin = adiacent.pick_random()
-		cell_data = data.cells_list.get(origin) as CellData
-		cell_data.is_blocked = true
-		number -= 1
 
 
 func _remove_sliders(data: LevelData) -> void:
@@ -103,12 +159,13 @@ func _remove_sliders(data: LevelData) -> void:
 	for cell: CellData in data.cells_list.values():
 		if cell.is_blocked == false:
 			cell.value = 0
+	await get_tree().process_frame
 
 
 func create_sliders(data: LevelData) -> void:
 	if data.cells_list.is_empty():
-		_remove_holes(data)
-	_remove_sliders(data)
+		await _remove_holes(data)
+	await _remove_sliders(data)
 	# get all slider with reachable cells
 	var possible_sliders := _get_possible_sliders(data)
 	# filter random sliders with random extesion
@@ -429,6 +486,15 @@ func _get_adiacent_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
 			result.append(adiacent)
 	return result
 
+
+func _get_side_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for direction: Vector2i in SQUARE_DIRECTION:
+		var adiacent: Vector2i = pos + direction
+		if cells.has(adiacent):
+			result.append(adiacent)
+	return result
+	
 
 func _check_probability(probability: float) -> bool:
 	var random := randi_range(1, 100)

@@ -376,6 +376,7 @@ func initialize_randomizer() -> bool:
 	var options := ResourceLoader.load(RANDOMIZER_OPTIONS) as RandomizerOptions
 	if options:
 		_randomizer = Randomizer.new(options)
+		add_child(_randomizer)
 		return true
 	return false
 
@@ -383,11 +384,11 @@ func initialize_randomizer() -> bool:
 func generate_level(element: GlobalConst.GenerationElement) -> void:
 	match element:
 		GlobalConst.GenerationElement.HOLE:
-			_randomizer.create_holes(_level_data)
+			await _randomizer.create_holes(_level_data)
 		GlobalConst.GenerationElement.BLOCK:
-			_randomizer.create_block(_level_data)
+			await _randomizer.create_block(_level_data)
 		GlobalConst.GenerationElement.SLIDER:
-			_randomizer.create_sliders(_level_data)
+			await _randomizer.create_sliders(_level_data)
 
 	construct_level.call_deferred(_level_data, true)
 	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
