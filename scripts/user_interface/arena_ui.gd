@@ -104,7 +104,7 @@ func _get_new_random_level() -> void:
 			# get random level from world's levels
 			var id := randi_range(0, GameManager._persistent_save.levels_hash.size() - 1)
 			_current_level = GameManager.get_active_level(id)
-		if !_current_level.is_valid_data(): break
+		if _current_level.is_valid_data(): break
 	# start playing level
 	await get_tree().process_frame
 	loading.hide()
@@ -186,7 +186,8 @@ func _set_arena_time(new_time: int) -> void:
 	_time = new_time
 	_level_time += 1
 	if _current_mode.is_skippable and _current_mode.timer_options:
-		skip_btn.visible = _time > _current_mode.timer_options.skip_cost
+		if _current_mode.timer_options.is_countdown:
+			skip_btn.visible = _time > _current_mode.timer_options.skip_cost
 	if _time <= 0: 
 		_time = 0
 		if !_timer.is_stopped():
