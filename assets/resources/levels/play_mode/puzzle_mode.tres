@@ -1,12 +1,31 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=3 format=3 uid="uid://bopno5li70h0j"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=9 format=3 uid="uid://bopno5li70h0j"]
 
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="1_vuuct"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_i1lkq"]
+[ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_thody"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_d3nix"]
+[ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_ywjmu"]
+[ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="6_xpigj"]
+
+[sub_resource type="Resource" id="Resource_lfjqv"]
+script = ExtResource("3_d3nix")
+grid_opt = ExtResource("2_thody")
+slider_opt = ExtResource("4_ywjmu")
+
+[sub_resource type="Resource" id="Resource_ai02r"]
+script = ExtResource("6_xpigj")
+is_countdown = false
+max_game_time = 0
+skip_cost = 0
+time_gained_per_move = 0.0
+boost_per_score = 2.0
 
 [resource]
 script = ExtResource("2_i1lkq")
-is_countdown = false
-max_game_time = 0
+is_skippable = true
+one_shoot_mode = true
+timer_options = SubResource("Resource_ai02r")
+level_options = SubResource("Resource_lfjqv")
 title = "PUZZLE"
 icon = ExtResource("1_vuuct")
 unlock_level_id = 79
