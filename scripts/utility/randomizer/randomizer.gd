@@ -213,7 +213,10 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	var normal_sliders: Array[Vector2i]
 	var locked_cells: Array[CellData]
 	var receiver_cells: Dictionary
-	var effect_slider_count := 0
+	var effect_slider_count: int = 0
+	var move_counter: int = 0
+	var moves: Array[String]
+	var move: String
 
 	for slider_coord: Vector2i in filtered.keys():
 		var slider_data := filtered.get(slider_coord) as RandomizerSlider
@@ -250,6 +253,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	# add slider-block
 	for slider_coord in block_sliders:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if !slider.is_none():
+			move_counter += 1 # add move for slider block
+			move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
 		if slider.is_none() or slider.is_full():
 			if _check_probability(slider_options.block_full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -261,9 +267,12 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 					if !_check_probability(slider_options.extension_rules.NONE):
 						# remove slider-block with no extension
 						filtered.erase(slider_coord)
+						move_counter -= 1
+						move = "" # <------------------------------
 					break
 				slider.is_stopped = true
 				slider.reached.resize(i)
+				move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
 				if _check_probability(slider_options.block_full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				break
@@ -275,7 +284,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
-
+		if move != "":
+			moves.append(move) # <------------------------------------
+		
 	await get_tree().process_frame
 	# mix other sliders
 	if !change_sliders.is_empty():
@@ -284,6 +295,10 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	# add other sliders
 	for slider_coord in normal_sliders:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
+		if slider.is_none():
+			continue
+		move_counter += 1 # add move for other slider type
+		move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
 		if slider.is_full():
 			if _check_probability(slider_options.full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -292,14 +307,17 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 			var cell_data := data.cells_list.get(cell_coord) as CellData
 			if cell_data.is_blocked:
 				if i == 0:
+					move_counter -= 1
 					if !_check_probability(slider_options.extension_rules.NONE):
 						# remove other slider with no extension
 						filtered.erase(slider_coord)
+						move = "" # <------------------------------
 					break
 				if _check_probability(slider_options.full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				slider.is_stopped = true
 				slider.reached.resize(i)
+				move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
 				break
 			_apply_slider_effect(cell_data, slider.effect)
 			var emitter_sliders: Array[Vector2i]
@@ -307,6 +325,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
+		if move != "":
+			moves.append(move) # <------------------------------------
 
 	await get_tree().process_frame
 	# use unfull slider-block for check behavior-full probability
@@ -332,9 +352,7 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	var stopped_sliders: Dictionary
 	for slider_coord: Vector2i in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
-		if slider.effect == GlobalConst.AreaEffect.BLOCK:
-			continue
-		if slider.is_stopped:
+		if slider.effect != GlobalConst.AreaEffect.BLOCK and slider.is_stopped:
 			stopped_sliders[slider_coord] = slider.reachable[slider.reached.size()]
 	if stopped_sliders.size() > 1:
 		for slider_coord in block_sliders:
@@ -353,6 +371,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				continue
 			if _check_probability(slider_options.block_full_retract_odd):
 				# retract slider-block
+				move_counter += 1 # add extra move to slider block for retract
+				move = str(slider_coord) + ":0" # <------------------------------
+				moves.append(move) # <------------------------------------
 				for coord in slider_data.reached:
 					var cell_data := data.cells_list[coord] as CellData
 					cell_data.is_blocked = false
@@ -364,6 +385,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						# last slider blocked
 						slider.behavior = GlobalConst.AreaBehavior.FULL
 					else:
+						move_counter += 1 # add extra move to slider blocked for continue extension
+						move = str(slider_coord) + ":" + str(slider.reachable.size()) # <------------------------------
+						moves.append(move) # <------------------------------------
 						if slider.effect != GlobalConst.AreaEffect.CHANGE_SIGN:
 							for j in range(slider.reached.size(), slider.reachable.size()):
 								var cell := data.cells_list[slider.reachable[j]] as CellData
@@ -379,12 +403,16 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		slider_data.area_effect = slider.effect
 		slider_data.area_behavior = slider.behavior
 		data.slider_list[slider_coord] = slider_data
-
+	
 	# remove temporarily block
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
 		_apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
-	await get_tree().process_frame
+	
+	# add move left to level data
+	data.moves_left = move_counter
+	await get_tree().process_frame		
+	#print("%d --> %s" % [move_counter, moves])
 	
 
 func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
