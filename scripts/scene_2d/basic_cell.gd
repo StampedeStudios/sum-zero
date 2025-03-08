@@ -1,5 +1,7 @@
 class_name Cell extends Node2D
 
+const SPAWN_TIME: float = 0.1
+
 @export_file("*.png") var locked_cell := "res://assets/scenes_2d/locked_cell.png"
 
 var _origin_data: CellData
@@ -29,6 +31,7 @@ func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
 
 
 func init_cell(data: CellData) -> void:
+	tile.hide()
 	_origin_data = data
 	if _origin_data.is_blocked:
 		_current_data = data
@@ -88,3 +91,11 @@ func reset() -> void:
 		_slider_stack.clear()
 		_effect_stack.clear()
 		_update_value()
+
+
+func show_cell() -> void:
+	if tile.visible == false:
+		tile.scale = Vector2.ZERO
+		tile.show()
+		create_tween().tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)
+	

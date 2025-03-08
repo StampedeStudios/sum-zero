@@ -16,7 +16,7 @@ var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-
+	
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
@@ -46,12 +46,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_START:
+		GlobalConst.GameState.PLAY_LEVEL:
 			moves_left = GameManager.get_active_level().moves_left
 			if !GameManager.level_manager.on_consume_move.is_connected(_consume_move):
 				GameManager.level_manager.on_consume_move.connect(_consume_move)
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
 				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
+			self.visible = true
+		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false		

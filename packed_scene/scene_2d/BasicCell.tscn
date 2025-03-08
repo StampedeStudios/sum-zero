@@ -49,3 +49,5 @@ monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qn0yb")
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

@@ -49,7 +49,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.show()
 			_hide_UI()
 		GlobalConst.GameState.LEVEL_START:
-			self.show()
+			self.show()			
+		GlobalConst.GameState.PLAY_LEVEL:
 			container.show()
 		GlobalConst.GameState.LEVEL_END:
 			self.hide()
@@ -119,7 +120,7 @@ func _start_loading() -> void:
 	_tween.set_loops(30)
 	_tween.tween_property(loading, "rotation_degrees", 360, 1).as_relative()
 	# after 30 seconds of loading if you have not found playable levels go back to the menu
-	_tween.finished.connect(func() -> void: GameManager.change_state(GlobalConst.GameState.MAIN_MENU))
+	_tween.finished.connect(GameManager.change_state.bind(GlobalConst.GameState.MAIN_MENU))
 
 
 func _init_level() -> void:
@@ -155,13 +156,12 @@ func _on_level_complete() -> void:
 	if _current_mode.one_shoot_mode:
 		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 	else:
-		_hide_UI()
+		GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_MODE)
 		_get_new_random_level.call_deferred()
 
 
 func _on_consumed_move() -> void:
 	_moves_count += 1
-	print("consume")
 		
 
 func _on_exit_btn_pressed() -> void:	
@@ -172,7 +172,8 @@ func _on_exit_btn_pressed() -> void:
 func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.level_manager.reset_level()
-		
+	_moves_count = 0
+	
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()

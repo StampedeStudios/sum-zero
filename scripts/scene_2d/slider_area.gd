@@ -2,6 +2,7 @@ class_name SliderArea extends Node2D
 
 signal alter_grid(move_count: bool)
 
+const SPAWN_TIME: float = 0.1
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
 const MAX_EXTENSION: int = 5 * 256
 const MAX_PITCH: float = 1.5
@@ -30,9 +31,11 @@ var _last_affected_cells: Dictionary
 @onready var area_behavior: Sprite2D = %AreaBehavior
 @onready var ray: RayCast2D = %Ray
 @onready var handle: Node2D = %Handle
+@onready var body: Sprite2D = %Body
 
 
 func init_slider(data: SliderData) -> void:
+	body.hide()
 	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
 	area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
@@ -217,3 +220,10 @@ func _play_sound(extension: float) -> void:
 
 		_last_percentage = percentage
 		AudioManager.play_slider_sound(pitch)
+
+
+func show_slider() -> void:
+	if body.visible == false:
+		body.scale = Vector2.ZERO
+		body.show()
+		create_tween().tween_property(body, "scale", Vector2.ONE, SPAWN_TIME)

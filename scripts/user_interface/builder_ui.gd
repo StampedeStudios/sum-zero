@@ -60,14 +60,16 @@ func _on_play_btn_pressed() -> void:
 		var builder_test := scene.instantiate() as BuilderTest
 		GameManager.builder_test = builder_test
 		get_tree().root.add_child.call_deferred(builder_test)
+		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+		
 	if GameManager.level_manager == null:
 		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 		var level_test := scene.instantiate() as LevelManager
 		get_tree().root.add_child.call_deferred(level_test)
 		GameManager.level_manager = level_test
-
-	GameManager.level_manager.init_level.call_deferred(GameManager.level_builder.get_level_data())
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
+	
+	var data: LevelData = GameManager.level_builder.get_level_data()
+	GameManager.level_manager.init_level.call_deferred(data)
 
 
 func _on_save_btn_pressed() -> void:

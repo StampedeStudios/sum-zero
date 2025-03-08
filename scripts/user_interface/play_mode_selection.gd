@@ -100,6 +100,7 @@ func _on_play_btn_pressed() -> void:
 			GameManager.game_ui = game_ui
 			get_tree().root.add_child.call_deferred(game_ui)
 			game_ui.initialize_ui.call_deferred(GlobalConst.GameState.MAIN_MENU)
+			GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 			# load level manager
 			scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 			var level_manager := scene.instantiate() as LevelManager

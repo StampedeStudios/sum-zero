@@ -27,6 +27,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
+		GlobalConst.GameState.PLAY_LEVEL:
+			self.visible = true
 		_:
 			self.visible = false
 
@@ -37,7 +39,6 @@ func init_level(current_level: LevelData) -> void:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 		push_error("Invalid level!")
 		return
-
 	var level_size: Vector2i
 	var half_grid_size: Vector2
 	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
@@ -96,8 +97,54 @@ func init_level(current_level: LevelData) -> void:
 		sc_instance.alter_grid.connect(check_grid)
 		grid_sliders.append(sc_instance)
 	await get_tree().process_frame
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_START)
+	_animate_grid.call_deferred(level_size)
 
+
+func _animate_grid(level_size: Vector2i) -> void:
+	self.show()
+	var grid_size: Vector2 
+	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
+	var start_point: Vector2
+	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
+	start_point.y = randf_range(-grid_size.y / 2, grid_size.y / 2)
+	var start: Vector2 = grid.global_position + start_point
+	var end: float = _get_max_radius(grid_size, start_point)
+	var time: float = _get_time_relative_to_radius(end, grid_size)
+	await create_tween().tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
+	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+
+
+func _get_max_radius(size: Vector2, start: Vector2) -> float:
+	var far_vertex: Vector2
+	far_vertex.x = size.x if start.x <= 0 else -size.x
+	far_vertex.y = size.y if start.y <= 0 else -size.y
+	return start.distance_to(far_vertex / 2)
+
+
+func _get_time_relative_to_radius(radius: float, size: Vector2) -> float:
+	const STD_TIME: float = 0.5
+	var min_radius := Vector2.ZERO.distance_to(size / 2)
+	return radius / min_radius * STD_TIME
+	
+	
+func _on_radius_update(progress: float, start_point: Vector2) -> void:
+	queue_redraw()
+	for cell in grid_cells:
+		if cell.global_position.distance_to(start_point) < progress:
+			cell.show_cell()
+	for slider in grid_sliders:
+		if slider.global_position.distance_to(start_point) < progress:
+			slider.show_slider()
+			
+
+func _get_grid_positions(width: int, height: int) -> Array[Vector2i]:
+	var result: Array[Vector2i]
+	for w: int in range(width):
+		for h: int in range(height):
+			result.append(Vector2i(w, h))
+	result.shuffle()
+	return result
+	
 
 func _clear() -> void:
 	_has_slider_active = false
@@ -128,7 +175,7 @@ func reset_level() -> void:
 			child.reset()
 		elif child is Cell:
 			child.reset()
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
 
 
 func _init_grid(level_size: Vector2i) -> void:

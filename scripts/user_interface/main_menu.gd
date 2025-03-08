@@ -2,9 +2,7 @@ class_name MainMenu extends Control
 
 const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 const OPTIONS = "res://packed_scene/user_interface/Options.tscn"
-const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
-const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection.tscn"
 

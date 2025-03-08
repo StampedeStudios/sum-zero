@@ -86,6 +86,7 @@ func _on_play_btn_pressed() -> void:
 	var game_ui := scene.instantiate() as GameUI
 	get_tree().root.add_child.call_deferred(game_ui)		
 	game_ui.initialize_ui.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 	GameManager.game_ui = game_ui
 
 	scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene

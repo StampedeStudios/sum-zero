@@ -19,19 +19,20 @@ position = Vector2(454, 665)
 script = ExtResource("1_xjbxd")
 
 [node name="Body" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(64, 0)
 texture = ExtResource("4_yil1j")
 
-[node name="AreaEffect" type="Sprite2D" parent="."]
+[node name="AreaEffect" type="Sprite2D" parent="Body"]
 unique_name_in_owner = true
-position = Vector2(64, 0)
 texture = ExtResource("5_3db0q")
 
-[node name="AreaOutline" type="NinePatchRect" parent="."]
+[node name="AreaOutline" type="NinePatchRect" parent="Body"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4iu34")
+offset_left = -64.0
 offset_top = -128.0
-offset_right = 128.0
+offset_right = 64.0
 offset_bottom = 128.0
 texture = ExtResource("8_hrofw")
 patch_margin_left = 36
@@ -39,9 +40,9 @@ patch_margin_top = 36
 patch_margin_right = 36
 patch_margin_bottom = 36
 
-[node name="AreaBehavior" type="Sprite2D" parent="."]
+[node name="AreaBehavior" type="Sprite2D" parent="Body"]
 unique_name_in_owner = true
-position = Vector2(0, -64)
+position = Vector2(-64, -64)
 texture = ExtResource("6_woupr")
 
 [node name="Ray" type="RayCast2D" parent="."]
@@ -56,3 +57,5 @@ collide_with_bodies = false
 [node name="Handle" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(110, 0)
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
