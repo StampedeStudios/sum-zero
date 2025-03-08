@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://6d3v37kvpi86"]
+
+[ext_resource type="Texture2D" uid="uid://b7ehrw3meq2fv" path="res://assets/ui/tutorial/automatic_slider.png" id="1_yptu4"]
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="2_npssr"]
+
+[resource]
+script = ExtResource("2_npssr")
+images = Array[Texture2D]([ExtResource("1_yptu4")])
+hints = Array[String](["TUTORIAL_AUTOMATIC_SLIDER"])

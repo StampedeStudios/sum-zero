@@ -59,6 +59,7 @@ flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TopContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/separation = 15

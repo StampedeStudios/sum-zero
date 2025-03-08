@@ -29,7 +29,7 @@ func _ready() -> void:
 func animate(animated_scale: Vector2) -> void:
 	panel.scale = animated_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-	
+
 
 func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
 	if old_name != "":
@@ -66,7 +66,7 @@ func _on_save_btn_pressed() -> void:
 	moves.text = ""
 	moves.caret_column = 0
 	close()
-	
+
 
 func _on_moves_text_changed(new_text: String) -> void:
 	var filtered_text := ""

@@ -7,28 +7,28 @@ const CROSS_DIRECTION := [Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, -1), Vec
 
 func _init(new_options: RandomizerOptions) -> void:
 	_options = new_options
-	
+
 
 func generate_level(data: LevelData) -> void:
 	await _generate_grid(data)
 	await create_holes(data)
 	await create_block(data)
 	await create_sliders(data)
-	
+
 
 func _generate_grid(data: LevelData) -> void:
 	if !_options.grid_opt:
 		data.width = 3
 		data.height = 3
 		return
-		
+
 	var grid_options := _options.grid_opt
 	var size := grid_options.std_grid_sizes.pick_random() as Vector2i
-	
+
 	match _get_rule(grid_options.size_rules):
 		"STANDARD":
 			pass
-			
+
 		"LOWER":
 			while true:
 				await get_tree().process_frame
@@ -37,7 +37,7 @@ func _generate_grid(data: LevelData) -> void:
 				size = grid_options.get_lower_size(size)
 				if size == Vector2i(2, 2):
 					break
-					
+
 		"UPPER":
 			while true:
 				await get_tree().process_frame
@@ -45,12 +45,12 @@ func _generate_grid(data: LevelData) -> void:
 					break
 				size = grid_options.get_upper_size(size)
 				if size == Vector2i(5, 5):
-					break	
-	
+					break
+
 	data.width = size.x
 	data.height = size.y
 	await get_tree().process_frame
-	
+
 
 func _remove_holes(data: LevelData) -> void:
 	for x in range(data.width):
@@ -65,16 +65,16 @@ func create_holes(data: LevelData) -> void:
 	await _remove_holes(data)
 	if _options.hole_opt == null:
 		return
-		
+
 	var hole_options := _options.hole_opt
 	var cell_count := data.cells_list.size()
 	var counter: int = 0
-	
-	if hole_options.std_diffusion > 0:	
+
+	if hole_options.std_diffusion > 0:
 		match _get_rule(hole_options.diffusion_rules):
 			"NONE":
 				pass
-				
+
 			"LOWER":
 				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
 				while true:
@@ -82,20 +82,20 @@ func create_holes(data: LevelData) -> void:
 						counter -= 1
 					else:
 						break
-						
+
 			"MAX":
 				# max hole count is percetage of all cells
-				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)	
-							
+				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
+
 	if counter == 0:
 		return
-		
+
 	await get_tree().process_frame
 	var cells := data.cells_list.keys()
 	var origin := cells.pick_random() as Vector2i
 	data.cells_list.erase(origin)
 	counter -= 1
-	
+
 	while counter > 0:
 		var adiacent := _get_round_cells(origin, cells)
 		if adiacent.is_empty():
@@ -111,7 +111,7 @@ func _remove_blocks(data: LevelData) -> void:
 		var cell_data := data.cells_list.get(coord) as CellData
 		cell_data.is_blocked = false
 	await get_tree().process_frame
-	
+
 
 func create_block(data: LevelData) -> void:
 	if data.cells_list.is_empty():
@@ -119,16 +119,16 @@ func create_block(data: LevelData) -> void:
 	await _remove_blocks(data)
 	if _options.locked_opt == null:
 		return
-		
+
 	var blocked_options := _options.locked_opt
 	var cell_count := data.cells_list.size()
 	var counter: int = 0
-	
+
 	if blocked_options.std_diffusion > 0:
 		match _get_rule(blocked_options.diffusion_rules):
 			"NONE":
 				pass
-				
+
 			"LOWER":
 				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
 				while true:
@@ -136,14 +136,14 @@ func create_block(data: LevelData) -> void:
 						counter -= 1
 					else:
 						break
-						
+
 			"MAX":
 				# max locked count is percetage of all remaing cells
 				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
-				
+
 	await get_tree().process_frame
 	var cells := data.cells_list.keys()
-	
+
 	if counter > 0:
 		cells.shuffle()
 		while counter > 0:
@@ -152,10 +152,10 @@ func create_block(data: LevelData) -> void:
 			cell_data.is_blocked = true
 			counter -= 1
 	await get_tree().process_frame
-	
+
 	# lock orphan cells
 	while true:
-		var	has_horphan: bool
+		var has_horphan: bool
 		for coord: Vector2i in cells:
 			var adiacents := _get_side_cells(coord, cells)
 			var has_adiacent: bool
@@ -187,21 +187,21 @@ func create_sliders(data: LevelData) -> void:
 	if data.cells_list.is_empty():
 		await _remove_holes(data)
 	await _remove_sliders(data)
-	
+
 	if !_options.slider_opt:
 		_options.slider_opt = RandomSliderOptions.new()
-		
+
 	# get all slider with reachable cells
 	var possible_sliders: Dictionary
 	await _get_possible_sliders(data, possible_sliders)
 	if possible_sliders.is_empty():
 		printerr("no one slider")
 		return
-		
+
 	# filter random sliders with random extesion
 	var filtered_sliders: Dictionary
 	await _get_filtered_sliders(possible_sliders, filtered_sliders)
-	
+
 	# add sliders and calculate grid cells value
 	await _add_sliders(data, filtered_sliders)
 
@@ -220,26 +220,26 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 
 	for slider_coord: Vector2i in filtered.keys():
 		var slider_data := filtered.get(slider_coord) as RandomizerSlider
-		
+
 		match _get_rule(slider_options.type_rules):
 			"ADD":
 				effect_slider_count += 1
 				slider_data.effect = GlobalConst.AreaEffect.ADD
 				normal_sliders.append(slider_coord)
-				
+
 			"SUBTRACT":
 				effect_slider_count += 1
 				slider_data.effect = GlobalConst.AreaEffect.SUBTRACT
 				normal_sliders.append(slider_coord)
-				
+
 			"CHANGE_SIGN":
 				slider_data.effect = GlobalConst.AreaEffect.CHANGE_SIGN
 				change_sliders.append(slider_coord)
-				
+
 			"BLOCK":
 				slider_data.effect = GlobalConst.AreaEffect.BLOCK
 				block_sliders.append(slider_coord)
-	
+
 	# check that at least one slider affects the grid
 	if effect_slider_count == 0:
 		var slider_coord := filtered.keys()[0] as Vector2i
@@ -254,8 +254,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	for slider_coord in block_sliders:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		if !slider.is_none():
-			move_counter += 1 # add move for slider block
-			move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
+			move_counter += 1  # add move for slider block
+			move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 		if slider.is_none() or slider.is_full():
 			if _check_probability(slider_options.block_full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -268,11 +268,11 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						# remove slider-block with no extension
 						filtered.erase(slider_coord)
 						move_counter -= 1
-						move = "" # <------------------------------
+						move = ""  # <------------------------------
 					break
 				slider.is_stopped = true
 				slider.reached.resize(i)
-				move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
+				move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 				if _check_probability(slider_options.block_full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				break
@@ -285,8 +285,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
 		if move != "":
-			moves.append(move) # <------------------------------------
-		
+			moves.append(move)  # <------------------------------------
+
 	await get_tree().process_frame
 	# mix other sliders
 	if !change_sliders.is_empty():
@@ -297,8 +297,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		if slider.is_none():
 			continue
-		move_counter += 1 # add move for other slider type
-		move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
+		move_counter += 1  # add move for other slider type
+		move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 		if slider.is_full():
 			if _check_probability(slider_options.full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -311,13 +311,13 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 					if !_check_probability(slider_options.extension_rules.NONE):
 						# remove other slider with no extension
 						filtered.erase(slider_coord)
-						move = "" # <------------------------------
+						move = ""  # <------------------------------
 					break
 				if _check_probability(slider_options.full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				slider.is_stopped = true
 				slider.reached.resize(i)
-				move = str(slider_coord) + ":" + str(slider.reached.size()) # <------------------------------
+				move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 				break
 			_apply_slider_effect(cell_data, slider.effect)
 			var emitter_sliders: Array[Vector2i]
@@ -326,7 +326,7 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
 		if move != "":
-			moves.append(move) # <------------------------------------
+			moves.append(move)  # <------------------------------------
 
 	await get_tree().process_frame
 	# use unfull slider-block for check behavior-full probability
@@ -371,9 +371,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				continue
 			if _check_probability(slider_options.block_full_retract_odd):
 				# retract slider-block
-				move_counter += 1 # add extra move to slider block for retract
-				move = str(slider_coord) + ":0" # <------------------------------
-				moves.append(move) # <------------------------------------
+				move_counter += 1  # add extra move to slider block for retract
+				move = str(slider_coord) + ":0"  # <------------------------------
+				moves.append(move)  # <------------------------------------
 				for coord in slider_data.reached:
 					var cell_data := data.cells_list[coord] as CellData
 					cell_data.is_blocked = false
@@ -385,9 +385,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						# last slider blocked
 						slider.behavior = GlobalConst.AreaBehavior.FULL
 					else:
-						move_counter += 1 # add extra move to slider blocked for continue extension
-						move = str(slider_coord) + ":" + str(slider.reachable.size()) # <------------------------------
-						moves.append(move) # <------------------------------------
+						move_counter += 1  # add extra move to slider blocked for continue extension
+						move = str(slider_coord) + ":" + str(slider.reachable.size())  # <------------------------------
+						moves.append(move)  # <------------------------------------
 						if slider.effect != GlobalConst.AreaEffect.CHANGE_SIGN:
 							for j in range(slider.reached.size(), slider.reachable.size()):
 								var cell := data.cells_list[slider.reachable[j]] as CellData
@@ -403,17 +403,17 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		slider_data.area_effect = slider.effect
 		slider_data.area_behavior = slider.behavior
 		data.slider_list[slider_coord] = slider_data
-	
+
 	# remove temporarily block
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
 		_apply_slider_effect(cell_data, GlobalConst.AreaEffect.BLOCK)
-	
+
 	# add move left to level data
 	data.moves_left = move_counter
-	await get_tree().process_frame		
+	await get_tree().process_frame
 	#print("%d --> %s" % [move_counter, moves])
-	
+
 
 func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 	# calculate sliders diffusion
@@ -422,16 +422,16 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 	var slider_count: int = 0
 	var max_diffusion: int = possible.size()
 	var diffusion_range: Vector2i
-	
+
 	if max_diffusion % 2 == 0:
 		diffusion_range = slider_options.std_occupation.get(max_diffusion) as Vector2i
 	else:
 		diffusion_range = slider_options.std_occupation.get(max_diffusion + 1) as Vector2i
-		
+
 	match _get_rule(slider_options.occupation_rules):
 		"STANDARD":
 			slider_count = randi_range(diffusion_range.x, diffusion_range.y)
-			
+
 		"LOWER":
 			slider_count = diffusion_range.x
 			while _check_probability(slider_options.lower_odd):
@@ -439,7 +439,7 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 				if slider_count <= 1:
 					slider_count = 1
 					break
-					
+
 		"UPPER":
 			slider_count = diffusion_range.y
 			while _check_probability(slider_options.upper_odd):
@@ -447,11 +447,11 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 				if slider_count >= max_diffusion:
 					slider_count = max_diffusion
 					break
-					
+
 	await get_tree().process_frame
 	filterd.shuffle()
 	filterd.resize(slider_count)
-	
+
 	# calculate sliders extesion
 	var extended_count: int = 0
 	for slider_coord: Vector2i in filterd:
@@ -459,22 +459,22 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 		var slider_data := RandomizerSlider.new()
 		slider_data.reachable = possible.get(slider_coord) as Array[Vector2i]
 		var reached := possible.get(slider_coord).duplicate() as Array[Vector2i]
-		
+
 		match _get_rule(slider_options.extension_rules):
 			"MAX":
 				extended_count += 1
-				
+
 			"NONE":
 				reached.clear()
-				
+
 			"RANDOM":
 				extended_count += 1
 				if reached.size() > 1:
 					reached.resize(randi_range(1, reached.size() - 1))
-					
+
 		slider_data.reached = reached
 		result[slider_coord] = slider_data
-		
+
 	# no extended slider so force the first one manually
 	if extended_count == 0:
 		var slider_data := result.get(result.keys()[0]) as RandomizerSlider
@@ -486,13 +486,13 @@ func _apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEffect) -
 	match area_effect:
 		GlobalConst.AreaEffect.ADD:
 			cell.value -= 1
-			
+
 		GlobalConst.AreaEffect.SUBTRACT:
 			cell.value += 1
-			
+
 		GlobalConst.AreaEffect.CHANGE_SIGN:
 			cell.value *= -1
-			
+
 		GlobalConst.AreaEffect.BLOCK:
 			# applies a random effect to mask the slider-block effect
 			match randi_range(1, 2):
@@ -507,31 +507,31 @@ func _apply_slider_effect(cell: CellData, area_effect: GlobalConst.AreaEffect) -
 func _is_opposite_slider(a: Vector2i, b: Vector2i) -> bool:
 	if a.y != b.y:
 		return false
-		
+
 	if a.x != b.x:
 		if a.x % 2 == b.x % 2:
 			return true
-			
+
 	return false
 
 
 func _get_possible_sliders(data: LevelData, result: Dictionary) -> void:
 	var size := Vector2i(data.width, data.height)
-	
+
 	for edge: int in range(4):
 		var max_pos := data.width if edge % 2 == 0 else data.height
-		
+
 		for position: int in range(max_pos):
 			var slider_coord := Vector2i(edge, position)
 			var reference_cell := _get_slider_reference_cell(size, slider_coord)
-			
+
 			if data.cells_list.has(reference_cell):
 				var cell_data := data.cells_list.get(reference_cell) as CellData
-				
+
 				if !cell_data.is_blocked:
 					result[slider_coord] = _get_slider_extension(edge, reference_cell, data)
 			await get_tree().process_frame
-		
+
 
 func _get_slider_reference_cell(size: Vector2i, slider_coord: Vector2i) -> Vector2i:
 	match slider_coord.x:
@@ -550,7 +550,7 @@ func _get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -> Arra
 	var result: Array[Vector2i]
 	var direction: Vector2i
 	var max_extension: int
-	
+
 	match edge:
 		0:
 			direction = Vector2i.DOWN
@@ -564,7 +564,7 @@ func _get_slider_extension(edge: int, origin: Vector2i, data: LevelData) -> Arra
 		3:
 			direction = Vector2i.RIGHT
 			max_extension = data.width
-			
+
 	result.append(origin)
 	for i in range(1, max_extension):
 		var coord := origin + direction * i
@@ -593,7 +593,7 @@ func _get_side_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
 		if cells.has(adiacent):
 			result.append(adiacent)
 	return result
-	
+
 
 func _check_probability(probability: float) -> bool:
 	var random := randi_range(1, 100)
@@ -603,11 +603,11 @@ func _check_probability(probability: float) -> bool:
 func _get_rule(rules_odd: Dictionary) -> String:
 	var random := randi_range(1, 100)
 	var counter_odd := 0
-	
+
 	for rule: String in rules_odd.keys():
 		counter_odd += rules_odd.get(rule) as int
 		if random <= counter_odd:
 			return rule
-			
+
 	push_error("No rules found!")
 	return ""

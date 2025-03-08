@@ -23,7 +23,7 @@ var _multiselection_cells: Array[BuilderCell]
 
 
 func _ready() -> void:
-	GameManager.set_level_scale(3, 3)	
+	GameManager.set_level_scale(3, 3)
 	grid.position = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
 	grid.scale = Vector2.ZERO
 	GameManager.on_state_change.connect(_on_state_change)
@@ -34,7 +34,7 @@ func _ready() -> void:
 		builder_selection.hide()
 		get_tree().root.add_child.call_deferred(builder_selection)
 		GameManager.builder_selection = builder_selection
-		
+
 
 func _on_scale_change(new_scale: Vector2) -> void:
 	create_tween().tween_property(grid, "scale", new_scale, 0.05).from_current()
@@ -82,7 +82,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 		GlobalConst.GameState.BUILDER_SELECTION:
 			self.visible = true
-			if _multiselection_cells.size() > 0:				
+			if _multiselection_cells.size() > 0:
 				var size: Vector2
 				var pos: Vector2
 				var top_left := _multiselection_cells[0].global_position
@@ -360,7 +360,7 @@ func move_grid(offset: Vector2) -> void:
 	if offset == Vector2.ZERO:
 		new_pos = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
 	else:
-		new_pos = grid.position + offset		
+		new_pos = grid.position + offset
 	await create_tween().tween_property(grid, "position", new_pos, 0.05).from_current().finished
 
 

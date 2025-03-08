@@ -17,7 +17,7 @@ func get_lower_size(current: Vector2i) -> Vector2i:
 		lower.y = current.y
 	else:
 		lower.x = current.x
-		lower.y = current.y - 1	
+		lower.y = current.y - 1
 	return lower
 
 
@@ -28,5 +28,5 @@ func get_upper_size(current: Vector2i) -> Vector2i:
 		lower.y = current.y
 	else:
 		lower.x = current.x
-		lower.y = current.y + 1	
+		lower.y = current.y + 1
 	return lower

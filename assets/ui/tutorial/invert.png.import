@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlu8dgxtod6wf"
-path="res://.godot/imported/auto_sliding_animation.png-2bd3cd05c4555ca7a97eebf1d106932e.ctex"
+uid="uid://drom187j324mm"
+path="res://.godot/imported/invert.png-ab924411bcc833fd90451529cdecedde.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ui/auto_sliding_animation.png"
-dest_files=["res://.godot/imported/auto_sliding_animation.png-2bd3cd05c4555ca7a97eebf1d106932e.ctex"]
+source_file="res://assets/ui/tutorial/invert.png"
+dest_files=["res://.godot/imported/invert.png-ab924411bcc833fd90451529cdecedde.ctex"]
 
 [params]
 

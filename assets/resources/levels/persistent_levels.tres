@@ -1,21 +1,19 @@
-[gd_resource type="Resource" script_class="LevelContainer" load_steps=8 format=3 uid="uid://e2xf6e5u3bmm"]
+[gd_resource type="Resource" script_class="LevelContainer" load_steps=7 format=3 uid="uid://e2xf6e5u3bmm"]
 
+[ext_resource type="Resource" uid="uid://c84acpdxwml55" path="res://assets/resources/tutorial/level_zero.tres" id="2_yfjv0"]
+[ext_resource type="Resource" uid="uid://i710qcd61ku4" path="res://assets/resources/tutorial/plus.tres" id="3_coi8f"]
+[ext_resource type="Resource" uid="uid://brc0b2lds3pkx" path="res://assets/resources/tutorial/invert.tres" id="4_t73ij"]
 [ext_resource type="Script" path="res://scripts/utility/level_container.gd" id="4_v7vmu"]
-[ext_resource type="Resource" uid="uid://g4xb4c18wx6d" path="res://assets/resources/tutorial/slider_tutorial.tres" id="5_w6l3t"]
-[ext_resource type="Resource" uid="uid://di7kanjcci6e6" path="res://assets/resources/tutorial/symbols_tutorial.tres" id="6_dak7y"]
-[ext_resource type="Resource" uid="uid://cexkhgb6rb2ip" path="res://assets/resources/tutorial/blocked_tile_tutorial.tres" id="7_k86s7"]
-[ext_resource type="Resource" uid="uid://df5xj4eoouci8" path="res://assets/resources/tutorial/automatic_slider_tutorial.tres" id="8_www21"]
-[ext_resource type="Resource" uid="uid://wor27ovpdofm" path="res://assets/resources/tutorial/invert_slider_tutorial.tres" id="9_up8js"]
-[ext_resource type="Resource" uid="uid://bh8t8odtplmtn" path="res://assets/resources/tutorial/block_slider_tutorial.tres" id="10_fk02p"]
+[ext_resource type="Resource" uid="uid://c4gu3yrwpivvm" path="res://assets/resources/tutorial/block.tres" id="5_xcg4a"]
+[ext_resource type="Resource" uid="uid://6d3v37kvpi86" path="res://assets/resources/tutorial/automatic_slider.tres" id="6_l3slj"]
 
 [resource]
 script = ExtResource("4_v7vmu")
 tutorials = {
-0: ExtResource("5_w6l3t"),
-2: ExtResource("6_dak7y"),
-6: ExtResource("7_k86s7"),
-9: ExtResource("8_www21"),
-16: ExtResource("9_up8js"),
-25: ExtResource("10_fk02p")
+0: ExtResource("2_yfjv0"),
+2: ExtResource("3_coi8f"),
+9: ExtResource("6_l3slj"),
+16: ExtResource("4_t73ij"),
+25: ExtResource("5_xcg4a")
 }
 levels_hash = Array[String](["1gv-3j3k3j-1b", "2go-jkjklkjkj-1b2b", "1gv-3j3i3j-1a", "2lo-2jkj2iji2jkj-2b9a", "3mo-ji2zj2i2z2jk2zij-1a4b3a2b", "5ho-jkijmji3jkj-1ba1b3b3a", "2gv-3jixi2ji-1a3a", "5go-j2lh2ji2k-a3aa1bbb1b", "5mv-zi3j2hjkxizljiz-1a1bb1a1aa3a1b", "2go-jkjklkjkj-1j8j", "4go-ih2ihi3j-1i1aa2b1aa", "4go-ihikx2kjk-j2i4ji", "5lo-j3kijk2j2lk-1jj1b1b1ab2a", "3ho-zijihjkjkzij-1ib1ab2aa1ab", "6mo-2j2zjkj2zjkj2z2j-a5bb3abb", "5nv-3zi3jxhj4il3zjk-1ba5b1ab4a", "2gv-3j3k3j-1c5a", "3go-ji2jlkziz-1a2b2a2c", "5go-lzjkxijzh-a1c2ac1ab", "4mo-4jk2ilj2xjz2jz-c2c1b7a", "5lo-2j2zj2l2kjkz-1c3b1b1b2a", "7ho-2j3ih2ji2lk-1bb1a2b1aaaab", "6gv-kh4kilh-bba1c1baa", "7mo-3jzjik2zl2jz3j-1ca3aa1bbbc", "7mv-jziz3j3kiz2ijk-bbcbiabb1b4a", "1gv-3jkln3j-1d", "3go-3z3jkli-5i1d3b", "amo-higij2zljk2zikih-1babab1a1baaac1a", "7hv-3izjh2jhjzi-1baaa1i1aa1ca", "8mo-2kiz2kji2jhjzkil-bba2aib1bcb", "9lo-2m2kim2kjn2l-ab1babbab1ac1b", "7go-jli3klki-cacaajaddcba", "7go-kj2k4jl-c1j1acaaba1i", "8go-jzhzhkjkh-b1bbibaica1b", "6mo-kijli2jl3kl3ik-da1bbaa1bbabc1ba", "4gv-4j3k2j-ab1ja1a2cbb", "7go-jkh3i2ki-1bcb1ca1aaab", "8ho-2ig3h2zhjzj-bbaiiab2baa", "6ho-2jlkikjhzk2z-1abi3b2c1a", "5lo-ihikjkjljijl-3jac2a1b", "7hv-3jk3hi4j-a2d2aka1iaa", "ghv-li3khz2jgiz-b1abi6aj", "6gv-3ilmkijh-abi1jadb", "6go-ikilmkjki-ibaa1abbbdb", "4ho-zihzk3jijih-3abbai1a2ad", "9ho-2jkljk2hi2hi-2j1aaiaiibc", "6go-kmkimijkj-1c1ba2b1ba", "8ho-zlzimzkg2jlk-1b3b1kbb1bc", "5ho-2ki2lj2k2iki-3aj1kbbab", "6mv-k4jij2k2jij3i-1a1ibc3ja3d", "5go-kjhmzjliz-bbadb1ba1ib", "5go-k2ij2hl2j-la1b1bb1aaa", "6mv-z2jh2j4ijhjklj-6baacib", "9mo-k2iki2gmj2h2l2zk-1aia1a2b2c1iab", "9mv-jh2zl2zjk3ij3h-ab1a1aai1b2ja", "6lo-2k2jih2kih2k-ba1k2a1ac1da", "7go-2ljh2j2mk-bb2cb3bab", "8lv-h2jh2jk2i3h-ba2baa2cac", "8ho-mkilihmljlki-bd2a2bjaj1j", "8go-hilhg2jil-bajka1a1b1a", "8qo-2jlhj2l2jl3kik-1jaab2ab1c2abb", "csv-2j3l2j3ljkj2kl3kjh3ij-1bdaia4b2k1aabbb", "6go-jkhklgiji-1bc1bbaaabbi", "7lo-2kjm3ilikik-c1ab1a2dbbbia", "3go-3jijijkj-1l5j2a", "6ho-iklhjkj2lijl-abjba1b1ab2b", "7mv-lmkmiji3kj2z2jz-bab5bb3bab", "5lv-jijihk2i3kl-1al1d1b1abb1i", "8lo-ihzk2i2jkijk-3bciaai2adj", "5go-kjkhi2jkl-i1baab1bbcab", "8mo-jh2il2jklj2zkikz-biaa4b1b1abb", "8go-ikhgji2ji-a1kab1abajab", "9ho-3li2jh2jlml-bbb2ajaacjaab", "6gv-j2k3h3j-1a1ada1abljb", "8mv-jkilk2j2i4j2kl-1cb4abaiba1cb", "8mo-zj2hjkz2kl2izkzi-1baiacla6b", "8go-ikhklhlki-acacb1jbaabb", "8mv-ljik3ijl4k3j-jab6a2blab", "8go-kij2kl2hi-a1a1ba1ajcb", "9go-jhj2gk2jh-2cba1aaacab", "8go-gfhjikjgi-1aba1biaaibc", "gso-ikl2kfhjh2i4ki3lkil2jk-iabadjib1babbbaaicbk", "7mv-i2j4k3ih3ihk-1daa2i2a1da2b", "9hv-hjh2j3lh2ji-ab2b2c1aa1jb", "9lo-ikhigh3kjij-adb1ia3cc1ad", "7lo-jikh3kilikj-1aaaaa1bcd2bj", "9ho-2kjijl2kihlj-da2jci1cb1jaa", "7mv-kik3j3ki2ki3j-1k1ba4jdijab", "9so-3kjkighghkijijki3kjh2ik-1b1i2i1d1ba2lba2a", "8go-jkijkhljl-babaabbcbcaa", "4mo-k4j3ik4jiki-2a2a1lb1l4i", "6lo-mli2lkjk2zkj-b1cbbb3jaj", "7sv-2kj2i2jik3j3i2k3j5k-dai2bb2b1ba1bb2la", "6gv-3j2ln2ik-kb2abbba1bb", "ago-jikn3jkh-bdbbbabaaabc", "amo-kjik4ikjijkjij-b1db1a1aa1i3kc", "5ho-kjikjkj3kji-jclb1cb1ci2a", "6sv-2z2jizik2ikj3kj2ijzi2h2z-2b1a1aa3lb6i", "dso-hkij2iljx2kl2jximkijimkji-ib1bdaj3ab1caa1cjb", "csv-jli2lhjg3jkh2kijgjhjkh2k-3id1aablbad2ijaaj", "eso-l2m2lhijij3k2j3lki2jijh-1bb1bbabalb1b1abaabi-101", "cso-j2igik2jhjkikikjhigikjkik-jl1a1a1j1jdi1i1baaa-102", "bso-jkiklijhjkgig2ifhfhkh4j-aaijb2aaaabaakjlaac-103", "eso-il3kilkmljk2jkhkjlkjmknm-i2j1c1k1babibbbb1db-104", "iso-li2jklk2lm2ikikjhgijl3ih-bdbbbabaacjaajbjcdib-105", "gsv-2i2kl2h3j2f3i2j3k2lhjk-b1abkaia1jb1ibjaibla-106", "fsv-k3ijljkh2ki3j3ikigjgih-1b1aaiki1i1d1dibiia-107", "csv-3jh3kliljki4jkij2ikij-2lai1lba2bkl3lij-108"])

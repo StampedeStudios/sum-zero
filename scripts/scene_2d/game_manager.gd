@@ -16,6 +16,7 @@ var ui_scale: Vector2
 var title_font_size: int
 var subtitle_font_size: int
 var text_font_size: int
+var small_text_font_size: int
 var icon_max_width: int
 var btn_icon_max_width: int
 var btns_separation: int
@@ -45,7 +46,7 @@ var _context: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 func _ready() -> void:
 	_set_ui_scale()
 	var mode := ResourceLoader.CACHE_MODE_IGNORE_DEEP
-	var	scene := ResourceLoader.load(SPLASH_SCREEN, "", mode) as PackedScene
+	var scene := ResourceLoader.load(SPLASH_SCREEN, "", mode) as PackedScene
 	var splash_screen := scene.instantiate() as SplashScreen
 	get_tree().root.add_child.call_deferred(splash_screen)
 
@@ -61,7 +62,7 @@ func start() -> void:
 	AudioManager.start_music()
 
 	# Instantiate main menu
-	var	scene := ResourceLoader.load(MAIN_MENU) as PackedScene
+	var scene := ResourceLoader.load(MAIN_MENU) as PackedScene
 	var main_menu := scene.instantiate() as MainMenu
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
@@ -79,6 +80,7 @@ func _set_ui_scale() -> void:
 	title_font_size = int(ui_scale.x * GlobalConst.TITLE_FONT_SIZE)
 	subtitle_font_size = int(ui_scale.x * GlobalConst.SUBTITLE_FONT_SIZE)
 	text_font_size = int(ui_scale.x * GlobalConst.TEXT_FONT_SIZE)
+	small_text_font_size = int(ui_scale.x * GlobalConst.SMALL_TEXT_FONT_SIZE)
 	icon_max_width = int(ui_scale.x * GlobalConst.ICON_MAX_WIDTH)
 	btn_icon_max_width = int(ui_scale.x * GlobalConst.BTN_ICON_MAX_WIDTH)
 
@@ -168,7 +170,7 @@ func set_next_level() -> bool:
 
 func get_active_level_id() -> int:
 	return _active_level_id
-	
+
 
 func get_active_context() -> GlobalConst.LevelGroup:
 	return _context

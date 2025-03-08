@@ -98,4 +98,3 @@ func show_cell() -> void:
 		tile.scale = Vector2.ZERO
 		tile.show()
 		create_tween().tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)
-	

@@ -66,7 +66,7 @@ func _set_start_point() -> void:
 	# Set starting world where the next playable level is
 	_world = GameManager.get_active_context()
 	world_btn.visible = _world == GlobalConst.LevelGroup.CUSTOM
-	custom_btn.visible = _world == GlobalConst.LevelGroup.MAIN	
+	custom_btn.visible = _world == GlobalConst.LevelGroup.MAIN
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:

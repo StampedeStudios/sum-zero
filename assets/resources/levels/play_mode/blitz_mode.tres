@@ -26,6 +26,6 @@ is_skippable = true
 one_shoot_mode = false
 timer_options = SubResource("Resource_fs88p")
 level_options = SubResource("Resource_hvo1a")
-title = "BLITZ 3 + 1"
+title = "BLITZ"
 icon = ExtResource("1_6a1fd")
 unlock_level_id = 29

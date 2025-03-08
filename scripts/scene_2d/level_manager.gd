@@ -9,6 +9,7 @@ const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
 var grid_cells: Array[Cell]
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
+var _current_level: LevelData
 
 @onready var grid: Node2D = %Grid
 @onready var playable_area: Area2D = %PlayableArea
@@ -39,6 +40,7 @@ func init_level(current_level: LevelData) -> void:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 		push_error("Invalid level!")
 		return
+	_current_level = current_level
 	var level_size: Vector2i
 	var half_grid_size: Vector2
 	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
@@ -97,12 +99,12 @@ func init_level(current_level: LevelData) -> void:
 		sc_instance.alter_grid.connect(check_grid)
 		grid_sliders.append(sc_instance)
 	await get_tree().process_frame
-	_animate_grid.call_deferred(level_size)
 
 
-func _animate_grid(level_size: Vector2i) -> void:
+func animate_grid() -> void:
 	self.show()
-	var grid_size: Vector2 
+	var grid_size: Vector2
+	var level_size := Vector2i(_current_level.width, _current_level.height)
 	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
 	var start_point: Vector2
 	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
@@ -125,8 +127,8 @@ func _get_time_relative_to_radius(radius: float, size: Vector2) -> float:
 	const STD_TIME: float = 0.5
 	var min_radius := Vector2.ZERO.distance_to(size / 2)
 	return radius / min_radius * STD_TIME
-	
-	
+
+
 func _on_radius_update(progress: float, start_point: Vector2) -> void:
 	queue_redraw()
 	for cell in grid_cells:
@@ -135,7 +137,7 @@ func _on_radius_update(progress: float, start_point: Vector2) -> void:
 	for slider in grid_sliders:
 		if slider.global_position.distance_to(start_point) < progress:
 			slider.show_slider()
-			
+
 
 func _get_grid_positions(width: int, height: int) -> Array[Vector2i]:
 	var result: Array[Vector2i]
@@ -144,7 +146,7 @@ func _get_grid_positions(width: int, height: int) -> Array[Vector2i]:
 			result.append(Vector2i(w, h))
 	result.shuffle()
 	return result
-	
+
 
 func _clear() -> void:
 	_has_slider_active = false

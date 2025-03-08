@@ -1,9 +1,6 @@
 class_name ArenaEnd extends Control
 
 
-
-
-
 func initialize_score(summarys: Array[LevelSummary], calculation: ScoreCalculation) -> void:
 	for summary in summarys:
 		print("size ", summary.level_size)
