@@ -1,5 +1,4 @@
 class_name TutorialData extends Resource
 
-@export var animation: SpriteFrames
-@export_multiline var hint: String
-@export var image: Texture2D
+@export var images: Array[Texture2D]
+@export_multiline var hints: Array[String]

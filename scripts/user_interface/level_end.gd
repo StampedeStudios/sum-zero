@@ -86,11 +86,11 @@ func _select_random_text(move_left: int) -> String:
 
 	if num_stars <= 0:
 		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
-	elif num_stars == 1:
+	if num_stars == 1:
 		return tr(GlobalConst.ONE_STARS_MSGS.pick_random())
-	elif num_stars == 2:
+	if num_stars == 2:
 		return tr(GlobalConst.TWO_STARS_MSGS.pick_random())
-	elif num_stars == 3:
+	if num_stars == 3:
 		return tr(GlobalConst.THREE_STARS_MSGS.pick_random())
 	# extra reward for beating the developers (you think ...)
 	return tr(GlobalConst.EXTRA_STARS_MSGS.pick_random())
@@ -114,9 +114,10 @@ func _on_next_btn_pressed() -> void:
 	if !_has_next_level:
 		var scene := ResourceLoader.load(CREDITS) as PackedScene
 		var credits := scene.instantiate() as CreditsScreen
-		get_tree().root.add_child.call_deferred(credits)
+		get_tree().root.add_child(credits)
 		queue_free()
 	else:
 		var level: LevelData = GameManager.get_next_level()
-		GameManager.level_manager.init_level.call_deferred(level)
+		GameManager.level_manager.init_level(level)
+		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 		queue_free()

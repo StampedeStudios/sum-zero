@@ -26,8 +26,8 @@ func _ready() -> void:
 func animate(animated_scale: Vector2) -> void:
 	panel.scale = animated_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-	
-	
+
+
 func _exit_options() -> void:
 	GameManager.save_player_data()
 	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
@@ -68,7 +68,7 @@ func _on_option_button_item_selected(index: int) -> void:
 	TranslationServer.set_locale(preferred_locale)
 
 
-func _on_link_button_pressed() -> void:	
+func _on_link_button_pressed() -> void:
 	var credits_scene := ResourceLoader.load(CREDITS) as PackedScene
 	var credits := credits_scene.instantiate()
 	get_tree().root.add_child.call_deferred(credits)

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://brc0b2lds3pkx"]
+
+[ext_resource type="Texture2D" uid="uid://drom187j324mm" path="res://assets/ui/tutorial/invert.png" id="1_wh7ok"]
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="3_51h4q"]
+
+[resource]
+script = ExtResource("3_51h4q")
+images = Array[Texture2D]([ExtResource("1_wh7ok")])
+hints = Array[String](["TUTORIAL_INVERTER"])

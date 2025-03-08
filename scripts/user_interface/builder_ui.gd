@@ -55,21 +55,22 @@ func _on_resize_btn_pressed() -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
+	if !GameManager.level_manager:
+		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+		var level_test := scene.instantiate() as LevelManager
+		get_tree().root.add_child(level_test)
+		GameManager.level_manager = level_test
+
+	var data: LevelData = GameManager.level_builder.get_level_data()
+	GameManager.level_manager.init_level(data)
+
 	if !GameManager.builder_test:
 		var scene := ResourceLoader.load(BUILDER_TEST) as PackedScene
 		var builder_test := scene.instantiate() as BuilderTest
 		GameManager.builder_test = builder_test
-		get_tree().root.add_child.call_deferred(builder_test)
-		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
-		
-	if GameManager.level_manager == null:
-		var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
-		var level_test := scene.instantiate() as LevelManager
-		get_tree().root.add_child.call_deferred(level_test)
-		GameManager.level_manager = level_test
-	
-	var data: LevelData = GameManager.level_builder.get_level_data()
-	GameManager.level_manager.init_level.call_deferred(data)
+		get_tree().root.add_child(builder_test)
+
+	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 
 
 func _on_save_btn_pressed() -> void:

@@ -16,7 +16,8 @@ enum GameState {
 	LEVEL_INSPECT,
 	LEVEL_IMPORT,
 	CUSTOM_LEVEL_INSPECT,
-	ARENA_MODE
+	ARENA_MODE,
+	TUTORIAL_ZERO
 }
 enum LevelGroup { CUSTOM, MAIN }
 enum GenerationElement { HOLE, BLOCK, SLIDER }
@@ -31,6 +32,7 @@ const X_MARGIN_PERCENTAGE: float = 0.1
 const TITLE_FONT_SIZE: int = 60
 const SUBTITLE_FONT_SIZE: int = 50
 const TEXT_FONT_SIZE: int = 48
+const SMALL_TEXT_FONT_SIZE: int = 36
 const ICON_MAX_WIDTH: int = 64
 const BTN_ICON_MAX_WIDTH: int = 128
 const BTN_SEPARATION: int = 20

@@ -67,21 +67,22 @@ func _on_build_btn_pressed() -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var scene := ResourceLoader.load(GAME_UI) as PackedScene
-	var game_ui := scene.instantiate() as GameUI
-	get_tree().root.add_child.call_deferred(game_ui)
-	game_ui.initialize_ui.call_deferred(GlobalConst.GameState.LEVEL_PICK)
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
-	GameManager.game_ui = game_ui
-
-	scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+	var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 	var level_manager := scene.instantiate() as LevelManager
-	get_tree().root.add_child.call_deferred(level_manager)
+	get_tree().root.add_child(level_manager)
 	GameManager.level_manager = level_manager
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
-	level_manager.init_level.call_deferred(level_data)
+	level_manager.init_level(level_data)
+
+	scene = ResourceLoader.load(GAME_UI) as PackedScene
+	var game_ui := scene.instantiate() as GameUI
+	get_tree().root.add_child(game_ui)
+	game_ui.initialize_ui(GlobalConst.GameState.LEVEL_PICK)
+	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	GameManager.game_ui = game_ui
+
 	self.queue_free.call_deferred()
 
 

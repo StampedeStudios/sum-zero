@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://wor27ovpdofm"]
-
-[ext_resource type="SpriteFrames" uid="uid://qvbko85vll3f" path="res://assets/vfx/slider_animation.tres" id="1_l2lxv"]
-[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="2_f3oqj"]
-
-[resource]
-script = ExtResource("2_f3oqj")
-animation = ExtResource("1_l2lxv")
-hint = "TUTORIAL_INVERTER"

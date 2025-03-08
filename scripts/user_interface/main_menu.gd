@@ -54,7 +54,7 @@ func _on_editor_btn_pressed() -> void:
 	get_tree().root.add_child.call_deferred(builder_ui)
 	GameManager.builder_ui = builder_ui
 
-	scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene	
+	scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene
 	var level_builder := scene.instantiate() as LevelBuilder
 	get_tree().root.add_child.call_deferred(level_builder)
 	level_builder.construct_level.call_deferred(LevelData.new())

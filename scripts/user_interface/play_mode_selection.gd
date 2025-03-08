@@ -16,12 +16,11 @@ var _mode_selected: int = 0
 @onready var locked_msg: Label = %LockedMsg
 
 
-
 func _ready() -> void:
 	if arena_modes.is_empty():
 		queue_free.call_deferred()
 		return
-	_update_play_mode()		
+	_update_play_mode()
 	create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
 
@@ -32,17 +31,17 @@ func _update_play_mode() -> void:
 		mode_icon.hide()
 		locked_msg.text = LOCKED_MSG % [mode.unlock_level_id + 1]
 		locked_msg.show()
-	else:	
+	else:
 		locked_msg.hide()
 		mode_icon.texture = mode.icon
 		mode_icon.show()
-	
+
 
 func _animate(animated_scale: Vector2) -> void:
 	panel.scale = animated_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-	
-	
+
+
 func _close() -> void:
 	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
@@ -51,8 +50,8 @@ func _close() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	_close()	
-	
+	_close()
+
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
@@ -67,7 +66,7 @@ func _on_prev_mode_gui_input(event: InputEvent) -> void:
 		if _mode_selected < 0:
 			_mode_selected = arena_modes.size() - 1
 		_update_play_mode()
-		
+
 
 func _on_next_mode_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
@@ -76,7 +75,7 @@ func _on_next_mode_gui_input(event: InputEvent) -> void:
 		if _mode_selected == arena_modes.size():
 			_mode_selected = 0
 		_update_play_mode()
-		
+
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
@@ -94,19 +93,18 @@ func _on_play_btn_pressed() -> void:
 			playable_id = mode.id_start
 		var playable_level: LevelData = GameManager.get_active_level(playable_id)
 		if playable_level != null:
-			# load game ui
-			var scene := ResourceLoader.load(GAME_UI) as PackedScene
-			var game_ui := scene.instantiate() as GameUI
-			GameManager.game_ui = game_ui
-			get_tree().root.add_child.call_deferred(game_ui)
-			game_ui.initialize_ui.call_deferred(GlobalConst.GameState.MAIN_MENU)
-			GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 			# load level manager
-			scene = ResourceLoader.load(LEVEL_MANAGER) as PackedScene
+			var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 			var level_manager := scene.instantiate() as LevelManager
 			GameManager.level_manager = level_manager
-			get_tree().root.add_child.call_deferred(level_manager)
-			level_manager.init_level.call_deferred(playable_level)
-		
+			get_tree().root.add_child(level_manager)
+			level_manager.init_level(playable_level)
+			# load game ui
+			scene = ResourceLoader.load(GAME_UI) as PackedScene
+			var game_ui := scene.instantiate() as GameUI
+			GameManager.game_ui = game_ui
+			get_tree().root.add_child(game_ui)
+			game_ui.initialize_ui(GlobalConst.GameState.MAIN_MENU)
+			GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+
 	queue_free.call_deferred()
-	

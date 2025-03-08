@@ -23,8 +23,8 @@ func _ready() -> void:
 
 func _on_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-			GameManager.on_state_change.connect(_on_state_change)
-			GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+		GameManager.on_state_change.connect(_on_state_change)
+		GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:

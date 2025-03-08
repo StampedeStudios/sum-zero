@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://di7kanjcci6e6"]
-
-[ext_resource type="SpriteFrames" uid="uid://qvbko85vll3f" path="res://assets/vfx/slider_animation.tres" id="1_n5sr5"]
-[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="2_8wg5u"]
-
-[resource]
-script = ExtResource("2_8wg5u")
-animation = ExtResource("1_n5sr5")
-hint = "TUTORIAL_DIFF_EFFECTS"

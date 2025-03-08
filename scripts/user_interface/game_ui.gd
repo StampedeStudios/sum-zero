@@ -1,6 +1,6 @@
 class_name GameUI extends Control
 
-const TUTORIAL = "res://packed_scene/user_interface/Tutorial.tscn"
+const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 
@@ -16,7 +16,7 @@ var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	
+
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
@@ -53,18 +53,34 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
 				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
 			self.visible = true
+
 		GlobalConst.GameState.LEVEL_START:
 			self.visible = true
+			_render_tutorial()
+			skip_btn.visible = GameManager.is_level_completed() and GameManager.set_next_level()
+
 		GlobalConst.GameState.LEVEL_END:
-			self.visible = false		
+			self.visible = false
 		_:
 			self.visible = false
+
+
+func _render_tutorial() -> void:
+	var tutorial: TutorialData = GameManager.get_tutorial()
+	if tutorial:
+		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
+		var tutorial_ui := scene.instantiate() as TutorialUi
+		tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.animate_grid)
+		get_tree().root.add_child(tutorial_ui)
+		tutorial_ui.setup(tutorial)
+	else:
+		GameManager.level_manager.animate_grid()
 
 
 func _on_level_complete() -> void:
 	var scene := ResourceLoader.load(LEVEL_END) as PackedScene
 	var level_end := scene.instantiate() as LevelEnd
-	get_tree().root.add_child.call_deferred(level_end)
+	get_tree().root.add_child(level_end)
 	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 
 
@@ -75,15 +91,6 @@ func initialize_ui(prev_state: GlobalConst.GameState) -> void:
 			exit_btn.text = tr("BACK")
 		GlobalConst.GameState.LEVEL_PICK:
 			exit_btn.text = tr("LEVELS")
-	skip_btn.hide()
-	if GameManager.is_level_completed():
-		skip_btn.visible = GameManager.set_next_level()
-	var tutorial: TutorialData = GameManager.get_tutorial()
-	if tutorial != null:
-		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
-		var tutorial_ui := scene.instantiate() as Tutorial
-		get_tree().root.add_child(tutorial_ui)
-		tutorial_ui.setup.call_deferred(tutorial)
 
 
 func _consume_move() -> void:
@@ -99,4 +106,5 @@ func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var level: LevelData
 	level = GameManager.get_next_level()
-	GameManager.level_manager.init_level.call_deferred(level)
+	GameManager.level_manager.init_level(level)
+	GameManager.change_state(GlobalConst.GameState.LEVEL_START)

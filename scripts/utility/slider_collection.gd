@@ -41,15 +41,15 @@ func get_behavior_texture(effect: GlobalConst.AreaBehavior) -> Texture2D:
 	if ResourceLoader.exists(path):
 		return ResourceLoader.load(path)
 	return null
-	
+
 
 func get_block_texture() -> Texture2D:
 	if ResourceLoader.exists(block_texture):
 		return ResourceLoader.load(block_texture)
 	return null
-	
-	
+
+
 func get_block_shader() -> Shader:
 	if ResourceLoader.exists(block_shader):
 		return ResourceLoader.load(block_shader)
-	return null	
+	return null
