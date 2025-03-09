@@ -5,8 +5,9 @@
 
 [resource]
 script = ExtResource("1_wy4ra")
-id_start = 30
-id_end = 107
+id_start = 31
+id_end = 108
 title = "CLASSIC"
 icon = ExtResource("1_tswj4")
-unlock_level_id = 29
+unlock_mode = 1
+unlock_count = 30

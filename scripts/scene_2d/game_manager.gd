@@ -142,6 +142,10 @@ func get_start_level_playable() -> int:
 	return 0
 
 
+func get_star_count() -> int:
+	return _player_save.player_rewards.stars_count
+
+
 func save_persistent_level(level_data: LevelData) -> void:
 	var level_hash := _persistent_save.add_level(level_data)
 	ResourceSaver.save.call_deferred(_persistent_save, PERSISTENT_SAVE_PATH)
@@ -206,7 +210,10 @@ func update_level_progress(move_left: int) -> bool:
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
 	if move_left > active_progress.move_left:
+		var old_star := clampi(active_progress.move_left, -3, 0) + 3
+		var new_star := clampi(move_left, -3, 0) + 3
 		active_progress.move_left = move_left
+		_player_save.add_star(new_star - old_star)
 		is_record = true
 	_player_save.set_progress(_context, _active_level_id, active_progress)
 	save_player_data()

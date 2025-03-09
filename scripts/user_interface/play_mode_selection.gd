@@ -1,40 +1,65 @@
 class_name PlayModeSelection extends Control
 
-const LOCKED_MSG := "You must reach level %d to join this MODE."
 const ARENA_UI := "res://packed_scene/user_interface/ArenaUI.tscn"
 const GAME_UI := "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 
 @export var arena_modes: Array[PlayMode]
 
-var _mode_selected: int = 0
+var _mode_selected: int
 
 @onready var panel: Panel = %Panel
 @onready var arena_selection: VBoxContainer = %ArenaSelection
 @onready var mode_title: Label = %ModeTitle
 @onready var mode_icon: TextureRect = %ModeIcon
 @onready var locked_msg: Label = %LockedMsg
+@onready var play_btn: Button = %PlayBtn
+@onready var completed_icon: TextureRect = %CompletedIcon
 
 
 func _ready() -> void:
 	if arena_modes.is_empty():
 		queue_free.call_deferred()
 		return
+	_set_first_uncompleted_mode()
 	_update_play_mode()
 	create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
 
+func _set_first_uncompleted_mode() -> void:
+	for id: int in range(arena_modes.size()):
+		_mode_selected = id
+		var mode := arena_modes[id]
+		if mode is StoryMode and GameManager.get_start_level_playable() > mode.id_end - 1:
+			continue
+		else:
+			break
+
 func _update_play_mode() -> void:
 	var mode := arena_modes[_mode_selected] as PlayMode
+	var is_locked: bool
+	
 	mode_title.text = mode.title
-	if GameManager.get_start_level_playable() <= mode.unlock_level_id:
-		mode_icon.hide()
-		locked_msg.text = LOCKED_MSG % [mode.unlock_level_id + 1]
-		locked_msg.show()
+	mode_icon.texture = mode.icon
+	
+	match mode.unlock_mode:
+		PlayMode.UnlockMode.NONE:
+			pass
+		PlayMode.UnlockMode.LEVEL:
+			locked_msg.text = tr("LEVEL_LOCK_MSG %d") % [mode.unlock_count]
+			is_locked = GameManager.get_start_level_playable() < mode.unlock_count
+		PlayMode.UnlockMode.STAR:
+			locked_msg.text = tr("STAR_LOCK_MSG %d") % [mode.unlock_count]
+			is_locked = GameManager.get_star_count() < mode.unlock_count
+	
+	mode_icon.visible = !is_locked
+	locked_msg.visible = is_locked
+	play_btn.disabled = is_locked	
+	
+	if mode is StoryMode and !is_locked:
+		completed_icon.visible = GameManager.get_start_level_playable() > mode.id_end - 1
 	else:
-		locked_msg.hide()
-		mode_icon.texture = mode.icon
-		mode_icon.show()
+		completed_icon.hide()
 
 
 func _animate(animated_scale: Vector2) -> void:
@@ -89,8 +114,8 @@ func _on_play_btn_pressed() -> void:
 		arena_ui.init_arena(mode)
 	if mode is StoryMode:
 		var playable_id: int = GameManager.get_start_level_playable()
-		if playable_id >= mode.id_end:
-			playable_id = mode.id_start
+		if playable_id > mode.id_end - 1:
+			playable_id = mode.id_start - 1
 		var playable_level: LevelData = GameManager.get_active_level(playable_id)
 		if playable_level != null:
 			# load level manager

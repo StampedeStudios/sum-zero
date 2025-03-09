@@ -28,4 +28,5 @@ timer_options = SubResource("Resource_ssd72")
 level_options = SubResource("Resource_ppfa4")
 title = "ENDLESS"
 icon = ExtResource("1_gc4mv")
-unlock_level_id = 29
+unlock_mode = 2
+unlock_count = 50
