@@ -83,6 +83,7 @@ func reset() -> void:
 	_current_scale = 0
 	_last_scale = 0
 	_is_extended = false
+	area_behavior.flip_h = false
 	_apply_scaling(_current_scale)
 
 

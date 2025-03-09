@@ -28,4 +28,5 @@ timer_options = SubResource("Resource_ai02r")
 level_options = SubResource("Resource_lfjqv")
 title = "PUZZLE"
 icon = ExtResource("1_vuuct")
-unlock_level_id = 79
+unlock_mode = 2
+unlock_count = 200

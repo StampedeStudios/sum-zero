@@ -30,4 +30,5 @@ level_options = SubResource("Resource_hvo1a")
 title = "BLITZ"
 icon = ExtResource("1_6a1fd")
 tutorial = ExtResource("7_mc4j6")
-unlock_level_id = 29
+unlock_mode = 2
+unlock_count = 100

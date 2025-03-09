@@ -4,6 +4,7 @@ class_name PlayerSave extends Resource
 @export var custom_progress: Dictionary
 @export var persistent_progress: Dictionary
 @export var player_options: PlayerOptions
+@export var player_rewards: RewardData
 
 var _persistent: LevelContainer
 
@@ -11,6 +12,13 @@ var _persistent: LevelContainer
 func check_savegame_integrity(world: LevelContainer) -> bool:
 	_persistent = world
 	var has_change := false
+	
+	# initialize player rewards
+	if !player_rewards:
+		print("No rewards found, resetting")
+		player_rewards = RewardData.new()
+		has_change = true
+		
 	# initialize player options
 	if player_options == null:
 		print("No settings preferences found, resetting")
@@ -48,6 +56,19 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 		if !persistent_progress.has(level_hash):
 			add_world_progress(level_hash)
 			has_change = true
+			
+	# check stars count on persistent levels
+	var stars_count: int = 0
+	for level_hash: String in _persistent.levels_hash:
+		if persistent_progress.has(level_hash):
+			var progress: Vector3i = persistent_progress.get(level_hash)
+			if progress.x == 1 and progress.y == 1:
+				var star := clampi(progress.z, -3, 0) + 3
+				stars_count += star
+	if player_rewards.stars_count != stars_count:
+		player_rewards.stars_count = stars_count
+		has_change = true
+		
 	return has_change
 
 
@@ -118,3 +139,8 @@ func set_progress(group: GlobalConst.LevelGroup, level_id: int, progress: LevelP
 		GlobalConst.LevelGroup.CUSTOM:
 			level_hash = custom_levels_hash[level_id]
 			custom_progress[level_hash] = hash_progress
+
+
+func add_star(extra_star: int) -> void:
+	print(extra_star)
+	player_rewards.stars_count += extra_star

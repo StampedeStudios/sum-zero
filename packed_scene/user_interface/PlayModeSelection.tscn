@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=18 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
@@ -15,6 +15,7 @@
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_wkk3t"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_kkjb1"]
+[ext_resource type="Texture2D" uid="uid://cnfj6uq1m6f7" path="res://assets/ui/completed_mode.png" id="12_cqdan"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k7w"]
 shader = ExtResource("7_ylopr")
@@ -80,12 +81,21 @@ size_flags_vertical = 3
 
 [node name="ModeIcon" type="TextureRect" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
 unique_name_in_owner = true
-visible = false
 material = SubResource("ShaderMaterial_x1k7w")
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_wbtf6")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="CompletedIcon" type="TextureRect" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_wbtf6")
+texture = ExtResource("12_cqdan")
 expand_mode = 1
 stretch_mode = 3
 
@@ -129,8 +139,8 @@ texture = ExtResource("8_du4gt")
 expand_mode = 2
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
 theme = ExtResource("9_r4e6y")
 text = "PLAY"
