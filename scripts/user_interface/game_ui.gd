@@ -104,7 +104,6 @@ func _on_reset_btn_pressed() -> void:
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var level: LevelData
-	level = GameManager.get_next_level()
+	var level: LevelData = GameManager.get_next_level()
 	GameManager.level_manager.init_level(level)
 	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
