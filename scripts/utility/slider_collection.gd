@@ -8,7 +8,10 @@ class_name SliderCollection extends Resource
 
 @export_group("Slider behavior")
 @export_file("*.png") var by_step := ""
-@export_file("*.png") var full := "res://assets/scenes_2d/full_behavior_icon.png"
+@export_file("*.png") var out_by_step := "res://assets/scenes_2d/slider_outline.png"
+@export_file("*.png") var full := "res://assets/scenes_2d/behavior_full_icon.png"
+@export_file("*.png") var out_full := "res://assets/scenes_2d/auto_slider_outline.png"
+
 
 @export_group("Slider block effect")
 @export_file("*.png") var block_texture := "res://assets/scenes_2d/blocked_tile.png"
@@ -38,6 +41,18 @@ func get_behavior_texture(effect: GlobalConst.AreaBehavior) -> Texture2D:
 			path = by_step
 		GlobalConst.AreaBehavior.FULL:
 			path = full
+	if ResourceLoader.exists(path):
+		return ResourceLoader.load(path)
+	return null
+
+
+func get_outline_texture(effect: GlobalConst.AreaBehavior) -> Texture2D:
+	var path: String
+	match effect:
+		GlobalConst.AreaBehavior.BY_STEP:
+			path = out_by_step
+		GlobalConst.AreaBehavior.FULL:
+			path = out_full
 	if ResourceLoader.exists(path):
 		return ResourceLoader.load(path)
 	return null

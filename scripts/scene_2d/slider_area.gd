@@ -35,9 +35,33 @@ var _last_affected_cells: Dictionary
 
 
 func init_slider(data: SliderData) -> void:
+	var color: Color
 	body.hide()
+	
+	color = GameManager.palette.slider_colors.get("BG")
+	body.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	
+	area_outline.texture = SLIDER_COLLECTION.get_outline_texture(data.area_behavior)
+	color = GameManager.palette.slider_colors.get("OUTLINE")
+	area_outline.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	
 	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
-	area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
+	match data.area_effect:
+		GlobalConst.AreaEffect.ADD:
+			color = GameManager.palette.slider_colors.get("ADD")			
+		GlobalConst.AreaEffect.SUBTRACT:
+			color = GameManager.palette.slider_colors.get("SUBTRACT")
+		GlobalConst.AreaEffect.CHANGE_SIGN:
+			color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
+	area_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	
+	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
+		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
+		color = GameManager.palette.slider_colors.FULL
+		area_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	else:
+		area_behavior.hide()
+	
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
 	_area_effect = data.area_effect
@@ -67,7 +91,8 @@ func release_handle() -> void:
 	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
-
+	if !_is_manually_controlled:
+		area_behavior.flip_h = _is_extended
 	if _current_scale != _last_scale:
 		_last_scale = _current_scale
 		move_count = true

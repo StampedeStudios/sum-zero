@@ -1,11 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene load_steps=12 format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/slider_area.gd" id="1_xjbxd"]
+[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="3_ognen"]
 [ext_resource type="Shader" path="res://scripts/shaders/ScalableArea.gdshader" id="3_qs1jk"]
 [ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="4_yil1j"]
 [ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="5_3db0q"]
-[ext_resource type="Texture2D" uid="uid://dn0wsqs1myawu" path="res://assets/scenes_2d/full_behavior_icon.png" id="6_woupr"]
+[ext_resource type="Texture2D" uid="uid://dnykqdh5j18by" path="res://assets/scenes_2d/behavior_full_icon.png" id="7_yctu4"]
 [ext_resource type="Texture2D" uid="uid://drxiqhjweubuq" path="res://assets/scenes_2d/slider_outline.png" id="8_hrofw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_62o8u"]
+resource_local_to_scene = true
+shader = ExtResource("3_ognen")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_apayg"]
+resource_local_to_scene = true
+shader = ExtResource("3_ognen")
+shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
 resource_local_to_scene = true
@@ -14,17 +25,24 @@ shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 shader_parameter/is_selected = false
 shader_parameter/glow_intensity = 4.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g5mul"]
+resource_local_to_scene = true
+shader = ExtResource("3_ognen")
+shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+
 [node name="ScalableArea" type="Node2D"]
 position = Vector2(454, 665)
 script = ExtResource("1_xjbxd")
 
 [node name="Body" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_62o8u")
 position = Vector2(64, 0)
 texture = ExtResource("4_yil1j")
 
 [node name="AreaEffect" type="Sprite2D" parent="Body"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_apayg")
 texture = ExtResource("5_3db0q")
 
 [node name="AreaOutline" type="NinePatchRect" parent="Body"]
@@ -42,8 +60,8 @@ patch_margin_bottom = 36
 
 [node name="AreaBehavior" type="Sprite2D" parent="Body"]
 unique_name_in_owner = true
-position = Vector2(-64, -64)
-texture = ExtResource("6_woupr")
+material = SubResource("ShaderMaterial_g5mul")
+texture = ExtResource("7_yctu4")
 
 [node name="Ray" type="RayCast2D" parent="."]
 unique_name_in_owner = true
