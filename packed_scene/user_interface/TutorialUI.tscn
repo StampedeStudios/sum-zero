@@ -52,7 +52,7 @@ horizontal_alignment = 1
 
 [node name="Hint" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
+clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_yxr7t")
@@ -64,7 +64,7 @@ fit_content = true
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 8.0
+size_flags_stretch_ratio = 9.0
 texture = ExtResource("2_jp4ma")
 expand_mode = 1
 stretch_mode = 5
