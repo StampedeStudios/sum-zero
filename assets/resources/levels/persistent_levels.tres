@@ -5,7 +5,7 @@
 [ext_resource type="Resource" uid="uid://brc0b2lds3pkx" path="res://assets/resources/tutorial/invert.tres" id="4_t73ij"]
 [ext_resource type="Script" path="res://scripts/utility/level_container.gd" id="4_v7vmu"]
 [ext_resource type="Resource" uid="uid://c4gu3yrwpivvm" path="res://assets/resources/tutorial/block.tres" id="5_xcg4a"]
-[ext_resource type="Resource" uid="uid://6d3v37kvpi86" path="res://assets/resources/tutorial/automatic_slider.tres" id="6_l3slj"]
+[ext_resource type="Resource" uid="uid://bh5y4yi2t6c7v" path="res://assets/resources/tutorial/automatic_slider.tres" id="6_l3slj"]
 
 [resource]
 script = ExtResource("4_v7vmu")
