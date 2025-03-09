@@ -46,14 +46,18 @@ func init_slider(data: SliderData) -> void:
 	area_outline.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	
 	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
-	match data.area_effect:
-		GlobalConst.AreaEffect.ADD:
-			color = GameManager.palette.slider_colors.get("ADD")			
-		GlobalConst.AreaEffect.SUBTRACT:
-			color = GameManager.palette.slider_colors.get("SUBTRACT")
-		GlobalConst.AreaEffect.CHANGE_SIGN:
-			color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
-	area_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	if data.area_effect != GlobalConst.AreaEffect.BLOCK:
+		var mat := ShaderMaterial.new()
+		mat.shader = ResourceLoader.load("res://scripts/shaders/BasicTile.gdshader")
+		match data.area_effect:
+			GlobalConst.AreaEffect.ADD:
+				color = GameManager.palette.slider_colors.get("ADD")			
+			GlobalConst.AreaEffect.SUBTRACT:
+				color = GameManager.palette.slider_colors.get("SUBTRACT")
+			GlobalConst.AreaEffect.CHANGE_SIGN:
+				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
+		mat.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+		area_effect.material = mat
 	
 	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
 		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)

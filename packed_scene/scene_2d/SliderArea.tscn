@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene load_steps=11 format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/slider_area.gd" id="1_xjbxd"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="3_ognen"]
@@ -12,11 +12,6 @@
 resource_local_to_scene = true
 shader = ExtResource("3_ognen")
 shader_parameter/base_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_apayg"]
-resource_local_to_scene = true
-shader = ExtResource("3_ognen")
-shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
 resource_local_to_scene = true
@@ -42,7 +37,6 @@ texture = ExtResource("4_yil1j")
 
 [node name="AreaEffect" type="Sprite2D" parent="Body"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_apayg")
 texture = ExtResource("5_3db0q")
 
 [node name="AreaOutline" type="NinePatchRect" parent="Body"]
