@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://bpskg23ac4w87"]
+
+[ext_resource type="Texture2D" uid="uid://bebqjbwx8rxdi" path="res://assets/ui/tutorial/arena_mode.png" id="1_3olko"]
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="3_r6jy5"]
+
+[resource]
+script = ExtResource("3_r6jy5")
+images = Array[Texture2D]([ExtResource("1_3olko")])
+hints = Array[String](["TUTORIAL_ARENA"])

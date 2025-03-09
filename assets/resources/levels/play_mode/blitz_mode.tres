@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=9 format=3 uid="uid://d0xanyjlyiox4"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://d0xanyjlyiox4"]
 
 [ext_resource type="Texture2D" uid="uid://bxsitj53044ol" path="res://assets/ui/plus_icon.png" id="1_6a1fd"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="1_lxvna"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_0t8i1"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_c6whw"]
 [ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_6wt32"]
+[ext_resource type="Resource" uid="uid://bpskg23ac4w87" path="res://assets/resources/tutorial/arena.tres" id="7_mc4j6"]
 
 [sub_resource type="Resource" id="Resource_hvo1a"]
 script = ExtResource("3_c6whw")
@@ -28,4 +29,5 @@ timer_options = SubResource("Resource_fs88p")
 level_options = SubResource("Resource_hvo1a")
 title = "BLITZ"
 icon = ExtResource("1_6a1fd")
+tutorial = ExtResource("7_mc4j6")
 unlock_level_id = 29

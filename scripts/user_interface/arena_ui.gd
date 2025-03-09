@@ -2,6 +2,7 @@ class_name ArenaUI extends Control
 
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 const ARENA_END := "res://packed_scene/user_interface/ArenaEnd.tscn"
+const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 
 var _current_mode: ArenaMode
 var _tween: Tween
@@ -48,12 +49,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.ARENA_MODE:
 			self.show()
 			_hide_ui()
+			_render_tutorial()
 		GlobalConst.GameState.LEVEL_START:
-			GameManager.level_manager.animate_grid()
 			self.show()
 		GlobalConst.GameState.PLAY_LEVEL:
 			container.show()
 		GlobalConst.GameState.LEVEL_END:
+			pass
+		GlobalConst.GameState.ARENA_END:
 			self.hide()
 			var scene := ResourceLoader.load(ARENA_END) as PackedScene
 			var arena_end := scene.instantiate() as ArenaEnd
@@ -70,7 +73,6 @@ func _hide_ui() -> void:
 
 
 func init_arena(mode: ArenaMode) -> void:
-	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 	if mode:
 		_current_mode = mode
 		if _current_mode.level_options:
@@ -91,10 +93,12 @@ func init_arena(mode: ArenaMode) -> void:
 		else:
 			_set_arena_time(0)
 			_timer.timeout.connect(func() -> void: _set_arena_time(_time + 1))
-	_get_new_random_level()
+
+	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 
 
 func _get_new_random_level() -> void:
+	_hide_ui()
 	_start_loading()
 	_current_level = LevelData.new()
 	while true:
@@ -113,6 +117,7 @@ func _get_new_random_level() -> void:
 	loading.hide()
 	loading.rotation_degrees = 0
 	_tween.kill()
+
 	_init_level()
 
 
@@ -133,15 +138,16 @@ func _init_level() -> void:
 		level_manager.on_level_complete.connect(_on_level_complete)
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
-	# start level
+
 	_moves_count = 0
 	_level_time = 0
-	GameManager.level_manager.init_level(_current_level)
 	if _current_mode.timer_options:
 		arena_time.show()
 		_timer.start()
 
 	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	GameManager.level_manager.init_level(_current_level)
+	GameManager.level_manager.animate_grid()
 
 
 func _on_level_complete() -> void:
@@ -158,10 +164,10 @@ func _on_level_complete() -> void:
 	summary.time_used = _level_time
 	_levels_summary.append(summary)
 	if _current_mode.one_shoot_mode:
-		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+		GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_END)
 	else:
-		GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_MODE)
-		_get_new_random_level.call_deferred()
+		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+		_get_new_random_level()
 
 
 func _on_consumed_move() -> void:
@@ -181,10 +187,10 @@ func _on_reset_btn_pressed() -> void:
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
+	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+	_get_new_random_level()
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
 		_set_arena_time(_time - _current_mode.timer_options.skip_cost)
-	_get_new_random_level()
 
 
 func _set_arena_time(new_time: int) -> void:
@@ -199,3 +205,15 @@ func _set_arena_time(new_time: int) -> void:
 			_timer.stop()
 			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
+
+
+func _render_tutorial() -> void:
+	var tutorial: TutorialData = _current_mode.tutorial
+	if tutorial:
+		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
+		var tutorial_ui := scene.instantiate() as TutorialUi
+		tutorial_ui.on_tutorial_closed.connect(_get_new_random_level)
+		get_tree().root.add_child(tutorial_ui)
+		tutorial_ui.setup(tutorial)
+	else:
+		_get_new_random_level()
