@@ -57,17 +57,10 @@ unique_name_in_owner = true
 material = SubResource("ShaderMaterial_g5mul")
 texture = ExtResource("7_yctu4")
 
-[node name="Ray" type="RayCast2D" parent="."]
-unique_name_in_owner = true
-position = Vector2(128, 0)
-enabled = false
-target_position = Vector2(128, 0)
-hit_from_inside = true
-collide_with_areas = true
-collide_with_bodies = false
-
 [node name="Handle" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(110, 0)
 
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[node name="Start" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(128, 0)

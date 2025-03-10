@@ -142,5 +142,4 @@ func set_progress(group: GlobalConst.LevelGroup, level_id: int, progress: LevelP
 
 
 func add_star(extra_star: int) -> void:
-	print(extra_star)
 	player_rewards.stars_count += extra_star

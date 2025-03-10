@@ -13,11 +13,10 @@ var _is_valid: bool = false
 
 
 func _ready() -> void:
-	var color: Color
-	color = GameManager.palette.builder_slider_color
 	_data = SliderData.new()
 	slider_effect.visible = false
 	slider_behavior.visible = false
+	var color: Color = GameManager.palette.builder_slider_color
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 
@@ -120,12 +119,38 @@ func _next_behavior() -> void:
 
 
 func _change_aspect() -> void:
-	_is_valid = true
+	var color: Color
+	_is_valid = true	
+	
+	color = GameManager.palette.slider_colors.get("BG")
+	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+
 	slider_effect.visible = true
-	slider_behavior.visible = true
 	slider_effect.texture = SLIDER_COLLECTION.get_effect_texture(_data.area_effect)
-	slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
-	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, Color.WHITE)
+	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
+		slider_effect.material = null
+	else:
+		if !slider_effect.material:
+			var mat := ShaderMaterial.new()
+			mat.shader = ResourceLoader.load("res://scripts/shaders/BasicTile.gdshader")
+			slider_effect.material = mat
+		match _data.area_effect:
+			GlobalConst.AreaEffect.ADD:
+				color = GameManager.palette.slider_colors.get("ADD")			
+			GlobalConst.AreaEffect.SUBTRACT:
+				color = GameManager.palette.slider_colors.get("SUBTRACT")
+			GlobalConst.AreaEffect.CHANGE_SIGN:
+				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
+		slider_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)		
+	
+	if _data.area_behavior == GlobalConst.AreaBehavior.FULL:
+		slider_behavior.show()
+		slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
+		color = GameManager.palette.slider_colors.get("FULL")
+		slider_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	else:
+		slider_behavior.hide()
+
 
 
 func set_slider_data(slider_data: SliderData) -> void:
@@ -134,8 +159,7 @@ func set_slider_data(slider_data: SliderData) -> void:
 
 
 func clear_slider() -> void:
-	var color: Color
-	color = GameManager.palette.builder_slider_color
+	var color: Color = GameManager.palette.builder_slider_color
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	_data = SliderData.new()
 	slider_effect.visible = false

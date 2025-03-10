@@ -11,7 +11,6 @@ var _effect_stack: Array[GlobalConst.AreaEffect]
 
 @onready var target_value_txt: Label = %TargetValueTxt
 @onready var tile: Sprite2D = %Tile
-@onready var area_2d: Area2D = %Area2D
 
 
 func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
@@ -37,8 +36,6 @@ func init_cell(data: CellData) -> void:
 		_current_data = data
 		tile.texture = ResourceLoader.load(locked_cell) as Texture2D
 		target_value_txt.visible = false
-		area_2d.hide()
-		area_2d.queue_free()
 	else:
 		_current_data = CellData.new()
 		_current_data.is_blocked = _origin_data.is_blocked
@@ -93,8 +90,9 @@ func reset() -> void:
 		_update_value()
 
 
-func show_cell() -> void:
+func show_cell(instant_anim: bool = false) -> void:
 	if tile.visible == false:
-		tile.scale = Vector2.ZERO
 		tile.show()
-		create_tween().tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)
+		if !instant_anim:
+			tile.scale = Vector2.ZERO
+			create_tween().tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)

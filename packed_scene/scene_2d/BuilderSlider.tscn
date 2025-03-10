@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
-[ext_resource type="Texture2D" uid="uid://dn0wsqs1myawu" path="res://assets/scenes_2d/full_behavior_icon.png" id="5_cuw4s"]
 [ext_resource type="Texture2D" uid="uid://da0dr8id0tfyg" path="res://assets/scenes_2d/minus_icon.png" id="9_fh68b"]
 [ext_resource type="Texture2D" uid="uid://cd4thk6wwhph7" path="res://assets/scenes_2d/slider_body.png" id="9_sippf"]
 
@@ -13,6 +12,11 @@ shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
 size = Vector2(128, 256)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgvfu"]
+resource_local_to_scene = true
+shader = ExtResource("2_ndq7t")
+shader_parameter/base_color = Color(1, 1, 1, 1)
 
 [node name="BuilderSlider" type="Node2D"]
 position = Vector2(514, 625)
@@ -37,7 +41,6 @@ texture = ExtResource("9_fh68b")
 
 [node name="SliderBehavior" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-64, -64)
-texture = ExtResource("5_cuw4s")
+material = SubResource("ShaderMaterial_xgvfu")
 
 [connection signal="input_event" from="Slider/Collision" to="." method="_on_collision_input_event"]

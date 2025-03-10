@@ -6,7 +6,7 @@ signal on_consume_move
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
 
-var grid_cells: Array[Cell]
+var grid_cells: Dictionary
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
 var _current_level: LevelData
@@ -49,6 +49,7 @@ func init_level(current_level: LevelData) -> void:
 
 	_init_grid(level_size)
 
+	await get_tree().process_frame
 	# placing cells
 	for coord: Vector2i in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
@@ -59,8 +60,9 @@ func init_level(current_level: LevelData) -> void:
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.init_cell(current_level.cells_list.get(coord))
-		grid_cells.append(cell_instance)
+		grid_cells[coord] = cell_instance
 
+	await get_tree().process_frame
 	# placing slider areas clockwise
 	for coord: Vector2i in current_level.slider_list.keys():
 		var edge: int = coord.x
@@ -95,14 +97,20 @@ func init_level(current_level: LevelData) -> void:
 		grid.add_child(sc_instance)
 		sc_instance.position = Vector2(x_pos, y_pos)
 		sc_instance.rotation_degrees = angle
-		sc_instance.init_slider.call_deferred(current_level.slider_list.get(coord))
+		sc_instance.init_slider(current_level.slider_list.get(coord), _get_slider_extension(coord))
 		sc_instance.alter_grid.connect(check_grid)
 		grid_sliders.append(sc_instance)
 	await get_tree().process_frame
 
 
-func animate_grid() -> void:
+func animate_grid(instant_anim: bool = false) -> void:
 	self.show()
+	if instant_anim:
+		for cell: Cell in grid_cells.values():
+			cell.show_cell(true)
+		for slider in grid_sliders:
+			slider.show_slider(true)
+		return
 	var grid_size: Vector2
 	var level_size := Vector2i(_current_level.width, _current_level.height)
 	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
@@ -131,7 +139,7 @@ func _get_time_relative_to_radius(radius: float, size: Vector2) -> float:
 
 func _on_radius_update(progress: float, start_point: Vector2) -> void:
 	queue_redraw()
-	for cell in grid_cells:
+	for cell: Cell in grid_cells.values():
 		if cell.global_position.distance_to(start_point) < progress:
 			cell.show_cell()
 	for slider in grid_sliders:
@@ -161,7 +169,7 @@ func check_grid(move_count: bool) -> void:
 		on_consume_move.emit()
 	var level_complete: bool
 	_has_slider_active = false
-	for cell in grid_cells:
+	for cell: Cell in grid_cells.values():
 		if cell.get_cell_value() == 0:
 			level_complete = true
 		else:
@@ -172,11 +180,10 @@ func check_grid(move_count: bool) -> void:
 
 
 func reset_level() -> void:
-	for child in grid.get_children():
-		if child is SliderArea:
-			child.reset()
-		elif child is Cell:
-			child.reset()
+	for cell: Cell in grid_cells.values():
+		cell.reset()
+	for slider in grid_sliders:
+		slider.reset()
 	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
 
 
@@ -205,3 +212,39 @@ func _on_playable_area_input_event(_viewport: Node, _event: InputEvent, _shape_i
 			if selected_slider != null:
 				_has_slider_active = true
 				selected_slider.activate_slider()
+
+
+func _get_slider_extension(slider_coord: Vector2i) -> Array[Cell]:
+	var result: Array[Cell]
+	var direction: Vector2i
+	var max_extension: int
+	var origin: Vector2i
+
+	match slider_coord.x:
+		0:
+			direction = Vector2i.DOWN
+			max_extension = _current_level.height
+			origin = Vector2i(slider_coord.y, 0)
+		1:
+			direction = Vector2i.LEFT
+			max_extension = _current_level.width
+			origin = Vector2i(_current_level.width - 1, slider_coord.y)
+		2:
+			direction = Vector2i.UP
+			max_extension = _current_level.height
+			origin = Vector2i(slider_coord.y, _current_level.height - 1)
+		3:
+			direction = Vector2i.RIGHT
+			max_extension = _current_level.width
+			origin = Vector2i(0, slider_coord.y)
+	
+	result.append(grid_cells.get(origin))
+	for i in range(1, max_extension):
+		var coord := origin + direction * i
+		if !grid_cells.has(coord):
+			break
+		var cell := grid_cells.get(coord) as Cell
+		if cell.is_cell_blocked():
+			break
+		result.append(cell)
+	return result
