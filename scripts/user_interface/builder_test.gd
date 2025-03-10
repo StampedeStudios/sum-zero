@@ -24,9 +24,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
+			self.visible = true
 			if !GameManager.level_manager.on_consume_move.is_connected(_add_move):
 				GameManager.level_manager.on_consume_move.connect(_add_move)
-			self.visible = true
+			GameManager.level_manager.animate_grid(true)
 		GlobalConst.GameState.PLAY_LEVEL:
 			self.visible = true
 		GlobalConst.GameState.LEVEL_END:

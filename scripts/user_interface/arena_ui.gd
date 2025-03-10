@@ -145,8 +145,8 @@ func _init_level() -> void:
 		arena_time.show()
 		_timer.start()
 
+	await GameManager.level_manager.init_level(_current_level)
 	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
-	GameManager.level_manager.init_level(_current_level)
 	GameManager.level_manager.animate_grid()
 
 

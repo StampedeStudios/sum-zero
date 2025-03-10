@@ -17,8 +17,7 @@ var _reachable_cells: Array[Cell]
 var _last_scale: int
 var _moves: int
 var _orientation: Vector2
-var _area_effect: GlobalConst.AreaEffect
-var _area_behavior: GlobalConst.AreaBehavior
+var _data: SliderData
 var _new_cell_size: float = GameManager.cell_size
 var _is_manually_controlled: bool = false
 var _is_extended: bool = false
@@ -29,12 +28,14 @@ var _last_affected_cells: Dictionary
 @onready var area_outline: NinePatchRect = %AreaOutline
 @onready var area_effect: Sprite2D = %AreaEffect
 @onready var area_behavior: Sprite2D = %AreaBehavior
-@onready var ray: RayCast2D = %Ray
 @onready var handle: Node2D = %Handle
 @onready var body: Sprite2D = %Body
+@onready var start: Node2D = %Start
 
 
-func init_slider(data: SliderData) -> void:
+func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
+	_data = data
+	_reachable_cells = reachable
 	var color: Color
 	body.hide()
 	
@@ -61,24 +62,19 @@ func init_slider(data: SliderData) -> void:
 	
 	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
 		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
-		color = GameManager.palette.slider_colors.FULL
+		color = GameManager.palette.slider_colors.get("FULL")
 		area_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	else:
 		area_behavior.hide()
 	
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
-	_area_effect = data.area_effect
-	_area_behavior = data.area_behavior
 
-	await get_tree().physics_frame
-	if _area_effect == GlobalConst.AreaEffect.BLOCK:
-		_check_limit.call_deferred()
-		_create_blocked_cell.call_deferred()
+	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
+		_create_blocked_cell()
 
 
 func reset() -> void:
-	_reachable_cells.clear()
 	_target_scale = 0
 	_current_scale = 0
 	_last_scale = 0
@@ -120,10 +116,10 @@ func _process(_delta: float) -> void:
 			var tile_distance: float
 
 			if _is_horizontal:
-				tile_distance = get_global_mouse_position().x - ray.global_position.x
+				tile_distance = get_global_mouse_position().x - start.global_position.x
 				drag_direction = Vector2(tile_distance, 0).normalized()
 			else:
-				tile_distance = get_global_mouse_position().y - ray.global_position.y
+				tile_distance = get_global_mouse_position().y - start.global_position.y
 				drag_direction = Vector2(0, tile_distance).normalized()
 
 			if drag_direction == _orientation:
@@ -151,7 +147,7 @@ func _process(_delta: float) -> void:
 
 
 func _create_blocked_cell() -> void:
-	for i in range(0, _moves):
+	for i in range(_reachable_cells.size()):
 		var sprite := Sprite2D.new()
 		sprite.texture = SLIDER_COLLECTION.get_block_texture()
 		sprite.material = ShaderMaterial.new()
@@ -169,19 +165,19 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 			while _current_scale < fixed_scale:
 				_current_scale += 1
 				changing_cell = _reachable_cells[_current_scale - 1]
-				changing_cell.alter_value(self, _area_effect)
+				changing_cell.alter_value(self, _data.area_effect)
 		else:
 			while _current_scale > fixed_scale:
 				changing_cell = _reachable_cells[_current_scale - 1]
 				_current_scale -= 1
-				changing_cell.alter_value(self, _area_effect)
+				changing_cell.alter_value(self, _data.area_effect)
 
 
 func _apply_scaling(_new_scale: float) -> void:
 	var area_extension := GlobalConst.SLIDER_SIZE + _new_scale * GlobalConst.CELL_SIZE
 	_play_sound(area_extension)
 	area_outline.size.x = area_extension
-	if _area_effect == GlobalConst.AreaEffect.BLOCK:
+	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", _new_scale - i)
 	if _is_manually_controlled:
@@ -189,7 +185,7 @@ func _apply_scaling(_new_scale: float) -> void:
 
 
 func activate_slider() -> void:
-	match _area_behavior:
+	match _data.area_behavior:
 		# move the area handle manually with your finger
 		GlobalConst.AreaBehavior.BY_STEP:
 			area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
@@ -211,35 +207,18 @@ func activate_slider() -> void:
 
 
 func _check_limit() -> void:
-	var is_obstacle_slider: bool
-	is_obstacle_slider = _area_effect == GlobalConst.AreaEffect.BLOCK
 	_moves = 0
-	_reachable_cells.clear()
-	ray.target_position.x = float(GlobalConst.CELL_SIZE) / 2
-
-	ray.force_raycast_update()
-	while ray.is_colliding():
-		ray.target_position.x += GlobalConst.CELL_SIZE
-		var cell: Cell = ray.get_collider().owner
-
-		if !cell.is_cell_blocked():
-			# self is obstacle area and the cell is occupied by another slider
-			if is_obstacle_slider and cell.is_occupied():
-				break
-			_moves += 1
-			_reachable_cells.append(cell)
-			ray.add_exception(ray.get_collider())
-			ray.force_raycast_update()
-		else:
-			# self is obstacle area and the evaluated cell is blocked by the area itself
-			if is_obstacle_slider and _moves < _current_scale:
+	match _data.area_effect:
+		GlobalConst.AreaEffect.BLOCK:
+			for cell in _reachable_cells:
+				if cell.is_cell_blocked() or cell.is_occupied():
+					break
 				_moves += 1
-				_reachable_cells.append(cell)
-				ray.add_exception(ray.get_collider())
-				ray.force_raycast_update()
-			else:
-				break
-	ray.clear_exceptions()
+		_:
+			for cell in _reachable_cells:
+				if cell.is_cell_blocked():
+					break
+				_moves += 1
 
 
 func _play_sound(extension: float) -> void:
@@ -252,8 +231,9 @@ func _play_sound(extension: float) -> void:
 		AudioManager.play_slider_sound(pitch)
 
 
-func show_slider() -> void:
+func show_slider(instant_anim: bool = false) -> void:
 	if body.visible == false:
-		body.scale = Vector2.ZERO
 		body.show()
-		create_tween().tween_property(body, "scale", Vector2.ONE, SPAWN_TIME)
+		if !instant_anim:
+			body.scale = Vector2.ZERO
+			create_tween().tween_property(body, "scale", Vector2.ONE, SPAWN_TIME)

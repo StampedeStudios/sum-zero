@@ -62,7 +62,7 @@ func _on_play_btn_pressed() -> void:
 		GameManager.level_manager = level_test
 
 	var data: LevelData = GameManager.level_builder.get_level_data()
-	GameManager.level_manager.init_level(data)
+	await GameManager.level_manager.init_level(data)
 
 	if !GameManager.builder_test:
 		var scene := ResourceLoader.load(BUILDER_TEST) as PackedScene

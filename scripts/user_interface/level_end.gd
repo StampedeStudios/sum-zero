@@ -118,6 +118,6 @@ func _on_next_btn_pressed() -> void:
 		queue_free()
 	else:
 		var level: LevelData = GameManager.get_next_level()
-		GameManager.level_manager.init_level(level)
+		await GameManager.level_manager.init_level(level)
 		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 		queue_free()
