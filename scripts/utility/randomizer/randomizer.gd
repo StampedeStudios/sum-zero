@@ -204,6 +204,52 @@ func create_sliders(data: LevelData) -> void:
 
 	# add sliders and calculate grid cells value
 	await _add_sliders(data, filtered_sliders)
+	print("prima %d" % [data.moves_left]) # <--------------------------------------
+	
+	# remove unnecessary moves to make the counting believable
+	await _remove_unnecessary_moves(data, filtered_sliders)
+	print("dopo %d" % [data.moves_left]) # <--------------------------------------
+	
+
+func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
+	var unnecessaty_moves: int = 0
+	# remove moves if two opposite sliders cancel each other
+	# check top and right edge
+	for edge: int in range(2):
+		var max_pos := data.width if edge % 2 == 0 else data.height
+		for position: int in range(max_pos):
+			var slider_coord := Vector2i(edge, position)
+			if !filtered.has(slider_coord):
+				continue # no slider at position
+			var slider_data := filtered.get(slider_coord) as RandomizerSlider
+			if slider_data.reached.is_empty():
+				continue # slider not extended
+			var opposite_coord := Vector2i(edge + 2, position)
+			if !filtered.has(opposite_coord):
+				continue # no slider at position
+			var opposite_data := filtered.get(opposite_coord) as RandomizerSlider
+			if opposite_data.reached.is_empty():
+				continue # slider not extended
+			
+			# check compatibile effect
+			match slider_data.effect:
+				GlobalConst.AreaEffect.ADD:
+					if opposite_data.effect != GlobalConst.AreaEffect.SUBTRACT:
+						continue
+				GlobalConst.AreaEffect.SUBTRACT:
+					if opposite_data.effect != GlobalConst.AreaEffect.ADD:
+						continue
+				_:
+					continue
+					
+			if slider_data.reached.size() == slider_data.reachable.size():
+				unnecessaty_moves += 1
+			if opposite_data.reached.size() == opposite_data.reachable.size():
+				unnecessaty_moves += 1
+		await get_tree().process_frame
+	
+	data.moves_left -= unnecessaty_moves
+	await get_tree().process_frame
 
 
 func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
@@ -215,8 +261,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	var receiver_cells: Dictionary
 	var effect_slider_count: int = 0
 	var move_counter: int = 0
-	var moves: Array[String]
-	var move: String
 
 	for slider_coord: Vector2i in filtered.keys():
 		var slider_data := filtered.get(slider_coord) as RandomizerSlider
@@ -255,7 +299,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		if !slider.is_none():
 			move_counter += 1  # add move for slider block
-			move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 		if slider.is_none() or slider.is_full():
 			if _check_probability(slider_options.block_full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -268,11 +311,9 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						# remove slider-block with no extension
 						filtered.erase(slider_coord)
 						move_counter -= 1
-						move = ""  # <------------------------------
 					break
 				slider.is_stopped = true
 				slider.reached.resize(i)
-				move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 				if _check_probability(slider_options.block_full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				break
@@ -284,8 +325,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
-		if move != "":
-			moves.append(move)  # <------------------------------------
 
 	await get_tree().process_frame
 	# mix other sliders
@@ -298,7 +337,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 		if slider.is_none():
 			continue
 		move_counter += 1  # add move for other slider type
-		move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 		if slider.is_full():
 			if _check_probability(slider_options.full_odd):
 				slider.behavior = GlobalConst.AreaBehavior.FULL
@@ -311,13 +349,11 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 					if !_check_probability(slider_options.extension_rules.NONE):
 						# remove other slider with no extension
 						filtered.erase(slider_coord)
-						move = ""  # <------------------------------
 					break
 				if _check_probability(slider_options.full_odd_on_stop):
 					slider.behavior = GlobalConst.AreaBehavior.FULL
 				slider.is_stopped = true
 				slider.reached.resize(i)
-				move = str(slider_coord) + ":" + str(slider.reached.size())  # <------------------------------
 				break
 			_apply_slider_effect(cell_data, slider.effect)
 			var emitter_sliders: Array[Vector2i]
@@ -325,8 +361,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
-		if move != "":
-			moves.append(move)  # <------------------------------------
 
 	await get_tree().process_frame
 	# use unfull slider-block for check behavior-full probability
@@ -371,9 +405,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 				continue
 			if _check_probability(slider_options.block_full_retract_odd):
 				# retract slider-block
-				move_counter += 1  # add extra move to slider block for retract
-				move = str(slider_coord) + ":0"  # <------------------------------
-				moves.append(move)  # <------------------------------------
+				# add extra move to slider block for retract
+				move_counter += 1
 				for coord in slider_data.reached:
 					var cell_data := data.cells_list[coord] as CellData
 					cell_data.is_blocked = false
@@ -385,9 +418,8 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 						# last slider blocked
 						slider.behavior = GlobalConst.AreaBehavior.FULL
 					else:
-						move_counter += 1  # add extra move to slider blocked for continue extension
-						move = str(slider_coord) + ":" + str(slider.reachable.size())  # <------------------------------
-						moves.append(move)  # <------------------------------------
+						# add extra move to slider blocked for continue extension
+						move_counter += 1
 						if slider.effect != GlobalConst.AreaEffect.CHANGE_SIGN:
 							for j in range(slider.reached.size(), slider.reachable.size()):
 								var cell := data.cells_list[slider.reachable[j]] as CellData
@@ -412,7 +444,6 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	# add move left to level data
 	data.moves_left = move_counter
 	await get_tree().process_frame
-	#print("%d --> %s" % [move_counter, moves])
 
 
 func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
