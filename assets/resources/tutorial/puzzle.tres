@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="TutorialData" load_steps=2 format=3 uid="uid://brr2f73g888nk"]
+
+[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="1_1qd0x"]
+
+[resource]
+script = ExtResource("1_1qd0x")
+images = Array[Texture2D]([])
+hints = Array[String](["TUTORIAL_PUZZLE"])
