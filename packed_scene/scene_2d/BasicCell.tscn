@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://bpr74i8ln7erw"]
+[gd_scene load_steps=7 format=3 uid="uid://bpr74i8ln7erw"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/basic_cell.gd" id="1_f46k4"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_453u2"]
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="3_xrc0q"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="4_y5cwc"]
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="5_evn0o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tc2y5"]
 resource_local_to_scene = true
 shader = ExtResource("2_453u2")
 shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/invert_base_color = false
 
 [node name="BasicCell" type="Node2D"]
 position = Vector2(490, 587)
@@ -33,6 +35,7 @@ grow_vertical = 2
 size_flags_vertical = 1
 theme = ExtResource("4_y5cwc")
 theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+theme_override_fonts/font = ExtResource("5_evn0o")
 theme_override_font_sizes/font_size = 128
 text = "0"
 horizontal_alignment = 1

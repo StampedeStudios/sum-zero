@@ -63,7 +63,6 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
 		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
 		color = GameManager.palette.slider_colors.get("FULL")
-		area_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	else:
 		area_behavior.hide()
 
@@ -79,7 +78,6 @@ func reset() -> void:
 	_current_scale = 0
 	_last_scale = 0
 	_is_extended = false
-	area_behavior.flip_h = false
 	_apply_scaling(_current_scale)
 
 
@@ -92,8 +90,6 @@ func release_handle() -> void:
 	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
-	if !_is_manually_controlled:
-		area_behavior.flip_h = _is_extended
 	if _current_scale != _last_scale:
 		_last_scale = _current_scale
 		move_count = true
