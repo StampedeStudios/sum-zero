@@ -6,9 +6,9 @@
 script = ExtResource("1_b8wt4")
 size_rules = {
 "LOWER": 0,
-"STANDARD": 70,
-"UPPER": 30
+"STANDARD": 85,
+"UPPER": 15
 }
-lower_odd = 40
-upper_odd = 50
+lower_odd = 20
+upper_odd = 30
 std_grid_sizes = Array[Vector2i]([Vector2i(3, 3)])

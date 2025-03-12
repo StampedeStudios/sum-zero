@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d02737poi7uja"]
+[gd_scene load_steps=8 format=3 uid="uid://d02737poi7uja"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/tutorial_ui.gd" id="1_wj154"]
 [ext_resource type="Texture2D" uid="uid://dgbqkgkmtt1m5" path="res://assets/ui/tutorial/tutorial_zero_1.png" id="2_jp4ma"]
+[ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="3_opl83"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_yxr7t"]
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="4_o3tgm"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_rf8c4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6imht"]
@@ -56,9 +58,13 @@ clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_yxr7t")
+theme_override_fonts/normal_font = ExtResource("3_opl83")
+theme_override_fonts/bold_font = ExtResource("4_o3tgm")
+theme_override_font_sizes/bold_font_size = 36
 bbcode_enabled = true
 text = "Complete the levels by resetting the matrix!"
 fit_content = true
+scroll_active = false
 
 [node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -69,18 +75,14 @@ texture = ExtResource("2_jp4ma")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-alignment = 2
-
-[node name="NextBtn" type="Button" parent="Background/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="NextBtn" type="Button" parent="Background/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.0
+size_flags_vertical = 3
 focus_mode = 0
 theme = ExtResource("4_rf8c4")
 text = "NEXT"
 icon_alignment = 2
 
-[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/HBoxContainer/NextBtn" to="." method="_on_next_btn_pressed"]
+[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/NextBtn" to="." method="_on_next_btn_pressed"]

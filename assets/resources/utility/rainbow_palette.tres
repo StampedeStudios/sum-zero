@@ -28,8 +28,8 @@ builder_slider_color = Color(0.384314, 0.745098, 0.364706, 1)
 slider_colors = {
 "ADD": Color(0, 0.901961, 0, 1),
 "BG": Color(1, 1, 1, 1),
-"CHANGE_SIGN": Color(0.784314, 0, 0.784314, 1),
-"FULL": Color(0, 0, 1, 1),
+"CHANGE_SIGN": Color(0.196078, 0.647059, 0.972549, 1),
+"FULL": Color(0.25098, 0.184314, 0.105882, 0.752941),
 "OUTLINE": Color(0.25098, 0.184314, 0.105882, 1),
 "SUBTRACT": Color(0.901961, 0, 0, 1)
 }

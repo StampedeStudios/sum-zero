@@ -38,35 +38,35 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	_reachable_cells = reachable
 	var color: Color
 	body.hide()
-	
+
 	color = GameManager.palette.slider_colors.get("BG")
 	body.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
-	
+
 	area_outline.texture = SLIDER_COLLECTION.get_outline_texture(data.area_behavior)
 	color = GameManager.palette.slider_colors.get("OUTLINE")
 	area_outline.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
-	
+
 	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
 	if data.area_effect != GlobalConst.AreaEffect.BLOCK:
 		var mat := ShaderMaterial.new()
 		mat.shader = ResourceLoader.load("res://scripts/shaders/BasicTile.gdshader")
 		match data.area_effect:
 			GlobalConst.AreaEffect.ADD:
-				color = GameManager.palette.slider_colors.get("ADD")			
+				color = GameManager.palette.slider_colors.get("ADD")
 			GlobalConst.AreaEffect.SUBTRACT:
 				color = GameManager.palette.slider_colors.get("SUBTRACT")
 			GlobalConst.AreaEffect.CHANGE_SIGN:
 				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
 		mat.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 		area_effect.material = mat
-	
+
 	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
 		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
 		color = GameManager.palette.slider_colors.get("FULL")
 		area_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	else:
 		area_behavior.hide()
-	
+
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
 

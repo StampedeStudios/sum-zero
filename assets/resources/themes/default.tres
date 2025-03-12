@@ -4,7 +4,6 @@
 [ext_resource type="StyleBox" uid="uid://d0pj132xpgrxd" path="res://assets/resources/themes/button_hover.tres" id="2_5bdnx"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_ikw2u"]
 [ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="4_ntt6a"]
-[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="5_mgr23"]
 [ext_resource type="Texture2D" uid="uid://cxddfjw2cirsx" path="res://assets/ui/arrow_down.png" id="5_tiomi"]
 [ext_resource type="StyleBox" uid="uid://bmkhuh7v8acp5" path="res://assets/resources/themes/options_button.tres" id="6_thkdp"]
 [ext_resource type="StyleBox" uid="uid://d0g32yp6tstbf" path="res://assets/resources/themes/options_panel.tres" id="7_f000m"]
@@ -12,9 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://daqayrg5ld2ss" path="res://assets/ui/unchecked.png" id="8_kv1c1"]
 [ext_resource type="Texture2D" uid="uid://8y1m1b3j6hwp" path="res://assets/ui/checked_dot.png" id="9_svjh8"]
 [ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="10_odfmv"]
+[ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_pvygh"]
 
 [resource]
-default_font = ExtResource("5_mgr23")
+default_font = ExtResource("12_pvygh")
 default_font_size = 48
 Button/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 Button/colors/font_disabled_color = Color(0.870588, 0.847059, 0.819608, 1)

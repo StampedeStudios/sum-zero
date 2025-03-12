@@ -6,12 +6,10 @@ const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection.tscn"
 
-@onready var version_label: Label = %VersionLabel
 @onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready() -> void:
-	version_label.text = ProjectSettings.get("application/config/version")
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)

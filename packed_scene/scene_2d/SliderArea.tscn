@@ -12,6 +12,7 @@
 resource_local_to_scene = true
 shader = ExtResource("3_ognen")
 shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/invert_base_color = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4iu34"]
 resource_local_to_scene = true
@@ -24,6 +25,7 @@ shader_parameter/glow_intensity = 4.0
 resource_local_to_scene = true
 shader = ExtResource("3_ognen")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+shader_parameter/invert_base_color = false
 
 [node name="ScalableArea" type="Node2D"]
 position = Vector2(454, 665)

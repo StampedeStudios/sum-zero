@@ -45,4 +45,11 @@ TUTORIAL_AUTOMATIC_SLIDER_CLOSE,"[center][color=black]Tap again to close them ba
 TUTORIAL_INVERTER,"[center][color=black]([color=#32a5f8ff]~[/color]) multiplies by -1.","[center][color=black]([color=#32a5f8ff]~[/color]) moltiplica per -1.","[center][color=black]([color=#32a5f8ff]~[/color]) multiplie par -1.","[center][color=black]([color=#32a5f8ff]~[/color]) multiplica por -1.","[center][color=black]([color=#32a5f8ff]~[/color]) multipliziert mit -1."
 TUTORIAL_BLOCKER,"[center][color=black]This 'Slider' resets the values of cells, and prevents other sliders from crossing.","[center][color=black]Questo 'Slider' annulla i valori nelle celle e impedisce ad altri slider di passare.","[center][color=black]Le 'Slider' réinitialise les valeurs dans les cellules et empêche les autres sliders de passer.","[center][color=black]El 'Slider' restablece los valores en las celdas e impide que otros sliders pasen.","[center][color=black]Der 'Slider' setzt die Werte in den Zellen zurück und verhindert, dass andere Slider passieren."
 
-TUTORIAL_ARENA,"[center][color=black]Complete as many levels you can in a fast-paced mode of only 3 minuts!","","","",""
+TUTORIAL,"Tutorial","","","",""
+CLASSIC,"Classic","","","",""
+ENDLESS,"Zen","","","",""
+BLITZ,"Blitz","","","",""
+PUZZLE,"Puzzle","","","",""
+TUTORIAL_ARENA,"[center][font_size=60][b][color=#f86f63]Blitz[/color][/b][/font_size]\n\n[color=black]Race against the clock—complete as many levels as you can in [b]3 minutes![/b]\n\nReset the grid for a fresh start and earn time [color=#6388f8]bonuses[/color] for each completed level.\n\nSkip a level by sacrificing [color=#f86388]20[/color] seconds—[b]how fast can you go?[/b]","","","",""
+TUTORIAL_ENDLESS,"[center][font_size=60][color=#62be5d]Zen[/color][/font_size]\n\n[color=black]Enjoy a [b]stress-free[/b] experience with randomly generated puzzles.\n\nNo time limits—just solve at your own pace and relax!","","","",""
+TUTORIAL_PUZZLE,"[center][font_size=60][b][color=#f8d263]Puzzle[/color][/b][/font_size]\n\n[color=black]Challenge your mind with intricate and [b]complex[/b] puzzles.\n\nEach level tests your problem-solving skills with tougher challenges and more layers to uncover.\n\nCan you solve them all, or will the complexity stop you in your tracks?","","","",""

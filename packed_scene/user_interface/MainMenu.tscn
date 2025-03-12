@@ -72,23 +72,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_right = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-
-[node name="Content" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Content" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Content"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Content"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 size_flags_stretch_ratio = 5.0
 theme_override_constants/separation = 30
 
-[node name="PlayBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="PlayBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -104,7 +101,7 @@ icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
-[node name="LevelBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="LevelBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -120,7 +117,7 @@ icon = ExtResource("5_anua8")
 alignment = 0
 icon_alignment = 2
 
-[node name="EditorBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="EditorBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -136,7 +133,7 @@ icon = ExtResource("6_io541")
 alignment = 0
 icon_alignment = 2
 
-[node name="OptionBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="OptionBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -152,19 +149,19 @@ icon = ExtResource("9_dpngq")
 alignment = 0
 icon_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Separator" type="HSeparator" parent="MarginContainer/VBoxContainer/Content/VBoxContainer/MarginContainer"]
+[node name="Separator" type="HSeparator" parent="MarginContainer/Content/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxFlat_awjbt")
 
-[node name="QuitBtn" type="Button" parent="MarginContainer/VBoxContainer/Content/VBoxContainer"]
+[node name="QuitBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -180,16 +177,8 @@ icon = ExtResource("7_g7qxx")
 alignment = 0
 icon_alignment = 2
 
-[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.490196)
-layout_mode = 2
-size_flags_vertical = 8
-text = "1.0"
-horizontal_alignment = 1
-
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/OptionBtn" to="." method="_on_option_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Content/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/OptionBtn" to="." method="_on_option_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]

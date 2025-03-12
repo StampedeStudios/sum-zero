@@ -1,16 +1,65 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=9 format=3 uid="uid://bopno5li70h0j"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=12 format=3 uid="uid://bopno5li70h0j"]
 
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="1_vuuct"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_crj40"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_i1lkq"]
-[ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_thody"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_d3nix"]
-[ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_ywjmu"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_slider_opt.gd" id="4_84n5d"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="6_xpigj"]
+[ext_resource type="Resource" uid="uid://brr2f73g888nk" path="res://assets/resources/tutorial/puzzle.tres" id="7_wdou3"]
 
-[sub_resource type="Resource" id="Resource_lfjqv"]
+[sub_resource type="Resource" id="Resource_0pgrr"]
+script = ExtResource("2_crj40")
+size_rules = {
+"LOWER": 0,
+"STANDARD": 100,
+"UPPER": 0
+}
+lower_odd = 0
+upper_odd = 0
+std_grid_sizes = Array[Vector2i]([Vector2i(5, 5)])
+
+[sub_resource type="Resource" id="Resource_w7n2w"]
+script = ExtResource("4_84n5d")
+occupation_rules = {
+"LOWER": 0,
+"STANDARD": 60,
+"UPPER": 40
+}
+lower_odd = 30
+upper_odd = 60
+std_occupation = {
+4: Vector2i(2, 3),
+6: Vector2i(3, 4),
+8: Vector2i(3, 5),
+10: Vector2i(4, 6),
+12: Vector2i(4, 8),
+14: Vector2i(5, 8),
+16: Vector2i(6, 9),
+18: Vector2i(7, 11),
+20: Vector2i(14, 14)
+}
+extension_rules = {
+"MAX": 60,
+"NONE": 0,
+"RANDOM": 40
+}
+full_odd = 5
+full_odd_on_stop = 50
+block_full_odd = 25
+block_full_odd_on_stop = 75
+block_full_retract_odd = 75
+type_rules = {
+"ADD": 35,
+"BLOCK": 15,
+"CHANGE_SIGN": 15,
+"SUBTRACT": 35
+}
+
+[sub_resource type="Resource" id="Resource_6dhtk"]
 script = ExtResource("3_d3nix")
-grid_opt = ExtResource("2_thody")
-slider_opt = ExtResource("4_ywjmu")
+grid_opt = SubResource("Resource_0pgrr")
+slider_opt = SubResource("Resource_w7n2w")
 
 [sub_resource type="Resource" id="Resource_ai02r"]
 script = ExtResource("6_xpigj")
@@ -23,10 +72,11 @@ boost_per_score = 2.0
 [resource]
 script = ExtResource("2_i1lkq")
 is_skippable = true
-one_shoot_mode = true
+one_shoot_mode = false
 timer_options = SubResource("Resource_ai02r")
-level_options = SubResource("Resource_lfjqv")
-title = "PUZZLE"
+level_options = SubResource("Resource_6dhtk")
+title = "Puzzle"
 icon = ExtResource("1_vuuct")
+tutorial = ExtResource("7_wdou3")
 unlock_mode = 2
 unlock_count = 200

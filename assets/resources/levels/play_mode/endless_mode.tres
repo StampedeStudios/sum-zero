@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=9 format=3 uid="uid://cqsjj643jp1lf"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://cqsjj643jp1lf"]
 
 [ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="1_gc4mv"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_lqxql"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_bwsl1"]
 [ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_myq3e"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="4_pe733"]
+[ext_resource type="Resource" uid="uid://dhjt4l6v3n7vd" path="res://assets/resources/tutorial/endless.tres" id="7_3e5tx"]
 
 [sub_resource type="Resource" id="Resource_ppfa4"]
 script = ExtResource("4_pe733")
@@ -28,5 +29,6 @@ timer_options = SubResource("Resource_ssd72")
 level_options = SubResource("Resource_ppfa4")
 title = "ENDLESS"
 icon = ExtResource("1_gc4mv")
+tutorial = ExtResource("7_3e5tx")
 unlock_mode = 2
 unlock_count = 50

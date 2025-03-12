@@ -11,3 +11,4 @@ class Inputs:
 class Parameters:
 	const IS_SELECTED := "is_selected"
 	const BASE_COLOR := "base_color"
+	const INVERT_BASE := "invert_base_color"
