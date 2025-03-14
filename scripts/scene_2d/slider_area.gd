@@ -15,7 +15,7 @@ var _is_horizontal: bool
 var _current_scale: int
 var _reachable_cells: Array[Cell]
 var _last_scale: int
-var _moves: int
+var _max_scale: int
 var _orientation: Vector2
 var _data: SliderData
 var _new_cell_size: float = GameManager.cell_size
@@ -123,11 +123,11 @@ func _process(_delta: float) -> void:
 			else:
 				tile_distance = 0
 
-			_target_scale = clamp(tile_distance, 0, _moves)
+			_target_scale = clamp(tile_distance, 0, _max_scale)
 		else:
 			if _is_extended:
 				_target_scale += 10 * _delta
-				if _target_scale >= _moves:
+				if _target_scale >= _max_scale:
 					_is_scaling = false
 					release_handle()
 					return
@@ -203,19 +203,18 @@ func activate_slider() -> void:
 
 
 func _check_limit() -> void:
-	_moves = 0
-	match _data.area_effect:
-		GlobalConst.AreaEffect.BLOCK:
-			for cell in _reachable_cells:
+	_max_scale = _current_scale
+	for i: int in range(_current_scale, _reachable_cells.size()):
+		var cell := _reachable_cells[i] as Cell
+		match _data.area_effect:
+			GlobalConst.AreaEffect.BLOCK:
 				if cell.is_cell_blocked() or cell.is_occupied():
 					break
-				_moves += 1
-		_:
-			for cell in _reachable_cells:
+			_:
 				if cell.is_cell_blocked():
 					break
-				_moves += 1
-
+		_max_scale += 1
+		
 
 func _play_sound(extension: float) -> void:
 	var percentage: float = abs(snapped(extension, SFX_STEP))
