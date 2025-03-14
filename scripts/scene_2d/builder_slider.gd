@@ -147,7 +147,6 @@ func _change_aspect() -> void:
 		slider_behavior.show()
 		slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
 		color = GameManager.palette.slider_colors.get("FULL")
-		slider_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	else:
 		slider_behavior.hide()
 

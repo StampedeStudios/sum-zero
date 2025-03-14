@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://d0xanyjlyiox4"]
 
-[ext_resource type="Texture2D" uid="uid://bxsitj53044ol" path="res://assets/ui/plus_icon.png" id="1_6a1fd"]
+[ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="1_cmxgt"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="1_lxvna"]
 [ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_esi1y"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_0t8i1"]
@@ -28,7 +28,7 @@ one_shoot_mode = false
 timer_options = SubResource("Resource_fs88p")
 level_options = SubResource("Resource_hvo1a")
 title = "BLITZ"
-icon = ExtResource("1_6a1fd")
+icon = ExtResource("1_cmxgt")
 tutorial = ExtResource("7_mc4j6")
 unlock_mode = 2
 unlock_count = 100
