@@ -10,7 +10,6 @@ var _mode_selected: int
 
 @onready var panel: Panel = %Panel
 @onready var arena_selection: VBoxContainer = %ArenaSelection
-@onready var mode_title: Label = %ModeTitle
 @onready var mode_icon: TextureRect = %ModeIcon
 @onready var locked_msg: Label = %LockedMsg
 @onready var play_btn: Button = %PlayBtn
@@ -40,7 +39,6 @@ func _update_play_mode() -> void:
 	var mode := arena_modes[_mode_selected] as PlayMode
 	var is_locked: bool
 
-	mode_title.text = mode.title
 	mode_icon.texture = mode.icon
 
 	match mode.unlock_mode:
@@ -57,11 +55,6 @@ func _update_play_mode() -> void:
 	locked_msg.visible = is_locked
 	play_btn.disabled = is_locked
 
-	if mode is StoryMode and !is_locked:
-		completed_icon.visible = GameManager.get_start_level_playable() > mode.id_end - 1
-	else:
-		completed_icon.hide()
-
 
 func _animate(animated_scale: Vector2) -> void:
 	panel.scale = animated_scale
@@ -74,33 +67,10 @@ func _close() -> void:
 	queue_free.call_deferred()
 
 
-func _on_exit_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	_close()
-
-
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()
 		_close()
-
-
-func _on_prev_mode_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		AudioManager.play_click_sound()
-		_mode_selected -= 1
-		if _mode_selected < 0:
-			_mode_selected = arena_modes.size() - 1
-		_update_play_mode()
-
-
-func _on_next_mode_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		AudioManager.play_click_sound()
-		_mode_selected += 1
-		if _mode_selected == arena_modes.size():
-			_mode_selected = 0
-		_update_play_mode()
 
 
 func _on_play_btn_pressed() -> void:
@@ -134,3 +104,19 @@ func _on_play_btn_pressed() -> void:
 			GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 
 	queue_free.call_deferred()
+
+
+func _on_left_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	_mode_selected -= 1
+	if _mode_selected < 0:
+		_mode_selected = arena_modes.size() - 1
+	_update_play_mode()
+
+
+func _on_right_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	_mode_selected += 1
+	if _mode_selected == arena_modes.size():
+		_mode_selected = 0
+	_update_play_mode()

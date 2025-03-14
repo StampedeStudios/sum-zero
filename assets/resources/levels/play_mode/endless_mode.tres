@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://cqsjj643jp1lf"]
 
-[ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="1_gc4mv"]
+[ext_resource type="Texture2D" uid="uid://b3lh5emdrn3ta" path="res://assets/ui/zen_icon.png" id="1_dmhjh"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_lqxql"]
 [ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_xutvw"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_bwsl1"]
@@ -28,7 +28,7 @@ one_shoot_mode = true
 timer_options = SubResource("Resource_ssd72")
 level_options = SubResource("Resource_ppfa4")
 title = "ENDLESS"
-icon = ExtResource("1_gc4mv")
+icon = ExtResource("1_dmhjh")
 tutorial = ExtResource("7_3e5tx")
 unlock_mode = 2
 unlock_count = 50

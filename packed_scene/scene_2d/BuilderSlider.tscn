@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnf8fupbfsi08"]
+[gd_scene load_steps=7 format=3 uid="uid://dnf8fupbfsi08"]
 
 [ext_resource type="Script" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
@@ -13,12 +13,6 @@ shader_parameter/invert_base_color = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
 size = Vector2(128, 256)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xgvfu"]
-resource_local_to_scene = true
-shader = ExtResource("2_ndq7t")
-shader_parameter/base_color = Color(1, 1, 1, 1)
-shader_parameter/invert_base_color = false
 
 [node name="BuilderSlider" type="Node2D"]
 position = Vector2(514, 625)
@@ -43,6 +37,6 @@ texture = ExtResource("9_fh68b")
 
 [node name="SliderBehavior" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_xgvfu")
+position = Vector2(-64, -64)
 
 [connection signal="input_event" from="Slider/Collision" to="." method="_on_collision_input_event"]
