@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StoryMode" load_steps=3 format=3 uid="uid://bn7pmxwdrvgdw"]
 
-[ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="1_tswj4"]
+[ext_resource type="Texture2D" uid="uid://cnv41jj3mhw2m" path="res://assets/ui/classic_icon.png" id="1_ovcld"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/story_mode.gd" id="1_wy4ra"]
 
 [resource]
@@ -8,6 +8,6 @@ script = ExtResource("1_wy4ra")
 id_start = 31
 id_end = 108
 title = "CLASSIC"
-icon = ExtResource("1_tswj4")
+icon = ExtResource("1_ovcld")
 unlock_mode = 1
 unlock_count = 30
