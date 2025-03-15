@@ -13,6 +13,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k7w"]
 shader = ExtResource("6_d0ym2")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+shader_parameter/invert_base_color = false
 
 [node name="ArenaUI" type="Control"]
 layout_mode = 3

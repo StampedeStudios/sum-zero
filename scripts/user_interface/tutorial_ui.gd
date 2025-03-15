@@ -12,7 +12,7 @@ var _images: Array[Texture2D]
 @onready var hint: RichTextLabel = %Hint
 @onready var label: Label = %Label
 @onready var sprite: TextureRect = %TextureRect
-@onready var playBtn: Button = %NextBtn
+@onready var play_btn: Button = %NextBtn
 
 
 func _ready() -> void:
@@ -35,9 +35,9 @@ func setup(data: TutorialData) -> void:
 
 	if _tips.size() <= 1:
 		label.hide()
-		playBtn.text = tr("PLAY")
+		play_btn.text = tr("PLAY")
 	else:
-		playBtn.text = tr("NEXT")
+		play_btn.text = tr("NEXT")
 		label.text = "[Tip %d of %d]" % [1, _tips.size()]
 
 
@@ -54,7 +54,7 @@ func _on_next_btn_pressed() -> void:
 			sprite.texture = _images[_current_hint]
 
 		if _current_hint == _tips.size() - 1:
-			playBtn.text = tr("PLAY")
+			play_btn.text = tr("PLAY")
 		print(_current_hint)
 
 	else:

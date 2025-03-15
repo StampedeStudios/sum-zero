@@ -3,6 +3,7 @@ class_name SkipCalculation extends ScoreCalculation
 @export var bonus: int
 @export var malus: int
 
+
 func get_multiplier(game_summary: GameSummary) -> int:
 	var counter: int = 0
 	for level: LevelSummary in game_summary.get_levels():

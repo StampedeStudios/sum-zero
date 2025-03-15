@@ -204,10 +204,10 @@ func create_sliders(data: LevelData) -> void:
 
 	# add sliders and calculate grid cells value
 	await _add_sliders(data, filtered_sliders)
-	
+
 	# remove unnecessary moves to make the counting believable
 	await _remove_unnecessary_moves(data, filtered_sliders)
-	
+
 
 func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 	var unnecessaty_moves: int = 0
@@ -218,17 +218,17 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 		for position: int in range(max_pos):
 			var slider_coord := Vector2i(edge, position)
 			if !filtered.has(slider_coord):
-				continue # no slider at position
+				continue  # no slider at position
 			var slider_data := filtered.get(slider_coord) as RandomizerSlider
 			if slider_data.reached.is_empty():
-				continue # slider not extended
+				continue  # slider not extended
 			var opposite_coord := Vector2i(edge + 2, position)
 			if !filtered.has(opposite_coord):
-				continue # no slider at position
+				continue  # no slider at position
 			var opposite_data := filtered.get(opposite_coord) as RandomizerSlider
 			if opposite_data.reached.is_empty():
-				continue # slider not extended
-			
+				continue  # slider not extended
+
 			# check compatibile effect
 			match slider_data.effect:
 				GlobalConst.AreaEffect.ADD:
@@ -239,13 +239,13 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 						continue
 				_:
 					continue
-					
+
 			if slider_data.reached.size() == slider_data.reachable.size():
 				unnecessaty_moves += 1
 			if opposite_data.reached.size() == opposite_data.reachable.size():
 				unnecessaty_moves += 1
 		await get_tree().process_frame
-	
+
 	data.moves_left -= unnecessaty_moves
 	await get_tree().process_frame
 

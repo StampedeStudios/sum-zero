@@ -84,10 +84,10 @@ func _init_arena() -> void:
 	if _current_mode.level_options:
 		_randomizer = Randomizer.new(_current_mode.level_options)
 		get_tree().root.add_child(_randomizer)
-			
+
 	if !_current_mode.one_shoot_mode:
 		_game_summary = GameSummary.new()
-		
+
 	skip_btn.visible = _current_mode.is_skippable
 	if _current_mode.timer_options:
 		if !_timer:
@@ -102,6 +102,8 @@ func _init_arena() -> void:
 		else:
 			_set_arena_time(0)
 			_timer.timeout.connect(func() -> void: _set_arena_time(_time + 1))
+
+	_get_new_random_level()
 
 
 func _get_new_random_level() -> void:
@@ -145,7 +147,7 @@ func _init_level() -> void:
 		level_manager.on_level_complete.connect(_on_level_complete)
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
-	
+
 	_moves_count = 0
 	_reset_count = 0
 	if _current_mode.timer_options:
@@ -189,7 +191,7 @@ func _on_exit_btn_pressed() -> void:
 
 func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	if _moves_count > 0: 
+	if _moves_count > 0:
 		_reset_count += 1
 		_moves_count = 0
 		GameManager.level_manager.reset_level()
@@ -227,4 +229,4 @@ func _render_tutorial() -> void:
 		get_tree().root.add_child(tutorial_ui)
 		tutorial_ui.setup(tutorial)
 	else:
-		_get_new_random_level()
+		_init_arena()

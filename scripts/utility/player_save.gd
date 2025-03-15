@@ -12,13 +12,13 @@ var _persistent: LevelContainer
 func check_savegame_integrity(world: LevelContainer) -> bool:
 	_persistent = world
 	var has_change := false
-	
+
 	# initialize player rewards
 	if !player_rewards:
 		print("No rewards found, resetting")
 		player_rewards = RewardData.new()
 		has_change = true
-		
+
 	# initialize player options
 	if player_options == null:
 		print("No settings preferences found, resetting")
@@ -56,7 +56,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 		if !persistent_progress.has(level_hash):
 			add_world_progress(level_hash)
 			has_change = true
-			
+
 	# check stars count on persistent levels
 	var stars_count: int = 0
 	for level_hash: String in _persistent.levels_hash:
@@ -68,7 +68,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 	if player_rewards.stars_count != stars_count:
 		player_rewards.stars_count = stars_count
 		has_change = true
-		
+
 	return has_change
 
 

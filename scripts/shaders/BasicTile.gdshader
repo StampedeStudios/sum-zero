@@ -4,7 +4,7 @@ uniform bool invert_base_color = false;
 
 void fragment() {
     vec4 color = texture(TEXTURE, UV);
-    
+
     if (invert_base_color) {
         // Create the inverse tinting effect
         // For a light tint (values > 0.5), this creates a dark tint

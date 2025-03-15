@@ -9,6 +9,7 @@
 resource_local_to_scene = true
 shader = ExtResource("2_ndq7t")
 shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/invert_base_color = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
 size = Vector2(128, 256)
@@ -17,6 +18,7 @@ size = Vector2(128, 256)
 resource_local_to_scene = true
 shader = ExtResource("2_ndq7t")
 shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/invert_base_color = false
 
 [node name="BuilderSlider" type="Node2D"]
 position = Vector2(514, 625)
