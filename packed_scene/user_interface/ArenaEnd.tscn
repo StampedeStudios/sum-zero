@@ -52,7 +52,7 @@ step_icon = ExtResource("7_2l2yr")
 [sub_resource type="Resource" id="Resource_81rd0"]
 script = ExtResource("8_y6ku0")
 bonus = 100
-value = -10
+malus = 15
 step_icon = ExtResource("9_63i6p")
 
 [sub_resource type="Resource" id="Resource_cbk86"]

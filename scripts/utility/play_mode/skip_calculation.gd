@@ -1,7 +1,7 @@
 class_name SkipCalculation extends ScoreCalculation
 
 @export var bonus: int
-@export var value: int
+@export var malus: int
 
 func get_multiplier(game_summary: GameSummary) -> int:
 	var counter: int = 0
@@ -13,6 +13,6 @@ func get_multiplier(game_summary: GameSummary) -> int:
 
 func update_score(score: int, multiplier: int) -> int:
 	if multiplier > 0:
-		return clampi(score + multiplier * value, 0, 999999)
+		return clampi(score - multiplier * abs(malus), 0, score)
 	else:
 		return score + bonus

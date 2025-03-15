@@ -111,7 +111,7 @@ func _on_play_btn_pressed() -> void:
 		var arena_ui := scene.instantiate() as ArenaUI
 		GameManager.arena_ui = arena_ui
 		get_tree().root.add_child(arena_ui)
-		arena_ui.init_arena(mode)
+		arena_ui.set_arena_mode(mode)
 	if mode is StoryMode:
 		var playable_id: int = GameManager.get_start_level_playable()
 		if playable_id > mode.id_end - 1:
