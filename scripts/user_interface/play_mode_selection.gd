@@ -11,8 +11,9 @@ var _mode_selected: int
 @onready var panel: Panel = %Panel
 @onready var arena_selection: VBoxContainer = %ArenaSelection
 @onready var mode_icon: TextureRect = %ModeIcon
-@onready var locked_msg: Label = %LockedMsg
+@onready var locked_msg: RichTextLabel = %LockedMsg
 @onready var play_btn: Button = %PlayBtn
+@onready var locked_icon: TextureRect = %LockedIcon
 @onready var completed_icon: TextureRect = %CompletedIcon
 
 
@@ -23,6 +24,10 @@ func _ready() -> void:
 	_set_first_uncompleted_mode()
 	_update_play_mode()
 	create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+
+	locked_msg.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
+	locked_msg.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
+	locked_msg.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
 
 
 func _set_first_uncompleted_mode() -> void:
@@ -45,14 +50,13 @@ func _update_play_mode() -> void:
 		PlayMode.UnlockMode.NONE:
 			pass
 		PlayMode.UnlockMode.LEVEL:
-			locked_msg.text = tr("LEVEL_LOCK_MSG %d") % [mode.unlock_count]
+			locked_msg.text = tr("LEVEL_LOCK_MSG") % [mode.unlock_count]
 			is_locked = GameManager.get_start_level_playable() < mode.unlock_count
 		PlayMode.UnlockMode.STAR:
-			locked_msg.text = tr("STAR_LOCK_MSG %d") % [mode.unlock_count]
+			locked_msg.text = tr("STAR_LOCK_MSG") % [mode.unlock_count]
 			is_locked = GameManager.get_star_count() < mode.unlock_count
 
-	mode_icon.visible = !is_locked
-	locked_msg.visible = is_locked
+	locked_icon.visible = is_locked
 	play_btn.disabled = is_locked
 
 
