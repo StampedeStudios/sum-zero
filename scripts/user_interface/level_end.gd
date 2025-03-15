@@ -2,7 +2,7 @@ class_name LevelEnd extends Control
 
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
-const ANIMATION_DURATION = 300
+const ANIMATION_DURATION = 1
 const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 
 var _has_next_level: bool
@@ -73,7 +73,7 @@ func _animate_hint(move_left: int) -> void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 
 	# Tween from 0 to 100
-	tween.tween_method(_update_shader_percentage, 0.0, 100.0, ANIMATION_DURATION)
+	tween.tween_method(_update_shader_percentage, 0.0, 1.0, ANIMATION_DURATION)
 	await tween.finished
 
 

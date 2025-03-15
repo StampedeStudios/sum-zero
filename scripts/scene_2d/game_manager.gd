@@ -259,3 +259,10 @@ func get_options() -> PlayerOptions:
 
 func save_player_data() -> void:
 	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
+
+
+func update_blitz_score(new: int) -> bool:
+	if _player_save.update_blitz_score(new):
+		save_player_data()
+		return true
+	return false

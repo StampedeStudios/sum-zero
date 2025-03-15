@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ps5hw3lo3yc5"]
+[gd_scene load_steps=24 format=3 uid="uid://ps5hw3lo3yc5"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/arena_end.gd" id="1_25tly"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="9_63i6p"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_lw2sj"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/chain_calculation.gd" id="10_5lirc"]
+[ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="12_70rhp"]
 
 [sub_resource type="Resource" id="Resource_bu2vx"]
 script = ExtResource("3_2vcy5")
@@ -51,8 +52,8 @@ step_icon = ExtResource("7_2l2yr")
 
 [sub_resource type="Resource" id="Resource_81rd0"]
 script = ExtResource("8_y6ku0")
-bonus = 100
-malus = 15
+boost = 1.2
+malus = 50
 step_icon = ExtResource("9_63i6p")
 
 [sub_resource type="Resource" id="Resource_cbk86"]
@@ -99,6 +100,15 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
+
+[node name="RecordIcon" type="TextureRect" parent="Panel/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("12_70rhp")
+expand_mode = 3
 
 [node name="Stats" type="HBoxContainer" parent="Panel/MarginContainer"]
 unique_name_in_owner = true
