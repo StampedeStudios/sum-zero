@@ -8,5 +8,3 @@ class_name ArenaMode extends PlayMode
 @export var timer_options: TimerOptions
 ## Parameters for random level generation
 @export var level_options: RandomizerOptions
-## Parameters for calculate score in Arena End UI
-@export var score_calculation: ScoreCalculation
