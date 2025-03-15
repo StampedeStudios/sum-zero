@@ -1,6 +1,6 @@
 class_name SkipCalculation extends ScoreCalculation
 
-@export var bonus: int
+@export_range(1, 2, 0.1) var boost: float
 @export var malus: int
 
 
@@ -16,4 +16,4 @@ func update_score(score: int, multiplier: int) -> int:
 	if multiplier > 0:
 		return clampi(score - multiplier * abs(malus), 0, score)
 	else:
-		return score + bonus
+		return roundi(score * boost)

@@ -14,11 +14,13 @@ var _summary: GameSummary
 @onready var stats_multiplier: Label = %StatsMultiplier
 @onready var score: Label = %Score
 @onready var actions: HBoxContainer = %Actions
+@onready var record_icon: TextureRect = %RecordIcon
 
 
 func _ready() -> void:
 	actions.hide()
 	stats.hide()
+	record_icon.hide()
 	_update_score(_score)
 	_tween = get_tree().create_tween()
 	await _tween.tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
@@ -33,16 +35,24 @@ func _calculate_score() -> void:
 		stats_icon.texture = step.step_icon
 		_update_stats_multiplier(multiplier)
 		stats.show()
-		print("multiplier ", multiplier)
-		print("score ", _score)
 
-		await get_tree().create_timer(1).timeout
 		_tween = get_tree().create_tween()
+		_tween.tween_interval(1)
 		_tween.tween_method(_update_score, old_score, _score, UPDATE_TIME)
 		_tween.set_parallel()
 		_tween.tween_method(_update_stats_multiplier, multiplier, 0, UPDATE_TIME)
 		await _tween.finished
 		stats.hide()
+		
+	var new_record: bool = GameManager.update_blitz_score(_score)
+	if new_record:
+		_tween = get_tree().create_tween()
+		_tween.tween_interval(0.5)
+		await _tween.finished
+		record_icon.show()
+	_tween = get_tree().create_tween()
+	_tween.tween_interval(0.5)
+	await _tween.finished
 	actions.show()
 
 
@@ -71,7 +81,7 @@ func _on_replay_btn_pressed() -> void:
 
 
 func _update_score(new_score: int) -> void:
-	score.text = "%06d" % [new_score]
+	score.text = str(new_score)
 
 
 func _update_stats_multiplier(new_multiplier: int) -> void:

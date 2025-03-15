@@ -76,19 +76,19 @@ text = "COMPLETE"
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="NewRecord" type="Sprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(384, -43)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("6_uge2i")
+
 [node name="LevelScoreImg" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4fm4t")
 position = Vector2(237, 24)
 sprite_frames = ExtResource("5_7jbgv")
 frame_progress = 1.0
-
-[node name="NewRecord" type="Sprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer/LevelScoreImg"]
-unique_name_in_owner = true
-visible = false
-position = Vector2(147, -67)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_uge2i")
 
 [node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

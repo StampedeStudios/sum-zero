@@ -143,3 +143,10 @@ func set_progress(group: GlobalConst.LevelGroup, level_id: int, progress: LevelP
 
 func add_star(extra_star: int) -> void:
 	player_rewards.stars_count += extra_star
+
+
+func update_blitz_score(new: int) -> bool:
+	if new > player_rewards.blitz_score:
+		player_rewards.blitz_score = new
+		return true
+	return false
