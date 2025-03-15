@@ -58,10 +58,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			pass
 		GlobalConst.GameState.ARENA_END:
 			self.hide()
-			var scene := ResourceLoader.load(ARENA_END) as PackedScene
-			var arena_end := scene.instantiate() as ArenaEnd
-			arena_end.initialize_score(_game_summary)
-			get_tree().root.add_child(arena_end)
+			if _current_mode.one_shoot_mode:
+				pass
+			else:
+				var scene := ResourceLoader.load(ARENA_END) as PackedScene
+				var arena_end := scene.instantiate() as ArenaEnd
+				arena_end.initialize_score(_game_summary)
+				get_tree().root.add_child(arena_end)
 		_:
 			self.hide()
 
@@ -72,12 +75,15 @@ func _hide_ui() -> void:
 	arena_time.hide()
 
 
-func init_arena(mode: ArenaMode) -> void:
-	if mode:
-		_current_mode = mode
-		if _current_mode.level_options:
-			_randomizer = Randomizer.new(_current_mode.level_options)
-			get_tree().root.add_child(_randomizer)
+func set_arena_mode(mode: ArenaMode) -> void:
+	_current_mode = mode
+	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
+
+
+func _init_arena() -> void:
+	if _current_mode.level_options:
+		_randomizer = Randomizer.new(_current_mode.level_options)
+		get_tree().root.add_child(_randomizer)
 			
 	if !_current_mode.one_shoot_mode:
 		_game_summary = GameSummary.new()
@@ -96,8 +102,6 @@ func init_arena(mode: ArenaMode) -> void:
 		else:
 			_set_arena_time(0)
 			_timer.timeout.connect(func() -> void: _set_arena_time(_time + 1))
-
-	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
 
 
 func _get_new_random_level() -> void:
@@ -219,7 +223,7 @@ func _render_tutorial() -> void:
 	if tutorial:
 		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
 		var tutorial_ui := scene.instantiate() as TutorialUi
-		tutorial_ui.on_tutorial_closed.connect(_get_new_random_level)
+		tutorial_ui.on_tutorial_closed.connect(_init_arena)
 		get_tree().root.add_child(tutorial_ui)
 		tutorial_ui.setup(tutorial)
 	else:

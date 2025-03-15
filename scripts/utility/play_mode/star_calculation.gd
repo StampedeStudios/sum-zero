@@ -15,14 +15,12 @@ var _boost_per_levels: Array[bool]
 
 func get_multiplier(game_summary: GameSummary) -> int:
 	var counter: int = 0
+	_boost_per_levels.clear()
 	for level: LevelSummary in game_summary.get_levels():
-		if level:
-			if level.star_count == star_completation:
-				counter += 1
+		if level and level.star_count == star_completation:
+			counter += 1
 			if mode == Mode.BOOST:
 				_boost_per_levels.append(level.reset_used == 0)
-	if mode == Mode.BOOST and _boost_per_levels.size() != game_summary.get_levels().size():
-		mode = Mode.STD
 	return counter
 
 
