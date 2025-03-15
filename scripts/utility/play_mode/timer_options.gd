@@ -16,11 +16,8 @@ class_name TimerOptions extends Resource
 func get_time_gained(moves: int, move_count: int) -> int:
 	if time_gained_per_move > 0:
 		var time_sum: float = moves * time_gained_per_move
-		print("time sum ", time_sum)
 		var move_left := clampi(moves - move_count, -3, 1)
-		print("move left ", move_left)
 		var result := remap(move_left, -3, 1, 0, 1)
 		time_sum *= ease(result, boost_per_score)
-		print("added ", roundi(time_sum))
 		return roundi(time_sum)
 	return 0

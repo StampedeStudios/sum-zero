@@ -8,10 +8,10 @@ var _current_mode: ArenaMode
 var _tween: Tween
 var _current_level: LevelData
 var _moves_count: int
+var _reset_count: int
 var _time: int
-var _level_time: int
 var _timer: Timer
-var _levels_summary: Array[LevelSummary]
+var _game_summary: GameSummary
 var _randomizer: Randomizer
 
 @onready var margin: MarginContainer = %MarginContainer
@@ -60,7 +60,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.hide()
 			var scene := ResourceLoader.load(ARENA_END) as PackedScene
 			var arena_end := scene.instantiate() as ArenaEnd
-			arena_end.initialize_score(_levels_summary, _current_mode.score_calculation)
+			arena_end.initialize_score(_game_summary)
 			get_tree().root.add_child(arena_end)
 		_:
 			self.hide()
@@ -78,7 +78,10 @@ func init_arena(mode: ArenaMode) -> void:
 		if _current_mode.level_options:
 			_randomizer = Randomizer.new(_current_mode.level_options)
 			get_tree().root.add_child(_randomizer)
-
+			
+	if !_current_mode.one_shoot_mode:
+		_game_summary = GameSummary.new()
+		
 	skip_btn.visible = _current_mode.is_skippable
 	if _current_mode.timer_options:
 		if !_timer:
@@ -88,7 +91,7 @@ func init_arena(mode: ArenaMode) -> void:
 			_timer.wait_time = 1
 			add_child(_timer)
 		if _current_mode.timer_options.is_countdown:
-			_set_arena_time(mode.timer_options.max_game_time)
+			_set_arena_time(_current_mode.timer_options.max_game_time)
 			_timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
 		else:
 			_set_arena_time(0)
@@ -138,9 +141,9 @@ func _init_level() -> void:
 		level_manager.on_level_complete.connect(_on_level_complete)
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
-
+	
 	_moves_count = 0
-	_level_time = 0
+	_reset_count = 0
 	if _current_mode.timer_options:
 		arena_time.show()
 		_timer.start()
@@ -157,16 +160,17 @@ func _on_level_complete() -> void:
 		if options and options.time_gained_per_move > 0:
 			var extra_time := options.get_time_gained(_current_level.moves_left, _moves_count)
 			_set_arena_time(_time + extra_time)
-	var summary := LevelSummary.new()
-	summary.level_size = Vector2i(_current_level.width, _current_level.height)
-	summary.required_moves = _current_level.moves_left
-	summary.used_moves = _moves_count
-	summary.time_used = _level_time
-	_levels_summary.append(summary)
+
 	if _current_mode.one_shoot_mode:
-		GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_END)
+		GameManager.change_state(GlobalConst.GameState.ARENA_END)
 	else:
-		GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+		GameManager.change_state(GlobalConst.GameState.LEVEL_END)
+		if _game_summary:
+			var summary := LevelSummary.new()
+			summary.set_star_count(_current_level.moves_left, _moves_count)
+			summary.reset_used = _reset_count
+			var chain := _game_summary.add_completed_level(summary)
+			print(chain)
 		_get_new_random_level()
 
 
@@ -181,21 +185,24 @@ func _on_exit_btn_pressed() -> void:
 
 func _on_reset_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.level_manager.reset_level()
-	_moves_count = 0
+	if _moves_count > 0: 
+		_reset_count += 1
+		_moves_count = 0
+		GameManager.level_manager.reset_level()
 
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
-	_get_new_random_level()
+	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
 		_set_arena_time(_time - _current_mode.timer_options.skip_cost)
+	if _game_summary:
+		_game_summary.skip_level()
+	_get_new_random_level()
 
 
 func _set_arena_time(new_time: int) -> void:
 	_time = new_time
-	_level_time += 1
 	if _current_mode.is_skippable and _current_mode.timer_options:
 		if _current_mode.timer_options.is_countdown:
 			skip_btn.visible = _time > _current_mode.timer_options.skip_cost
@@ -203,7 +210,7 @@ func _set_arena_time(new_time: int) -> void:
 		_time = 0
 		if !_timer.is_stopped():
 			_timer.stop()
-			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_END)
+			GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_END)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
 
 

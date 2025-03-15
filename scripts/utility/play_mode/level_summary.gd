@@ -1,6 +1,8 @@
 class_name LevelSummary
 
-var level_size: Vector2i
-var required_moves: int
-var used_moves: int
-var time_used: int
+var star_count: int
+var reset_used: int
+
+
+func set_star_count(move_required: int, move_count: int) -> void:
+	star_count = clampi(move_required - move_count, -3, 0) + 3

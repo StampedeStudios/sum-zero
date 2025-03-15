@@ -204,11 +204,9 @@ func create_sliders(data: LevelData) -> void:
 
 	# add sliders and calculate grid cells value
 	await _add_sliders(data, filtered_sliders)
-	print("prima %d" % [data.moves_left]) # <--------------------------------------
 	
 	# remove unnecessary moves to make the counting believable
 	await _remove_unnecessary_moves(data, filtered_sliders)
-	print("dopo %d" % [data.moves_left]) # <--------------------------------------
 	
 
 func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
