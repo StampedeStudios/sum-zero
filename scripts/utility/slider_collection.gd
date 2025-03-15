@@ -12,7 +12,6 @@ class_name SliderCollection extends Resource
 @export_file("*.png") var full := "res://assets/scenes_2d/behavior_full_icon.png"
 @export_file("*.png") var out_full := "res://assets/scenes_2d/auto_slider_outline.png"
 
-
 @export_group("Slider block effect")
 @export_file("*.png") var block_texture := "res://assets/scenes_2d/blocked_tile.png"
 @export_file("*.gdshader") var block_shader := "res://scripts/shaders/Block.gdshader"

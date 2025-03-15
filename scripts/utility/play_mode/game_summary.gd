@@ -7,7 +7,7 @@ var _new_chain: int
 
 func get_levels() -> Array[LevelSummary]:
 	return _levels
-	
+
 
 func get_perfect_chain() -> int:
 	return _perfect_chain
@@ -20,7 +20,7 @@ func add_completed_level(summary: LevelSummary) -> int:
 		if _new_chain > _perfect_chain:
 			_perfect_chain = _new_chain
 	return _new_chain
-	
+
 
 func skip_level() -> void:
 	_levels.append(null)

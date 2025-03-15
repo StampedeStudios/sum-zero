@@ -120,8 +120,8 @@ func _next_behavior() -> void:
 
 func _change_aspect() -> void:
 	var color: Color
-	_is_valid = true	
-	
+	_is_valid = true
+
 	color = GameManager.palette.slider_colors.get("BG")
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
@@ -136,13 +136,13 @@ func _change_aspect() -> void:
 			slider_effect.material = mat
 		match _data.area_effect:
 			GlobalConst.AreaEffect.ADD:
-				color = GameManager.palette.slider_colors.get("ADD")			
+				color = GameManager.palette.slider_colors.get("ADD")
 			GlobalConst.AreaEffect.SUBTRACT:
 				color = GameManager.palette.slider_colors.get("SUBTRACT")
 			GlobalConst.AreaEffect.CHANGE_SIGN:
 				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
-		slider_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)		
-	
+		slider_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+
 	if _data.area_behavior == GlobalConst.AreaBehavior.FULL:
 		slider_behavior.show()
 		slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
@@ -150,7 +150,6 @@ func _change_aspect() -> void:
 		slider_behavior.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 	else:
 		slider_behavior.hide()
-
 
 
 func set_slider_data(slider_data: SliderData) -> void:

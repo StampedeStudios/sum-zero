@@ -214,7 +214,7 @@ func _check_limit() -> void:
 				if cell.is_cell_blocked():
 					break
 		_max_scale += 1
-		
+
 
 func _play_sound(extension: float) -> void:
 	var percentage: float = abs(snapped(extension, SFX_STEP))

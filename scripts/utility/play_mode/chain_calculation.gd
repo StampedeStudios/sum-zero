@@ -1,9 +1,6 @@
 class_name ChainCalculation extends ScoreCalculation
 
-enum Mode {
-	STD,		## multiply value per multiplier and add to score
-	BOOST	## multiply score per multiplier
-}
+enum Mode { STD, BOOST }  ## multiply value per multiplier and add to score  ## multiply score per multiplier
 
 @export var mode: Mode
 @export var value: int

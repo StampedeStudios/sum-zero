@@ -1,10 +1,6 @@
 class_name PlayMode extends Resource
 
-enum UnlockMode{ 
-	NONE,	## No lock
-	LEVEL,	## Unlock when you have completed all the levels up to
-	STAR	## Unlock when you have reached the number of stars
-	}
+enum UnlockMode { NONE, LEVEL, STAR }  ## No lock  ## Unlock when you have completed all the levels up to  ## Unlock when you have reached the number of stars
 
 ## Title show on selection menu
 @export var title: String

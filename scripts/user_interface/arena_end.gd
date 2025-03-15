@@ -23,13 +23,13 @@ func _ready() -> void:
 	_tween = get_tree().create_tween()
 	await _tween.tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
 	_calculate_score()
-	
-	
+
+
 func _calculate_score() -> void:
 	for step: ScoreCalculation in steps:
 		var old_score := _score
 		var multiplier := step.get_multiplier(_summary)
-		_score = step.update_score(_score, multiplier)	
+		_score = step.update_score(_score, multiplier)
 		stats_icon.texture = step.step_icon
 		_update_stats_multiplier(multiplier)
 		stats.show()
@@ -44,8 +44,8 @@ func _calculate_score() -> void:
 		await _tween.finished
 		stats.hide()
 	actions.show()
-	
-	
+
+
 func _close(next: GlobalConst.GameState) -> void:
 	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
 	GameManager.change_state(next)
@@ -61,6 +61,7 @@ func initialize_score(game_summary: GameSummary) -> void:
 	_summary = game_summary
 	_score = 0
 
+
 func _on_exit_btn_pressed() -> void:
 	_close(GlobalConst.GameState.MAIN_MENU)
 
@@ -71,7 +72,7 @@ func _on_replay_btn_pressed() -> void:
 
 func _update_score(new_score: int) -> void:
 	score.text = "%06d" % [new_score]
-	
+
 
 func _update_stats_multiplier(new_multiplier: int) -> void:
 	stats_multiplier.text = "x%02d" % [new_multiplier]

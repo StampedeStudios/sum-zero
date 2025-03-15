@@ -35,13 +35,14 @@ func _set_first_uncompleted_mode() -> void:
 		else:
 			break
 
+
 func _update_play_mode() -> void:
 	var mode := arena_modes[_mode_selected] as PlayMode
 	var is_locked: bool
-	
+
 	mode_title.text = mode.title
 	mode_icon.texture = mode.icon
-	
+
 	match mode.unlock_mode:
 		PlayMode.UnlockMode.NONE:
 			pass
@@ -51,11 +52,11 @@ func _update_play_mode() -> void:
 		PlayMode.UnlockMode.STAR:
 			locked_msg.text = tr("STAR_LOCK_MSG %d") % [mode.unlock_count]
 			is_locked = GameManager.get_star_count() < mode.unlock_count
-	
+
 	mode_icon.visible = !is_locked
 	locked_msg.visible = is_locked
-	play_btn.disabled = is_locked	
-	
+	play_btn.disabled = is_locked
+
 	if mode is StoryMode and !is_locked:
 		completed_icon.visible = GameManager.get_start_level_playable() > mode.id_end - 1
 	else:

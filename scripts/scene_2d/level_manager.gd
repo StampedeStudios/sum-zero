@@ -237,7 +237,7 @@ func _get_slider_extension(slider_coord: Vector2i) -> Array[Cell]:
 			direction = Vector2i.RIGHT
 			max_extension = _current_level.width
 			origin = Vector2i(0, slider_coord.y)
-	
+
 	result.append(grid_cells.get(origin))
 	for i in range(1, max_extension):
 		var coord := origin + direction * i

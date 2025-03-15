@@ -1,9 +1,6 @@
 class_name StarCalculation extends ScoreCalculation
 
-enum Mode {
-	STD,		## multiply value per multiplier and add to score
-	BOOST	## multiply value per boost if no reset used
-}
+enum Mode { STD, BOOST }  ## multiply value per multiplier and add to score  ## multiply value per boost if no reset used
 
 @export var mode: Mode
 @export_range(0, 3, 0.1) var star_completation: int
@@ -24,7 +21,7 @@ func get_multiplier(game_summary: GameSummary) -> int:
 	return counter
 
 
-func update_score(score:int, multiplier: int) -> int:
+func update_score(score: int, multiplier: int) -> int:
 	match mode:
 		Mode.STD:
 			return score + value * multiplier
