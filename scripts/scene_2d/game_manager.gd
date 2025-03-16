@@ -167,7 +167,6 @@ func set_next_level() -> bool:
 		GlobalConst.LevelGroup.MAIN:
 			if _persistent_save.levels_hash.size() - 1 > _active_level_id:
 				_next_level_id = _active_level_id + 1
-				_player_save.unlock_level(_next_level_id)
 				return true
 	return false
 
@@ -209,6 +208,7 @@ func update_level_progress(move_left: int) -> bool:
 	active_progress = _player_save.get_progress(_context, _active_level_id)
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
+		_player_save.unlock_level(_next_level_id)
 	if move_left > active_progress.move_left:
 		var old_star := clampi(active_progress.move_left, -3, 0) + 3
 		var new_star := clampi(move_left, -3, 0) + 3
