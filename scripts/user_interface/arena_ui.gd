@@ -80,7 +80,7 @@ func _hide_ui() -> void:
 	container.hide()
 	loading.hide()
 	arena_time.hide()
-
+	
 
 func _reset_level() -> void:
 	_set_arena_time(0)
@@ -110,10 +110,12 @@ func _init_arena() -> void:
 			add_child(_timer)
 		if _current_mode.timer_options.is_countdown:
 			_set_arena_time(_current_mode.timer_options.max_game_time)
-			_timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
+			if _timer.timeout.get_connections().is_empty():
+				_timer.timeout.connect(func() -> void: _set_arena_time(_time - 1))
 		else:
 			_set_arena_time(0)
-			_timer.timeout.connect(func() -> void: _set_arena_time(_time + 1))
+			if _timer.timeout.get_connections().is_empty():
+				_timer.timeout.connect(func() -> void: _set_arena_time(_time + 1))
 
 	_get_new_random_level()
 
