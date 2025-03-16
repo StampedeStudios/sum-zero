@@ -2,19 +2,25 @@ class_name LevelEnd extends Control
 
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
-const ANIMATION_DURATION = 1
+const HINT_ANIM_DURATION = 1
+const STAR_ANIM_DURATION = 0.15
+const STAR_ANIM_INTERVAL = 0.1
 const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
+
+@export var frames: SpriteFrames
 
 var _has_next_level: bool
 
-@onready var score_sprite: AnimatedSprite2D = %LevelScoreImg
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
 @onready var panel: Panel = %Panel
-@onready var new_record: Sprite2D = %NewRecord
+@onready var level_score_img: TextureRect = %LevelScoreImg
+@onready var new_record: TextureRect = %NewRecord
 
 
 func _ready() -> void:
+	new_record.hide()
+	_update_shader_percentage(0)
 	await create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
 	update_score()
 
@@ -43,26 +49,30 @@ func update_score() -> void:
 
 func _animate_stars(move_left: int) -> void:
 	var percentage: float = 0.33 * (GlobalConst.MAX_STARS_GAIN + move_left)
-
+	var tween: Tween
 	if percentage == 0:
 		return
 
 	if percentage > 0:
-		await get_tree().create_timer(0.1).timeout
-		await _play_frames(0, 5, 0.02)
+		tween = create_tween()
+		tween.tween_interval(STAR_ANIM_INTERVAL)
+		tween.tween_method(_play_frames, 0, 5, STAR_ANIM_DURATION)
 
 	if percentage > 0.33:
-		await get_tree().create_timer(0.2).timeout
-		await _play_frames(6, 10, 0.02)
+		tween.tween_interval(STAR_ANIM_INTERVAL)
+		tween.tween_method(_play_frames, 6, 10, STAR_ANIM_DURATION)
 
 	if percentage > 0.66:
-		await get_tree().create_timer(0.2).timeout
-		await _play_frames(11, 15, 0.02)
+		tween.tween_interval(STAR_ANIM_INTERVAL)
+		tween.tween_method(_play_frames, 11, 15, STAR_ANIM_DURATION)
 
 	# extra reward for beating the developers (you think ...)
 	if percentage > 1:
-		await get_tree().create_timer(0.2).timeout
-		await _play_frames(16, 20, 0.02)
+		tween.tween_interval(STAR_ANIM_INTERVAL)
+		tween.tween_method(_play_frames, 16, 20, STAR_ANIM_DURATION)
+		
+	tween.tween_interval(STAR_ANIM_INTERVAL)
+	await tween.finished
 
 
 func _animate_hint(move_left: int) -> void:
@@ -73,7 +83,7 @@ func _animate_hint(move_left: int) -> void:
 	tween.set_trans(Tween.TRANS_CUBIC)
 
 	# Tween from 0 to 100
-	tween.tween_method(_update_shader_percentage, 0.0, 1.0, ANIMATION_DURATION)
+	tween.tween_method(_update_shader_percentage, 0.0, 1.0, HINT_ANIM_DURATION)
 	await tween.finished
 
 
@@ -96,10 +106,8 @@ func _select_random_text(move_left: int) -> String:
 	return tr(GlobalConst.EXTRA_STARS_MSGS.pick_random())
 
 
-func _play_frames(start_frame: int, end_frame: int, delay: float) -> void:
-	for frame in range(start_frame, end_frame + 1):
-		score_sprite.frame = frame
-		await get_tree().create_timer(delay).timeout
+func _play_frames(frame: int) -> void:
+	level_score_img.texture = frames.get_frame_texture("default", frame)
 
 
 func _on_replay_btn_pressed() -> void:
