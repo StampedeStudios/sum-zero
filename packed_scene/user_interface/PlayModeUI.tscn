@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://0kxf2aagymwn"]
+
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_8okdn"]
+[ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="2_ycfvy"]
+[ext_resource type="Script" path="res://scripts/user_interface/play_mode_ui.gd" id="3_xnc8d"]
+[ext_resource type="Texture2D" uid="uid://16abxdrsop2l" path="res://assets/ui/locked_mode.png" id="4_3km7s"]
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="5_wxucm"]
+
+[node name="PlayModeUi" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+script = ExtResource("3_xnc8d")
+
+[node name="ModeTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_8okdn")
+texture = ExtResource("2_ycfvy")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="OverlayTexture" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 100
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_8okdn")
+texture = ExtResource("4_3km7s")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="OverlayTexture"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="OverlayMessage" type="RichTextLabel" parent="OverlayTexture/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("1_8okdn")
+theme_override_fonts/bold_font = ExtResource("5_wxucm")
+bbcode_enabled = true
+text = "LOCKED_MSG"
+fit_content = true

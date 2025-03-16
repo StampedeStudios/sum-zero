@@ -3,61 +3,69 @@ class_name PlayModeSelection extends Control
 const ARENA_UI := "res://packed_scene/user_interface/ArenaUI.tscn"
 const GAME_UI := "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
+const PLAY_MODE_UI := "res://packed_scene/user_interface/PlayModeUI.tscn"
 
 @export var arena_modes: Array[PlayMode]
 
-var _mode_selected: int
+var _current_mode_index := 0
 
 @onready var panel: Panel = %Panel
+@onready var scroll_container: ScrollContainer = %HContainer
+@onready var hbox_container: HBoxContainer = %HBoxContainer
+
 @onready var arena_selection: VBoxContainer = %ArenaSelection
-@onready var mode_icon: TextureRect = %ModeIcon
-@onready var locked_msg: RichTextLabel = %LockedMsg
 @onready var play_btn: Button = %PlayBtn
-@onready var locked_icon: TextureRect = %LockedIcon
-@onready var completed_icon: TextureRect = %CompletedIcon
 
 
 func _ready() -> void:
-	if arena_modes.is_empty():
-		queue_free.call_deferred()
-		return
-	_set_first_uncompleted_mode()
-	_update_play_mode()
+	# Animate entry
 	create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
 
-	locked_msg.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
-	locked_msg.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
-	locked_msg.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
+
+func setup() -> void:
+	# Insert each mode as scrollable element
+	for mode: PlayMode in arena_modes:
+		var scene := ResourceLoader.load(PLAY_MODE_UI) as PackedScene
+		var mode_ui := scene.instantiate() as PlayModeUI
+		mode_ui.custom_minimum_size.x = scroll_container.size.x
+		hbox_container.add_child(mode_ui)
+		mode_ui.setup(mode)
+
+	_set_first_uncompleted_mode.call_deferred()
 
 
 func _set_first_uncompleted_mode() -> void:
 	for id: int in range(arena_modes.size()):
-		_mode_selected = id
+		_current_mode_index = id
 		var mode := arena_modes[id]
 		if mode is StoryMode and GameManager.get_start_level_playable() > mode.id_end - 1:
 			continue
 		else:
 			break
 
+	var step := scroll_container.get_h_scroll_bar().max_value / arena_modes.size()
+	var target_scroll := ceili(_current_mode_index * step)
+	scroll_container.scroll_horizontal = target_scroll
 
-func _update_play_mode() -> void:
-	var mode := arena_modes[_mode_selected] as PlayMode
-	var is_locked: bool
 
-	mode_icon.texture = mode.icon
+func _select_mode(index: int) -> void:
+	index = clamp(index, 0, arena_modes.size() - 1)
+	var mode_instance := hbox_container.get_child(index) as PlayModeUI
+	play_btn.disabled = mode_instance.is_locked()
 
-	match mode.unlock_mode:
-		PlayMode.UnlockMode.NONE:
-			pass
-		PlayMode.UnlockMode.LEVEL:
-			locked_msg.text = tr("LEVEL_LOCK_MSG") % [mode.unlock_count]
-			is_locked = GameManager.get_start_level_playable() < mode.unlock_count
-		PlayMode.UnlockMode.STAR:
-			locked_msg.text = tr("STAR_LOCK_MSG") % [mode.unlock_count]
-			is_locked = GameManager.get_star_count() < mode.unlock_count
+	_current_mode_index = index
+	_snap_to_current_mode()
 
-	locked_icon.visible = is_locked
-	play_btn.disabled = is_locked
+
+func _snap_to_current_mode() -> void:
+	var step := scroll_container.get_h_scroll_bar().max_value / arena_modes.size()
+	var target_scroll := ceili(_current_mode_index * step)
+
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	var distance := absf(target_scroll - scroll_container.get_h_scroll_bar().value)
+	var duration := remap(distance, 0, step, 0, 0.6)
+	tween.tween_property(scroll_container, "scroll_horizontal", target_scroll, duration)
 
 
 func _animate(animated_scale: Vector2) -> void:
@@ -79,7 +87,7 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var mode := arena_modes[_mode_selected]
+	var mode := arena_modes[_current_mode_index]
 	if mode is ArenaMode:
 		# load arena ui
 		var scene := ResourceLoader.load(ARENA_UI) as PackedScene
@@ -112,15 +120,19 @@ func _on_play_btn_pressed() -> void:
 
 func _on_left_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	_mode_selected -= 1
-	if _mode_selected < 0:
-		_mode_selected = arena_modes.size() - 1
-	_update_play_mode()
+	_select_mode(_current_mode_index - 1)
+	_snap_to_current_mode()
 
 
 func _on_right_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	_mode_selected += 1
-	if _mode_selected == arena_modes.size():
-		_mode_selected = 0
-	_update_play_mode()
+	_select_mode(_current_mode_index + 1)
+	_snap_to_current_mode()
+
+
+func _on_h_container_scroll_ended() -> void:
+	var current_position := roundi(
+		scroll_container.get_h_scroll_bar().value / scroll_container.size.x
+	)
+
+	_select_mode(current_position)

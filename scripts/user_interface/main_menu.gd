@@ -33,7 +33,9 @@ func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var scene := ResourceLoader.load(PLAY_MODE_SELECTION) as PackedScene
 	var play_mode_selection := scene.instantiate() as PlayModeSelection
-	get_tree().root.add_child.call_deferred(play_mode_selection)
+
+	get_tree().root.add_child(play_mode_selection)
+	play_mode_selection.setup.call_deferred()
 
 
 func _on_level_btn_pressed() -> void:
