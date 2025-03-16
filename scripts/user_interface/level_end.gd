@@ -54,14 +54,13 @@ func _update_score() -> void:
 
 
 func _animate_stars(star_count: int) -> void:
-	var tween: Tween
+	var tween := create_tween()
 	if star_count == 0:
-		return
+		_play_frames(0)
 
 	if star_count > 0:
-		tween = create_tween()
 		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_play_frames, 0, 5, STAR_ANIM_DURATION)
+		tween.tween_method(_play_frames, 1, 5, STAR_ANIM_DURATION)
 
 	if star_count > 1:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
