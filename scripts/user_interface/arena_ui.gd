@@ -54,7 +54,12 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.LEVEL_START:
 			self.show()
 		GlobalConst.GameState.PLAY_LEVEL:
-			container.show()
+			container.show()			
+			_moves_count = 0
+			_reset_count = 0
+			if _current_mode.timer_options:
+				arena_time.show()
+				_timer.start()
 		GlobalConst.GameState.LEVEL_END:
 			pass
 		GlobalConst.GameState.ARENA_END:
@@ -93,7 +98,8 @@ func set_arena_mode(mode: ArenaMode) -> void:
 
 
 func _init_arena() -> void:
-	if _current_mode.level_options:
+	self.show()
+	if !_randomizer and _current_mode.level_options:
 		_randomizer = Randomizer.new(_current_mode.level_options)
 		get_tree().root.add_child(_randomizer)
 
@@ -140,7 +146,6 @@ func _get_new_random_level() -> void:
 	loading.hide()
 	loading.rotation_degrees = 0
 	_tween.kill()
-
 	_init_level()
 
 
@@ -162,19 +167,16 @@ func _init_level() -> void:
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
 
-	_moves_count = 0
-	_reset_count = 0
-	if _current_mode.timer_options:
-		arena_time.show()
-		_timer.start()
-
-	await GameManager.level_manager.init_level(_current_level)
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
-	GameManager.level_manager.animate_grid()
+	if _time > 0:
+		await GameManager.level_manager.init_level(_current_level)
+		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+		GameManager.level_manager.animate_grid()
 
 
 func _on_level_complete() -> void:
 	if _timer:
+		if _time <= 0:
+			return
 		_timer.stop()
 		var options := _current_mode.timer_options
 		if options and options.time_gained_per_move > 0:
@@ -230,7 +232,7 @@ func _set_arena_time(new_time: int) -> void:
 		_time = 0
 		if !_timer.is_stopped():
 			_timer.stop()
-			GameManager.change_state.call_deferred(GlobalConst.GameState.ARENA_END)
+			GameManager.change_state(GlobalConst.GameState.ARENA_END)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
 
 
