@@ -3,11 +3,11 @@ class_name PlayModeUI extends MarginContainer
 const LOCKED_MODE = "res://assets/ui/locked_mode.png"
 const COMPLETED_MODE = "res://assets/ui/completed_mode.png"
 
+var _is_locked := false
+
 @onready var mode_texture: TextureRect = %ModeTexture
 @onready var overlay_texture: TextureRect = %OverlayTexture
 @onready var message: RichTextLabel = %OverlayMessage
-
-var _is_locked := false
 
 
 func _ready() -> void:

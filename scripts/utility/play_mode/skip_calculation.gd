@@ -15,5 +15,4 @@ func get_multiplier(game_summary: GameSummary) -> int:
 func update_score(score: int, multiplier: int) -> int:
 	if multiplier > 0:
 		return clampi(score - multiplier * abs(malus), 0, score)
-	else:
-		return roundi(score * boost)
+	return roundi(score * boost)

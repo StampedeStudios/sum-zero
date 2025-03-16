@@ -54,7 +54,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.LEVEL_START:
 			self.show()
 		GlobalConst.GameState.PLAY_LEVEL:
-			container.show()			
+			container.show()
 			_moves_count = 0
 			_reset_count = 0
 			if _current_mode.timer_options:
@@ -64,7 +64,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			pass
 		GlobalConst.GameState.ARENA_END:
 			self.hide()
-			if _current_mode.one_shoot_mode:				
+			if _current_mode.one_shoot_mode:
 				var scene := ResourceLoader.load(LEVEL_END) as PackedScene
 				var level_end := scene.instantiate() as LevelEnd
 				var star_count := clampi(_current_level.moves_left - _moves_count, -3, 0) + 3
@@ -85,7 +85,7 @@ func _hide_ui() -> void:
 	container.hide()
 	loading.hide()
 	arena_time.hide()
-	
+
 
 func _reset_level() -> void:
 	_set_arena_time(0)
@@ -167,7 +167,7 @@ func _init_level() -> void:
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
 
-	if _time > 0:
+	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
 		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 		GameManager.level_manager.animate_grid()
