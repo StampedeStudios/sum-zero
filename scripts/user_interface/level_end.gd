@@ -1,15 +1,19 @@
 class_name LevelEnd extends Control
 
+signal on_replay_button
+signal on_next_button
+
 const PLAY_TEXT = "NEXT"
 const EXIT_TEXT = "EXIT"
 const HINT_ANIM_DURATION = 1
 const STAR_ANIM_DURATION = 0.15
 const STAR_ANIM_INTERVAL = 0.1
-const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 
 @export var frames: SpriteFrames
 
+var _star_count: int
 var _has_next_level: bool
+var _is_record: bool
 
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
@@ -21,53 +25,54 @@ var _has_next_level: bool
 func _ready() -> void:
 	new_record.hide()
 	_update_shader_percentage(0)
-	await create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
-	update_score()
+	await create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
+	_update_score()
+	
 
+func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
+	_star_count = star_count
+	_has_next_level = has_next_level
+	_is_record = is_record
+	
 
-func close() -> void:
-	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+func _close() -> void:
+	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
 
 
-func animate(animated_scale: Vector2) -> void:
+func _animate(animated_scale: Vector2) -> void:
 	panel.scale = animated_scale
 	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
-func update_score() -> void:
-	var move_left: int = GameManager.game_ui.moves_left
-	var is_record: bool = GameManager.update_level_progress(move_left)
-	_has_next_level = GameManager.set_next_level()
+func _update_score() -> void:
 	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
+	await _animate_stars(_star_count)
+	await _animate_hint(_star_count)
+	new_record.visible = _is_record
 
-	await _animate_stars(move_left)
-	await _animate_hint(move_left)
-	new_record.visible = is_record
 
-
-func _animate_stars(move_left: int) -> void:
-	var percentage: float = 0.33 * (GlobalConst.MAX_STARS_GAIN + move_left)
+func _animate_stars(star_count: int) -> void:
 	var tween: Tween
-	if percentage == 0:
+	if star_count == 0:
 		return
 
-	if percentage > 0:
+	if star_count > 0:
 		tween = create_tween()
 		tween.tween_interval(STAR_ANIM_INTERVAL)
 		tween.tween_method(_play_frames, 0, 5, STAR_ANIM_DURATION)
 
-	if percentage > 0.33:
+	if star_count > 1:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
 		tween.tween_method(_play_frames, 6, 10, STAR_ANIM_DURATION)
 
-	if percentage > 0.66:
+	if star_count > 2:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
 		tween.tween_method(_play_frames, 11, 15, STAR_ANIM_DURATION)
 
 	# extra reward for beating the developers (you think ...)
-	if percentage > 1:
+	if star_count > 3:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
 		tween.tween_method(_play_frames, 16, 20, STAR_ANIM_DURATION)
 		
@@ -75,8 +80,8 @@ func _animate_stars(move_left: int) -> void:
 	await tween.finished
 
 
-func _animate_hint(move_left: int) -> void:
-	hint.text = _select_random_text(move_left)
+func _animate_hint(star_count: int) -> void:
+	hint.text = _select_random_text(star_count)
 	var tween := create_tween()
 
 	tween.set_ease(Tween.EASE_OUT)
@@ -91,9 +96,7 @@ func _update_shader_percentage(value: float) -> void:
 	hint.material.set_shader_parameter("percentage", value)
 
 
-func _select_random_text(move_left: int) -> String:
-	var num_stars := GlobalConst.MAX_STARS_GAIN + move_left
-
+func _select_random_text(num_stars: int) -> String:
 	if num_stars <= 0:
 		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
 	if num_stars == 1:
@@ -112,20 +115,11 @@ func _play_frames(frame: int) -> void:
 
 func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.level_manager.reset_level()
+	on_replay_button.emit()
 	queue_free()
 
 
 func _on_next_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-
-	if !_has_next_level:
-		var scene := ResourceLoader.load(CREDITS) as PackedScene
-		var credits := scene.instantiate() as CreditsScreen
-		get_tree().root.add_child(credits)
-		queue_free()
-	else:
-		var level: LevelData = GameManager.get_next_level()
-		await GameManager.level_manager.init_level(level)
-		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
-		queue_free()
+	on_next_button.emit()
+	queue_free()

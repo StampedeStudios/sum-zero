@@ -3,9 +3,11 @@ class_name GameUI extends Control
 const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
+const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 
-var moves_left: int
+var _moves_left: int
 var _return_to: GlobalConst.GameState = GlobalConst.GameState.MAIN_MENU
+var _has_next_level: bool
 
 @onready var skip_btn: Button = %SkipBtn
 @onready var exit_btn: Button = %ExitBtn
@@ -47,7 +49,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 		GlobalConst.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.PLAY_LEVEL:
-			moves_left = GameManager.get_active_level().moves_left
+			_moves_left = GameManager.get_active_level().moves_left
 			if !GameManager.level_manager.on_consume_move.is_connected(_consume_move):
 				GameManager.level_manager.on_consume_move.connect(_consume_move)
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
@@ -55,9 +57,11 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 
 		GlobalConst.GameState.LEVEL_START:
+			print("ok")
 			self.visible = true
 			_render_tutorial()
-			skip_btn.visible = GameManager.is_level_completed() and GameManager.set_next_level()
+			_has_next_level = GameManager.set_next_level()
+			skip_btn.visible = _has_next_level and GameManager.is_level_completed()
 
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false
@@ -78,9 +82,16 @@ func _render_tutorial() -> void:
 
 
 func _on_level_complete() -> void:
+	var is_record: bool = GameManager.update_level_progress(_moves_left)
+	var star_count := clampi(_moves_left, -3, 1) + 3
 	var scene := ResourceLoader.load(LEVEL_END) as PackedScene
 	var level_end := scene.instantiate() as LevelEnd
+
+	level_end.on_replay_button.connect(GameManager.level_manager.reset_level)
+	level_end.on_next_button.connect(next_level)
+	level_end.init_score(star_count, _has_next_level, is_record)
 	get_tree().root.add_child(level_end)
+	
 	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 
 
@@ -94,7 +105,7 @@ func initialize_ui(prev_state: GlobalConst.GameState) -> void:
 
 
 func _consume_move() -> void:
-	moves_left -= 1
+	_moves_left -= 1
 
 
 func _on_reset_btn_pressed() -> void:
@@ -104,6 +115,15 @@ func _on_reset_btn_pressed() -> void:
 
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var level: LevelData = GameManager.get_next_level()
-	await GameManager.level_manager.init_level(level)
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	next_level()
+
+
+func next_level() -> void:
+	if _has_next_level:
+		var level: LevelData = GameManager.get_next_level()
+		await GameManager.level_manager.init_level(level)
+		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	else:
+		var scene := ResourceLoader.load(CREDITS) as PackedScene
+		var credits := scene.instantiate() as CreditsScreen
+		get_tree().root.add_child(credits)
