@@ -72,7 +72,7 @@ boost_per_score = 2.0
 [resource]
 script = ExtResource("2_i1lkq")
 is_skippable = true
-one_shoot_mode = false
+one_shoot_mode = true
 timer_options = SubResource("Resource_ai02r")
 level_options = SubResource("Resource_6dhtk")
 title = "Puzzle"

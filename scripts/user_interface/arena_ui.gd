@@ -2,6 +2,7 @@ class_name ArenaUI extends Control
 
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 const ARENA_END := "res://packed_scene/user_interface/ArenaEnd.tscn"
+const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 
 var _current_mode: ArenaMode
@@ -58,8 +59,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			pass
 		GlobalConst.GameState.ARENA_END:
 			self.hide()
-			if _current_mode.one_shoot_mode:
-				pass
+			if _current_mode.one_shoot_mode:				
+				var scene := ResourceLoader.load(LEVEL_END) as PackedScene
+				var level_end := scene.instantiate() as LevelEnd
+				var star_count := clampi(_current_level.moves_left - _moves_count, -3, 0) + 3
+				level_end.init_score(star_count, true, false)
+				level_end.on_next_button.connect(_init_arena)
+				level_end.on_replay_button.connect(_reset_level)
+				get_tree().root.add_child(level_end)
 			else:
 				var scene := ResourceLoader.load(ARENA_END) as PackedScene
 				var arena_end := scene.instantiate() as ArenaEnd
@@ -73,6 +80,11 @@ func _hide_ui() -> void:
 	container.hide()
 	loading.hide()
 	arena_time.hide()
+
+
+func _reset_level() -> void:
+	_set_arena_time(0)
+	_init_level()
 
 
 func set_arena_mode(mode: ArenaMode) -> void:
