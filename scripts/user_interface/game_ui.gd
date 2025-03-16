@@ -57,7 +57,6 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 
 		GlobalConst.GameState.LEVEL_START:
-			print("ok")
 			self.visible = true
 			_render_tutorial()
 			_has_next_level = GameManager.set_next_level()
