@@ -30,6 +30,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_2umli")
+frames = ExtResource("5_7jbgv")
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -68,27 +69,34 @@ alignment = 1
 [node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 2
+size_flags_vertical = 0
 theme = ExtResource("7_dngta")
 text = "COMPLETE"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MarginContainter" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="NewRecord" type="Sprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-visible = false
-position = Vector2(384, -43)
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("6_uge2i")
-
-[node name="LevelScoreImg" type="AnimatedSprite2D" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="LevelScoreImg" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainter"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4fm4t")
-position = Vector2(237, 24)
-sprite_frames = ExtResource("5_7jbgv")
-frame_progress = 1.0
+layout_mode = 2
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainter"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="NewRecord" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainter/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+texture = ExtResource("6_uge2i")
+expand_mode = 1
 
 [node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -100,7 +108,7 @@ theme_override_font_sizes/font_size = 26
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 10
+size_flags_vertical = 8
 alignment = 1
 
 [node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
