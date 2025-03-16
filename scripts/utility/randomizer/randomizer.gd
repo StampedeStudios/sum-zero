@@ -1,8 +1,9 @@
 class_name Randomizer extends Node
 
-var _options: RandomizerOptions
 const SQUARE_DIRECTION := [Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(-1, 0)]
 const CROSS_DIRECTION := [Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1)]
+
+var _options: RandomizerOptions
 
 
 func _init(new_options: RandomizerOptions) -> void:

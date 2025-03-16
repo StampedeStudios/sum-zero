@@ -90,7 +90,7 @@ func _on_level_complete() -> void:
 	level_end.on_next_button.connect(next_level)
 	level_end.init_score(star_count, _has_next_level, is_record)
 	get_tree().root.add_child(level_end)
-	
+
 	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 
 

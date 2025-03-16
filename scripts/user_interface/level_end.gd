@@ -27,13 +27,13 @@ func _ready() -> void:
 	_update_shader_percentage(0)
 	await create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
 	_update_score()
-	
+
 
 func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
 	_star_count = star_count
 	_has_next_level = has_next_level
 	_is_record = is_record
-	
+
 
 func _close() -> void:
 	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
@@ -74,7 +74,7 @@ func _animate_stars(star_count: int) -> void:
 	if star_count > 3:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
 		tween.tween_method(_play_frames, 16, 20, STAR_ANIM_DURATION)
-		
+
 	tween.tween_interval(STAR_ANIM_INTERVAL)
 	await tween.finished
 
