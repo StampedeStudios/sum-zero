@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=15 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
@@ -12,10 +12,6 @@
 [ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/play_mode/puzzle_mode.tres" id="8_gywfq"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
 [ext_resource type="Texture2D" uid="uid://h48pyaujdk6b" path="res://assets/ui/arrow_left.png" id="10_2lfuk"]
-[ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="11_uioaw"]
-[ext_resource type="Texture2D" uid="uid://16abxdrsop2l" path="res://assets/ui/locked_mode.png" id="12_2puft"]
-[ext_resource type="Texture2D" uid="uid://cnfj6uq1m6f7" path="res://assets/ui/completed_mode.png" id="12_cqdan"]
-[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="13_jwu11"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k64a5"]
 
@@ -100,90 +96,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/ArenaSelection/Container/Content"]
+[node name="HContainer" type="ScrollContainer" parent="Background/Panel/ArenaSelection/Container/Content"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 9.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
 
-[node name="ModeIcon" type="TextureRect" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/ArenaSelection/Container/Content/HContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("1_wbtf6")
-texture = ExtResource("11_uioaw")
-expand_mode = 4
-stretch_mode = 5
-
-[node name="LockedIcon" type="TextureRect" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-z_index = 100
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_wbtf6")
-texture = ExtResource("12_2puft")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer/LockedIcon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="LockedMsg" type="RichTextLabel" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer/LockedIcon/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme = ExtResource("1_wbtf6")
-theme_override_fonts/bold_font = ExtResource("13_jwu11")
-bbcode_enabled = true
-text = "LOCKED_MSG"
-fit_content = true
-
-[node name="CompletedIcon" type="TextureRect" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer"]
-unique_name_in_owner = true
-visible = false
-z_index = 100
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("1_wbtf6")
-texture = ExtResource("12_cqdan")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer/CompletedIcon"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
-
-[node name="CompletedMsg" type="RichTextLabel" parent="Background/Panel/ArenaSelection/Container/Content/MarginContainer/CompletedIcon/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-theme = ExtResource("1_wbtf6")
-theme_override_fonts/bold_font = ExtResource("13_jwu11")
-bbcode_enabled = true
-text = "COMPLETED_MSG"
-fit_content = true
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/ArenaSelection/Container/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 10
+size_flags_vertical = 3
 focus_mode = 0
 theme = ExtResource("9_r4e6y")
 text = "PLAY"
@@ -212,6 +143,6 @@ size_flags_vertical = 3
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Background/Panel/ArenaSelection/Container/LeftBox/LeftBtn" to="." method="_on_left_btn_pressed"]
-[connection signal="gui_input" from="Background/Panel/ArenaSelection/Container/Content/MarginContainer/ModeIcon" to="." method="_on_mode_icon_gui_input"]
+[connection signal="scroll_ended" from="Background/Panel/ArenaSelection/Container/Content/HContainer" to="." method="_on_h_container_scroll_ended"]
 [connection signal="pressed" from="Background/Panel/ArenaSelection/Container/Content/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ArenaSelection/Container/RightBox/RightBtn" to="." method="_on_right_btn_pressed"]
