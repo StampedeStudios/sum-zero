@@ -61,7 +61,7 @@ func refresh_page() -> void:
 			match _current_world:
 				GlobalConst.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)
-
+	
 
 func _delete_level(id: int) -> void:
 	GameManager.delete_level(id)

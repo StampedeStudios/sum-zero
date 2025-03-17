@@ -11,11 +11,11 @@ const STARS_SPRITE_SIZE := Vector2(350, 239)
 var _level_id: int
 
 @onready var label: Label = %LevelName
-@onready var stars: Sprite2D = %Stars
 @onready var unlock_btn: Button = %UnlockBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var panel: AnimatedPanel = %Panel
+@onready var stars: TextureRect = %Stars
 
 
 func _ready() -> void:
@@ -38,7 +38,8 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 			num_stars = 4
 
 	var start_cut := Vector2(5 * STARS_SPRITE_SIZE.x * num_stars, 0)
-	stars.region_rect = Rect2(start_cut, STARS_SPRITE_SIZE)
+	var atlas := stars.texture as AtlasTexture
+	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
 	build_btn.disabled = !progress.is_completed
 	_update_buttons(progress.is_unlocked)

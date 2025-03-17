@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=12 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
@@ -9,8 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tivdf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_28173"]
 resource_local_to_scene = true
@@ -69,7 +67,7 @@ flat = true
 
 [node name="NavigationTab" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
+size_flags_vertical = 2
 theme = ExtResource("2_cshsk")
 theme_override_constants/separation = 50
 
@@ -104,11 +102,6 @@ button_group = ExtResource("8_101tc")
 text = "CUSTOM"
 icon = ExtResource("6_a5f4w")
 icon_alignment = 2
-
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/separator = SubResource("StyleBoxEmpty_tivdf")
 
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -149,9 +142,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -1080.0
-offset_top = -340.0
+offset_top = -360.0
 offset_right = 1080.0
-offset_bottom = 460.0
+offset_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3

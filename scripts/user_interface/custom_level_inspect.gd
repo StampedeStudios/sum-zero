@@ -13,12 +13,12 @@ var _level_id: int
 var _level_code: String
 
 @onready var label: Label = %LevelName
-@onready var stars: Sprite2D = %Stars
 @onready var delete_btn: Button = %DeleteBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var copy_btn: Button = %CopyBtn
 @onready var panel: AnimatedPanel = %Panel
+@onready var stars: TextureRect = %Stars
 
 
 func _ready() -> void:
@@ -47,7 +47,8 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 			num_stars = 4
 
 	var start_cut := Vector2(5 * STARS_SPRITE_SIZE.x * num_stars, 0)
-	stars.region_rect = Rect2(start_cut, STARS_SPRITE_SIZE)
+	var atlas := stars.texture as AtlasTexture
+	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
 	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
@@ -98,7 +99,8 @@ func _on_play_btn_pressed() -> void:
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		close()
+		AudioManager.play_click_sound()
+		close()		
 
 
 func _on_copy_btn_pressed() -> void:

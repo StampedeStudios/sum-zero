@@ -8,8 +8,7 @@ const EXIT_TEXT = "EXIT"
 const HINT_ANIM_DURATION = 1
 const STAR_ANIM_DURATION = 0.15
 const STAR_ANIM_INTERVAL = 0.1
-
-@export var frames: SpriteFrames
+const STARS_SPRITE_SIZE := Vector2(350, 239)
 
 var _star_count: int
 var _has_next_level: bool
@@ -24,6 +23,7 @@ var _is_record: bool
 
 func _ready() -> void:
 	new_record.hide()
+	_update_stars_frame(0)
 	_update_shader_percentage(0)
 	await panel.open()
 	_update_score()
@@ -50,25 +50,23 @@ func _update_score() -> void:
 
 func _animate_stars(star_count: int) -> void:
 	var tween := create_tween()
-	if star_count == 0:
-		_play_frames(0)
 
 	if star_count > 0:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_play_frames, 1, 5, STAR_ANIM_DURATION)
+		tween.tween_method(_update_stars_frame, 1, 5, STAR_ANIM_DURATION)
 
 	if star_count > 1:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_play_frames, 6, 10, STAR_ANIM_DURATION)
+		tween.tween_method(_update_stars_frame, 6, 10, STAR_ANIM_DURATION)
 
 	if star_count > 2:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_play_frames, 11, 15, STAR_ANIM_DURATION)
+		tween.tween_method(_update_stars_frame, 11, 15, STAR_ANIM_DURATION)
 
 	# extra reward for beating the developers (you think ...)
 	if star_count > 3:
 		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_play_frames, 16, 20, STAR_ANIM_DURATION)
+		tween.tween_method(_update_stars_frame, 16, 20, STAR_ANIM_DURATION)
 
 	tween.tween_interval(STAR_ANIM_INTERVAL)
 	await tween.finished
@@ -103,9 +101,10 @@ func _select_random_text(num_stars: int) -> String:
 	return tr(GlobalConst.EXTRA_STARS_MSGS.pick_random())
 
 
-func _play_frames(frame: int) -> void:
-	level_score_img.texture = frames.get_frame_texture("default", frame)
-
+func _update_stars_frame(frame: int) -> void:
+	var start_cut := Vector2(STARS_SPRITE_SIZE.x * frame, 0)
+	var atlas := level_score_img.texture as AtlasTexture
+	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
 func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
