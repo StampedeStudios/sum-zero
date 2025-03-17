@@ -38,7 +38,7 @@ var arena_ui: ArenaUI
 
 var _player_save: PlayerSave
 var _persistent_save: LevelContainer
-var _active_level_id: int
+var _active_level_id: int = -1
 var _next_level_id: int
 var _context: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
 
@@ -169,6 +169,10 @@ func set_next_level() -> bool:
 				_next_level_id = _active_level_id + 1
 				return true
 	return false
+
+
+func reset_active_level_id() -> void:
+	_active_level_id = -1
 
 
 func get_active_level_id() -> int:
