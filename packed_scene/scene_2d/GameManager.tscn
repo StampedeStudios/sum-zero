@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cx3a8j50nwxxr"]
-
-[ext_resource type="Script" path="res://scripts/scene_2d/game_manager.gd" id="1_tgd8e"]
-[ext_resource type="Resource" uid="uid://bah43nlnjk8fe" path="res://assets/resources/utility/rainbow_palette.tres" id="2_wd6nv"]
-
-[node name="GameManager" type="Node2D"]
-script = ExtResource("1_tgd8e")
-palette = ExtResource("2_wd6nv")

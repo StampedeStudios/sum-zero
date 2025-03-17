@@ -10,7 +10,7 @@ var _music_playback_position: float
 
 
 func _ready() -> void:
-	var options := GameManager.get_options()
+	var options := SaveManager.get_options()
 	_is_music_on = options.music_on
 	_is_sfx_on = options.sfx_on
 

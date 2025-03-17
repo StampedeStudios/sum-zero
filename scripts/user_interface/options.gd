@@ -11,7 +11,7 @@ var _player_options: PlayerOptions
 
 
 func _ready() -> void:
-	_player_options = GameManager.get_options()
+	_player_options = SaveManager.get_options()
 
 	music_btn.set_pressed_no_signal(_player_options.music_on)
 	sfx_btn.set_pressed_no_signal(_player_options.sfx_on)
@@ -25,7 +25,7 @@ func _ready() -> void:
 
 
 func _exit_options() -> void:
-	GameManager.save_player_data()
+	SaveManager.save_player_data()
 	await panel.close()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	queue_free.call_deferred()

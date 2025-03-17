@@ -40,7 +40,7 @@ func refresh_page() -> void:
 	var first_level: int = (_current_page - 1) * _levels.size()
 	var last_level: int = _current_page * _levels.size()
 	var levels_progress: Array[LevelProgress]
-	levels_progress = GameManager.get_page_levels(_current_world, first_level, last_level)
+	levels_progress = SaveManager.get_page_levels(_current_world, first_level, last_level)
 
 	# construct level buttons
 	for i: int in range(_levels.size()):
@@ -64,7 +64,7 @@ func refresh_page() -> void:
 	
 
 func _delete_level(id: int) -> void:
-	GameManager.delete_level(id)
+	SaveManager.delete_level(id)
 	refresh_page()	
 	on_page_changed.emit()
 
@@ -104,7 +104,7 @@ func show_custom_inspect(id: int, progress: LevelProgress) -> void:
 
 
 func _unlock_level(id: int) -> void:
-	GameManager.unlock_level(id)
+	SaveManager.unlock_level(id)
 	refresh_page()
 	
 

@@ -38,7 +38,7 @@ func _set_first_uncompleted_mode() -> void:
 	for id: int in range(arena_modes.size()):
 		_current_mode_index = id
 		var mode := arena_modes[id]
-		if mode is StoryMode and GameManager.get_start_level_playable() > mode.id_end - 1:
+		if mode is StoryMode and SaveManager.get_start_level_playable() > mode.id_end - 1:
 			continue
 		else:
 			break
@@ -91,7 +91,7 @@ func _on_play_btn_pressed() -> void:
 		get_tree().root.add_child(arena_ui)
 		arena_ui.set_arena_mode(mode)
 	if mode is StoryMode:
-		var playable_id: int = GameManager.get_start_level_playable()
+		var playable_id: int = SaveManager.get_start_level_playable()
 		if playable_id > mode.id_end - 1:
 			playable_id = mode.id_start - 1
 		var playable_level: LevelData = GameManager.get_active_level(playable_id)
