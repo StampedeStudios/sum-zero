@@ -80,6 +80,13 @@ func get_level(level_id: int) -> LevelData:
 
 func add_custom_level(level_data: LevelData) -> void:
 	var level_hash := Encoder.encode(level_data)
+	if custom_levels_hash.has(level_hash):
+		var i := 1
+		var copy_hash := level_hash + str(i)
+		while custom_levels_hash.has(copy_hash):
+			i += 1
+			copy_hash = level_hash + str(i)
+		level_hash = copy_hash
 	custom_levels_hash.append(level_hash)
 	_add_custom_progress(level_hash)
 
