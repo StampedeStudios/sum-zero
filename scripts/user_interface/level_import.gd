@@ -31,7 +31,7 @@ func _on_save_btn_pressed() -> void:
 		_show_error()
 	else:
 		level_data.name = level_name.text
-		GameManager.save_custom_level(level_data)
+		SaveManager.save_custom_level(level_data)
 		level_imported.emit()
 		close()
 

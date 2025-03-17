@@ -270,7 +270,7 @@ func _on_slider_change(ref: BuilderSlider, data: SliderData) -> void:
 func _on_save_query_received(level_name: String, level_moves: int) -> void:
 	_level_data.moves_left = level_moves
 	_level_data.name = level_name
-	GameManager.save_custom_level(_level_data)
+	SaveManager.save_custom_level(_level_data)
 	_reset_builder_grid.call_deferred()
 
 

@@ -13,7 +13,7 @@ config_version=5
 config/name="Sum Zero"
 config/description="A mobile puzzle game where players use math-based sliders to bring all tiles on a grid down to zero. Combining strategy, logic, and arithmetic, each level presents a unique challenge to solve."
 config/version="1.0.0"
-run/main_scene="res://packed_scene/scene_2d/GameManager.tscn"
+run/main_scene="res://packed_scene/scene_2d/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://assets/game/logo.png"
@@ -21,7 +21,8 @@ config/windows_native_icon="res://assets/game/logo.ico"
 
 [autoload]
 
-GameManager="*res://packed_scene/scene_2d/GameManager.tscn"
+GameManager="*res://scripts/scene_2d/game_manager.gd"
+SaveManager="*res://scripts/scene_2d/save_manager.gd"
 AudioManager="*res://packed_scene/scene_2d/AudioManager.tscn"
 
 [debug]

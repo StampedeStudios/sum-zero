@@ -60,7 +60,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 			_render_tutorial()
 			_has_next_level = GameManager.set_next_level()
-			skip_btn.visible = _has_next_level and GameManager.is_level_completed()
+			skip_btn.visible = _has_next_level and SaveManager.is_level_completed()
 
 		GlobalConst.GameState.LEVEL_END:
 			self.visible = false
@@ -69,7 +69,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 
 func _render_tutorial() -> void:
-	var tutorial: TutorialData = GameManager.get_tutorial()
+	var tutorial: TutorialData = SaveManager.get_tutorial()
 	if tutorial:
 		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
 		var tutorial_ui := scene.instantiate() as TutorialUi
@@ -81,7 +81,7 @@ func _render_tutorial() -> void:
 
 
 func _on_level_complete() -> void:
-	var is_record: bool = GameManager.update_level_progress(_moves_left)
+	var is_record: bool = SaveManager.update_level_progress(_moves_left)
 	var star_count := clampi(_moves_left, -3, 1) + 3
 	var scene := ResourceLoader.load(LEVEL_END) as PackedScene
 	var level_end := scene.instantiate() as LevelEnd

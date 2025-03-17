@@ -4,13 +4,11 @@ signal on_state_change(new_state: GlobalConst.GameState)
 
 const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
 const SPLASH_SCREEN = "res://packed_scene/user_interface/SplashScreen.tscn"
-const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
-const PLAYER_SAVE_PATH = "user://sumzero.tres"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 const CENTER_OFFSET: int = 40
 
-@export var palette: ColorPalette
+var palette: ColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
 
 var ui_scale: Vector2
 var title_font_size: int
@@ -36,8 +34,6 @@ var builder_test: BuilderTest
 var level_ui: LevelUI
 var arena_ui: ArenaUI
 
-var _player_save: PlayerSave
-var _persistent_save: LevelContainer
 var _active_level_id: int = -1
 var _next_level_id: int
 var _context: GlobalConst.LevelGroup = GlobalConst.LevelGroup.MAIN
@@ -50,13 +46,11 @@ func _ready() -> void:
 	var splash_screen := scene.instantiate() as SplashScreen
 	get_tree().root.add_child.call_deferred(splash_screen)
 
-	if !_try_load_saved_data():
-		get_tree().quit.call_deferred()
 
 
 func start() -> void:
 	# Set language
-	TranslationServer.set_locale(get_options().language)
+	TranslationServer.set_locale(SaveManager.get_options().language)
 
 	# Start music
 	AudioManager.start_music()
@@ -99,75 +93,14 @@ func change_state(new_state: GlobalConst.GameState) -> void:
 	on_state_change.emit(new_state)
 
 
-func get_tutorial() -> TutorialData:
-	if !_player_save.player_options.tutorial_on:
-		return null
-	if _context != GlobalConst.LevelGroup.MAIN:
-		return null
-	return _persistent_save.get_tutorial(_active_level_id)
-
-
-func _try_load_saved_data() -> bool:
-	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
-	if _persistent_save == null or _persistent_save.is_empty():
-		push_error("Nessun livello nel persistent save!")
-		return false
-	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
-		push_warning("Nessun file di salvataggio trovato sul disco!")
-		_player_save = PlayerSave.new()
-	else:
-		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
-	if _player_save == null:
-		push_warning("File di salvataggio non leggibile!")
-		_player_save = PlayerSave.new()
-	var modified := _player_save.check_savegame_integrity(_persistent_save)
-	if modified:
-		save_player_data()
-	return true
-
-
 func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 	_context = level_group
 
 
-func get_start_level_playable() -> int:
-	set_levels_context(GlobalConst.LevelGroup.MAIN)
-	# get the first level unlocked and not completed
-	for id in range(_persistent_save.levels_hash.size()):
-		var progress := _player_save.get_progress(_context, id)
-		if progress.is_unlocked and !progress.is_completed:
-			return id
-	# fist play
-	_player_save.unlock_level(0)
-	return 0
-
-
-func get_star_count() -> int:
-	return _player_save.player_rewards.stars_count
-
-
-func save_persistent_level(level_data: LevelData) -> void:
-	var level_hash := _persistent_save.add_level(level_data)
-	ResourceSaver.save.call_deferred(_persistent_save, PERSISTENT_SAVE_PATH)
-	_player_save.add_world_progress(level_hash)
-	save_player_data()
-
-
-func save_custom_level(level_data: LevelData) -> void:
-	_player_save.add_custom_level(level_data)
-	save_player_data()
-
-
 func set_next_level() -> bool:
-	match _context:
-		GlobalConst.LevelGroup.CUSTOM:
-			if _player_save.custom_levels_hash.size() - 1 > _active_level_id:
-				_next_level_id = _active_level_id + 1
-				return true
-		GlobalConst.LevelGroup.MAIN:
-			if _persistent_save.levels_hash.size() - 1 > _active_level_id:
-				_next_level_id = _active_level_id + 1
-				return true
+	if  _active_level_id < SaveManager.get_num_levels(_context) - 1:
+		_next_level_id = _active_level_id + 1
+		return true
 	return false
 
 
@@ -186,12 +119,7 @@ func get_active_context() -> GlobalConst.LevelGroup:
 func get_active_level(level_id: int = -1) -> LevelData:
 	if level_id > -1:
 		_active_level_id = level_id
-	match _context:
-		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.get_level(_active_level_id)
-		GlobalConst.LevelGroup.MAIN:
-			return _persistent_save.get_level(_active_level_id)
-	return null
+	return SaveManager.get_level(_context, _active_level_id)
 
 
 func set_level_scale(level_width: int, level_height: int) -> void:
@@ -204,69 +132,3 @@ func set_level_scale(level_width: int, level_height: int) -> void:
 
 func get_next_level() -> LevelData:
 	return get_active_level(_next_level_id)
-
-
-func update_level_progress(move_left: int) -> bool:
-	var active_progress: LevelProgress
-	var is_record: bool
-	active_progress = _player_save.get_progress(_context, _active_level_id)
-	if !active_progress.is_completed:
-		active_progress.is_completed = true
-		_player_save.unlock_level(_next_level_id)
-	if move_left > active_progress.move_left:
-		var old_star := clampi(active_progress.move_left, -3, 0) + 3
-		var new_star := clampi(move_left, -3, 0) + 3
-		active_progress.move_left = move_left
-		_player_save.add_star(new_star - old_star)
-		is_record = true
-	_player_save.set_progress(_context, _active_level_id, active_progress)
-	save_player_data()
-	return is_record
-
-
-func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
-	var result: Array[LevelProgress]
-	for id in range(first, last + 1):
-		var progress := _player_save.get_progress(group, id)
-		if progress != null:
-			result.append(progress)
-	return result
-
-
-func get_num_levels(group: GlobalConst.LevelGroup) -> int:
-	match group:
-		GlobalConst.LevelGroup.CUSTOM:
-			return _player_save.custom_levels_hash.size()
-		GlobalConst.LevelGroup.MAIN:
-			return _persistent_save.levels_hash.size()
-		_:
-			return 0
-
-
-func is_level_completed() -> bool:
-	return _player_save.get_progress(_context, _active_level_id).is_completed
-
-
-func unlock_level(level_id: int) -> void:
-	_player_save.unlock_level(level_id)
-	save_player_data()
-
-
-func delete_level(level_id: int) -> void:
-	_player_save.delete_custom_level(level_id)
-	save_player_data()
-
-
-func get_options() -> PlayerOptions:
-	return _player_save.player_options
-
-
-func save_player_data() -> void:
-	ResourceSaver.save.call_deferred(_player_save, PLAYER_SAVE_PATH)
-
-
-func update_blitz_score(new: int) -> bool:
-	if _player_save.update_blitz_score(new):
-		save_player_data()
-		return true
-	return false

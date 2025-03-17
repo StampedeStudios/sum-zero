@@ -43,7 +43,7 @@ func _calculate_score() -> void:
 		await _tween.finished
 		stats.hide()
 
-	var new_record: bool = GameManager.update_blitz_score(_score)
+	var new_record: bool = SaveManager.update_blitz_score(_score)
 	if new_record:
 		_tween = get_tree().create_tween()
 		_tween.tween_interval(0.5)
