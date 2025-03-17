@@ -106,6 +106,7 @@ func _update_stars_frame(frame: int) -> void:
 	var atlas := level_score_img.texture as AtlasTexture
 	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
+
 func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	on_replay_button.emit()
