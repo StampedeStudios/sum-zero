@@ -61,7 +61,9 @@ func _ready() -> void:
 
 func _set_start_point() -> void:
 	# Set starting page where the next playable level is
-	var active_level_id: int = GameManager.get_start_level_playable()
+	var active_level_id: int = GameManager.get_active_level_id()
+	if active_level_id <= 0:
+		active_level_id = GameManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
 	# Set starting world where the next playable level is
 	_world = GameManager.get_active_context()
@@ -72,6 +74,7 @@ func _set_start_point() -> void:
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
+			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
 		GlobalConst.GameState.LEVEL_START:
 			self.queue_free.call_deferred()
