@@ -1,22 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://wqs3xar34kkp"]
+[gd_scene load_steps=6 format=3 uid="uid://wqs3xar34kkp"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/levels_page.gd" id="1_c4mma"]
+[ext_resource type="StyleBox" uid="uid://bh7pt440acv0m" path="res://assets/resources/themes/level_button_hover.tres" id="2_jasio"]
+[ext_resource type="Script" path="res://scripts/user_interface/level_button_base.gd" id="2_pd1rl"]
+[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_v4rw7"]
+[ext_resource type="StyleBox" uid="uid://cerm48ggpi77x" path="res://assets/resources/themes/level_button.tres" id="3_e2n4l"]
 
-[node name="Control" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-script = ExtResource("1_c4mma")
-
-[node name="Margin" type="MarginContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 1
+[node name="Margin" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -28,13 +18,14 @@ theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
+script = ExtResource("1_c4mma")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Margin"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 
-[node name="LevelGrid" type="GridContainer" parent="Margin/AspectRatioContainer"]
+[node name="LevelGrid" type="GridContainer" parent="AspectRatioContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -42,3 +33,129 @@ mouse_filter = 2
 theme_override_constants/h_separation = 60
 theme_override_constants/v_separation = 60
 columns = 3
+
+[node name="Level1" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level2" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level3" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level4" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level5" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level6" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level7" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level8" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")
+
+[node name="Level9" type="Button" parent="AspectRatioContainer/LevelGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 0
+mouse_filter = 1
+theme = ExtResource("2_v4rw7")
+theme_override_styles/hover = ExtResource("2_jasio")
+theme_override_styles/pressed = ExtResource("2_jasio")
+theme_override_styles/normal = ExtResource("3_e2n4l")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_pd1rl")

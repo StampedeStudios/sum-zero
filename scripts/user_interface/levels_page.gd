@@ -1,90 +1,113 @@
 class_name LevelPage extends Control
 
-signal level_deleted
+signal on_page_changed
 
-const PAGE_SIZE := 9
+const LEVEL_INSPECT = "res://packed_scene/user_interface/LevelInspect.tscn"
+const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspect.tscn"
+const LEVEL_IMPORT = "res://packed_scene/user_interface/LevelImport.tscn"
 
-var _level_buttons: Array[LevelButton]
-var _placeholder_buttons: Array[PlaceholderButton]
+
+var _levels: Array[LevelButtonBase]
+var _current_world: GlobalConst.LevelGroup
+var _current_page: int
 
 @onready var level_grid: GridContainer = %LevelGrid
-@onready var margin: MarginContainer = %Margin
 
 
 func _ready() -> void:
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+	add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 	level_grid.add_theme_constant_override("h_separation", GameManager.vertical_margin)
 	level_grid.add_theme_constant_override("v_separation", GameManager.vertical_margin)
-
+	for child in level_grid.get_children():
+		if child is LevelButtonBase:
+			_levels.append(child)
+	
 
 func toggle_page(page_visible: bool) -> void:
-	if page_visible:
-		level_grid.show()
-	else:
-		level_grid.hide()
-		_unfill_grid.call_deferred()
-		_remove_extra_buttons.call_deferred()
+	level_grid.visible = page_visible
 
 
 func update_page(world: GlobalConst.LevelGroup, page: int) -> void:
-	_unfill_grid()
+	_current_world = world
+	_current_page = page
+	refresh_page()
+	
 
-	var first_level: int = (page - 1) * PAGE_SIZE + 1
-	var last_level: int = page * PAGE_SIZE
+func refresh_page() -> void:
+	var first_level: int = (_current_page - 1) * _levels.size()
+	var last_level: int = _current_page * _levels.size()
 	var levels_progress: Array[LevelProgress]
-	levels_progress = GameManager.get_page_levels(world, first_level, last_level)
+	levels_progress = GameManager.get_page_levels(_current_world, first_level, last_level)
 
-	# add level buttons
-	for i in range(levels_progress.size()):
-		var button: LevelButton
-		if _level_buttons.is_empty():
-			button = LevelButton.new()
-			button.on_delete_level_button.connect(_on_level_deleted)
-			level_grid.add_child(button)
+	# construct level buttons
+	for i: int in range(_levels.size()):
+		var level := _levels[i] as LevelButtonBase
+		_disconnect_all(level.pressed)
+		if i < levels_progress.size():
+			var level_id := first_level + i
+			var is_locked := !levels_progress[i].is_unlocked
+			var star_count := clampi(levels_progress[i].move_left, -3, 1) + 3
+			level.costruct(_current_world, level_id, is_locked, star_count)
+			match _current_world:
+				GlobalConst.LevelGroup.CUSTOM:
+					level.pressed.connect(show_custom_inspect.bind(level_id, levels_progress[i]))
+				GlobalConst.LevelGroup.MAIN:
+					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))					
 		else:
-			button = _level_buttons.pop_back() as LevelButton
-		if button.get_parent() == null:
-			level_grid.add_child(button)
-		var id := (page - 1) * PAGE_SIZE + i
-		button.construct(id, levels_progress[i], world)
-		level_grid.move_child(button, i)
-
-	# add placeholder when level buttons don't fill the page
-	for i in range(levels_progress.size(), PAGE_SIZE):
-		var button: PlaceholderButton
-		if _placeholder_buttons.is_empty():
-			button = PlaceholderButton.new()
-			level_grid.add_child(button)
-		else:
-			button = _placeholder_buttons.pop_back() as PlaceholderButton
-		if button.get_parent() == null:
-			level_grid.add_child(button)
-		level_grid.move_child(button, i)
-		button.construct(world == GlobalConst.LevelGroup.CUSTOM)
-	_remove_extra_buttons()
+			level.costruct(_current_world)
+			match _current_world:
+				GlobalConst.LevelGroup.CUSTOM:
+					level.pressed.connect(show_import)
 
 
-func _unfill_grid() -> void:
-	for child in level_grid.get_children():
-		if child is LevelButton:
-			_level_buttons.append(child)
-		elif child is PlaceholderButton:
-			_placeholder_buttons.append(child)
-		else:
-			child.queue_free.call_deferred()
+func _delete_level(id: int) -> void:
+	GameManager.delete_level(id)
+	refresh_page()	
+	on_page_changed.emit()
 
 
-func _remove_extra_buttons() -> void:
-	for button in _level_buttons:
-		button.queue_free.call_deferred()
-	_level_buttons.clear()
-	for button in _placeholder_buttons:
-		button.queue_free.call_deferred()
-	_placeholder_buttons.clear()
+func _disconnect_all(button_pressed: Signal) -> void:
+	for connection: Dictionary in button_pressed.get_connections():
+		button_pressed.disconnect(connection.callable)
+		
+
+func show_import() -> void:
+	if GameManager.level_ui.has_consume_input:
+		return
+	var scene := load(LEVEL_IMPORT) as PackedScene
+	var level_import := scene.instantiate() as LevelImport
+	get_tree().root.add_child(level_import)
+	level_import.level_imported.connect(_import_level)
 
 
-func _on_level_deleted() -> void:
-	level_deleted.emit()
+func show_inspect(id: int, progress: LevelProgress) -> void:
+	if GameManager.level_ui.has_consume_input:
+		return
+	var scene := load(LEVEL_INSPECT) as PackedScene
+	var level_inspect := scene.instantiate() as LevelInspect
+	get_tree().root.add_child(level_inspect)
+	level_inspect.init_inspector(id, progress)
+	level_inspect.level_unlocked.connect(_unlock_level.bind(id))
+
+
+func show_custom_inspect(id: int, progress: LevelProgress) -> void:
+	if GameManager.level_ui.has_consume_input:
+		return
+	var scene := load(CUSTOM_LEVEL_INSPECT) as PackedScene
+	var custom_level_inspect := scene.instantiate() as CustomLevelInspect
+	get_tree().root.add_child(custom_level_inspect)
+	custom_level_inspect.init_inspector(id, progress)
+	custom_level_inspect.level_deleted.connect(_delete_level.bind(id))
+
+
+func _unlock_level(id: int) -> void:
+	GameManager.unlock_level(id)
+	refresh_page()
+	
+
+func _import_level() -> void:
+	refresh_page()
+	on_page_changed.emit()

@@ -106,7 +106,6 @@ func _update_buttons(is_unlocked: bool) -> void:
 
 func _on_unlock_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.unlock_level(_level_id)
 	_update_buttons(true)
 	level_unlocked.emit()
 
