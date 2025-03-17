@@ -100,7 +100,7 @@ func _on_play_btn_pressed() -> void:
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()
-		close()		
+		close()
 
 
 func _on_copy_btn_pressed() -> void:

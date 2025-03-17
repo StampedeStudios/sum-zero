@@ -6,7 +6,6 @@ const LEVEL_INSPECT = "res://packed_scene/user_interface/LevelInspect.tscn"
 const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspect.tscn"
 const LEVEL_IMPORT = "res://packed_scene/user_interface/LevelImport.tscn"
 
-
 var _levels: Array[LevelButtonBase]
 var _current_world: GlobalConst.LevelGroup
 var _current_page: int
@@ -24,7 +23,7 @@ func _ready() -> void:
 	for child in level_grid.get_children():
 		if child is LevelButtonBase:
 			_levels.append(child)
-	
+
 
 func toggle_page(page_visible: bool) -> void:
 	level_grid.visible = page_visible
@@ -34,7 +33,7 @@ func update_page(world: GlobalConst.LevelGroup, page: int) -> void:
 	_current_world = world
 	_current_page = page
 	refresh_page()
-	
+
 
 func refresh_page() -> void:
 	var first_level: int = (_current_page - 1) * _levels.size()
@@ -55,24 +54,24 @@ func refresh_page() -> void:
 				GlobalConst.LevelGroup.CUSTOM:
 					level.pressed.connect(show_custom_inspect.bind(level_id, levels_progress[i]))
 				GlobalConst.LevelGroup.MAIN:
-					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))					
+					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))
 		else:
 			level.costruct(_current_world)
 			match _current_world:
 				GlobalConst.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)
-	
+
 
 func _delete_level(id: int) -> void:
 	SaveManager.delete_level(id)
-	refresh_page()	
+	refresh_page()
 	on_page_changed.emit()
 
 
 func _disconnect_all(button_pressed: Signal) -> void:
 	for connection: Dictionary in button_pressed.get_connections():
 		button_pressed.disconnect(connection.callable)
-		
+
 
 func show_import() -> void:
 	if GameManager.level_ui.has_consume_input:
@@ -106,7 +105,7 @@ func show_custom_inspect(id: int, progress: LevelProgress) -> void:
 func _unlock_level(id: int) -> void:
 	SaveManager.unlock_level(id)
 	refresh_page()
-	
+
 
 func _import_level() -> void:
 	refresh_page()

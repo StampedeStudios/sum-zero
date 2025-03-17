@@ -7,7 +7,7 @@ var _player_save: PlayerSave
 var _persistent_save: LevelContainer
 
 
-func _ready() -> void:	
+func _ready() -> void:
 	if !_try_load_saved_data():
 		get_tree().quit.call_deferred()
 
@@ -68,8 +68,8 @@ func get_start_level_playable() -> int:
 	# fist play
 	_player_save.unlock_level(0)
 	return 0
-	
-	
+
+
 func update_level_progress(move_left: int) -> bool:
 	var is_record: bool
 	var context: GlobalConst.LevelGroup = GameManager.get_active_context()
@@ -88,18 +88,18 @@ func update_level_progress(move_left: int) -> bool:
 	_player_save.set_progress(context, id, active_progress)
 	save_player_data()
 	return is_record
-	
+
 
 func save_custom_level(level_data: LevelData) -> void:
 	_player_save.add_custom_level(level_data)
 	save_player_data()
-	
+
 
 func get_star_count() -> int:
 	return _player_save.player_rewards.stars_count
 
 
-func get_level(world:GlobalConst.LevelGroup, id: int) -> LevelData:	
+func get_level(world: GlobalConst.LevelGroup, id: int) -> LevelData:
 	match world:
 		GlobalConst.LevelGroup.CUSTOM:
 			return _player_save.get_level(id)

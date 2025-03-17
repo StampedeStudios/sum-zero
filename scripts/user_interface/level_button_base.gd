@@ -17,23 +17,23 @@ func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars 
 			GlobalConst.LevelGroup.MAIN:
 				icon = load(PLACEHOLDER_ICON)
 			GlobalConst.LevelGroup.CUSTOM:
-				icon = load(IMPORT_ICON)	
+				icon = load(IMPORT_ICON)
 		if has_theme_color_override("icon_normal_color"):
 			remove_theme_color_override("icon_normal_color")
 			remove_theme_color_override("icon_hover_color")
-			remove_theme_color_override("icon_pressed_color")	
+			remove_theme_color_override("icon_pressed_color")
 		text = ""
 		return
-				
+
 	if is_locked:
 		icon = load(LOCK_ICON)
 		if has_theme_color_override("icon_normal_color"):
 			remove_theme_color_override("icon_normal_color")
 			remove_theme_color_override("icon_hover_color")
-			remove_theme_color_override("icon_pressed_color")		
+			remove_theme_color_override("icon_pressed_color")
 		text = ""
 		return
-		
+
 	if !has_theme_color_override("icon_normal_color"):
 		add_theme_color_override("icon_normal_color", Color.WHITE)
 		add_theme_color_override("icon_hover_color", Color.WHITE)
@@ -42,7 +42,7 @@ func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars 
 	icon_path = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS, EXTRA_STARS][stars]
 	icon = load(icon_path)
 	text = str(id + 1)
-	
+
 
 func _pressed() -> void:
 	if GameManager.level_ui.has_consume_input:

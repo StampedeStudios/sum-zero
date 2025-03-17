@@ -47,7 +47,6 @@ func _ready() -> void:
 	get_tree().root.add_child.call_deferred(splash_screen)
 
 
-
 func start() -> void:
 	# Set language
 	TranslationServer.set_locale(SaveManager.get_options().language)
@@ -98,7 +97,7 @@ func set_levels_context(level_group: GlobalConst.LevelGroup) -> void:
 
 
 func set_next_level() -> bool:
-	if  _active_level_id < SaveManager.get_num_levels(_context) - 1:
+	if _active_level_id < SaveManager.get_num_levels(_context) - 1:
 		_next_level_id = _active_level_id + 1
 		return true
 	return false

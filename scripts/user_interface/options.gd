@@ -23,7 +23,6 @@ func _ready() -> void:
 	await panel.open()
 
 
-
 func _exit_options() -> void:
 	SaveManager.save_player_data()
 	await panel.close()

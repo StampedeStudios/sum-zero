@@ -93,7 +93,6 @@ func close() -> void:
 	self.queue_free.call_deferred()
 
 
-
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()

@@ -19,8 +19,8 @@ func close() -> void:
 	var tween := create_tween()
 	tween.tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, anim_time)
 	await tween.finished
-	
-	
+
+
 func _animate(animated_scale: Vector2) -> void:
 	scale = animated_scale
 	position = _panel_center - (scale * size / 2)

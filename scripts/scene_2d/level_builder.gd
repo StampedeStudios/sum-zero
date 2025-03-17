@@ -333,7 +333,7 @@ func on_multiselection_exit(area: Area2D) -> void:
 func _reset_builder_grid() -> void:
 	var height := _level_data.height
 	var width := _level_data.width
-	_level_data	= LevelData.new()
+	_level_data = LevelData.new()
 	_level_data.height = height
 	_level_data.width = width
 	for x in range(_level_data.width):
