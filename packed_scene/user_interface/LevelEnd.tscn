@@ -4,10 +4,10 @@
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_1hfem"]
 [ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="4_dmvyx"]
-[ext_resource type="SpriteFrames" uid="uid://bwcqlsnglsfub" path="res://assets/vfx/stars.tres" id="5_7jbgv"]
 [ext_resource type="Shader" path="res://scripts/shaders/LinearReveal.gdshader" id="6_211iv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
 [ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="6_uge2i"]
+[ext_resource type="Texture2D" uid="uid://by12dxftlylwu" path="res://assets/ui/stars_atlas.tres" id="7_54x3e"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="7_dngta"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="7_e8pvp"]
 
@@ -31,7 +31,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_2umli")
-frames = ExtResource("5_7jbgv")
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -84,7 +83,8 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4fm4t")
 layout_mode = 2
-expand_mode = 3
+texture = ExtResource("7_54x3e")
+expand_mode = 1
 stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainter"]
@@ -100,6 +100,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 0
 texture = ExtResource("6_uge2i")
 expand_mode = 1
+stretch_mode = 4
 
 [node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
