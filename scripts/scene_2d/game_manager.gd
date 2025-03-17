@@ -222,7 +222,7 @@ func update_level_progress(move_left: int) -> bool:
 
 func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
 	var result: Array[LevelProgress]
-	for id in range(first - 1, last):
+	for id in range(first, last + 1):
 		var progress := _player_save.get_progress(group, id)
 		if progress != null:
 			result.append(progress)

@@ -51,7 +51,7 @@ func _ready() -> void:
 	for child in pages.get_children():
 		if child is LevelPage:
 			_levels_page.append(child)
-			child.level_deleted.connect(_on_level_deleted)
+			child.on_page_changed.connect(_refresh_next)
 
 	GameManager.on_state_change.connect(_on_state_change)
 	_set_start_point()
@@ -99,7 +99,7 @@ func _check_pages() -> void:
 		GlobalConst.LevelGroup.CUSTOM:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(GameManager.get_num_levels(_world) + 1) / PAGE_SIZE)
-	title.text = "%02d of %d" % [_current_page, _num_pages]
+	title.text = "%02d of %02d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
 		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
@@ -204,14 +204,11 @@ func _on_custom_btn_pressed() -> void:
 	_init_pages()
 
 
-func _on_level_deleted() -> void:
+func _refresh_next() -> void:
 	_check_pages()
-	_init_pages()
-
-
-func update_content() -> void:
-	_check_pages()
-	_init_pages()
+	# next page
+	if _current_page < _num_pages:
+		_levels_page[2].update_page(_world, _current_page + 1)
 
 
 func _process(_delta: float) -> void:

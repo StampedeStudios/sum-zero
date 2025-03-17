@@ -4,7 +4,6 @@ class_name LevelButtonBase extends Button
 const IMPORT_ICON = "res://assets/ui/import_icon.png"
 const PLACEHOLDER_ICON = "res://assets/ui/gear_icon.png"
 const LOCK_ICON = "res://assets/ui/lock_icon.png"
-
 const ZERO_STARS = "res://assets/ui/zero_stars.png"
 const ONE_STAR = "res://assets/ui/one_star.png"
 const TWO_STARS = "res://assets/ui/two_stars.png"
@@ -12,7 +11,7 @@ const THREE_STARS = "res://assets/ui/three_stars.png"
 const EXTRA_STARS = "res://assets/ui/three_stars.png"
 
 
-func costruct(world := GlobalConst.LevelGroup.MAIN, id := -1, is_locked := true, stars := 0) -> void:
+func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
 	if id < 0:
 		match world:
 			GlobalConst.LevelGroup.MAIN:
@@ -46,4 +45,6 @@ func costruct(world := GlobalConst.LevelGroup.MAIN, id := -1, is_locked := true,
 	
 
 func _pressed() -> void:
+	if GameManager.level_ui.has_consume_input:
+		return
 	AudioManager.play_click_sound()

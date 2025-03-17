@@ -110,7 +110,6 @@ func _on_copy_btn_pressed() -> void:
 
 func _on_delete_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.delete_level(_level_id)
 	level_deleted.emit()
 	close()
 

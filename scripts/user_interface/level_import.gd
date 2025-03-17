@@ -1,5 +1,7 @@
 class_name LevelImport extends Control
 
+signal level_imported
+
 const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
 const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
 
@@ -30,9 +32,7 @@ func _on_save_btn_pressed() -> void:
 	else:
 		level_data.name = level_name.text
 		GameManager.save_custom_level(level_data)
-		GameManager.level_ui.update_content()
-		code.text = ""
-		level_name.text = ""
+		level_imported.emit()
 		close()
 
 
