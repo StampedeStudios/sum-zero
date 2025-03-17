@@ -9,7 +9,7 @@ const PLAY_MODE_UI := "res://packed_scene/user_interface/PlayModeUI.tscn"
 
 var _current_mode_index := 0
 
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 @onready var scroll_container: ScrollContainer = %HContainer
 @onready var hbox_container: HBoxContainer = %HBoxContainer
 
@@ -19,7 +19,7 @@ var _current_mode_index := 0
 
 func _ready() -> void:
 	# Animate entry
-	create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+	await panel.open()
 
 
 func setup() -> void:
@@ -68,13 +68,8 @@ func _snap_to_current_mode() -> void:
 	tween.tween_property(scroll_container, "scroll_horizontal", target_scroll, duration)
 
 
-func _animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-
-
 func _close() -> void:
-	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 

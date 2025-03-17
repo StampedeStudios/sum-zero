@@ -8,12 +8,12 @@ var _inserted_code: String
 @onready var paste: Button = %Paste
 @onready var level_name: LineEdit = %LevelName
 @onready var save_btn: Button = %SaveBtn
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 @onready var code: LineEdit = %Code
 
 
 func _ready() -> void:
-	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+	panel.open()
 
 
 func _on_background_gui_input(event: InputEvent) -> void:
@@ -78,13 +78,8 @@ func _update_save_btn() -> void:
 
 
 func close() -> void:
-	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	self.queue_free.call_deferred()
-
-
-func animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _show_error() -> void:

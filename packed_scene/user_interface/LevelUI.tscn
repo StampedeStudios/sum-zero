@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://bpffu8oqt7i7m" path="res://assets/ui/lamp.png" id="6_a5f4w"]
 [ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
-[ext_resource type="PackedScene" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
+[ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tivdf"]
 
@@ -16,11 +16,13 @@
 resource_local_to_scene = true
 shader = ExtResource("4_t4xkr")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+shader_parameter/invert_base_color = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3vuwy"]
 resource_local_to_scene = true
 shader = ExtResource("4_t4xkr")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+shader_parameter/invert_base_color = false
 
 [node name="LevelMenu" type="Control"]
 layout_mode = 3

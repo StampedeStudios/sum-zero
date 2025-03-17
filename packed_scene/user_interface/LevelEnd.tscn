@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=13 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="4_1hfem"]
+[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="4_dmvyx"]
 [ext_resource type="SpriteFrames" uid="uid://bwcqlsnglsfub" path="res://assets/vfx/stars.tres" id="5_7jbgv"]
 [ext_resource type="Shader" path="res://scripts/shaders/LinearReveal.gdshader" id="6_211iv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
@@ -49,6 +50,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("2_0i47p")
+script = ExtResource("4_dmvyx")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1

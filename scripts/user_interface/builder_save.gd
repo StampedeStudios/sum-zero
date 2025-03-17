@@ -12,23 +12,7 @@ var _invalid_level: bool
 @onready var level_name: LineEdit = %LevelName
 @onready var moves: LineEdit = %Moves
 @onready var save_btn: Button = %SaveBtn
-@onready var panel: Panel = %Panel
-
-
-func _ready() -> void:
-	GameManager.on_state_change.connect(_on_state_change)
-	_invalid_moves = true
-	_invalid_name = true
-	_check_valid_info()
-
-	panel.scale = GameManager.ui_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
-	self.hide()
-
-
-func animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
+@onready var panel: AnimatedPanel = %Panel
 
 
 func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
@@ -42,20 +26,13 @@ func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
 	_invalid_name = level_name.text.is_empty()
 	_invalid_level = !is_valid
 	_check_valid_info()
-	self.visible = true
-	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
-
-
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
-	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()
+	await panel.open()
 
 
 func close() -> void:
-	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
-	self.visible = false
+	await panel.close()
 	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	self.queue_free.call_deferred()
 
 
 func _on_save_btn_pressed() -> void:

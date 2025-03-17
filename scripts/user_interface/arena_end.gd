@@ -8,7 +8,7 @@ var _score: int
 var _tween: Tween
 var _summary: GameSummary
 
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 @onready var stats: HBoxContainer = %Stats
 @onready var stats_icon: TextureRect = %StatsIcon
 @onready var stats_multiplier: Label = %StatsMultiplier
@@ -22,8 +22,7 @@ func _ready() -> void:
 	stats.hide()
 	record_icon.hide()
 	_update_score(_score)
-	_tween = get_tree().create_tween()
-	await _tween.tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
+	await panel.open()
 	_calculate_score()
 
 
@@ -57,14 +56,9 @@ func _calculate_score() -> void:
 
 
 func _close(next: GlobalConst.GameState) -> void:
-	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	GameManager.change_state(next)
 	self.queue_free.call_deferred()
-
-
-func _animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func initialize_score(game_summary: GameSummary) -> void:

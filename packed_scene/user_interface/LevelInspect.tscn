@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene load_steps=15 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="2_rmjy0"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_3an21"]
+[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="4_0o6mq"]
 [ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
 [ext_resource type="Texture2D" uid="uid://c0at616n8nxn8" path="res://assets/ui/stars_frames.png" id="5_indje"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
@@ -50,6 +51,7 @@ offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_56b6k")
+script = ExtResource("4_0o6mq")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://ps5hw3lo3yc5"]
+[gd_scene load_steps=25 format=3 uid="uid://ps5hw3lo3yc5"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/arena_end.gd" id="1_25tly"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
@@ -17,6 +17,7 @@
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_lw2sj"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/chain_calculation.gd" id="10_5lirc"]
 [ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="12_70rhp"]
+[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="12_ymho7"]
 
 [sub_resource type="Resource" id="Resource_bu2vx"]
 script = ExtResource("3_2vcy5")
@@ -88,6 +89,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("2_1qk6b")
+script = ExtResource("12_ymho7")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
