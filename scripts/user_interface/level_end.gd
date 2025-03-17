@@ -17,7 +17,7 @@ var _is_record: bool
 
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 @onready var level_score_img: TextureRect = %LevelScoreImg
 @onready var new_record: TextureRect = %NewRecord
 
@@ -25,7 +25,7 @@ var _is_record: bool
 func _ready() -> void:
 	new_record.hide()
 	_update_shader_percentage(0)
-	await create_tween().tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, 0.2).finished
+	await panel.open()
 	_update_score()
 
 
@@ -36,14 +36,9 @@ func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
 
 
 func _close() -> void:
-	await create_tween().tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
-
-
-func _animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _update_score() -> void:

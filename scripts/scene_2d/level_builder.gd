@@ -52,18 +52,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 		GlobalConst.GameState.BUILDER_SAVE:
 			self.visible = true
-			if !GameManager.builder_save:
-				var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
-				var builder_save := scene.instantiate() as BuilderSave
-				get_tree().root.add_child.call_deferred(builder_save)
-				builder_save.on_query_close.connect(_on_save_query_received)
-				GameManager.builder_save = builder_save
-			var level_name := ""
-			var moves := ""
-			if _level_data.name != "":
-				level_name = _level_data.name
-				moves = String.num_int64(_level_data.moves_left)
-			GameManager.builder_save.init_info.call_deferred(level_name, moves, is_valid_data())
+			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
+			var builder_save := scene.instantiate() as BuilderSave
+			builder_save.on_query_close.connect(_on_save_query_received)
+			get_tree().root.add_child(builder_save)
+			var level_name := _level_data.name
+			var moves := str(_level_data.moves_left)
+			builder_save.init_info(level_name, moves, is_valid_data())
 
 		GlobalConst.GameState.BUILDER_RESIZE:
 			self.visible = true
@@ -336,12 +331,16 @@ func on_multiselection_exit(area: Area2D) -> void:
 
 
 func _reset_builder_grid() -> void:
-	_level_data.slider_list.clear()
-	_level_data.cells_list.clear()
+	var height := _level_data.height
+	var width := _level_data.width
+	_level_data	= LevelData.new()
+	_level_data.height = height
+	_level_data.width = width
 	for x in range(_level_data.width):
 		for y in range(_level_data.height):
 			var coord := Vector2i(x, y)
 			_level_data.cells_list[coord] = CellData.new()
+	await get_tree().process_frame
 	construct_level()
 
 

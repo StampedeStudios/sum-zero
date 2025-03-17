@@ -3,7 +3,7 @@ class_name Options extends Control
 const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 var _player_options: PlayerOptions
 
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 @onready var music_btn: Button = %MusicBtn
 @onready var sfx_btn: Button = %SfxBtn
 @onready var tutorial_btn: Button = %TutorialBtn
@@ -20,17 +20,13 @@ func _ready() -> void:
 	var index: int = GlobalConst.AVAILABLE_LANGS.find(_player_options.language)
 	options_btn.selected = index
 
-	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+	await panel.open()
 
-
-func animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func _exit_options() -> void:
 	GameManager.save_player_data()
-	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 

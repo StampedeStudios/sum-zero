@@ -18,22 +18,17 @@ var _level_code: String
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var copy_btn: Button = %CopyBtn
-@onready var panel: Panel = %Panel
+@onready var panel: AnimatedPanel = %Panel
 
 
 func _ready() -> void:
-	create_tween().tween_method(animate, Vector2.ZERO, GameManager.ui_scale, 0.2)
+	await panel.open()
 
 
 func close() -> void:
-	await create_tween().tween_method(animate, GameManager.ui_scale, Vector2.ZERO, 0.2).finished
+	await panel.close()
 	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
-
-
-func animate(animated_scale: Vector2) -> void:
-	panel.scale = animated_scale
-	panel.position = Vector2(get_viewport().size) / 2 - (panel.scale * panel.size / 2)
 
 
 func init_inspector(level_id: int, progress: LevelProgress) -> void:

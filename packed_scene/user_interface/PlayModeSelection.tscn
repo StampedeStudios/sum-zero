@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=16 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/play_mode/puzzle_mode.tres" id="8_gywfq"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
 [ext_resource type="Texture2D" uid="uid://h48pyaujdk6b" path="res://assets/ui/arrow_left.png" id="10_2lfuk"]
+[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="10_r6ujm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k64a5"]
 
@@ -53,6 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k64a5")
+script = ExtResource("10_r6ujm")
 
 [node name="ArenaSelection" type="VBoxContainer" parent="Background/Panel"]
 unique_name_in_owner = true

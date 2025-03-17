@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2701iq6kr7jy"]
+[gd_scene load_steps=8 format=3 uid="uid://c2701iq6kr7jy"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_ncc3j"]
 [ext_resource type="Script" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_5iarc"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="3_vagje"]
+[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="5_gwge7"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_6mlv4"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="7_enxjh"]
 
@@ -42,6 +43,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/panel = ExtResource("3_vagje")
+script = ExtResource("5_gwge7")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 1
