@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="6_3iilm"]
 [ext_resource type="Texture2D" uid="uid://bltremx72y4lg" path="res://assets/ui/lightning_icon.png" id="6_lyil8"]
 [ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="7_0ydmo"]
-[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="8_1aj5k"]
+[ext_resource type="StyleBox" uid="uid://buh2tmpgrlcpe" path="res://assets/resources/themes/transparent_backdrop_panel.tres" id="7_7x6ip"]
 [ext_resource type="Texture2D" uid="uid://bxsitj53044ol" path="res://assets/ui/plus_icon.png" id="8_ud0wv"]
 [ext_resource type="Texture2D" uid="uid://bs8543o34whrb" path="res://assets/ui/trash_icon.png" id="9_yyv7m"]
 [ext_resource type="Texture2D" uid="uid://saxmgl8f8ade" path="res://assets/ui/lock_icon.png" id="10_aav8u"]
@@ -31,7 +31,7 @@ unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = ExtResource("8_1aj5k")
+theme_override_styles/panel = ExtResource("7_7x6ip")
 
 [node name="Control" type="Control" parent="."]
 unique_name_in_owner = true
