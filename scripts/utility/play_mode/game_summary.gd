@@ -1,8 +1,8 @@
 class_name GameSummary
 
 var _levels: Array[LevelSummary]
-var _perfect_chain: int
-var _new_chain: int
+var _perfect_chain: int = 0
+var _new_chain: int = 0
 
 
 func get_levels() -> Array[LevelSummary]:
@@ -19,6 +19,9 @@ func add_completed_level(summary: LevelSummary) -> int:
 		_new_chain += 1
 		if _new_chain > _perfect_chain:
 			_perfect_chain = _new_chain
+	else:
+		_new_chain = 1
+	print("new %d -> best %d" % [_new_chain, _perfect_chain])
 	return _new_chain
 
 
