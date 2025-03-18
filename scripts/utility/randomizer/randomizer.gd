@@ -15,7 +15,20 @@ func generate_level(data: LevelData) -> void:
 	await create_holes(data)
 	await create_block(data)
 	await create_sliders(data)
+	await _check_empty_level(data)
+	
 
+func _check_empty_level(data: LevelData) -> void:
+	var valid_cell: bool
+	for cell_data: CellData in data.cells_list.values():
+		if cell_data.value > 0:
+			valid_cell = true
+			break
+	await get_tree().process_frame
+	if !valid_cell:
+		printerr("Randomizer: grid solved! Generate again")
+		data.cells_list.clear()
+	
 
 func _generate_grid(data: LevelData) -> void:
 	if !_options.grid_opt:
@@ -196,7 +209,7 @@ func create_sliders(data: LevelData) -> void:
 	var possible_sliders: Dictionary
 	await _get_possible_sliders(data, possible_sliders)
 	if possible_sliders.is_empty():
-		printerr("no one slider")
+		printerr("Randomizer: no one slider! Generate again")
 		return
 
 	# filter random sliders with random extesion
@@ -240,11 +253,17 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 						continue
 				_:
 					continue
-
-			if slider_data.reached.size() == slider_data.reachable.size():
-				unnecessaty_moves += 1
-			if opposite_data.reached.size() == opposite_data.reachable.size():
-				unnecessaty_moves += 1
+			var current_full := slider_data.reached.size() == slider_data.reachable.size()
+			var opposite_full := opposite_data.reached.size() == opposite_data.reachable.size()
+			
+			if current_full and opposite_full:
+				unnecessaty_moves += 2
+			elif current_full and !opposite_full:
+				if slider_data.behavior == GlobalConst.AreaBehavior.BY_STEP:
+					unnecessaty_moves += 1
+			elif !current_full and opposite_full:
+				if opposite_data.behavior == GlobalConst.AreaBehavior.BY_STEP:
+					unnecessaty_moves += 1
 		await get_tree().process_frame
 
 	data.moves_left -= unnecessaty_moves
