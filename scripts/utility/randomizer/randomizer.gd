@@ -46,19 +46,21 @@ func _generate_grid(data: LevelData) -> void:
 		"LOWER":
 			while true:
 				await get_tree().process_frame
-				if !_check_probability(grid_options.lower_odd):
+				if size.x > 2 or size.y > 2:
+					size = grid_options.get_lower_size(size)
+				else:
 					break
-				size = grid_options.get_lower_size(size)
-				if size == Vector2i(2, 2):
+				if !_check_probability(grid_options.lower_odd):
 					break
 
 		"UPPER":
 			while true:
 				await get_tree().process_frame
-				if !_check_probability(grid_options.upper_odd):
+				if size.x < 5 or size.y < 5:
+					size = grid_options.get_upper_size(size)
+				else:
 					break
-				size = grid_options.get_upper_size(size)
-				if size == Vector2i(5, 5):
+				if !_check_probability(grid_options.upper_odd):
 					break
 
 	data.width = size.x
@@ -92,9 +94,11 @@ func create_holes(data: LevelData) -> void:
 			"LOWER":
 				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
 				while true:
-					if counter > 1 and _check_probability(hole_options.remove_odd):
+					if counter > 1:
 						counter -= 1
 					else:
+						break
+					if !_check_probability(hole_options.remove_odd):
 						break
 
 			"MAX":
@@ -146,11 +150,13 @@ func create_block(data: LevelData) -> void:
 			"LOWER":
 				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
 				while true:
-					if counter > 1 and _check_probability(blocked_options.remove_odd):
+					if counter > 1:
 						counter -= 1
 					else:
 						break
-
+					if !_check_probability(blocked_options.remove_odd):
+						break
+						
 			"MAX":
 				# max locked count is percetage of all remaing cells
 				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
@@ -253,6 +259,7 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 						continue
 				_:
 					continue
+					
 			var current_full := slider_data.reached.size() == slider_data.reachable.size()
 			var opposite_full := opposite_data.reached.size() == opposite_data.reachable.size()
 			
@@ -483,18 +490,22 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 
 		"LOWER":
 			slider_count = diffusion_range.x
-			while _check_probability(slider_options.lower_odd):
-				slider_count -= 1
-				if slider_count <= 1:
-					slider_count = 1
+			while true:
+				if slider_count > 1:
+					slider_count -= 1
+				else:
+					break
+				if !_check_probability(slider_options.lower_odd):
 					break
 
 		"UPPER":
 			slider_count = diffusion_range.y
-			while _check_probability(slider_options.upper_odd):
-				slider_count += 1
-				if slider_count >= max_diffusion:
-					slider_count = max_diffusion
+			while true:
+				if slider_count < max_diffusion:
+					slider_count += 1
+				else	:
+					break
+				if !_check_probability(slider_options.upper_odd):
 					break
 
 	await get_tree().process_frame
