@@ -15,9 +15,13 @@ var _current_mode_index := 0
 
 @onready var arena_selection: VBoxContainer = %ArenaSelection
 @onready var play_btn: Button = %PlayBtn
+@onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready() -> void:
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.vertical_margin)
+
 	# Animate entry
 	await panel.open()
 

@@ -1,21 +1,21 @@
-[gd_scene load_steps=25 format=3 uid="uid://ps5hw3lo3yc5"]
+[gd_scene load_steps=26 format=3 uid="uid://ps5hw3lo3yc5"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/arena_end.gd" id="1_25tly"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/score_calculation.gd" id="2_1wtv5"]
-[ext_resource type="Texture2D" uid="uid://ch08g4tpyveda" path="res://assets/scenes_2d/automatic.png" id="3_1lmqk"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/star_calculation.gd" id="3_2vcy5"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_ty0yv"]
-[ext_resource type="Texture2D" uid="uid://bn6vi1j15j7om" path="res://assets/ui/zero_stars.png" id="4_6difq"]
+[ext_resource type="Texture2D" uid="uid://cjdi5oe8gstjm" path="res://assets/ui/zero_stars_blitz.png" id="4_1wyoo"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="4_i3esg"]
-[ext_resource type="Texture2D" uid="uid://1a217fx7r2p7" path="res://assets/ui/one_star.png" id="5_lsqoe"]
+[ext_resource type="Texture2D" uid="uid://3xf2heq2gc04" path="res://assets/ui/three_stars_blitz.png" id="4_n53ea"]
+[ext_resource type="Texture2D" uid="uid://bddhptimka45i" path="res://assets/ui/one_stars_blitz.png" id="4_y8amu"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="6_552vy"]
-[ext_resource type="Texture2D" uid="uid://chfb63dgd0o14" path="res://assets/ui/two_stars.png" id="6_fnyoi"]
-[ext_resource type="Texture2D" uid="uid://bknbso2dh14ek" path="res://assets/ui/three_stars.png" id="7_2l2yr"]
+[ext_resource type="Texture2D" uid="uid://dutxv6bnvtt0g" path="res://assets/ui/two_stars_blitz.png" id="6_eaxuy"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/skip_calculation.gd" id="8_y6ku0"]
-[ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="9_63i6p"]
+[ext_resource type="Texture2D" uid="uid://c0ey1sai6yl66" path="res://assets/ui/skip_blitz.png" id="9_ev54t"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_lw2sj"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/chain_calculation.gd" id="10_5lirc"]
+[ext_resource type="Texture2D" uid="uid://br3q7cabiw1k4" path="res://assets/ui/chain_blitz.png" id="11_lu6ib"]
 [ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="12_70rhp"]
 [ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="12_ymho7"]
 
@@ -25,7 +25,7 @@ mode = 1
 star_completation = 0
 value = 10
 boost = 2.0
-step_icon = ExtResource("4_6difq")
+step_icon = ExtResource("4_1wyoo")
 
 [sub_resource type="Resource" id="Resource_3yu0s"]
 script = ExtResource("3_2vcy5")
@@ -33,7 +33,7 @@ mode = 1
 star_completation = 1
 value = 20
 boost = 2.0
-step_icon = ExtResource("5_lsqoe")
+step_icon = ExtResource("4_y8amu")
 
 [sub_resource type="Resource" id="Resource_d7sui"]
 script = ExtResource("3_2vcy5")
@@ -41,7 +41,7 @@ mode = 1
 star_completation = 2
 value = 40
 boost = 2.5
-step_icon = ExtResource("6_fnyoi")
+step_icon = ExtResource("6_eaxuy")
 
 [sub_resource type="Resource" id="Resource_63kpr"]
 script = ExtResource("3_2vcy5")
@@ -49,18 +49,21 @@ mode = 1
 star_completation = 3
 value = 80
 boost = 3.0
-step_icon = ExtResource("7_2l2yr")
+step_icon = ExtResource("4_n53ea")
 
 [sub_resource type="Resource" id="Resource_81rd0"]
 script = ExtResource("8_y6ku0")
 boost = 1.2
 malus = 50
-step_icon = ExtResource("9_63i6p")
+step_icon = ExtResource("9_ev54t")
 
 [sub_resource type="Resource" id="Resource_cbk86"]
 script = ExtResource("10_5lirc")
 mode = 0
 value = 100
+step_icon = ExtResource("11_lu6ib")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s74rf"]
 
 [node name="ArenaEnd" type="Control"]
 layout_mode = 3
@@ -121,18 +124,30 @@ alignment = 1
 [node name="StatsIcon" type="TextureRect" parent="Panel/MarginContainer/Stats"]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("3_1lmqk")
-expand_mode = 3
+texture = ExtResource("4_1wyoo")
+expand_mode = 2
 
 [node name="StatsMultiplier" type="Label" parent="Panel/MarginContainer/Stats"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_ty0yv")
+theme_override_fonts/font = ExtResource("4_i3esg")
 theme_override_font_sizes/font_size = 64
-text = "x00"
+text = "1"
 
-[node name="Score" type="Label" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_ty0yv")
+text = "SCORE"
+horizontal_alignment = 1
+
+[node name="Score" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ty0yv")
@@ -140,6 +155,12 @@ theme_override_fonts/font = ExtResource("4_i3esg")
 theme_override_font_sizes/font_size = 100
 text = "000000"
 horizontal_alignment = 1
+
+[node name="Separator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+theme_override_styles/separator = SubResource("StyleBoxEmpty_s74rf")
 
 [node name="Actions" type="HBoxContainer" parent="Panel/MarginContainer"]
 unique_name_in_owner = true
@@ -162,7 +183,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("9_lw2sj")
-text = "REPLAY"
+text = "RESTART"
 icon_alignment = 2
 
 [connection signal="gui_input" from="Panel" to="." method="_on_panel_gui_input"]
