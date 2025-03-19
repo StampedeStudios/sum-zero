@@ -1,5 +1,6 @@
 Keys,en,it,fr,es,de
 PLAY,Play,Gioca,Jouer,Jugar,Spielen
+RESTART,Restart,Ricomincia,Rejouer,Repetición,Wiederholen
 LEVELS,Levels,Livelli,Niveaux,Niveles,Level
 EDITOR,Editor,Editor,Éditeur,Editor,Editor
 OPTIONS,Options,Opzioni,Options,Opciones,Optionen
@@ -17,6 +18,7 @@ LEV_NAME,Name,Nome,Nom,Nombre,Naam
 MOVES,Moves,Mosse,Mouvements,Acción,Bewegen
 SAVE,Save,Salva,Sauver,Salvar,Speichern
 CODE,Code,Codice,Code,Código,Code
+SCORE,Score,Punteggio,Score,Puntaje,Punktzahl
 
 THREE_STAR_MSG_1,"3 Star victory!","Vittoria stellare!","Victoire étoilée!","¡Victoria estrellada!","Sieg mit Sternen!"
 THREE_STAR_MSG_2,"Flawless finish!","Conclusione perfetta!","Finition impeccable!","¡Final perfecto!","Makelloser Abschluss!"

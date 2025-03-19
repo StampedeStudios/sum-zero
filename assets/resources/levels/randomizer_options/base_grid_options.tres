@@ -6,8 +6,8 @@
 script = ExtResource("1_b8wt4")
 size_rules = {
 "LOWER": 0,
-"STANDARD": 85,
-"UPPER": 15
+"STANDARD": 100,
+"UPPER": 0
 }
 lower_odd = 20
 upper_odd = 30

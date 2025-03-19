@@ -13,12 +13,13 @@ var _summary: GameSummary
 @onready var stats_icon: TextureRect = %StatsIcon
 @onready var stats_multiplier: Label = %StatsMultiplier
 @onready var score: Label = %Score
+@onready var score_label: Label = %ScoreLabel
+@onready var separator: HSeparator = %Separator
 @onready var actions: HBoxContainer = %Actions
 @onready var record_icon: TextureRect = %RecordIcon
 
 
 func _ready() -> void:
-	actions.hide()
 	stats.hide()
 	record_icon.hide()
 	_update_score(_score)
@@ -28,6 +29,10 @@ func _ready() -> void:
 
 func _calculate_score() -> void:
 	for step: ScoreCalculation in steps:
+		if step.get_multiplier(_summary) == 0:
+			# If does not change total score, should not be visible
+			continue
+
 		var old_score := _score
 		var multiplier := step.get_multiplier(_summary)
 		_score = step.update_score(_score, multiplier)
@@ -49,10 +54,16 @@ func _calculate_score() -> void:
 		_tween.tween_interval(0.5)
 		await _tween.finished
 		record_icon.show()
-	_tween = get_tree().create_tween()
+	_tween = create_tween()
 	_tween.tween_interval(0.5)
+
+	score_label.show()
+	_tween.tween_method(_update_separation, 0, 250, 0.3)
 	await _tween.finished
-	actions.show()
+
+
+func _update_separation(separation: int) -> void:
+	separator.add_theme_constant_override("separation", separation)
 
 
 func _close(next: GlobalConst.GameState) -> void:
@@ -79,7 +90,7 @@ func _update_score(new_score: int) -> void:
 
 
 func _update_stats_multiplier(new_multiplier: int) -> void:
-	stats_multiplier.text = "x%02d" % [new_multiplier]
+	stats_multiplier.text = "*%01d" % [new_multiplier]
 
 
 func _on_panel_gui_input(event: InputEvent) -> void:
