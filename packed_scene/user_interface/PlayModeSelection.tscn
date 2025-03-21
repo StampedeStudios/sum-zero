@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=17 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
@@ -17,6 +17,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k64a5"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vniwo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xpiqf"]
 
 [node name="PlayModeSelection" type="Control"]
 layout_mode = 3
@@ -92,11 +94,6 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("10_2lfuk")
 flat = true
 
-[node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/Container/LeftBox"]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_vertical = 3
-
 [node name="Content" type="VBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,16 +113,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection/Container/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-focus_mode = 0
-theme = ExtResource("9_r4e6y")
-text = "PLAY"
-icon_alignment = 2
-
 [node name="RightBox" type="VBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 
@@ -142,13 +129,31 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("8_du4gt")
 flat = true
 
-[node name="HSeparator2" type="HSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/Container/RightBox"]
-modulate = Color(1, 1, 1, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
-size_flags_vertical = 3
+
+[node name="VSeparator" type="VSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
+
+[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+focus_mode = 0
+theme = ExtResource("9_r4e6y")
+text = "PLAY"
+icon_alignment = 2
+
+[node name="VSeparator2" type="VSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/Container/LeftBox/LeftBtn" to="." method="_on_left_btn_pressed"]
 [connection signal="scroll_ended" from="Background/Panel/MarginContainer/ArenaSelection/Container/Content/HContainer" to="." method="_on_h_container_scroll_ended"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/Container/Content/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/Container/RightBox/RightBtn" to="." method="_on_right_btn_pressed"]
+[connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]

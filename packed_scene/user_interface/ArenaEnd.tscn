@@ -108,10 +108,11 @@ theme_override_constants/margin_bottom = 40
 
 [node name="RecordIcon" type="TextureRect" parent="Panel/MarginContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = ExtResource("12_70rhp")
 expand_mode = 3
 
