@@ -53,10 +53,10 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			_render_tutorial()
 		GlobalConst.GameState.LEVEL_START:
 			self.show()
-		GlobalConst.GameState.PLAY_LEVEL:
-			container.show()
 			_moves_count = 0
 			_reset_count = 0
+		GlobalConst.GameState.PLAY_LEVEL:
+			container.show()
 			if _current_mode.timer_options:
 				arena_time.show()
 				_timer.start()
