@@ -17,12 +17,19 @@ var _summary: GameSummary
 @onready var separator: HSeparator = %Separator
 @onready var actions: HBoxContainer = %Actions
 @onready var record_icon: TextureRect = %RecordIcon
+@onready var replay_btn: Button = %ReplayBtn
 
 
 func _ready() -> void:
+	score.add_theme_font_size_override("font_size", int(GameManager.title_font_size * 1.5))
+	stats_multiplier.add_theme_font_size_override("font_size", GameManager.title_font_size)
+	score_label.add_theme_font_size_override("font_size", GameManager.title_font_size)
+	replay_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
+
 	stats.hide()
 	record_icon.hide()
 	_update_score(_score)
+
 	await panel.open()
 	_calculate_score()
 
@@ -48,17 +55,20 @@ func _calculate_score() -> void:
 		await _tween.finished
 		stats.hide()
 
+	_tween = create_tween()
+	_tween.tween_interval(0.5)
+
+	_tween.tween_method(_update_separation, 0, 250, 0.3)
+
+	await _tween.finished
+
 	var new_record: bool = SaveManager.update_blitz_score(_score)
 	if new_record:
 		_tween = get_tree().create_tween()
 		_tween.tween_interval(0.5)
 		await _tween.finished
 		record_icon.show()
-	_tween = create_tween()
-	_tween.tween_interval(0.5)
 
-	score_label.show()
-	_tween.tween_method(_update_separation, 0, 250, 0.3)
 	await _tween.finished
 
 
@@ -95,4 +105,5 @@ func _update_stats_multiplier(new_multiplier: int) -> void:
 
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		_tween.set_speed_scale(10)
+		if _tween:
+			_tween.set_speed_scale(10)

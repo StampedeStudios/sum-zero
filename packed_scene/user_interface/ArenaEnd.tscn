@@ -51,17 +51,17 @@ value = 80
 boost = 3.0
 step_icon = ExtResource("4_n53ea")
 
-[sub_resource type="Resource" id="Resource_81rd0"]
-script = ExtResource("8_y6ku0")
-boost = 1.2
-malus = 50
-step_icon = ExtResource("9_ev54t")
-
 [sub_resource type="Resource" id="Resource_cbk86"]
 script = ExtResource("10_5lirc")
 mode = 0
 value = 100
 step_icon = ExtResource("11_lu6ib")
+
+[sub_resource type="Resource" id="Resource_81rd0"]
+script = ExtResource("8_y6ku0")
+boost = 1.2
+malus = 50
+step_icon = ExtResource("9_ev54t")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s74rf"]
 
@@ -73,7 +73,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_25tly")
-steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_bu2vx"), SubResource("Resource_3yu0s"), SubResource("Resource_d7sui"), SubResource("Resource_63kpr"), SubResource("Resource_81rd0"), SubResource("Resource_cbk86")])
+steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_bu2vx"), SubResource("Resource_3yu0s"), SubResource("Resource_d7sui"), SubResource("Resource_63kpr"), SubResource("Resource_cbk86"), SubResource("Resource_81rd0")])
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
@@ -109,10 +109,11 @@ theme_override_constants/margin_bottom = 40
 [node name="RecordIcon" type="TextureRect" parent="Panel/MarginContainer"]
 unique_name_in_owner = true
 visible = false
+z_index = 10
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 8
+size_flags_vertical = 0
 texture = ExtResource("12_70rhp")
 expand_mode = 3
 
@@ -125,7 +126,7 @@ alignment = 1
 [node name="StatsIcon" type="TextureRect" parent="Panel/MarginContainer/Stats"]
 unique_name_in_owner = true
 layout_mode = 2
-texture = ExtResource("4_1wyoo")
+texture = ExtResource("4_n53ea")
 expand_mode = 2
 
 [node name="StatsMultiplier" type="Label" parent="Panel/MarginContainer/Stats"]
@@ -179,6 +180,7 @@ theme_override_constants/icon_max_width = 96
 icon = ExtResource("6_552vy")
 
 [node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/Actions"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.0

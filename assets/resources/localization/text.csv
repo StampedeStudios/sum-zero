@@ -1,6 +1,6 @@
 Keys,en,it,fr,es,de
 PLAY,Play,Gioca,Jouer,Jugar,Spielen
-RESTART,Restart,Ricomincia,Rejouer,Repetición,Wiederholen
+RESTART,Restart,Riavvia,Relancer,Reiniciar,Neustart
 LEVELS,Levels,Livelli,Niveaux,Niveles,Level
 EDITOR,Editor,Editor,Éditeur,Editor,Editor
 OPTIONS,Options,Opzioni,Options,Opciones,Optionen
@@ -32,6 +32,9 @@ ONE_STAR_MSG_3,"A win is a win!","Una vittoria è una vittoria(?)","Une victoire
 ZERO_STAR_MSG_1,"At least you finished!","Almeno...hai finito!","Au moins tu as fini!","¡Al menos terminaste!","Wenigstens hast du es beendet!"
 ZERO_STAR_MSG_2,"A win... kinda.","Una vittoria... più o meno.","Une victoire... à peu près.","Una victoria... más o menos.","Ein Sieg... irgendwie."
 ZERO_STAR_MSG_3,"Room for improvement!","Puoi fare di meglio!","Il y a place à l'amélioration!","¡Hay margen de mejora!","Mehr drin!"
+EXTRA_STAR_MSG_1,"You broke our solution!","Meglio del previsto!","Incroyable astuce!","¡Esto no estaba previsto!","Unmöglich clever!"
+EXTRA_STAR_MSG_2,"Beyond brilliant!","Semplicemente geniale!","Au-delà du brillant !","¡Más que brillante!","Einfach genial!"
+EXTRA_STAR_MSG_3,"Developer's jaw dropped.","Che colpo di genio.","Chapeau bas!","¡Menuda sorpresa!","Absolut unglaublich!"
 
 CELLS_DOWN,"[center][color=black]Bring all cells down to zero to win.","[center][color=black]Porta tutte le celle a zero per vincere.","[center][color=black]Ramenez toutes les cellules à zéro pour gagner.","[center][color=black]Lleva todas las celdas a cero para ganar.","[center][color=black]Bringe alle Zellen auf Null, um zu gewinnen."
 ONE_MOVE,"[center][color=black]Each slider movement is considered as 1 move.","[center][color=black]Ogni movimento di 'Slider' è considerato come 1 mossa.","[center][color=black]Chaque mouvement du 'Slider' est considéré comme un mouvement.","[center][color=black]Cada movimiento del 'Slider' se considera como 1 movimiento.","[center][color=black]Jede Bewegung des 'Slider' wird als 1 Zug betrachtet."
