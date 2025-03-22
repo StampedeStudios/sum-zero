@@ -12,11 +12,10 @@ var _player_options: PlayerOptions
 
 func _ready() -> void:
 	for child: Node in get_tree().get_nodes_in_group("labels"):
-		child.add_theme_font_size_override("font_size", GameManager.title_font_size)
+		child.add_theme_font_size_override("font_size", GameManager.text_font_size)
 
-	options_btn.get_popup().add_theme_font_size_override(
-		"font_size", GameManager.small_text_font_size
-	)
+	var font_size := GameManager.small_text_font_size
+	options_btn.get_popup().add_theme_font_size_override("font_size", font_size)
 
 	_player_options = SaveManager.get_options()
 
