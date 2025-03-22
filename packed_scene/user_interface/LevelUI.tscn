@@ -1,26 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=11 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2fw0e"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_kqnek"]
-[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="4_t4xkr"]
 [ext_resource type="Texture2D" uid="uid://bpffu8oqt7i7m" path="res://assets/ui/lamp.png" id="6_a5f4w"]
 [ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
 [ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
+[ext_resource type="Theme" uid="uid://4knxac0hwf4n" path="res://assets/resources/themes/simple.tres" id="9_7bhus"]
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_28173"]
-resource_local_to_scene = true
-shader = ExtResource("4_t4xkr")
-shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
-shader_parameter/invert_base_color = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3vuwy"]
-resource_local_to_scene = true
-shader = ExtResource("4_t4xkr")
-shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
-shader_parameter/invert_base_color = false
+[ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="9_mex7s"]
 
 [node name="LevelMenu" type="Control"]
 layout_mode = 3
@@ -108,12 +97,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="Left" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls"]
+[node name="Left" type="Button" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_28173")
 layout_mode = 2
 size_flags_vertical = 4
-texture_normal = ExtResource("3_2fw0e")
+theme = ExtResource("9_7bhus")
+icon = ExtResource("3_2fw0e")
 
 [node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
@@ -125,13 +114,12 @@ text = "1 ~ 9"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Right" type="TextureButton" parent="MarginContainer/VBoxContainer/Controls"]
+[node name="Right" type="Button" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_3vuwy")
 layout_mode = 2
 size_flags_vertical = 4
-texture_normal = ExtResource("3_2fw0e")
-flip_h = true
+theme = ExtResource("9_7bhus")
+icon = ExtResource("9_mex7s")
 
 [node name="Pages" type="HBoxContainer" parent="."]
 unique_name_in_owner = true

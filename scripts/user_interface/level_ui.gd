@@ -20,8 +20,8 @@ var _scroll_range: Vector2
 var _tween: Tween
 var _levels_page: Array[LevelPage]
 
-@onready var left: TextureButton = %Left
-@onready var right: TextureButton = %Right
+@onready var left: Button = %Left
+@onready var right: Button = %Right
 @onready var title: Label = %Title
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
@@ -41,6 +41,11 @@ func _ready() -> void:
 	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+
+	left.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+	right.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+	world_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
+	custom_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
 
 	_page_width = get_viewport().size.x
 	pages.size.x = _page_width * 3
@@ -106,23 +111,19 @@ func _check_pages() -> void:
 	title.text = "%02d of %02d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
-		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 		_levels_page[0].toggle_page(false)
 		_scroll_range.y = _page_width / 10
 	else:
 		left.disabled = false
-		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 		_levels_page[0].toggle_page(true)
 		_scroll_range.y = _page_width
 
 	if _current_page >= _num_pages:
 		right.disabled = true
-		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 		_levels_page[2].toggle_page(false)
 		_scroll_range.x = -_page_width / 10
 	else:
 		right.disabled = false
-		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 		_levels_page[2].toggle_page(true)
 		_scroll_range.x = -_page_width
 
