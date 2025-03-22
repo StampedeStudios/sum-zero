@@ -136,7 +136,7 @@ offset_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-mouse_filter = 0
+mouse_filter = 2
 
 [node name="Page" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
@@ -152,4 +152,3 @@ layout_mode = 2
 [connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/CustomBtn" to="." method="_on_custom_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Right" to="." method="_on_right_pressed"]
-[connection signal="gui_input" from="Pages" to="." method="_on_pages_gui_input"]

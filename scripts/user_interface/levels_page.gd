@@ -1,6 +1,7 @@
 class_name LevelPage extends Control
 
 signal on_page_changed
+signal on_start_drag
 
 const LEVEL_INSPECT = "res://packed_scene/user_interface/LevelInspect.tscn"
 const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspect.tscn"
@@ -112,3 +113,9 @@ func _unlock_level(id: int) -> void:
 func _import_level() -> void:
 	refresh_page()
 	on_page_changed.emit()
+
+
+func _on_level_grid_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		if event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			on_start_drag.emit()
