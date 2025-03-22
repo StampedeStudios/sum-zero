@@ -34,6 +34,13 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("crea"):
+		var solver := Solver.new()
+		get_tree().root.add_child(solver)
+		await solver.find_solution(_current_level)
+
+
 func init_level(current_level: LevelData) -> void:
 	_clear()
 	if current_level == null:

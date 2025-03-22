@@ -2,21 +2,62 @@ class_name Solver extends Node
 
 const ITERATION_PER_FRAME := 1000
 
-# Move: Vector3i
-# x: slider_coord.x
-# y: slider_coord.y
-# z: last_extesion
-
 class SliderRange:
 	var effect: GlobalConst.AreaEffect
 	var behavior: GlobalConst.AreaBehavior
 	var reachable: Array[Vector2i]
 
+class Action:
+	var cell_affected: Array[Vector2i]
+	var effect: GlobalConst.AreaEffect
+	var is_applied: bool
+
+
+class SolverState:
+	var updated_cell: Dictionary
+	var updated_move: Array[Vector3i]
+
+	func _init(cell_list: Dictionary, moves: Array[Vector3i], next_action: Action) -> void:
+		updated_cell = cell_list.duplicate()
+		updated_move = moves
+		
+		for coord: Vector2i in next_action.cell_affected:
+			var cell_state := updated_cell.get(coord) as Vector3i
+			
+			# stack update
+			cell_state.z = cell_state.z + 1 if next_action.is_applied else cell_state.z - 1
+					
+			# apply effect
+			match next_action.effect:
+				GlobalConst.AreaEffect.ADD:
+					cell_state.x = cell_state.x + 1 if next_action.is_applied else cell_state.x - 1
+				GlobalConst.AreaEffect.SUBTRACT:
+					cell_state.x = cell_state.x - 1 if next_action.is_applied else cell_state.x + 1
+				GlobalConst.AreaEffect.CHANGE_SIGN:
+					cell_state.x *= -1
+				GlobalConst.AreaEffect.BLOCK:
+					cell_state.y = int(next_action.is_applied)
+					
+			updated_cell[coord] = cell_state
+
+	func is_solution() -> bool:
+		for cell_state: Vector3i in updated_cell.values():
+			if cell_state.y == 0 and cell_state.x != 0:
+				# not blocked and not zero
+				return false
+		return true
+
+# Move: Vector3i
+# x: slider_coord.x
+# y: slider_coord.y
+# z: last_extesion
+
 # CellState: Vector3i
 # x: cell_value
 # y: is_blocked
 # z: stack_count
-	
+
+var visited: Dictionary
 var branches: Array[SolverState]
 var sliders: Dictionary
 var iteration := 0
@@ -31,6 +72,10 @@ func find_solution(level_data: LevelData) -> void:
 	await _calculate_next_move(cells, [])
 	
 	while true:
+		if branches.is_empty():
+			print("no solution")
+			return
+		
 		print("branch number: ", branches.size())
 		# check solved
 		for branch in branches:
@@ -39,7 +84,7 @@ func find_solution(level_data: LevelData) -> void:
 				time = Time.get_ticks_msec() - time
 				print("solution milliseconds: ", time)
 				return
-				
+						
 		# next moves
 		var old_branches := branches.duplicate()
 		branches.clear()
@@ -49,7 +94,7 @@ func find_solution(level_data: LevelData) -> void:
 		
 
 func _calculate_next_move(cell_updated: Dictionary, moves: Array[Vector3i]) -> void:
-	for slider_coord: Vector2i in sliders.keys():
+	for slider_coord: Vector2i in sliders.keys():		
 		# calculate last extension and move count
 		var move_count: int = 0
 		var prev_extension: int = 0
@@ -98,13 +143,12 @@ func _calculate_next_move(cell_updated: Dictionary, moves: Array[Vector3i]) -> v
 					new_move.z = prev_extension + i + 1
 					var new_moves := moves.duplicate(true)
 					new_moves.append(new_move)
-					var next_action := SolverState.Action.new()
+					var next_action := Action.new()
 					next_action.cell_affected = cell_affected
 					next_action.is_applied = true
 					next_action.effect = slider_range.effect
 					var new_state := SolverState.new(cell_updated, new_moves, next_action)
-					branches.append(new_state)
-					await _new_iteration()
+					await _try_add_state(new_state)	
 						
 			GlobalConst.AreaBehavior.FULL:
 				# try reach max extesion
@@ -130,16 +174,20 @@ func _calculate_next_move(cell_updated: Dictionary, moves: Array[Vector3i]) -> v
 						new_move.z = cell_affected.size()
 						var new_moves := moves.duplicate(true)
 						new_moves.append(new_move)
-						var next_action := SolverState.Action.new()
+						var next_action := Action.new()
 						next_action.cell_affected = cell_affected
 						next_action.is_applied = true
 						next_action.effect = slider_range.effect
 						var new_state := SolverState.new(cell_updated, new_moves, next_action)
-						branches.append(new_state)
-						await _new_iteration()
-		
+						await _try_add_state(new_state)
 
-func _new_iteration() -> void:
+
+func _try_add_state(state: SolverState) -> void:
+	# check state alredy visited
+	var grid_hash := _generate_hash(state.updated_cell)
+	if !visited.has(grid_hash):
+		visited[grid_hash] = true
+		branches.append(state)
 	iteration += 1
 	if iteration % ITERATION_PER_FRAME == 0:
 		print("end frame")
@@ -208,3 +256,15 @@ func _get_slider_extension(slider_coord: Vector2i, data: LevelData) -> Array[Vec
 			break
 		result.append(coord)
 	return result
+
+
+func _generate_hash(cell_list: Dictionary) -> PackedByteArray:
+	var hash_data := []
+	for coord: Vector2i in cell_list.keys():
+		var cell := cell_list[coord] as Vector3i
+		hash_data.append(coord.x)
+		hash_data.append(coord.y)
+		hash_data.append(cell.x)
+		hash_data.append(cell.y)
+		hash_data.append(cell.z)
+	return hash_data
