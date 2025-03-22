@@ -87,14 +87,13 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 	new_branches = _thread_calculate_next_moves(cells, [])
 	
 	while !solution_found:
-		await get_tree().process_frame
 		# Aggiorna i branch con i nuovi trovati
 		branches = new_branches.duplicate()
 		new_branches.clear()
 		print("Branch number: ", branches.size())
 					
 		# Avvia thread per processare batch di branch
-		_process_branches_parallel()
+		await _process_branches_parallel()
 		
 		# Aspetta che tutti i thread finiscano
 		for i in range(threads.size()):
@@ -126,6 +125,7 @@ func _process_branches_parallel() -> void:
 			
 			# Avvia il thread con il batch
 			threads[i].start(_thread_process_batch.bind(batch))
+			await get_tree().process_frame
 		
 		# Aspetta che tutti i thread finiscano
 		for i in range(threads.size()):
