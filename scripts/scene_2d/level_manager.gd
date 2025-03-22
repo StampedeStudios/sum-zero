@@ -39,7 +39,7 @@ func _input(event: InputEvent) -> void:
 		var solver := Solver.new()
 		get_tree().root.add_child(solver)
 		await solver.find_solution(_current_level)
-
+		solver.queue_free.call_deferred()
 
 func init_level(current_level: LevelData) -> void:
 	_clear()

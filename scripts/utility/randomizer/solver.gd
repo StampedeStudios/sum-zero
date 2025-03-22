@@ -256,15 +256,24 @@ func _get_slider_extension(slider_coord: Vector2i, data: LevelData) -> Array[Vec
 			break
 		result.append(coord)
 	return result
-
-
+	
+	
 func _generate_hash(cell_list: Dictionary) -> PackedByteArray:
-	var hash_data := []
+	var hash_data := PackedByteArray()	
 	for coord: Vector2i in cell_list.keys():
 		var cell := cell_list[coord] as Vector3i
-		hash_data.append(coord.x)
-		hash_data.append(coord.y)
-		hash_data.append(cell.x)
-		hash_data.append(cell.y)
-		hash_data.append(cell.z)
+
+		# Normalizza valori per avere sempre positivi
+		var cx := coord.x - 2  # (0-3 invece di 2-5)
+		var cy := coord.y - 2  # (0-3 invece di 2-5)
+		var cell_x := cell.x + 4  # (0-8 invece di -4 a 4)
+		var cell_y := cell.y      # (0-1, già ok)
+		var cell_z := cell.z      # (0-4, già ok)
+
+		# Codifica in un intero usando bit-shifting
+		var compressed := (cx << 10) | (cy << 8) | (cell_x << 4) | (cell_y << 3) | cell_z
+
+		# Aggiunge i byte compressi all'array
+		hash_data.append(compressed >> 8)  # Byte alto
+		hash_data.append(compressed & 0xFF)  # Byte basso		
 	return hash_data
