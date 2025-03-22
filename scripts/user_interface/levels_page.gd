@@ -18,8 +18,10 @@ func _ready() -> void:
 	add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-	level_grid.add_theme_constant_override("h_separation", GameManager.vertical_margin)
-	level_grid.add_theme_constant_override("v_separation", GameManager.vertical_margin)
+
+	level_grid.add_theme_constant_override("h_separation", int(GameManager.vertical_margin / 2.0))
+	level_grid.add_theme_constant_override("v_separation", int(GameManager.vertical_margin / 2.0))
+
 	for child in level_grid.get_children():
 		if child is LevelButtonBase:
 			_levels.append(child)
