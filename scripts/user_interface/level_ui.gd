@@ -49,14 +49,15 @@ func _ready() -> void:
 
 	_page_width = get_viewport().size.x
 	pages.size.x = _page_width * 3
-	pages.size.y = get_viewport().size.y - 350 - GameManager.vertical_margin * 2
+	pages.size.y = get_viewport().size.y 
 	pages.position.x = _page_width / 2 - pages.size.x / 2
-	pages.position.y = get_viewport().size.y - 128 - GameManager.vertical_margin - pages.size.y
+	pages.position.y = get_viewport().size.y - pages.size.y
 
 	for child in pages.get_children():
 		if child is LevelPage:
 			_levels_page.append(child)
 			child.on_page_changed.connect(_refresh_next)
+			child.on_start_drag.connect(_on_pages_drag)
 
 	GameManager.on_state_change.connect(_on_state_change)
 	_set_start_point()
@@ -256,9 +257,8 @@ func _end_animation() -> void:
 	_has_movement = false
 
 
-func _on_pages_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse:
-		if event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_movement:
-			_start_drag = get_global_mouse_position().x
-			_start_position = pages.global_position.x
-			_has_drag = true
+func _on_pages_drag() -> void:
+	if !_has_movement:
+		_start_drag = get_global_mouse_position().x
+		_start_position = pages.global_position.x
+		_has_drag = true
