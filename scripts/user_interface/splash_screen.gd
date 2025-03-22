@@ -13,6 +13,8 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
+	version_label.add_theme_font_size_override("font_size", GameManager.text_font_size)
+
 	var new_scale: Vector2 = GameManager.ui_scale * 0.7
 	var x: float = get_viewport_rect().size.x
 	var y: float = get_viewport_rect().size.y
