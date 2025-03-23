@@ -49,7 +49,7 @@ func _ready() -> void:
 
 	_page_width = get_viewport().size.x
 	pages.size.x = _page_width * 3
-	pages.size.y = get_viewport().size.y 
+	pages.size.y = get_viewport().size.y
 	pages.position.x = _page_width / 2 - pages.size.x / 2
 	pages.position.y = get_viewport().size.y - pages.size.y
 
@@ -68,7 +68,6 @@ func _ready() -> void:
 func _set_start_point() -> void:
 	# Set starting page where the next playable level is
 	var active_level_id: int = GameManager.get_active_level_id()
-	print(active_level_id)
 	if active_level_id <= 0:
 		active_level_id = SaveManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)

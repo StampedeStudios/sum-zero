@@ -192,6 +192,7 @@ func _on_level_complete() -> void:
 			summary.set_star_count(_current_level.moves_left, _moves_count)
 			summary.reset_used = _reset_count
 			var chain := _game_summary.add_completed_level(summary)
+			# TODO: show level streak
 			print(chain)
 		_get_new_random_level()
 

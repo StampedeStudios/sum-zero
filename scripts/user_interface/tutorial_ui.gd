@@ -55,7 +55,6 @@ func _on_next_btn_pressed() -> void:
 
 		if _current_hint == _tips.size() - 1:
 			play_btn.text = tr("PLAY")
-		print(_current_hint)
 
 	else:
 		on_tutorial_closed.emit()

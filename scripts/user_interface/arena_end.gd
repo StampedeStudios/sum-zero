@@ -13,7 +13,6 @@ var _summary: GameSummary
 @onready var stats_icon: TextureRect = %StatsIcon
 @onready var stats_multiplier: Label = %StatsMultiplier
 @onready var score: Label = %Score
-@onready var score_label: Label = %ScoreLabel
 @onready var separator: HSeparator = %Separator
 @onready var actions: HBoxContainer = %Actions
 @onready var record_icon: TextureRect = %RecordIcon
@@ -21,11 +20,6 @@ var _summary: GameSummary
 
 
 func _ready() -> void:
-	score.add_theme_font_size_override("font_size", int(GameManager.title_font_size * 1.5))
-	stats_multiplier.add_theme_font_size_override("font_size", GameManager.title_font_size)
-	score_label.add_theme_font_size_override("font_size", GameManager.title_font_size)
-	replay_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-
 	stats.hide()
 	record_icon.hide()
 	_update_score(_score)

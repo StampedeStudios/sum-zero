@@ -16,7 +16,7 @@ func generate_level(data: LevelData) -> void:
 	await create_block(data)
 	await create_sliders(data)
 	await _check_empty_level(data)
-	
+
 
 func _check_empty_level(data: LevelData) -> void:
 	var valid_cell: bool
@@ -26,9 +26,9 @@ func _check_empty_level(data: LevelData) -> void:
 			break
 	await get_tree().process_frame
 	if !valid_cell:
-		printerr("Randomizer: grid solved! Generate again")
+		push_warning("Generated a level with no moves needed. Generating again")
 		data.cells_list.clear()
-	
+
 
 func _generate_grid(data: LevelData) -> void:
 	if !_options.grid_opt:
@@ -156,7 +156,7 @@ func create_block(data: LevelData) -> void:
 						break
 					if !_check_probability(blocked_options.remove_odd):
 						break
-						
+
 			"MAX":
 				# max locked count is percetage of all remaing cells
 				counter = ceili(float(cell_count) / 100 * blocked_options.std_diffusion)
@@ -215,7 +215,7 @@ func create_sliders(data: LevelData) -> void:
 	var possible_sliders: Dictionary
 	await _get_possible_sliders(data, possible_sliders)
 	if possible_sliders.is_empty():
-		printerr("Randomizer: no one slider! Generate again")
+		push_warning("Generated a level with no sliders. Generating again")
 		return
 
 	# filter random sliders with random extesion
@@ -259,10 +259,10 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 						continue
 				_:
 					continue
-					
+
 			var current_full := slider_data.reached.size() == slider_data.reachable.size()
 			var opposite_full := opposite_data.reached.size() == opposite_data.reachable.size()
-			
+
 			if current_full and opposite_full:
 				unnecessaty_moves += 2
 			elif current_full and !opposite_full:
@@ -503,7 +503,7 @@ func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
 			while true:
 				if slider_count < max_diffusion:
 					slider_count += 1
-				else	:
+				else:
 					break
 				if !_check_probability(slider_options.upper_odd):
 					break
