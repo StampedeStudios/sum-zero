@@ -31,7 +31,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 		if GlobalConst.AVAILABLE_LANGS.has(language):
 			player_options.language = language
 		else:
-			print("[%s] not supported, falling back to English" % language)
+			push_warning("[%s] not supported, falling back to English" % language)
 
 	# check custom progress (remove extra progress)
 	for level_hash: String in custom_progress.keys():

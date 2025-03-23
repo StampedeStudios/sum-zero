@@ -21,7 +21,6 @@ func add_completed_level(summary: LevelSummary) -> int:
 			_perfect_chain = _new_chain
 	else:
 		_new_chain = 1
-	print("new %d -> best %d" % [_new_chain, _perfect_chain])
 	return _new_chain
 
 

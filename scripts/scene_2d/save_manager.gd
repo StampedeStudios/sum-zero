@@ -23,15 +23,15 @@ func get_tutorial() -> TutorialData:
 func _try_load_saved_data() -> bool:
 	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
 	if _persistent_save == null or _persistent_save.is_empty():
-		push_error("Nessun livello nel persistent save!")
+		push_error("No levels found on persisted data")
 		return false
 	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
-		push_warning("Nessun file di salvataggio trovato sul disco!")
+		push_warning("No data found on disk, generating fresh save game")
 		_player_save = PlayerSave.new()
 	else:
 		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
 	if _player_save == null:
-		push_warning("File di salvataggio non leggibile!")
+		push_error("Saved data corrupted, impossible to read")
 		_player_save = PlayerSave.new()
 	var modified := _player_save.check_savegame_integrity(_persistent_save)
 	if modified:
