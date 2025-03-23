@@ -1,16 +1,39 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://cqsjj643jp1lf"]
+[gd_resource type="Resource" script_class="ArenaMode" load_steps=13 format=3 uid="uid://cqsjj643jp1lf"]
 
 [ext_resource type="Texture2D" uid="uid://b3lh5emdrn3ta" path="res://assets/ui/zen_icon.png" id="1_dmhjh"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_6e8np"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_lqxql"]
-[ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_xutvw"]
 [ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_bwsl1"]
+[ext_resource type="Script" path="res://scripts/utility/randomizer/random_hole_opt.gd" id="3_vj0pr"]
 [ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_myq3e"]
 [ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="4_pe733"]
 [ext_resource type="Resource" uid="uid://dhjt4l6v3n7vd" path="res://assets/resources/tutorial/endless.tres" id="7_3e5tx"]
 
+[sub_resource type="Resource" id="Resource_ka2yw"]
+script = ExtResource("2_6e8np")
+size_rules = {
+"LOWER": 10,
+"STANDARD": 50,
+"UPPER": 40
+}
+lower_odd = 20
+upper_odd = 30
+std_grid_sizes = Array[Vector2i]([Vector2i(3, 3), Vector2i(4, 4), Vector2i(3, 4), Vector2i(4, 5)])
+
+[sub_resource type="Resource" id="Resource_6l1df"]
+script = ExtResource("3_vj0pr")
+diffusion_rules = {
+"LOWER": 20,
+"MAX": 20,
+"NONE": 60
+}
+remove_odd = 35
+std_diffusion = 25
+
 [sub_resource type="Resource" id="Resource_ppfa4"]
 script = ExtResource("4_pe733")
-grid_opt = ExtResource("2_xutvw")
+grid_opt = SubResource("Resource_ka2yw")
+hole_opt = SubResource("Resource_6l1df")
 slider_opt = ExtResource("4_myq3e")
 
 [sub_resource type="Resource" id="Resource_ssd72"]
