@@ -3,6 +3,7 @@ class_name Solver extends Node
 # Numero di branch da processare per batch
 const BATCH_SIZE := 50
 const MAX_THREADS := 4
+const MAX_BRANCHES := 2000
 
 class SliderRange:
 	var effect: GlobalConst.AreaEffect
@@ -17,6 +18,7 @@ class Action:
 class SolverState:
 	var updated_cell: Dictionary
 	var updated_move: Array[Vector3i]
+	var score: float
 
 	func _init(cell_list: Dictionary, moves: Array[Vector3i], next_action: Action) -> void:
 		updated_cell = cell_list.duplicate()
@@ -41,6 +43,31 @@ class SolverState:
 					
 			updated_cell[coord] = cell_state
 
+	func calculate_heuristic(width: int, height: int) -> void:
+		# score last slider if already move
+		var last_move := updated_move.back() as Vector3i
+		for move: Vector3i in updated_move:
+			if move.x == last_move.x and move.y == last_move.y:
+				score += 100
+				break
+		# score each row and column	
+		for row in range(height):
+			var row_score := 0
+			for w in range(width):
+				var state := updated_cell.get(Vector2i(w, row)) as Vector3i
+				if state.y == 0:
+					row_score = maxi(row_score, abs(state.x))
+					# score each cell with value relative to slider affected it
+					score += abs(state.x) * state.z
+			score += row_score
+		for column in range(width):
+			var row_score := 0
+			for h in range(height):
+				var state := updated_cell.get(Vector2i(column, h)) as Vector3i
+				if state.y == 0:
+					row_score = maxi(row_score, abs(state.x))
+			score += row_score
+			
 	func is_solution() -> bool:
 		for cell_state: Vector3i in updated_cell.values():
 			if cell_state.y == 0 and cell_state.x != 0:
@@ -48,6 +75,10 @@ class SolverState:
 				return false
 		return true
 
+	# ascending order state by score 
+	static func sort_by_score(a: SolverState, b: SolverState) -> bool:
+		return a.score < b.score
+			
 # Move: Vector3i
 # x: slider_coord.x
 # y: slider_coord.y
@@ -71,23 +102,31 @@ var solution_moves: Array[Vector3i]
 
 
 func _ready() -> void:
-	mutex = Mutex.new()
-	
 	# Inizializza i thread
 	for i in range(MAX_THREADS):
 		threads.append(Thread.new())
+	mutex = Mutex.new()
 		
 
 func find_solution(level_data: LevelData) -> Array[Vector3i]:
+	print("level solution: ", level_data.moves_left)
 	var time := Time.get_ticks_msec()
 	sliders = _get_sliders_range(level_data)
 	var cells := _get_cells_state(level_data.cells_list)
-	
+	var moves := 0
 	# first moves
-	new_branches = _thread_calculate_next_moves(cells, [])
+	new_branches = _get_next_branches(cells, [])
 	
 	while !solution_found:
+		if moves > level_data.moves_left:
+			break
+		moves += 1
 		# Aggiorna i branch con i nuovi trovati
+		if new_branches.size() > MAX_BRANCHES:
+			for branch in new_branches:
+				branch.calculate_heuristic(level_data.width, level_data.height)
+			new_branches.sort_custom(SolverState.sort_by_score)
+			new_branches.resize(MAX_BRANCHES)
 		branches = new_branches.duplicate()
 		new_branches.clear()
 		print("Branch number: ", branches.size())
@@ -101,9 +140,10 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 				threads[i].wait_to_finish()
 	
 	if solution_found:
-		print("Solution found in ", solution_moves.size(), " moves")
+		print("Solution found in ", moves, " moves")
 		time = Time.get_ticks_msec() - time
 		print("Solution milliseconds: ", time)
+		print(solution_moves)
 		return solution_moves
 	else:
 		print("No solution found")
@@ -147,7 +187,7 @@ func _thread_process_batch(batch: Array[SolverState]) -> void:
 			break
 		
 		# Calcola le prossime mosse per questo branch
-		var next_branches := _thread_calculate_next_moves(branch.updated_cell, branch.updated_move)
+		var next_branches := _get_next_branches(branch.updated_cell, branch.updated_move)
 		
 		# Aggiungi i nuovi branch ai risultati locali
 		mutex.lock()
@@ -159,13 +199,11 @@ func _thread_process_batch(batch: Array[SolverState]) -> void:
 		mutex.unlock()
 
 
-func _thread_calculate_next_moves(cell_updated: Dictionary, moves: Array[Vector3i]) -> Array[SolverState]:
+func _get_next_branches(cell_updated: Dictionary, moves: Array[Vector3i]) -> Array[SolverState]:
 	var result: Array[SolverState]
 	
 	for slider_coord: Vector2i in sliders.keys():
-		# Logica per determinare le mosse possibili (simile al tuo _calculate_next_move)
-		
-		# Calcola l'ultima estensione e il conteggio delle mosse
+		# Calcola l'ultima estensione e quante volte si è mosso
 		var move_count: int = 0
 		var prev_extension: int = 0
 		for move in moves:
@@ -173,21 +211,22 @@ func _thread_calculate_next_moves(cell_updated: Dictionary, moves: Array[Vector3
 				move_count += 1
 				prev_extension = move.z
 		
-		# Ignora gli slider che sono già stati spostati 2 volte
+		# Ignora gli slider che sono già stati mossi 2 volte
 		if move_count > 1:
 			continue
 		
 		var slider_range := sliders.get(slider_coord) as SliderRange
 		
-		# Gestione dell'estensione massima raggiunta
+		# Ignora gli slider, esclusi i BLOCK, che sono arrivati alla massima estensione
 		if prev_extension == slider_range.reachable.size():
-			continue
+			if slider_range.effect != GlobalConst.AreaEffect.BLOCK:
+				continue
 		
 		# Aggiungi lo stato solver per ogni possibile mossa successiva
 		match slider_range.behavior:
 			GlobalConst.AreaBehavior.BY_STEP:
 				# Implementa la logica BY_STEP
-				var cell_reachable: Array[Vector2i] = []
+				var cell_reachable: Array[Vector2i]
 				
 				# Ottieni le celle raggiungibili dall'ultima estensione
 				for i in range(prev_extension, slider_range.reachable.size()):
@@ -204,13 +243,13 @@ func _thread_calculate_next_moves(cell_updated: Dictionary, moves: Array[Vector3
 				
 				# Aggiungi uno stato per ogni possibile mossa
 				for i in range(cell_reachable.size()):
-					var cell_affected: Array[Vector2i] = []
+					var cell_affected: Array[Vector2i]
 					for n in range(i + 1):
 						cell_affected.append(cell_reachable[n])
 					
 					var new_move := Vector3i(
-						slider_coord.x, 
-						slider_coord.y, 
+						slider_coord.x,
+						slider_coord.y,
 						prev_extension + i + 1
 					)
 					
@@ -223,8 +262,8 @@ func _thread_calculate_next_moves(cell_updated: Dictionary, moves: Array[Vector3
 					next_action.effect = slider_range.effect
 					
 					var new_state := SolverState.new(
-						cell_updated, 
-						new_moves, 
+						cell_updated,
+						new_moves,
 						next_action
 					)
 					
@@ -273,6 +312,36 @@ func _thread_calculate_next_moves(cell_updated: Dictionary, moves: Array[Vector3
 	return result
 
 
+func _add_new_branch(slider: Vector2i, old_moves: Array[Vector3i]) -> SolverState:
+	var cell_affected: Array[Vector2i]
+	var moves := old_moves.duplicate()
+	var new_state: SolverState
+	#for n in range(i + 1):
+		#cell_affected.append(cell_reachable[n])
+	#
+	#var new_move := Vector3i(
+		#slider_coord.x,
+		#slider_coord.y,
+		#prev_extension + i + 1
+	#)
+	#moves.append(new_move)
+	#
+	#
+	#var next_action := Action.new()
+	#next_action.cell_affected = cell_affected
+	#next_action.is_applied = true
+	#next_action.effect = slider_range.effect
+	#
+	#var new_state := SolverState.new(
+		#cell_updated,
+		#new_moves,
+		#next_action
+	#)
+	#
+	return new_state
+
+
+
 func _get_cells_state(cell_list: Dictionary) -> Dictionary:
 	var result: Dictionary
 	for cell_coord: Vector2i in cell_list.keys():
@@ -297,7 +366,7 @@ func _get_sliders_range(level_data: LevelData) -> Dictionary:
 		slider_range.effect = slider_data.area_effect
 		slider_range.behavior = slider_data.area_behavior
 		slider_range.reachable = reachable
-		result[slider_coord] = slider_range	
+		result[slider_coord] = slider_range
 	return result
 
 
@@ -337,7 +406,7 @@ func _get_slider_extension(slider_coord: Vector2i, data: LevelData) -> Array[Vec
 	
 	
 func _generate_hash(cell_list: Dictionary) -> PackedByteArray:
-	var hash_data := PackedByteArray()	
+	var hash_data := PackedByteArray()
 	for coord: Vector2i in cell_list.keys():
 		var cell := cell_list[coord] as Vector3i
 
@@ -353,5 +422,5 @@ func _generate_hash(cell_list: Dictionary) -> PackedByteArray:
 
 		# Aggiunge i byte compressi all'array
 		hash_data.append(compressed >> 8)  # Byte alto
-		hash_data.append(compressed & 0xFF)  # Byte basso		
+		hash_data.append(compressed & 0xFF)  # Byte basso
 	return hash_data
