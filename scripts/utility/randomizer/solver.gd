@@ -14,6 +14,11 @@ class Action:
 	var cell_affected: Array[Vector2i]
 	var effect: GlobalConst.AreaEffect
 	var is_applied: bool
+	
+	func _init(affected: Array[Vector2i], add: bool, cell_effect: GlobalConst.AreaEffect) -> void:
+		cell_affected = affected
+		is_applied = add
+		effect = cell_effect
 
 class SolverState:
 	var updated_cell: Dictionary
@@ -50,22 +55,27 @@ class SolverState:
 			if move.x == last_move.x and move.y == last_move.y:
 				score += 100
 				break
-		# score each row and column	
+		# score each row
 		for row in range(height):
 			var row_score := 0
 			for w in range(width):
-				var state := updated_cell.get(Vector2i(w, row)) as Vector3i
-				if state.y == 0:
-					row_score = maxi(row_score, abs(state.x))
-					# score each cell with value relative to slider affected it
-					score += abs(state.x) * state.z
+				var coord := Vector2i(w, row)
+				if updated_cell.has(coord):
+					var state := updated_cell.get(coord) as Vector3i
+					if state.y == 0:
+						row_score = maxi(row_score, abs(state.x))
+						# score each cell with value relative to slider affected it
+						score += abs(state.x) * state.z
 			score += row_score
+		# score each column	
 		for column in range(width):
 			var row_score := 0
 			for h in range(height):
-				var state := updated_cell.get(Vector2i(column, h)) as Vector3i
-				if state.y == 0:
-					row_score = maxi(row_score, abs(state.x))
+				var coord := Vector2i(column, h)
+				if updated_cell.has(coord):
+					var state := updated_cell.get(coord) as Vector3i
+					if state.y == 0:
+						row_score = maxi(row_score, abs(state.x))
 			score += row_score
 			
 	func is_solution() -> bool:
@@ -109,7 +119,6 @@ func _ready() -> void:
 		
 
 func find_solution(level_data: LevelData) -> Array[Vector3i]:
-	print("level solution: ", level_data.moves_left)
 	var time := Time.get_ticks_msec()
 	sliders = _get_sliders_range(level_data)
 	var cells := _get_cells_state(level_data.cells_list)
@@ -122,7 +131,7 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 			break
 		moves += 1
 		# Aggiorna i branch con i nuovi trovati
-		if new_branches.size() > MAX_BRANCHES:
+		if new_branches.size() > MAX_BRANCHES: #TODO: add multithread <-----------------
 			for branch in new_branches:
 				branch.calculate_heuristic(level_data.width, level_data.height)
 			new_branches.sort_custom(SolverState.sort_by_score)
@@ -140,6 +149,7 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 				threads[i].wait_to_finish()
 	
 	if solution_found:
+		print("level solution: ", level_data.moves_left)
 		print("Solution found in ", moves, " moves")
 		time = Time.get_ticks_msec() - time
 		print("Solution milliseconds: ", time)
@@ -221,14 +231,28 @@ func _get_next_branches(cell_updated: Dictionary, moves: Array[Vector3i]) -> Arr
 		if prev_extension == slider_range.reachable.size():
 			if slider_range.effect != GlobalConst.AreaEffect.BLOCK:
 				continue
+			else:
+				pass 
 		
 		# Aggiungi lo stato solver per ogni possibile mossa successiva
 		match slider_range.behavior:
 			GlobalConst.AreaBehavior.BY_STEP:
-				# Implementa la logica BY_STEP
-				var cell_reachable: Array[Vector2i]
+				var cell_reachable: Array[Vector2i] = []
+				# calcola possibilita di tornare indietro degli slider BLOCK
+				if slider_range.effect == GlobalConst.AreaEffect.BLOCK and move_count > 0:
+					cell_reachable = slider_range.reachable.slice(0, prev_extension)
+					cell_reachable.reverse()
+					# Aggiungi uno stato per ogni possibile mossa
+					for i in range(cell_reachable.size()):
+						var affected := cell_reachable.slice(0, i + 1)
+						var new_extesion := prev_extension - i - 1
+						var new_moves := _get_new_moves(slider_coord, new_extesion, moves)
+						var next_action := Action.new(affected, false, slider_range.effect)
+						var new_state := SolverState.new(cell_updated, new_moves, next_action)
+						result.append(new_state)
 				
 				# Ottieni le celle raggiungibili dall'ultima estensione
+				cell_reachable.clear()
 				for i in range(prev_extension, slider_range.reachable.size()):
 					var cell_coord := slider_range.reachable[i]
 					var cell_state := cell_updated.get(cell_coord) as Vector3i
@@ -243,37 +267,23 @@ func _get_next_branches(cell_updated: Dictionary, moves: Array[Vector3i]) -> Arr
 				
 				# Aggiungi uno stato per ogni possibile mossa
 				for i in range(cell_reachable.size()):
-					var cell_affected: Array[Vector2i]
-					for n in range(i + 1):
-						cell_affected.append(cell_reachable[n])
-					
-					var new_move := Vector3i(
-						slider_coord.x,
-						slider_coord.y,
-						prev_extension + i + 1
-					)
-					
-					var new_moves := moves.duplicate()
-					new_moves.append(new_move)
-					
-					var next_action := Action.new()
-					next_action.cell_affected = cell_affected
-					next_action.is_applied = true
-					next_action.effect = slider_range.effect
-					
-					var new_state := SolverState.new(
-						cell_updated,
-						new_moves,
-						next_action
-					)
-					
+					var affected := cell_reachable.slice(0, i + 1)
+					var new_extesion := prev_extension + i + 1
+					var new_moves := _get_new_moves(slider_coord, new_extesion, moves)
+					var next_action := Action.new(affected, true, slider_range.effect)
+					var new_state := SolverState.new(cell_updated, new_moves, next_action)
 					result.append(new_state)
 					
 			GlobalConst.AreaBehavior.FULL:
-				# Implementa la logica FULL
-				if move_count == 0:
-					var cell_affected: Array[Vector2i] = []
-					
+				var affected: Array[Vector2i] = []
+				if move_count > 0:
+					if slider_range.effect == GlobalConst.AreaEffect.BLOCK:
+						affected = slider_range.reachable.slice(0, prev_extension)
+						var new_moves := _get_new_moves(slider_coord, 0, moves)
+						var next_action := Action.new(affected, false, slider_range.effect)
+						var new_state := SolverState.new(cell_updated, new_moves, next_action)
+						result.append(new_state)
+				else:
 					for cell_coord in slider_range.reachable:
 						var cell_state := cell_updated.get(cell_coord) as Vector3i
 						match slider_range.effect:
@@ -282,64 +292,25 @@ func _get_next_branches(cell_updated: Dictionary, moves: Array[Vector3i]) -> Arr
 									break
 							_:
 								if cell_state.y == 1:
-									break
-						
-						cell_affected.append(cell_coord)
+									break						
+						affected.append(cell_coord)
 					
+					if affected.is_empty():
+						break
 					# Aggiungi stato
-					if not cell_affected.is_empty():
-						var new_move := Vector3i(
-							slider_coord.x,
-							slider_coord.y,
-							cell_affected.size()
-						)
+					var new_moves := _get_new_moves(slider_coord, affected.size(), moves)
+					var next_action := Action.new(affected, true, slider_range.effect)
+					var new_state := SolverState.new(cell_updated, new_moves, next_action)
+					result.append(new_state)
 						
-						var new_moves := moves.duplicate()
-						new_moves.append(new_move)
-						
-						var next_action := Action.new()
-						next_action.cell_affected = cell_affected
-						next_action.is_applied = true
-						next_action.effect = slider_range.effect
-						
-						var new_state := SolverState.new(
-							cell_updated,
-							new_moves,
-							next_action
-						)
-						
-						result.append(new_state)
 	return result
 
 
-func _add_new_branch(slider: Vector2i, old_moves: Array[Vector3i]) -> SolverState:
-	var cell_affected: Array[Vector2i]
-	var moves := old_moves.duplicate()
-	var new_state: SolverState
-	#for n in range(i + 1):
-		#cell_affected.append(cell_reachable[n])
-	#
-	#var new_move := Vector3i(
-		#slider_coord.x,
-		#slider_coord.y,
-		#prev_extension + i + 1
-	#)
-	#moves.append(new_move)
-	#
-	#
-	#var next_action := Action.new()
-	#next_action.cell_affected = cell_affected
-	#next_action.is_applied = true
-	#next_action.effect = slider_range.effect
-	#
-	#var new_state := SolverState.new(
-		#cell_updated,
-		#new_moves,
-		#next_action
-	#)
-	#
-	return new_state
-
+func _get_new_moves(slider: Vector2i, step: int, moves: Array[Vector3i]) -> Array[Vector3i]:
+	var result := moves.duplicate()
+	var new := Vector3i(slider.x, slider.y, step)
+	result.append(new)
+	return result
 
 
 func _get_cells_state(cell_list: Dictionary) -> Dictionary:
