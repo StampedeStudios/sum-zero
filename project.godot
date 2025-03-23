@@ -31,8 +31,8 @@ gdscript/warnings/untyped_declaration=1
 
 [display]
 
-window/size/viewport_width=864
-window/size/viewport_height=1536
+window/size/viewport_width=720
+window/size/viewport_height=1280
 window/size/resizable=false
 window/size/extend_to_title=true
 window/handheld/orientation=1
