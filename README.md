@@ -1,22 +1,13 @@
 <div align="center">
 
 # Sum Zero
+#### Strategic math puzzles. Can you reach zero?
 
 [![Godot Engine](https://img.shields.io/badge/Godot-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine)](https://godotengine.org/)
 [![Inkscape](https://img.shields.io/badge/Inkscape-000000?style=for-the-badge&logo=Inkscape&logoColor=white)](https://inkscape.org/)
 [![Audacity](https://img.shields.io/badge/Audacity-0000CC?style=for-the-badge&logo=audacity&logoColor=white)](https://www.audacityteam.org/)
 
 </div>
-
-## Table of Contents
-- [Concept](#concept)
-  - [Key Mechanics](#key-mechanics)
-  - [How to Play](#how-to-play)
-    - [Analyze the level](#analyze-the-level)
-    - [Plan a sequence of moves](#plan-a-sequence-of-moves)
-    - [Minimize moves amount](#minimize-moves-amount)
-- [Features](#features)
-- [Contributing](#contributing)
 
 ## Concept
 **Sum Zero** is a mobile puzzle game where players use math-based sliders to bring all tiles on a grid down to zero. Combining strategy, logic, and arithmetic, each level presents a unique challenge to solve.
