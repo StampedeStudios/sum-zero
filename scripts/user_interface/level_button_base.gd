@@ -9,6 +9,7 @@ const ONE_STAR = "res://assets/ui/one_star.png"
 const TWO_STARS = "res://assets/ui/two_stars.png"
 const THREE_STARS = "res://assets/ui/three_stars.png"
 const EXTRA_STARS = "res://assets/ui/three_stars.png"
+const FONT = "res://assets/ui/fonts/FiraMono-Bold.ttf"
 
 
 func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
@@ -42,6 +43,10 @@ func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars 
 	icon_path = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS, EXTRA_STARS][stars]
 	icon = load(icon_path)
 	text = str(id + 1)
+
+	self.add_theme_font_size_override("font_size", GameManager.small_text_font_size)
+	var font := ResourceLoader.load(FONT) as Font
+	self.add_theme_font_override("font", font)
 
 
 func _pressed() -> void:

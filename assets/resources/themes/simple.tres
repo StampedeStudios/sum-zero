@@ -1,0 +1,74 @@
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://4knxac0hwf4n"]
+
+[ext_resource type="StyleBox" uid="uid://dmg6jq4rcvtko" path="res://assets/resources/themes/simple_button.tres" id="1_h0aw6"]
+[ext_resource type="Texture2D" uid="uid://8y1m1b3j6hwp" path="res://assets/ui/checked_dot.png" id="4_5ygf2"]
+[ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="5_8lgqg"]
+[ext_resource type="Texture2D" uid="uid://devxmxhd4ddm6" path="res://assets/ui/checked.png" id="6_j0tdm"]
+[ext_resource type="Texture2D" uid="uid://daqayrg5ld2ss" path="res://assets/ui/unchecked.png" id="7_if011"]
+[ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="8_w3ru5"]
+[ext_resource type="Texture2D" uid="uid://cxddfjw2cirsx" path="res://assets/ui/arrow_down.png" id="9_5qiur"]
+[ext_resource type="StyleBox" uid="uid://bmkhuh7v8acp5" path="res://assets/resources/themes/options_button.tres" id="10_63m41"]
+[ext_resource type="StyleBox" uid="uid://d0g32yp6tstbf" path="res://assets/resources/themes/options_panel.tres" id="11_emllm"]
+[ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_kcmdq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4v4ao"]
+
+[resource]
+default_font = ExtResource("12_kcmdq")
+default_font_size = 48
+Button/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_disabled_color = Color(0.870588, 0.847059, 0.819608, 1)
+Button/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_disabled_color = Color(0.68, 0.66096, 0.6392, 1)
+Button/colors/icon_focus_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/constants/icon_max_width = 128
+Button/font_sizes/font_size = 60
+Button/styles/disabled = ExtResource("1_h0aw6")
+Button/styles/focus = SubResource("StyleBoxEmpty_4v4ao")
+Button/styles/hover = ExtResource("1_h0aw6")
+Button/styles/normal = ExtResource("1_h0aw6")
+Button/styles/pressed = ExtResource("1_h0aw6")
+CheckBox/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckBox/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckBox/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckBox/constants/h_separation = 16
+CheckBox/icons/checked = ExtResource("4_5ygf2")
+CheckBox/icons/unchecked = ExtResource("5_8lgqg")
+CheckButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckButton/icons/checked = ExtResource("6_j0tdm")
+CheckButton/icons/unchecked = ExtResource("7_if011")
+Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/colors/font_placeholder_color = Color(0.25, 0.182333, 0.105, 0.584314)
+LineEdit/colors/font_uneditable_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/constants/caret_width = 3
+LineEdit/styles/normal = ExtResource("8_w3ru5")
+LineEdit/styles/read_only = ExtResource("8_w3ru5")
+OptionButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_focus_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/constants/arrow_margin = 8
+OptionButton/icons/arrow = ExtResource("9_5qiur")
+OptionButton/styles/hover = ExtResource("10_63m41")
+OptionButton/styles/normal = ExtResource("10_63m41")
+OptionButton/styles/pressed = ExtResource("10_63m41")
+PopupMenu/constants/item_start_padding = 10
+PopupMenu/icons/radio_checked = ExtResource("4_5ygf2")
+PopupMenu/icons/radio_unchecked = ExtResource("5_8lgqg")
+PopupMenu/styles/hover = ExtResource("11_emllm")
+PopupMenu/styles/panel = ExtResource("11_emllm")
+TextEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
+TextEdit/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+TextEdit/colors/font_placeholder_color = Color(1, 0.972549, 0.937255, 1)
+TextEdit/constants/caret_width = 3
+TextEdit/font_sizes/font_size = 60
+TextEdit/styles/normal = ExtResource("8_w3ru5")

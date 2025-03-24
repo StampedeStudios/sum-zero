@@ -15,6 +15,7 @@ var _current_mode_index := 0
 
 @onready var arena_selection: VBoxContainer = %ArenaSelection
 @onready var play_btn: Button = %PlayBtn
+@onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready() -> void:

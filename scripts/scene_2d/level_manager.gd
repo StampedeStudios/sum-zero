@@ -45,7 +45,7 @@ func init_level(current_level: LevelData) -> void:
 	_clear()
 	if current_level == null:
 		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
-		push_error("Invalid level!")
+		push_error("Invalid initial level found")
 		return
 	_current_level = current_level
 	var level_size: Vector2i

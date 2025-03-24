@@ -23,7 +23,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_8okdn")
 texture = ExtResource("2_ycfvy")
-expand_mode = 4
+expand_mode = 2
 stretch_mode = 5
 
 [node name="OverlayTexture" type="TextureRect" parent="."]

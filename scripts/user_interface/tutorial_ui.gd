@@ -13,12 +13,21 @@ var _images: Array[Texture2D]
 @onready var label: Label = %Label
 @onready var sprite: TextureRect = %TextureRect
 @onready var play_btn: Button = %NextBtn
+@onready var margin: MarginContainer = %MarginContainer
 
 
 func _ready() -> void:
 	hint.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
 	hint.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
 	hint.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
+
+	label.add_theme_font_size_override("font_size", GameManager.text_font_size)
+	play_btn.add_theme_font_size_override("font_size", GameManager.title_font_size)
+
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 
 func setup(data: TutorialData) -> void:
@@ -55,7 +64,6 @@ func _on_next_btn_pressed() -> void:
 
 		if _current_hint == _tips.size() - 1:
 			play_btn.text = tr("PLAY")
-		print(_current_hint)
 
 	else:
 		on_tutorial_closed.emit()

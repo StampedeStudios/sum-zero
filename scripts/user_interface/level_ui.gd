@@ -20,8 +20,8 @@ var _scroll_range: Vector2
 var _tween: Tween
 var _levels_page: Array[LevelPage]
 
-@onready var left: TextureButton = %Left
-@onready var right: TextureButton = %Right
+@onready var left: Button = %Left
+@onready var right: Button = %Right
 @onready var title: Label = %Title
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
@@ -42,16 +42,22 @@ func _ready() -> void:
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
+	left.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+	right.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
+	world_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
+	custom_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
+
 	_page_width = get_viewport().size.x
 	pages.size.x = _page_width * 3
-	pages.size.y = get_viewport().size.y - 350 - GameManager.vertical_margin * 2
+	pages.size.y = get_viewport().size.y
 	pages.position.x = _page_width / 2 - pages.size.x / 2
-	pages.position.y = get_viewport().size.y - 128 - GameManager.vertical_margin - pages.size.y
+	pages.position.y = get_viewport().size.y - pages.size.y
 
 	for child in pages.get_children():
 		if child is LevelPage:
 			_levels_page.append(child)
 			child.on_page_changed.connect(_refresh_next)
+			child.on_start_drag.connect(_on_pages_drag)
 
 	GameManager.on_state_change.connect(_on_state_change)
 	_set_start_point()
@@ -62,7 +68,6 @@ func _ready() -> void:
 func _set_start_point() -> void:
 	# Set starting page where the next playable level is
 	var active_level_id: int = GameManager.get_active_level_id()
-	print(active_level_id)
 	if active_level_id <= 0:
 		active_level_id = SaveManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
@@ -106,23 +111,19 @@ func _check_pages() -> void:
 	title.text = "%02d of %02d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
-		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 		_levels_page[0].toggle_page(false)
 		_scroll_range.y = _page_width / 10
 	else:
 		left.disabled = false
-		left.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 		_levels_page[0].toggle_page(true)
 		_scroll_range.y = _page_width
 
 	if _current_page >= _num_pages:
 		right.disabled = true
-		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, DISABLED_COLOR)
 		_levels_page[2].toggle_page(false)
 		_scroll_range.x = -_page_width / 10
 	else:
 		right.disabled = false
-		right.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, ACTIVE_BTN_COLOR)
 		_levels_page[2].toggle_page(true)
 		_scroll_range.x = -_page_width
 
@@ -255,9 +256,8 @@ func _end_animation() -> void:
 	_has_movement = false
 
 
-func _on_pages_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse:
-		if event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_movement:
-			_start_drag = get_global_mouse_position().x
-			_start_position = pages.global_position.x
-			_has_drag = true
+func _on_pages_drag() -> void:
+	if !_has_movement:
+		_start_drag = get_global_mouse_position().x
+		_start_position = pages.global_position.x
+		_has_drag = true

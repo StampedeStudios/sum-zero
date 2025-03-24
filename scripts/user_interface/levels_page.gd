@@ -1,6 +1,7 @@
 class_name LevelPage extends Control
 
 signal on_page_changed
+signal on_start_drag
 
 const LEVEL_INSPECT = "res://packed_scene/user_interface/LevelInspect.tscn"
 const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspect.tscn"
@@ -18,8 +19,10 @@ func _ready() -> void:
 	add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-	level_grid.add_theme_constant_override("h_separation", GameManager.vertical_margin)
-	level_grid.add_theme_constant_override("v_separation", GameManager.vertical_margin)
+
+	level_grid.add_theme_constant_override("h_separation", int(GameManager.vertical_margin / 2.0))
+	level_grid.add_theme_constant_override("v_separation", int(GameManager.vertical_margin / 2.0))
+
 	for child in level_grid.get_children():
 		if child is LevelButtonBase:
 			_levels.append(child)
@@ -110,3 +113,9 @@ func _unlock_level(id: int) -> void:
 func _import_level() -> void:
 	refresh_page()
 	on_page_changed.emit()
+
+
+func _on_level_grid_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse:
+		if event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+			on_start_drag.emit()

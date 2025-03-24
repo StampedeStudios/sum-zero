@@ -13,21 +13,27 @@ var _summary: GameSummary
 @onready var stats_icon: TextureRect = %StatsIcon
 @onready var stats_multiplier: Label = %StatsMultiplier
 @onready var score: Label = %Score
+@onready var separator: HSeparator = %Separator
 @onready var actions: HBoxContainer = %Actions
 @onready var record_icon: TextureRect = %RecordIcon
+@onready var replay_btn: Button = %ReplayBtn
 
 
 func _ready() -> void:
-	actions.hide()
 	stats.hide()
 	record_icon.hide()
 	_update_score(_score)
+
 	await panel.open()
 	_calculate_score()
 
 
 func _calculate_score() -> void:
 	for step: ScoreCalculation in steps:
+		if step.get_multiplier(_summary) == 0:
+			# If does not change total score, should not be visible
+			continue
+
 		var old_score := _score
 		var multiplier := step.get_multiplier(_summary)
 		_score = step.update_score(_score, multiplier)
@@ -43,16 +49,25 @@ func _calculate_score() -> void:
 		await _tween.finished
 		stats.hide()
 
+	_tween = create_tween()
+	_tween.tween_interval(0.5)
+
+	_tween.tween_method(_update_separation, 0, 250, 0.3)
+
+	await _tween.finished
+
 	var new_record: bool = SaveManager.update_blitz_score(_score)
 	if new_record:
 		_tween = get_tree().create_tween()
 		_tween.tween_interval(0.5)
 		await _tween.finished
 		record_icon.show()
-	_tween = get_tree().create_tween()
-	_tween.tween_interval(0.5)
+
 	await _tween.finished
-	actions.show()
+
+
+func _update_separation(separation: int) -> void:
+	separator.add_theme_constant_override("separation", separation)
 
 
 func _close(next: GlobalConst.GameState) -> void:
@@ -79,9 +94,10 @@ func _update_score(new_score: int) -> void:
 
 
 func _update_stats_multiplier(new_multiplier: int) -> void:
-	stats_multiplier.text = "x%02d" % [new_multiplier]
+	stats_multiplier.text = "*%01d" % [new_multiplier]
 
 
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		_tween.set_speed_scale(10)
+		if _tween:
+			_tween.set_speed_scale(10)
