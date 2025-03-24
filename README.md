@@ -44,3 +44,10 @@ Deal with blocked or missing tiles that may appear as additional obstacles. Comp
 We welcome contributions to **Sum Zero**! Whether you have ideas for improvement, bug fixes, or new features, feel free to open an issue to share your thoughts or to submit a pull request with your contribution.
 
 Together, let's make **Sum Zero** even better!
+
+<div align="center">
+
+![Banner](./assets/game/banner.png) 
+
+</div>
+
