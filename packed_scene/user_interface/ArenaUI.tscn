@@ -58,6 +58,17 @@ text = "BACK"
 icon = ExtResource("3_2u67y")
 flat = true
 
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/TopContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_vno4s")
+
+[node name="Label" type="Label" parent="MarginContainer/TopContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_jitnk")
+text = "1->2"
+
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/TopContainer"]
 layout_mode = 2
 size_flags_horizontal = 3

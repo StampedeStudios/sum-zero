@@ -118,13 +118,15 @@ func _ready() -> void:
 	mutex = Mutex.new()
 		
 
-func find_solution(level_data: LevelData) -> Array[Vector3i]:
+func find_solution(level_data: LevelData) -> void:
+	solution_found = false
+	visited.clear()
 	var time := Time.get_ticks_msec()
 	sliders = _get_sliders_range(level_data)
 	var cells := _get_cells_state(level_data.cells_list)
-	var moves := 0
 	_level_size = Vector2i(level_data.width, level_data.height)
 	# first moves
+	var moves := 0
 	new_branches = _get_next_branches(cells, [])
 	
 	while !solution_found:
@@ -158,10 +160,9 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 		time = Time.get_ticks_msec() - time
 		print("Solution milliseconds: ", time)
 		print(solution_moves)
-		return solution_moves
+		level_data.moves_left = moves
 	else:
 		print("No solution found")
-		return []
 
 
 func _process_heuristic_parallel() -> void:

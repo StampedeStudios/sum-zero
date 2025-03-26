@@ -14,6 +14,7 @@ var _time: int
 var _timer: Timer
 var _game_summary: GameSummary
 var _randomizer: Randomizer
+var _solver: Solver
 
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
@@ -101,7 +102,9 @@ func _init_arena() -> void:
 	self.show()
 	if !_randomizer and _current_mode.level_options:
 		_randomizer = Randomizer.new(_current_mode.level_options)
+		_solver = Solver.new()
 		get_tree().root.add_child(_randomizer)
+		get_tree().root.add_child(_solver)
 
 	if !_current_mode.one_shoot_mode:
 		_game_summary = GameSummary.new()
@@ -140,6 +143,9 @@ func _get_new_random_level() -> void:
 			var id := randi_range(0, GameManager._persistent_save.levels_hash.size() - 1)
 			_current_level = GameManager.get_active_level(id)
 		if _current_level.is_valid_data():
+			var prev := _current_level.moves_left
+			await _solver.find_solution(_current_level)
+			%Label.text = str("%02d->%02d" % [prev, _current_level.moves_left])
 			break
 	# start playing level
 	await get_tree().process_frame
