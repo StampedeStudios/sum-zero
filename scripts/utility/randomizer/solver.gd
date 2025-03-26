@@ -1,7 +1,6 @@
 class_name Solver extends Node
 
 # Numero di branch da processare per batch
-const BATCH_SIZE := 50
 const MAX_THREADS := 4
 const MAX_BRANCHES := 2000
 
@@ -109,6 +108,7 @@ var new_branches: Array[SolverState]
 var sliders: Dictionary
 var solution_found := false
 var solution_moves: Array[Vector3i]
+var _level_size: Vector2i
 
 
 func _ready() -> void:
@@ -123,22 +123,23 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 	sliders = _get_sliders_range(level_data)
 	var cells := _get_cells_state(level_data.cells_list)
 	var moves := 0
+	_level_size = Vector2i(level_data.width, level_data.height)
 	# first moves
 	new_branches = _get_next_branches(cells, [])
 	
 	while !solution_found:
-		if moves > level_data.moves_left:
-			break
 		moves += 1
 		# Aggiorna i branch con i nuovi trovati
-		if new_branches.size() > MAX_BRANCHES: #TODO: add multithread <-----------------
-			for branch in new_branches:
-				branch.calculate_heuristic(level_data.width, level_data.height)
+		if new_branches.size() > MAX_BRANCHES: 
+			print("number of branches found: ", new_branches.size())
+			await _process_heuristic_parallel()
 			new_branches.sort_custom(SolverState.sort_by_score)
-			new_branches.resize(MAX_BRANCHES)
-		branches = new_branches.duplicate()
+			await get_tree().process_frame
+			
+		branches = new_branches.slice(0, mini(new_branches.size(), MAX_BRANCHES))
+		print("range %d -> %d" % [branches[0].score, branches[-1].score])
 		new_branches.clear()
-		print("Branch number: ", branches.size())
+		print("number of branches selected: ", branches.size())
 					
 		# Avvia thread per processare batch di branch
 		await _process_branches_parallel()
@@ -148,6 +149,9 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 			if threads[i].is_started():
 				threads[i].wait_to_finish()
 	
+		if moves > level_data.moves_left:
+			break
+
 	if solution_found:
 		print("level solution: ", level_data.moves_left)
 		print("Solution found in ", moves, " moves")
@@ -160,10 +164,35 @@ func find_solution(level_data: LevelData) -> Array[Vector3i]:
 		return []
 
 
+func _process_heuristic_parallel() -> void:
+	const BATCH_SIZE := 500
+	var counter := 0
+	while counter < new_branches.size():
+		for i in range(threads.size()):
+			# Non avviare thread se non ci sono branch da processare
+			if counter >= new_branches.size():
+				break
+			
+			# Crea un batch di branch for each thread
+			var batch: Array[SolverState]
+			var end := mini(counter + BATCH_SIZE - 1, new_branches.size() - 1)
+			batch = new_branches.slice(counter, end)
+			counter = end + 1
+			
+			# Avvia il thread con il batch
+			threads[i].start(_thread_calculate_heuristic.bind(batch))
+		
+		# Aspetta che tutti i thread finiscano
+		for i in range(threads.size()):
+			if threads[i].is_started():
+				threads[i].wait_to_finish()
+		await get_tree().process_frame
+
+
 func _process_branches_parallel() -> void:
+	const BATCH_SIZE := 50
 	while !branches.is_empty() and !solution_found:
 		for i in range(threads.size()):
-			print("parallel batch")
 			# Non avviare thread se non ci sono branch da processare
 			if branches.is_empty():
 				break
@@ -182,6 +211,11 @@ func _process_branches_parallel() -> void:
 			if threads[i].is_started():
 				threads[i].wait_to_finish()
 					
+
+func _thread_calculate_heuristic(batch: Array[SolverState]) -> void:
+	for branch in batch:
+		branch.calculate_heuristic(_level_size.x, _level_size.y)
+
 
 func _thread_process_batch(batch: Array[SolverState]) -> void:
 	for branch in batch:
