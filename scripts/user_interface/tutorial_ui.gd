@@ -47,7 +47,7 @@ func setup(data: TutorialData) -> void:
 		play_btn.text = tr("PLAY")
 	else:
 		play_btn.text = tr("NEXT")
-		label.text = "[Tip %d of %d]" % [1, _tips.size()]
+		label.text = tr("TIP_OF") % [1, _tips.size()]
 
 
 func _on_next_btn_pressed() -> void:
@@ -56,7 +56,7 @@ func _on_next_btn_pressed() -> void:
 	# Continue if there are more tips
 	if _current_hint < _tips.size():
 		hint.text = _tips[_current_hint]
-		label.text = "[Tip %d of %d]" % [_current_hint + 1, _tips.size()]
+		label.text = tr("TIP_OF") % [_current_hint + 1, _tips.size()]
 
 		# Change image if there are any
 		if _images.size() > _current_hint:
