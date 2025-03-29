@@ -10,12 +10,6 @@ var _is_locked := false
 @onready var message: RichTextLabel = %OverlayMessage
 
 
-func _ready() -> void:
-	message.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
-	message.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
-	message.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
-
-
 func setup(mode: PlayMode) -> void:
 	mode_texture.texture = mode.icon
 
