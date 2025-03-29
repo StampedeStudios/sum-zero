@@ -31,15 +31,7 @@ func _ready() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	match _return_to:
-		GlobalConst.GameState.MAIN_MENU:
-			GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
-		GlobalConst.GameState.LEVEL_PICK:
-			var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
-			var level_ui := scene.instantiate() as LevelUI
-			get_tree().root.add_child.call_deferred(level_ui)
-			GameManager.level_ui = level_ui
-			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	_exit()
 
 
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
@@ -123,6 +115,21 @@ func next_level() -> void:
 		await GameManager.level_manager.init_level(level)
 		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
 	else:
-		var scene := ResourceLoader.load(CREDITS) as PackedScene
-		var credits := scene.instantiate() as CreditsScreen
-		get_tree().root.add_child(credits)
+		if GameManager.get_active_context() == GlobalConst.LevelGroup.MAIN:
+			var scene := ResourceLoader.load(CREDITS) as PackedScene
+			var credits := scene.instantiate() as CreditsScreen
+			get_tree().root.add_child(credits)
+		else:
+			_exit()
+
+
+func _exit() -> void:
+	match _return_to:
+		GlobalConst.GameState.MAIN_MENU:
+			GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		GlobalConst.GameState.LEVEL_PICK:
+			var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
+			var level_ui := scene.instantiate() as LevelUI
+			get_tree().root.add_child.call_deferred(level_ui)
+			GameManager.level_ui = level_ui
+			GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
