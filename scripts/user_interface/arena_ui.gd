@@ -215,6 +215,9 @@ func _on_reset_btn_pressed() -> void:
 
 
 func _on_skip_btn_pressed() -> void:
+	if _timer:
+		_timer.stop()
+
 	AudioManager.play_click_sound()
 	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
