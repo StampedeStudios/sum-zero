@@ -57,7 +57,7 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="OptionButton" type="OptionButton" parent="Background/Panel/MarginContainer" groups=["labels"]]
+[node name="OptionButton" type="OptionButton" parent="Background/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -91,15 +91,15 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 3.7
 theme_override_constants/separation = 20
 
-[node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels" groups=["labels"]]
+[node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "MUSIC"
 
-[node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels" groups=["labels"]]
+[node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "SFX"
 
-[node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels" groups=["labels"]]
+[node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/HBoxContainer/Labels"]
 layout_mode = 2
 text = "TUTORIAL"
 
@@ -131,7 +131,7 @@ focus_mode = 0
 button_pressed = true
 flat = true
 
-[node name="LinkButton" type="LinkButton" parent="Background/Panel/MarginContainer/Options" groups=["labels"]]
+[node name="LinkButton" type="LinkButton" parent="Background/Panel/MarginContainer/Options"]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
