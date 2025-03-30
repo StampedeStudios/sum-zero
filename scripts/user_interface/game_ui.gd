@@ -24,8 +24,6 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
 
 
@@ -88,11 +86,6 @@ func _on_level_complete() -> void:
 
 func initialize_ui(prev_state: GlobalConst.GameState) -> void:
 	_return_to = prev_state
-	match _return_to:
-		GlobalConst.GameState.MAIN_MENU:
-			exit_btn.text = tr("BACK")
-		GlobalConst.GameState.LEVEL_PICK:
-			exit_btn.text = tr("LEVELS")
 
 
 func _consume_move() -> void:

@@ -16,7 +16,6 @@ var _game_summary: GameSummary
 var _randomizer: Randomizer
 
 @onready var margin: MarginContainer = %MarginContainer
-@onready var exit_btn: Button = %ExitBtn
 @onready var container: HBoxContainer = %BottomRightContainer
 @onready var loading: Control = %Loading
 @onready var arena_time: Label = %ArenaTime
@@ -31,8 +30,6 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
 
 	# adapt loading icon at screen size
