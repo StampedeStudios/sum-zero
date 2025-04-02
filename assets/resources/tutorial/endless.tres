@@ -4,5 +4,7 @@
 
 [resource]
 script = ExtResource("2_ndyb0")
+tutorial_name = "ZEN"
 images = Array[Texture2D]([])
 hints = Array[String](["TUTORIAL_ENDLESS"])
+is_skippable = true

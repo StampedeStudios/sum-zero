@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d018ofb37nf7u"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d018ofb37nf7u"]
 
 [ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_hrj5r"]
 [ext_resource type="StyleBox" uid="uid://d0pj132xpgrxd" path="res://assets/resources/themes/button_hover.tres" id="2_5bdnx"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://8y1m1b3j6hwp" path="res://assets/ui/checked_dot.png" id="9_svjh8"]
 [ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="10_odfmv"]
 [ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_pvygh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ad0u"]
 
 [resource]
 default_font = ExtResource("12_pvygh")
@@ -36,10 +38,12 @@ Button/styles/normal = ExtResource("3_ikw2u")
 Button/styles/pressed = ExtResource("2_5bdnx")
 CheckBox/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckBox/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckBox/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckBox/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckBox/constants/h_separation = 16
 CheckBox/icons/checked = ExtResource("9_svjh8")
 CheckBox/icons/unchecked = ExtResource("10_odfmv")
+CheckBox/styles/focus = SubResource("StyleBoxEmpty_2ad0u")
 CheckButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckButton/icons/checked = ExtResource("7_g1gne")
 CheckButton/icons/unchecked = ExtResource("8_kv1c1")

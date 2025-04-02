@@ -52,7 +52,7 @@ func _on_sfx_btn_toggled(toggled_on: bool) -> void:
 
 func _on_tutorial_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.play_click_sound()
-	_player_options.tutorial_on = toggled_on
+	_player_options.set_tutorial_visibility(toggled_on)
 
 
 func _on_exit_btn_pressed() -> void:
