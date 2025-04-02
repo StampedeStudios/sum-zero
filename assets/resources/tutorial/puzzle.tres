@@ -4,5 +4,7 @@
 
 [resource]
 script = ExtResource("1_1qd0x")
+tutorial_name = "PUZZLE"
 images = Array[Texture2D]([])
 hints = Array[String](["TUTORIAL_PUZZLE"])
+is_skippable = true

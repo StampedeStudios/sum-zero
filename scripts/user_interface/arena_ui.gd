@@ -239,7 +239,7 @@ func _set_arena_time(new_time: int) -> void:
 
 func _render_tutorial() -> void:
 	var tutorial: TutorialData = _current_mode.tutorial
-	if tutorial:
+	if tutorial and SaveManager.get_options().is_visible(tutorial.tutorial_name):
 		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
 		var tutorial_ui := scene.instantiate() as TutorialUi
 		tutorial_ui.on_tutorial_closed.connect(_init_arena)

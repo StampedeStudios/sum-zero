@@ -8,12 +8,16 @@ const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 var _current_hint: int = 0
 var _tips: Array[String] = []
 var _images: Array[Texture2D]
+var _name: String
+var _hide_next_time: bool
 
 @onready var hint: RichTextLabel = %Hint
 @onready var label: Label = %Label
+@onready var hint_label: Label = %HintLabel
 @onready var sprite: TextureRect = %TextureRect
 @onready var play_btn: Button = %NextBtn
 @onready var margin: MarginContainer = %MarginContainer
+@onready var hint_options: HBoxContainer = %HintOptions
 
 
 func _ready() -> void:
@@ -22,6 +26,7 @@ func _ready() -> void:
 	hint.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
 
 	label.add_theme_font_size_override("font_size", GameManager.text_font_size)
+	hint_label.add_theme_font_size_override("font_size", GameManager.text_font_size)
 	play_btn.add_theme_font_size_override("font_size", GameManager.title_font_size)
 
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
@@ -33,6 +38,8 @@ func _ready() -> void:
 func setup(data: TutorialData) -> void:
 	_tips = data.hints
 	_images = data.images
+	_name = data.tutorial_name
+	hint_options.visible = data.is_skippable
 
 	if _images.size():
 		sprite.texture = _images[0]
@@ -67,4 +74,12 @@ func _on_next_btn_pressed() -> void:
 
 	else:
 		on_tutorial_closed.emit()
+		if _hide_next_time:
+			SaveManager.get_options().disable_hint(_name)
+			SaveManager.save_player_data()
+
 		queue_free()
+
+
+func _on_show_hints_toggled(toggled_on: bool) -> void:
+	_hide_next_time = toggled_on
