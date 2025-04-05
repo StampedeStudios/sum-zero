@@ -18,12 +18,14 @@ var _hide_next_time: bool
 @onready var play_btn: Button = %NextBtn
 @onready var margin: MarginContainer = %MarginContainer
 @onready var hint_options: HBoxContainer = %HintOptions
+@onready var show_hints: CheckBox = %ShowHints
 
 
 func _ready() -> void:
 	hint.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
 	hint.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
 	hint.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
+	show_hints.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	label.add_theme_font_size_override("font_size", GameManager.text_font_size)
 	hint_label.add_theme_font_size_override("font_size", GameManager.text_font_size)
