@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cdvls8h7b4v2p"]
+[gd_scene load_steps=12 format=3 uid="uid://cdvls8h7b4v2p"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_836sh"]
@@ -17,6 +17,8 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [sub_resource type="Gradient" id="Gradient_0dj6i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gagcj"]
 
 [node name="CreditsScreen" type="Control"]
 layout_mode = 3
@@ -80,10 +82,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 6
 theme = ExtResource("2_836sh")
 bbcode_enabled = true
-text = "[center][font_size=32][color=#a3e9a0]
-
-[font_size=36][color=#62be5d]Made by 
-Stampede Studios[/color][/font_size]
+text = "[center][color=#a3e9a0][color=#62be5d]Made by 
+Stampede Studios[/color]
 
 Abramo
 Simone
@@ -101,22 +101,33 @@ size_flags_vertical = 0
 texture = ExtResource("3_rsjq7")
 stretch_mode = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/MarginContainer"]
+[node name="ExtButtons" type="HBoxContainer" parent="ColorRect/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="GitHubBtn" type="TextureButton" parent="ColorRect/MarginContainer/HBoxContainer"]
+[node name="GitHubBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
 layout_mode = 2
-texture_normal = ExtResource("4_4cb2l")
+theme_override_constants/icon_max_width = 128
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
+icon = ExtResource("4_4cb2l")
+flat = true
 
-[node name="InstaBtn" type="TextureButton" parent="ColorRect/MarginContainer/HBoxContainer"]
+[node name="InstaBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
 layout_mode = 2
-texture_normal = ExtResource("4_kher8")
+theme_override_constants/icon_max_width = 128
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
+icon = ExtResource("4_kher8")
+flat = true
 
-[node name="ItchBtn" type="TextureButton" parent="ColorRect/MarginContainer/HBoxContainer"]
+[node name="ItchBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
 layout_mode = 2
-texture_normal = ExtResource("6_3s6s5")
+theme_override_constants/icon_max_width = 128
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
+icon = ExtResource("6_3s6s5")
+flat = true
 
 [node name="ExitBtn" type="Button" parent="ColorRect"]
 layout_mode = 1
@@ -135,7 +146,7 @@ flat = true
 icon_alignment = 1
 
 [connection signal="meta_clicked" from="ColorRect/MarginContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
-[connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/GitHubBtn" to="." method="_on_git_hub_btn_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/InstaBtn" to="." method="_on_insta_btn_pressed"]
-[connection signal="pressed" from="ColorRect/MarginContainer/HBoxContainer/ItchBtn" to="." method="_on_itch_btn_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/GitHubBtn" to="." method="_on_git_hub_btn_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/InstaBtn" to="." method="_on_insta_btn_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/ItchBtn" to="." method="_on_itch_btn_pressed"]
 [connection signal="pressed" from="ColorRect/ExitBtn" to="." method="_on_exit_btn_pressed"]

@@ -2,6 +2,7 @@ class_name CreditsScreen extends Control
 
 @onready var text: RichTextLabel = %RichTextLabel
 @onready var margin: MarginContainer = %MarginContainer
+@onready var ext_buttons: HBoxContainer = %ExtButtons
 
 
 func _ready() -> void:
@@ -9,6 +10,13 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+
+	text.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
+	text.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
+	text.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
+
+	for child in ext_buttons.get_children():
+		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
 
 	await get_tree().create_timer(1).timeout
 	start_credits_scroll()
