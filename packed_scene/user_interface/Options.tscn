@@ -63,6 +63,7 @@ layout_mode = 2
 size_flags_vertical = 0
 focus_mode = 0
 theme = ExtResource("1_ncc3j")
+expand_icon = true
 selected = 0
 item_count = 5
 popup/item_0/text = "English"

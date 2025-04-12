@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d018ofb37nf7u"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://d018ofb37nf7u"]
 
 [ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_hrj5r"]
 [ext_resource type="StyleBox" uid="uid://d0pj132xpgrxd" path="res://assets/resources/themes/button_hover.tres" id="2_5bdnx"]
@@ -11,7 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://daqayrg5ld2ss" path="res://assets/ui/unchecked.png" id="8_kv1c1"]
 [ext_resource type="Texture2D" uid="uid://8y1m1b3j6hwp" path="res://assets/ui/checked_dot.png" id="9_svjh8"]
 [ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="10_odfmv"]
+[ext_resource type="Texture2D" uid="uid://c8mrpntv1hq0n" path="res://assets/ui/small_checked_dot.png" id="11_ygliw"]
 [ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_pvygh"]
+[ext_resource type="Texture2D" uid="uid://do13myk5dw3sr" path="res://assets/ui/small_unchecked_dot.png" id="12_vkj42"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ad0u"]
 
@@ -66,8 +68,8 @@ OptionButton/styles/hover = ExtResource("6_thkdp")
 OptionButton/styles/normal = ExtResource("6_thkdp")
 OptionButton/styles/pressed = ExtResource("6_thkdp")
 PopupMenu/constants/item_start_padding = 10
-PopupMenu/icons/radio_checked = ExtResource("9_svjh8")
-PopupMenu/icons/radio_unchecked = ExtResource("10_odfmv")
+PopupMenu/icons/radio_checked = ExtResource("11_ygliw")
+PopupMenu/icons/radio_unchecked = ExtResource("12_vkj42")
 PopupMenu/styles/hover = ExtResource("7_f000m")
 PopupMenu/styles/panel = ExtResource("7_f000m")
 TextEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
