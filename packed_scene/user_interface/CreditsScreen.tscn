@@ -129,18 +129,16 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
 icon = ExtResource("6_3s6s5")
 flat = true
 
-[node name="ExitBtn" type="Button" parent="ColorRect"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -45.0
-offset_bottom = 45.0
-grow_horizontal = 0
+[node name="ExitBtn" type="Button" parent="ColorRect/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 focus_mode = 0
 theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_constants/icon_max_width = 64
 icon = ExtResource("5_82hi4")
 flat = true
 icon_alignment = 1
@@ -149,4 +147,4 @@ icon_alignment = 1
 [connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/GitHubBtn" to="." method="_on_git_hub_btn_pressed"]
 [connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/InstaBtn" to="." method="_on_insta_btn_pressed"]
 [connection signal="pressed" from="ColorRect/MarginContainer/ExtButtons/ItchBtn" to="." method="_on_itch_btn_pressed"]
-[connection signal="pressed" from="ColorRect/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="ColorRect/MarginContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]

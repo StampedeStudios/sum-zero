@@ -3,6 +3,7 @@ class_name CreditsScreen extends Control
 @onready var text: RichTextLabel = %RichTextLabel
 @onready var margin: MarginContainer = %MarginContainer
 @onready var ext_buttons: HBoxContainer = %ExtButtons
+@onready var exit_btn: Button = %ExitBtn
 
 
 func _ready() -> void:
@@ -14,6 +15,7 @@ func _ready() -> void:
 	text.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
 	text.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
 	text.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	for child in ext_buttons.get_children():
 		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)

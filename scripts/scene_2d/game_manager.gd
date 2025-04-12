@@ -16,6 +16,7 @@ var subtitle_font_size: int
 var text_font_size: int
 var small_text_font_size: int
 var icon_max_width: int
+var small_icon_max_width: int
 var btn_icon_max_width: int
 var btns_separation: int
 var vertical_margin: int
@@ -75,6 +76,7 @@ func _set_ui_scale() -> void:
 	text_font_size = int(ui_scale.x * GlobalConst.TEXT_FONT_SIZE)
 	small_text_font_size = int(ui_scale.x * GlobalConst.SMALL_TEXT_FONT_SIZE)
 	icon_max_width = int(ui_scale.x * GlobalConst.ICON_MAX_WIDTH)
+	small_icon_max_width = int(ui_scale.x * GlobalConst.SMALL_ICON_MAX_WIDTH)
 	btn_icon_max_width = int(ui_scale.x * GlobalConst.BTN_ICON_MAX_WIDTH)
 
 	btns_separation = int(ui_scale.x * GlobalConst.BTN_SEPARATION)

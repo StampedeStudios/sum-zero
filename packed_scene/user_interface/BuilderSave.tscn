@@ -127,11 +127,13 @@ focus_mode = 0
 theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_constants/icon_max_width = 32
 theme_override_styles/hover = ExtResource("6_q6q01")
 theme_override_styles/pressed = ExtResource("6_q6q01")
 theme_override_styles/normal = ExtResource("6_q6q01")
 icon = ExtResource("7_7obcj")
 icon_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="text_changed" from="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer/LevelName" to="." method="_on_level_name_text_changed"]
