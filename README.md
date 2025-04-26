@@ -34,6 +34,9 @@ Each level can be of different shape on a max of a 4 by 4 size. Strategically se
 #### Minimize moves amount
 Deal with blocked or missing tiles that may appear as additional obstacles. Complete the level once all tiles display a value of zero.
 
+### Where to play
+Play **Sum Zero** on [Android](https://play.google.com/store/apps/details?id=it.stampede.sumzero) for the best experience. If you prefer a desktop experience, you can download a playable version for [Linux](https://github.com/StampedeStudios/sum-zero/releases/download/1.05/SumZero_Linux.zip) or [Windows](https://github.com/StampedeStudios/sum-zero/releases/download/1.05/SumZero_Windows.zip). You can also play it on [itch.io](https://stampede-studios.itch.io/sum-zero) if you just want to give it a quick try.
+
 ## Features
 - **Varied Difficulty**: Grids range from simple 2x2 layouts to challenging 5x5 puzzles. Larger grids increase complexity, requiring more strategic planning and foresight;
 - **Math-Based Game play**: Leverage arithmetic sliders to manipulate tile values and solve puzzles.
@@ -50,4 +53,3 @@ Together, let's make **Sum Zero** even better!
 ![Banner](./assets/game/banner.png) 
 
 </div>
-
