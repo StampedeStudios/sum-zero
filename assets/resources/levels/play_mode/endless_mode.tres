@@ -48,6 +48,7 @@ boost_per_score = 2.0
 script = ExtResource("2_lqxql")
 is_skippable = true
 one_shoot_mode = false
+track_completes = true
 timer_options = SubResource("Resource_ssd72")
 level_options = SubResource("Resource_ppfa4")
 title = "ENDLESS"

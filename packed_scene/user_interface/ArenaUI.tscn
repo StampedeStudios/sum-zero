@@ -52,6 +52,15 @@ theme = ExtResource("2_jitnk")
 text = "00:00"
 horizontal_alignment = 1
 
+[node name="LevelsCompleted" type="Label" parent="MarginContainer/TopContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(180, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("2_jitnk")
+text = "0"
+horizontal_alignment = 1
+
 [node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
