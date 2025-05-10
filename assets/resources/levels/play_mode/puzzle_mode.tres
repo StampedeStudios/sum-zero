@@ -73,6 +73,7 @@ boost_per_score = 2.0
 script = ExtResource("2_i1lkq")
 is_skippable = true
 one_shoot_mode = true
+track_completes = false
 timer_options = SubResource("Resource_ai02r")
 level_options = SubResource("Resource_6dhtk")
 title = "Brain"

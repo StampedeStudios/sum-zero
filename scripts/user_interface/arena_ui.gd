@@ -14,11 +14,13 @@ var _time: int
 var _timer: Timer
 var _game_summary: GameSummary
 var _randomizer: Randomizer
+var _completed: int = 0
 
 @onready var margin: MarginContainer = %MarginContainer
 @onready var container: HBoxContainer = %BottomRightContainer
 @onready var loading: Control = %Loading
 @onready var arena_time: Label = %ArenaTime
+@onready var levels_completed: Label = %LevelsCompleted
 @onready var loading_icon: TextureRect = %LoadingIcon
 @onready var skip_btn: Button = %SkipBtn
 
@@ -57,6 +59,8 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			if _current_mode.timer_options:
 				arena_time.show()
 				_timer.start()
+			if _current_mode.track_completes:
+				levels_completed.show()
 		GlobalConst.GameState.LEVEL_END:
 			pass
 		GlobalConst.GameState.ARENA_END:
@@ -82,10 +86,13 @@ func _hide_ui() -> void:
 	container.hide()
 	loading.hide()
 	arena_time.hide()
+	levels_completed.hide()
+	
 
 
 func _reset_level() -> void:
 	_set_arena_time(0)
+	_set_levels_completed(0)
 	_init_level()
 
 
@@ -191,6 +198,7 @@ func _on_level_complete() -> void:
 			var chain := _game_summary.add_completed_level(summary)
 			# TODO: show level streak
 			print(chain)
+			_set_levels_completed(_completed + 1)
 		_get_new_random_level()
 
 
@@ -223,6 +231,11 @@ func _on_skip_btn_pressed() -> void:
 		_game_summary.skip_level()
 	_get_new_random_level()
 
+
+func _set_levels_completed(new_levels_completed: int) -> void:
+	_completed = new_levels_completed
+	levels_completed.text = str(_completed)
+	pass
 
 func _set_arena_time(new_time: int) -> void:
 	_time = new_time
