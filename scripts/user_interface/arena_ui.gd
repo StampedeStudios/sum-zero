@@ -87,7 +87,6 @@ func _hide_ui() -> void:
 	loading.hide()
 	arena_time.hide()
 	levels_completed.hide()
-	
 
 
 func _reset_level() -> void:
@@ -235,7 +234,7 @@ func _on_skip_btn_pressed() -> void:
 func _set_levels_completed(new_levels_completed: int) -> void:
 	_completed = new_levels_completed
 	levels_completed.text = str(_completed)
-	pass
+
 
 func _set_arena_time(new_time: int) -> void:
 	_time = new_time
