@@ -4,6 +4,8 @@ class_name ArenaMode extends PlayMode
 @export var is_skippable: bool
 ## Only one playable level
 @export var one_shoot_mode: bool
+## Counts completed levels
+@export var track_completes: bool
 ## Parameters for manage game time (none: no time counter)
 @export var timer_options: TimerOptions
 ## Parameters for random level generation
