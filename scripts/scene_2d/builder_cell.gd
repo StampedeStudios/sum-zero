@@ -85,7 +85,7 @@ func _change_aspect() -> void:
 	block.visible = _data.is_blocked
 	target_value_txt.visible = !_data.is_blocked
 	if !_data.is_blocked:
-		target_value_txt.text = String.num(_data.value)
+		target_value_txt.text = String.num(_data.value, 0)
 		_change_color(GameManager.palette.cell_color.get(_data.value))
 
 
