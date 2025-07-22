@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://cdvls8h7b4v2p"]
 
-[ext_resource type="Script" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
+[ext_resource type="Script" uid="uid://dpwsouj2eyd02" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_836sh"]
 [ext_resource type="Texture2D" uid="uid://b0ejunt83wuqv" path="res://assets/game/Stampede.png" id="3_rsjq7"]
 [ext_resource type="Texture2D" uid="uid://cxmnwwrltjwj5" path="res://assets/game/social/github.png" id="4_4cb2l"]

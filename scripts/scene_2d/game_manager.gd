@@ -8,7 +8,7 @@ const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 const CENTER_OFFSET: int = 40
 
-var palette: ColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
+var palette: CustomColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
 
 var ui_scale: Vector2
 var title_font_size: int

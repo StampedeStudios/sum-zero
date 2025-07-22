@@ -1,4 +1,4 @@
-class_name ColorPalette extends Resource
+class_name CustomColorPalette extends Resource
 
 @export var cell_color: Dictionary = {
 	-4: Color(0, 0, 0, 1),

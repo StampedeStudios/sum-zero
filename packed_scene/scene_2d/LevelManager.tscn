@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqii2e6dq0dmu"]
 
-[ext_resource type="Script" path="res://scripts/scene_2d/level_manager.gd" id="1_lxew3"]
+[ext_resource type="Script" uid="uid://dbgc0hied3no5" path="res://scripts/scene_2d/level_manager.gd" id="1_lxew3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uc548"]
 

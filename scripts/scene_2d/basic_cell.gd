@@ -78,7 +78,7 @@ func _update_value() -> void:
 	var color: Color
 	color = GameManager.palette.cell_color.get(_current_data.value)
 	tile.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
-	target_value_txt.text = String.num(_current_data.value)
+	target_value_txt.text = String.num(_current_data.value, 0)
 
 
 func reset() -> void:

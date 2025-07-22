@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="ArenaMode" load_steps=12 format=3 uid="uid://bopno5li70h0j"]
 
 [ext_resource type="Texture2D" uid="uid://4s6jri585ac4" path="res://assets/ui/puzzle_icon.png" id="1_u7kg1"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_crj40"]
-[ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_i1lkq"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_d3nix"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_slider_opt.gd" id="4_84n5d"]
-[ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="6_xpigj"]
+[ext_resource type="Script" uid="uid://dfue7w73jrsbq" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_crj40"]
+[ext_resource type="Script" uid="uid://bfx6yvridntks" path="res://scripts/utility/play_mode/arena_mode.gd" id="2_i1lkq"]
+[ext_resource type="Script" uid="uid://v2uteibxf607" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_d3nix"]
+[ext_resource type="Script" uid="uid://chfp1076pad2c" path="res://scripts/utility/randomizer/random_slider_opt.gd" id="4_84n5d"]
+[ext_resource type="Script" uid="uid://b4ffoyyr6358b" path="res://scripts/utility/play_mode/timer_options.gd" id="6_xpigj"]
 [ext_resource type="Resource" uid="uid://brr2f73g888nk" path="res://assets/resources/tutorial/puzzle.tres" id="7_wdou3"]
 
 [sub_resource type="Resource" id="Resource_0pgrr"]

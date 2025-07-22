@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="RandomGridOptions" load_steps=2 format=3 uid="uid://cajui7s5bdu0b"]
 
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="1_b8wt4"]
+[ext_resource type="Script" uid="uid://dfue7w73jrsbq" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="1_b8wt4"]
 
 [resource]
 script = ExtResource("1_b8wt4")

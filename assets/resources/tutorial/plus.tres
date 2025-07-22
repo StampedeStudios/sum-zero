@@ -2,9 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bycfxrllfmtaf" path="res://assets/ui/tutorial/symbols.png" id="1_hdhlo"]
 [ext_resource type="Texture2D" uid="uid://cwcobstgha5ut" path="res://assets/ui/tutorial/plus.png" id="1_muq05"]
-[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="6_n5u1v"]
+[ext_resource type="Script" uid="uid://difn18qocpkgb" path="res://scripts/utility/tutorial_data.gd" id="6_n5u1v"]
 
 [resource]
 script = ExtResource("6_n5u1v")
+tutorial_name = ""
 images = Array[Texture2D]([ExtResource("1_hdhlo"), ExtResource("1_muq05")])
 hints = Array[String](["TUTORIAL_DIFF_EFFECTS", "PLUS_SLIDER_TUTORIAL"])
+is_skippable = false
