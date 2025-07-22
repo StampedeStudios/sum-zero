@@ -13,7 +13,6 @@ shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/invert_base_color = false
 
 [node name="BasicCell" type="Node2D"]
-position = Vector2(490, 587)
 script = ExtResource("1_f46k4")
 
 [node name="Tile" type="Sprite2D" parent="."]

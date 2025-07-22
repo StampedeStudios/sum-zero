@@ -50,9 +50,9 @@ func _on_reset_btn_pressed() -> void:
 
 func _reset_moves() -> void:
 	_moves = 0
-	moves_count.text = String.num(_moves)
+	moves_count.text = String.num(_moves, 0)
 
 
 func _add_move() -> void:
 	_moves += 1
-	moves_count.text = String.num(_moves)
+	moves_count.text = String.num(_moves, 0)
