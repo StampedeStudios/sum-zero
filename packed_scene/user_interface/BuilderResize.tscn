@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://vvet7yb7thao"]
 
-[ext_resource type="Script" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
-[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_bcgsc"]
+[ext_resource type="Script" uid="uid://3vyf8r8ubnb4" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
+[ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_bcgsc"]
 [ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="2_sr71w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ikv7t"]
@@ -10,6 +10,7 @@ bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8113u"]
 shader = ExtResource("2_bcgsc")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
+shader_parameter/invert_base_color = false
 
 [node name="LevelInfoQuery" type="Control"]
 layout_mode = 3

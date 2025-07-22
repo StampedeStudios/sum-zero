@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StoryMode" load_steps=3 format=3 uid="uid://cdb1s2jwkb0yd"]
 
-[ext_resource type="Script" path="res://scripts/utility/play_mode/story_mode.gd" id="1_33anw"]
+[ext_resource type="Script" uid="uid://cvpplq2rew027" path="res://scripts/utility/play_mode/story_mode.gd" id="1_33anw"]
 [ext_resource type="Texture2D" uid="uid://bhigxos8mxfhs" path="res://assets/ui/tutorial_icon.png" id="1_pxgkx"]
 
 [resource]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://devm2geibslsw"]
 
-[ext_resource type="Script" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
+[ext_resource type="Script" uid="uid://bq3y5cchmck2m" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_wt55p"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
-[ext_resource type="Script" path="res://scripts/user_interface/animated_panel.gd" id="5_xk0ej"]
+[ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="5_xk0ej"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="6_q6q01"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_7obcj"]
 

@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://d0xanyjlyiox4"]
 
 [ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="1_cmxgt"]
-[ext_resource type="Script" path="res://scripts/utility/play_mode/arena_mode.gd" id="1_lxvna"]
+[ext_resource type="Script" uid="uid://bfx6yvridntks" path="res://scripts/utility/play_mode/arena_mode.gd" id="1_lxvna"]
 [ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="2_esi1y"]
-[ext_resource type="Script" path="res://scripts/utility/play_mode/timer_options.gd" id="3_0t8i1"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_c6whw"]
+[ext_resource type="Script" uid="uid://b4ffoyyr6358b" path="res://scripts/utility/play_mode/timer_options.gd" id="3_0t8i1"]
+[ext_resource type="Script" uid="uid://v2uteibxf607" path="res://scripts/utility/randomizer/randomizer_options.gd" id="3_c6whw"]
 [ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="4_6wt32"]
 [ext_resource type="Resource" uid="uid://bpskg23ac4w87" path="res://assets/resources/tutorial/blitz.tres" id="7_mc4j6"]
 

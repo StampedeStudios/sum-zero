@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TutorialData" load_steps=7 format=3 uid="uid://c84acpdxwml55"]
 
-[ext_resource type="Script" path="res://scripts/utility/tutorial_data.gd" id="1_nvvvp"]
+[ext_resource type="Script" uid="uid://difn18qocpkgb" path="res://scripts/utility/tutorial_data.gd" id="1_nvvvp"]
 [ext_resource type="Texture2D" uid="uid://dgbqkgkmtt1m5" path="res://assets/ui/tutorial/tutorial_zero_1.png" id="1_yo87r"]
 [ext_resource type="Texture2D" uid="uid://d4jdd7033rdvr" path="res://assets/ui/tutorial/tutorial_zero_2.png" id="2_o2i57"]
 [ext_resource type="Texture2D" uid="uid://cwgqtgi4e70qh" path="res://assets/ui/tutorial/tutorial_zero_3.png" id="3_apvys"]
@@ -9,5 +9,7 @@
 
 [resource]
 script = ExtResource("1_nvvvp")
+tutorial_name = ""
 images = Array[Texture2D]([ExtResource("1_yo87r"), ExtResource("2_o2i57"), ExtResource("3_apvys"), ExtResource("4_qfwmk"), ExtResource("4_n43ls")])
 hints = Array[String](["CELLS_DOWN", "ONE_MOVE", "GAME_GOAL", "BEST_SOLUTION_HINT", "MINUS_SLIDER_TUTORIAL"])
+is_skippable = false

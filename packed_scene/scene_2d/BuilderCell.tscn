@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dwy42e2etcl7x"]
 
-[ext_resource type="Script" path="res://scripts/scene_2d/builder_cell.gd" id="1_bah0f"]
+[ext_resource type="Script" uid="uid://iq6e50n7qjkk" path="res://scripts/scene_2d/builder_cell.gd" id="1_bah0f"]
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="2_srl0q"]
-[ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="2_sryqp"]
+[ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_sryqp"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="4_w7k74"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="5_7eh6w"]
 [ext_resource type="Texture2D" uid="uid://bd8164g7i1yxu" path="res://assets/scenes_2d/locked_cell.png" id="5_8tl6m"]

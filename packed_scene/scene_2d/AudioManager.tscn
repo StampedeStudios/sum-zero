@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bap70j1vux1ca"]
 
-[ext_resource type="Script" path="res://scripts/scene_2d/audio_manager.gd" id="1_n0my8"]
+[ext_resource type="Script" uid="uid://dvi4llvgwvcd2" path="res://scripts/scene_2d/audio_manager.gd" id="1_n0my8"]
 [ext_resource type="AudioStream" uid="uid://dumaj0rorl2b2" path="res://assets/sfx/gone_fishin_by_memoraphile_CC0.mp3" id="2_g54x2"]
 [ext_resource type="AudioStream" uid="uid://bmlqtwi8thk1a" path="res://assets/sfx/slider.wav" id="3_m2td4"]
 [ext_resource type="AudioStream" uid="uid://d2ue8ywo4qeeb" path="res://assets/sfx/click.wav" id="3_ro30y"]

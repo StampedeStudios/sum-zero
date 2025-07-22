@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://wqs3xar34kkp"]
 
-[ext_resource type="Script" path="res://scripts/user_interface/levels_page.gd" id="1_c4mma"]
+[ext_resource type="Script" uid="uid://dnx4y6iushgis" path="res://scripts/user_interface/levels_page.gd" id="1_c4mma"]
 [ext_resource type="StyleBox" uid="uid://bh7pt440acv0m" path="res://assets/resources/themes/level_button_hover.tres" id="2_jasio"]
-[ext_resource type="Script" path="res://scripts/user_interface/level_button_base.gd" id="2_pd1rl"]
+[ext_resource type="Script" uid="uid://c2vb4jfe5f5oq" path="res://scripts/user_interface/level_button_base.gd" id="2_pd1rl"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_v4rw7"]
 [ext_resource type="StyleBox" uid="uid://cerm48ggpi77x" path="res://assets/resources/themes/level_button.tres" id="3_e2n4l"]
 

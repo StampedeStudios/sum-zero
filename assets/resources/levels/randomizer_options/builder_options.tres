@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="RandomizerOptions" load_steps=8 format=3 uid="uid://rxcnbkc4kqpy"]
 
-[ext_resource type="Script" path="res://scripts/utility/randomizer/randomizer_options.gd" id="1_76fmt"]
+[ext_resource type="Script" uid="uid://v2uteibxf607" path="res://scripts/utility/randomizer/randomizer_options.gd" id="1_76fmt"]
 [ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="1_px4d6"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_locked_opt.gd" id="2_vx7y4"]
-[ext_resource type="Script" path="res://scripts/utility/randomizer/random_hole_opt.gd" id="2_wdd2b"]
+[ext_resource type="Script" uid="uid://dy138jxqcbpuf" path="res://scripts/utility/randomizer/random_locked_opt.gd" id="2_vx7y4"]
+[ext_resource type="Script" uid="uid://cqlv4nsymp51q" path="res://scripts/utility/randomizer/random_hole_opt.gd" id="2_wdd2b"]
 [ext_resource type="Resource" uid="uid://kn4gnwbv8b53" path="res://assets/resources/levels/randomizer_options/base_slider_options.tres" id="5_0pn6k"]
 
 [sub_resource type="Resource" id="Resource_gqv2n"]
