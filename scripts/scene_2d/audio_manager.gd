@@ -46,6 +46,8 @@ func play_click_sound() -> void:
 
 
 ## Slider's sounds are based on a single sound whose pitch increases as they reach their full length.
+##
+## @param percentage Value in range 0-1 that indicates the percentage of extension.
 func play_slider_sound(percentage: float) -> void:
 	if _is_sfx_on:
 		slider_player.pitch_scale = percentage

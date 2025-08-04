@@ -1,3 +1,4 @@
+## Handles data persistence and provides a set of useful methods the retrieve saved data.
 extends Node
 
 const PERSISTENT_SAVE_PATH = "res://assets/resources/levels/persistent_levels.tres"
@@ -20,25 +21,6 @@ func get_tutorial() -> TutorialData:
 	return null
 
 
-func _try_load_saved_data() -> bool:
-	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
-	if _persistent_save == null or _persistent_save.is_empty():
-		push_error("No levels found on persisted data")
-		return false
-	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
-		push_warning("No data found on disk, generating fresh save game")
-		_player_save = PlayerSave.new()
-	else:
-		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
-	if _player_save == null:
-		push_error("Saved data corrupted, impossible to read")
-		_player_save = PlayerSave.new()
-	var modified := _player_save.check_savegame_integrity(_persistent_save)
-	if modified:
-		save_player_data()
-	return true
-
-
 func get_num_levels(group: GlobalConst.LevelGroup) -> int:
 	match group:
 		GlobalConst.LevelGroup.CUSTOM:
@@ -58,14 +40,18 @@ func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Ar
 	return result
 
 
+## Returns the first unlocked level yet to be completed.
+##
+## @return The most suited level to be played. If there is an unlocked level yet to be
+## completed than it returns its id. Returns the first level otherwise.
 func get_start_level_playable() -> int:
-	# get the first level unlocked and not completed
 	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
 	for id in range(_persistent_save.levels_hash.size()):
 		var progress := _player_save.get_progress(GlobalConst.LevelGroup.MAIN, id)
 		if progress.is_unlocked and !progress.is_completed:
 			return id
-	# fist play
+
+	# If there is not suitable levels, returns the first playable level
 	_player_save.unlock_level(0)
 	return 0
 
@@ -75,16 +61,19 @@ func update_level_progress(move_left: int) -> bool:
 	var context: GlobalConst.LevelGroup = GameManager.get_active_context()
 	var id: int = GameManager.get_active_level_id()
 	var active_progress: LevelProgress = _player_save.get_progress(context, id)
+
 	if !active_progress.is_completed:
 		active_progress.is_completed = true
 		if id < _persistent_save.levels_hash.size() - 1:
 			_player_save.unlock_level(id + 1)
+
 	if move_left > active_progress.move_left:
 		var old_star := clampi(active_progress.move_left, -3, 0) + 3
 		var new_star := clampi(move_left, -3, 0) + 3
 		active_progress.move_left = move_left
 		_player_save.add_star(new_star - old_star)
 		is_record = true
+
 	_player_save.set_progress(context, id, active_progress)
 	save_player_data()
 	return is_record
@@ -137,3 +126,22 @@ func update_blitz_score(new: int) -> bool:
 		save_player_data()
 		return true
 	return false
+
+
+func _try_load_saved_data() -> bool:
+	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
+	if _persistent_save == null or _persistent_save.is_empty():
+		push_error("No levels found on persisted data")
+		return false
+	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
+		push_warning("No data found on disk, generating fresh save game")
+		_player_save = PlayerSave.new()
+	else:
+		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
+	if _player_save == null:
+		push_error("Saved data corrupted, impossible to read")
+		_player_save = PlayerSave.new()
+	var modified := _player_save.check_savegame_integrity(_persistent_save)
+	if modified:
+		save_player_data()
+	return true
