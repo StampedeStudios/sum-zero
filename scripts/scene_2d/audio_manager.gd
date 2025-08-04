@@ -1,3 +1,9 @@
+## Handles all sound effects and its options.
+##
+## Has three distinct audio player:
+## - An audio player always plays the background music if enabled.
+## - An audio player is strictly dedicated to play sliders sound effects and can overlap other SFX.
+## - A third audio player handles all other — less important — sound effects.
 extends Node2D
 
 var _is_music_on: bool = true
@@ -39,6 +45,7 @@ func play_click_sound() -> void:
 		button_plyer.play()
 
 
+## Slider's sounds are based on a single sound whose pitch increases as they reach their full length.
 func play_slider_sound(percentage: float) -> void:
 	if _is_sfx_on:
 		slider_player.pitch_scale = percentage
