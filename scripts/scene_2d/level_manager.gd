@@ -1,3 +1,6 @@
+## Handles level life cycle.
+##
+## Initialize the levels and handles level-related events.
 class_name LevelManager extends Node2D
 
 signal on_level_complete
@@ -20,6 +23,120 @@ func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 
 
+func init_level(current_level: LevelData) -> void:
+	_clear()
+
+	if current_level == null:
+		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		push_error("Invalid initial level found")
+		return
+
+	_current_level = current_level
+	var level_size: Vector2i
+	var half_grid_size: Vector2
+	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
+	level_size = Vector2i(current_level.width, current_level.height)
+	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
+
+	_init_grid(level_size)
+
+	await get_tree().process_frame
+
+	# Fills the grid.
+	for coord: Vector2i in current_level.cells_list.keys():
+		var cell_instance := BASIC_CELL.instantiate()
+		var relative_pos: Vector2
+		var cell_offset: Vector2
+	
+		relative_pos = coord * GlobalConst.CELL_SIZE
+		cell_offset = Vector2.ONE * GlobalConst.CELL_SIZE / 2
+		grid.add_child(cell_instance)
+		cell_instance.position = -half_grid_size + cell_offset + relative_pos
+		cell_instance.init_cell(current_level.cells_list.get(coord))
+		grid_cells[coord] = cell_instance
+
+	await get_tree().process_frame
+
+	# Placing sliders following a clockwise rotation.
+	for coord: Vector2i in current_level.slider_list.keys():
+		var edge: int = coord.x
+		var dist: int = coord.y * GlobalConst.CELL_SIZE
+		var x_pos: float
+		var y_pos: float
+		var angle: float
+
+		match edge:
+			0: # TOP
+				angle = 90
+				x_pos = -half_grid_size.x + half_cell + dist
+				y_pos = -half_grid_size.y - half_cell
+			
+			1: # LEFT
+				angle = 180
+				x_pos = half_grid_size.x + half_cell
+				y_pos = -half_grid_size.y + half_cell + dist
+			
+			2: # BOTTOM
+				angle = 270
+				x_pos = -half_grid_size.x + half_cell + dist
+				y_pos = half_grid_size.y + half_cell
+			
+			3: # RIGHT
+				angle = 0
+				x_pos = -half_grid_size.x - half_cell
+				y_pos = -half_grid_size.y + half_cell + dist
+
+		var sc_instance := SLIDER_AREA.instantiate() as SliderArea
+		grid.add_child(sc_instance)
+		sc_instance.position = Vector2(x_pos, y_pos)
+		sc_instance.rotation_degrees = angle
+		sc_instance.init_slider(current_level.slider_list.get(coord), _get_slider_extension(coord))
+		sc_instance.alter_grid.connect(_check_grid)
+		grid_sliders.append(sc_instance)
+
+	await get_tree().process_frame
+
+
+## Adds all tiles and sliders to the scene.
+##
+## If `animate` is true, objects are spawned in a circle starting from a random position.
+## This creates a varied entry animation that feels different each time.
+##
+## @param animate If true, applies an entry animation to each spawned object.
+func spawn_grid(animate: bool = true) -> void:
+	self.show()
+
+	if not animate:
+		for cell: Cell in grid_cells.values():
+			cell.show_cell(true)
+		for slider in grid_sliders:
+			slider.show_slider(true)
+		return
+
+	var grid_size: Vector2
+	var level_size := Vector2i(_current_level.width, _current_level.height)
+	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
+
+	var start_point: Vector2
+	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
+	start_point.y = randf_range(-grid_size.y / 2, grid_size.y / 2)
+
+	var start: Vector2 = grid.global_position + start_point
+	var end: float = _get_max_radius(grid_size, start_point)
+	var time: float = _get_time_relative_to_radius(end, grid_size)
+
+	await create_tween().tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
+	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+
+
+func reset_level() -> void:
+	for cell: Cell in grid_cells.values():
+		cell.reset()
+	for slider in grid_sliders:
+		slider.reset()
+	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+
+
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.MAIN_MENU:
@@ -34,94 +151,19 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func init_level(current_level: LevelData) -> void:
-	_clear()
-	if current_level == null:
-		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
-		push_error("Invalid initial level found")
-		return
-	_current_level = current_level
-	var level_size: Vector2i
-	var half_grid_size: Vector2
-	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
-	level_size = Vector2i(current_level.width, current_level.height)
-	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
-
-	_init_grid(level_size)
-
-	await get_tree().process_frame
-	# placing cells
-	for coord: Vector2i in current_level.cells_list.keys():
-		var cell_instance := BASIC_CELL.instantiate()
-		var relative_pos: Vector2
-		var cell_offset: Vector2
-		relative_pos = coord * GlobalConst.CELL_SIZE
-		cell_offset = Vector2.ONE * GlobalConst.CELL_SIZE / 2
-		grid.add_child(cell_instance)
-		cell_instance.position = -half_grid_size + cell_offset + relative_pos
-		cell_instance.init_cell(current_level.cells_list.get(coord))
-		grid_cells[coord] = cell_instance
-
-	await get_tree().process_frame
-	# placing slider areas clockwise
-	for coord: Vector2i in current_level.slider_list.keys():
-		var edge: int = coord.x
-		var dist: int = coord.y * GlobalConst.CELL_SIZE
-		var x_pos: float
-		var y_pos: float
-		var angle: float
-
-		match edge:
-			# TOP
-			0:
-				angle = 90
-				x_pos = -half_grid_size.x + half_cell + dist
-				y_pos = -half_grid_size.y - half_cell
-			# LEFT
-			1:
-				angle = 180
-				x_pos = half_grid_size.x + half_cell
-				y_pos = -half_grid_size.y + half_cell + dist
-			# BOTTOM
-			2:
-				angle = 270
-				x_pos = -half_grid_size.x + half_cell + dist
-				y_pos = half_grid_size.y + half_cell
-			# RIGHT
-			3:
-				angle = 0
-				x_pos = -half_grid_size.x - half_cell
-				y_pos = -half_grid_size.y + half_cell + dist
-
-		var sc_instance := SLIDER_AREA.instantiate() as SliderArea
-		grid.add_child(sc_instance)
-		sc_instance.position = Vector2(x_pos, y_pos)
-		sc_instance.rotation_degrees = angle
-		sc_instance.init_slider(current_level.slider_list.get(coord), _get_slider_extension(coord))
-		sc_instance.alter_grid.connect(check_grid)
-		grid_sliders.append(sc_instance)
-	await get_tree().process_frame
-
-
-func animate_grid(instant_anim: bool = false) -> void:
-	self.show()
-	if instant_anim:
-		for cell: Cell in grid_cells.values():
-			cell.show_cell(true)
-		for slider in grid_sliders:
-			slider.show_slider(true)
-		return
-	var grid_size: Vector2
-	var level_size := Vector2i(_current_level.width, _current_level.height)
-	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
-	var start_point: Vector2
-	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
-	start_point.y = randf_range(-grid_size.y / 2, grid_size.y / 2)
-	var start: Vector2 = grid.global_position + start_point
-	var end: float = _get_max_radius(grid_size, start_point)
-	var time: float = _get_time_relative_to_radius(end, grid_size)
-	await create_tween().tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
-	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+func _check_grid(move_count: bool) -> void:
+	if move_count:
+		on_consume_move.emit()
+	var level_complete: bool
+	_has_slider_active = false
+	for cell: Cell in grid_cells.values():
+		if cell.get_cell_value() == 0:
+			level_complete = true
+		else:
+			level_complete = false
+			break
+	if level_complete:
+		on_level_complete.emit()
 
 
 func _get_max_radius(size: Vector2, start: Vector2) -> float:
@@ -163,28 +205,6 @@ func _clear() -> void:
 	grid_cells.clear()
 	grid_sliders.clear()
 
-
-func check_grid(move_count: bool) -> void:
-	if move_count:
-		on_consume_move.emit()
-	var level_complete: bool
-	_has_slider_active = false
-	for cell: Cell in grid_cells.values():
-		if cell.get_cell_value() == 0:
-			level_complete = true
-		else:
-			level_complete = false
-			break
-	if level_complete:
-		on_level_complete.emit()
-
-
-func reset_level() -> void:
-	for cell: Cell in grid_cells.values():
-		cell.reset()
-	for slider in grid_sliders:
-		slider.reset()
-	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
 
 
 func _init_grid(level_size: Vector2i) -> void:

@@ -27,7 +27,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = true
 			if !GameManager.level_manager.on_consume_move.is_connected(_add_move):
 				GameManager.level_manager.on_consume_move.connect(_add_move)
-			GameManager.level_manager.animate_grid(true)
+			GameManager.level_manager.spawn_grid(false)
 		GlobalConst.GameState.PLAY_LEVEL:
 			self.visible = true
 		GlobalConst.GameState.LEVEL_END:

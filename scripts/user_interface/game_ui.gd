@@ -63,11 +63,11 @@ func _render_tutorial() -> void:
 	if tutorial:
 		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
 		var tutorial_ui := scene.instantiate() as TutorialUi
-		tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.animate_grid)
+		tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.spawn_grid)
 		get_tree().root.add_child(tutorial_ui)
 		tutorial_ui.setup(tutorial)
 	else:
-		GameManager.level_manager.animate_grid()
+		GameManager.level_manager.spawn_grid()
 
 
 func _on_level_complete() -> void:

@@ -1,9 +1,9 @@
 ## Provides a simple way to encode and decode defined puzzle and the amount of moves required for the resolution.
 ## The encoding structure is not human readable but represents an effort to reduce to the minimum the amount
-## of characters required to completely define a puzzle constraints. For instance, "2go-9k-1cbb1a" describe a 3x3 puzzle
-## with 4 sliders. The short string is helpful when users wants to manually import a friend level.
+## of characters required to completely define a puzzle constraints. For instance, "2go-9k-1cbb1a" describes a 3x3 puzzle
+## with 4 sliders. The short string is helpful when users want to manually import a friend level.
 ##
-## The rules applied will be reported below.
+## Encoding rules are detailed below.
 ## 
 ## Format:
 ##   1st character  - Minimum amount of required moves encoded as a string. See MOVES.
@@ -43,7 +43,8 @@ enum CellOrder { HORIZONTAL, VERTICAL }
 ## One character to define the number of required moves. This approach limit the required moves to 62.
 const MOVES: PackedStringArray = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
 
-## Encodes all possible grid disposition from 2x2 to a maximum of 5x5.
+## Maps characters to grid sizes, from 2x2 (a) to 5x5 (s).
+## Used in encoding to minimize character length.
 const SIZE: Dictionary = {
 	"a": Vector2i(2, 2),
 	"b": Vector2i(2, 3),
@@ -73,7 +74,9 @@ const CELL_EMPTY := "z"
 ## Placeholder to highlight a permanently blocked cell.
 const CELL_BLOCKED := "x"
 
-## Defines all possible sliders definitions.
+## Defines slider encoding characters based on effect and behavior.
+## Format: [effect + "_" + behavior]
+## See also: ADD_EFFECT, FULL_BEHAVIOR
 const SLIDER: Dictionary = {
 	"a": ADD_EFFECT + "_" + BY_STEP_BEHAVIOR,
 	"b": SUBTRACT_EFFECT + "_" + BY_STEP_BEHAVIOR,
@@ -92,6 +95,9 @@ const BY_STEP_BEHAVIOR := "bystep"
 const FULL_BEHAVIOR := "full"
 
 ## Encodes all relevant information about a level into a compact string format.
+##
+## @param data Object that describes the whole level in a structured way. @see `level_data.gd` for full structure and subtypes.
+## @return A string representing the encoded level.
 static func encode(data: LevelData) -> String:
 	var encode_data := ""
 	var level_size := Vector2i(data.width, data.height)
@@ -117,29 +123,32 @@ static func encode(data: LevelData) -> String:
 
 
 ## Decodes a playable level from an encoded string.
-static func decode(encode_data: String) -> LevelData:
+##
+## @param encoded_data A string representing the encoded level.
+## @return Level data in a structured object.
+static func decode(encoded_data: String) -> LevelData:
 	var data := LevelData.new()
-	var splitted_data := encode_data.split("-")
+	var splitted_data := encoded_data.split("-")
 
 	if splitted_data.size() < 3:
 		push_warning("Invalid code format")
 		return null
 
-	var moves_left := _decode_moves(encode_data[0])
+	var moves_left := _decode_moves(encoded_data[0])
 	if moves_left < 0:
 		push_warning("Invalid moves")
 		return null
 
 	data.moves_left = moves_left
-	if !SIZE.has(encode_data[1]):
+	if !SIZE.has(encoded_data[1]):
 		push_warning("Invalid size")
 		return null
 
-	var level_size: Vector2i = SIZE.get(encode_data[1])
+	var level_size: Vector2i = SIZE.get(encoded_data[1])
 	data.width = level_size.x
 	data.height = level_size.y
 
-	var cell_order: CellOrder = CELL_ORDER.get(encode_data[2])
+	var cell_order: CellOrder = CELL_ORDER.get(encoded_data[2])
 	if cell_order == null:
 		push_warning("Invalid order")
 		return null
@@ -162,8 +171,11 @@ static func decode(encode_data: String) -> LevelData:
 
 
 ## Extract level name from an encoded string.
-static func decode_name(encode_data: String) -> String:
-	var splitted_data := encode_data.split("-")
+##
+## @param encoded_data A string representing the encoded level.
+## @return The name of the level.
+static func decode_name(encoded_data: String) -> String:
+	var splitted_data := encoded_data.split("-")
 	if splitted_data.size() > 3:
 		return splitted_data[3]
 	return ""

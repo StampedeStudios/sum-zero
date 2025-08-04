@@ -1,5 +1,11 @@
+## Handles the whole game loop.
+##
+## - Initialize splash screen and main menu;
+## - Handles settings and user preferences;
+## - Communicate to the level_manager action over levels;
 extends Node
 
+## Emitted when a new phase must be entered.
 signal on_state_change(new_state: GlobalConst.GameState)
 
 const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
@@ -8,8 +14,10 @@ const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
 const CENTER_OFFSET: int = 40
 
+## Defines color palette applied over all the game.
 var palette: CustomColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
 
+## Set of variables that handles different size dynamically applied for responsivness.
 var ui_scale: Vector2
 var title_font_size: int
 var subtitle_font_size: int
@@ -44,23 +52,25 @@ func _ready() -> void:
 	var mode := ResourceLoader.CACHE_MODE_IGNORE_DEEP
 	var scene := ResourceLoader.load(SPLASH_SCREEN, "", mode) as PackedScene
 	var splash_screen := scene.instantiate() as SplashScreen
+
 	get_tree().root.add_child.call_deferred(splash_screen)
 
 
 func start() -> void:
-	# Set language
+	# Sets language based on user preferences.
 	TranslationServer.set_locale(SaveManager.get_options().language)
 
-	# Start music
+	# Starts background music if not disabled.
 	AudioManager.start_music()
 
-	# Instantiate main menu
+	# Instantiates main menu.
 	var scene := ResourceLoader.load(MAIN_MENU) as PackedScene
 	var main_menu := scene.instantiate() as MainMenu
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(GlobalConst.GameState.MAIN_MENU)
 
 
+## Fetches viewport size and update screen sizes to make the game responsive.
 func _set_ui_scale() -> void:
 	var screen_size: Vector2 = get_viewport().size
 	var max_screen_width: float = screen_size.x
@@ -79,13 +89,12 @@ func _set_ui_scale() -> void:
 
 	btns_separation = int(ui_scale.x * GlobalConst.BTN_SEPARATION)
 
-	# Update margin percentage
 	vertical_margin = roundi(screen_size.y * GlobalConst.Y_MARGIN_PERCENTAGE)
 	horizontal_margin = roundi(screen_size.x * GlobalConst.X_MARGIN_PERCENTAGE)
 
-	# Update themes
-	DEFAULT_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)
-	PRIMARY_THEME.set_constant("icon_max_width", "Button", GameManager.btn_icon_max_width)
+	# Updates buttons max_width according to the UI scale.
+	DEFAULT_THEME.set_constant("icon_max_width", "Button", btn_icon_max_width)
+	PRIMARY_THEME.set_constant("icon_max_width", "Button", btn_icon_max_width)
 
 
 func change_state(new_state: GlobalConst.GameState) -> void:
@@ -111,6 +120,11 @@ func get_active_level_id() -> int:
 	return _active_level_id
 
 
+func get_next_level() -> LevelData:
+	return get_active_level(_next_level_id)
+
+
+## Returns the currently active level menu separating game level from the custom ones.
 func get_active_context() -> GlobalConst.LevelGroup:
 	return _context
 
@@ -121,13 +135,15 @@ func get_active_level(level_id: int = -1) -> LevelData:
 	return SaveManager.get_level(_context, _active_level_id)
 
 
+## Updates level UI size according to the size of the grid.
+## This has the weird effect to make small grid levels visually too big and higher 
+## size grid levels too hard to visualize, but not having it would only worsen the problem.
+##
+## @param level_width  Width of the level.
+## @param level_height Height of the level.
 func set_level_scale(level_width: int, level_height: int) -> void:
 	var max_screen_width: float = get_viewport().size.x
 	var max_screen_height: float = get_viewport().size.y * 0.8
 	cell_size = min(max_screen_width / (level_width + 2), max_screen_height / (level_height + 2))
 	level_scale.x = (cell_size / GlobalConst.CELL_SIZE)
 	level_scale.y = (cell_size / GlobalConst.CELL_SIZE)
-
-
-func get_next_level() -> LevelData:
-	return get_active_level(_next_level_id)
