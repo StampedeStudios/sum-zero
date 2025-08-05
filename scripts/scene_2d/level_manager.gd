@@ -3,7 +3,9 @@
 ## Initialize the levels and handles level-related events.
 class_name LevelManager extends Node2D
 
+## Signal emitted when, after a slider is released, the grid results in only cells having zero as value.
 signal on_level_complete
+## Signal emitted each time a move effectively changes the state of the grid and needs to be counted as a valid move.
 signal on_consume_move
 
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
@@ -42,7 +44,7 @@ func init_level(current_level: LevelData) -> void:
 
 	await get_tree().process_frame
 
-	# Fills the grid.
+	# Filling the level grid.
 	for coord: Vector2i in current_level.cells_list.keys():
 		var cell_instance := BASIC_CELL.instantiate()
 		var relative_pos: Vector2
@@ -108,9 +110,9 @@ func spawn_grid(animate: bool = true) -> void:
 
 	if not animate:
 		for cell: Cell in grid_cells.values():
-			cell.show_cell(true)
+			cell.show_cell(false)
 		for slider in grid_sliders:
-			slider.show_slider(true)
+			slider.show_slider(false)
 		return
 
 	var grid_size: Vector2
@@ -151,17 +153,22 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			self.visible = false
 
 
-func _check_grid(move_count: bool) -> void:
-	if move_count:
+## This method checks the whole grid and emits a 'level_complete' signal if it results completed.
+## A level is considered complete whenever all existing cells have a value equal to zero.
+##
+## @param is_effective_move If a move alter the state of the grid is considered effective and needs
+## to be counted as a user move.
+func _check_grid(is_effective_move: bool) -> void:
+	if is_effective_move:
 		on_consume_move.emit()
-	var level_complete: bool
 	_has_slider_active = false
+
+	var level_complete: bool = true
 	for cell: Cell in grid_cells.values():
-		if cell.get_cell_value() == 0:
-			level_complete = true
-		else:
+		if cell.get_cell_value() != 0:
 			level_complete = false
 			break
+
 	if level_complete:
 		on_level_complete.emit()
 
@@ -206,11 +213,14 @@ func _clear() -> void:
 	grid_sliders.clear()
 
 
-
+## Initialize the grid by applying its scale based on UI size and updating its position.
+##
+## @param level_scale 2-dimensional int indicating the amount of cells on each side of the grid.
 func _init_grid(level_size: Vector2i) -> void:
 	GameManager.set_level_scale(level_size.x, level_size.y)
 	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
 	var grid_size := (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE
+
 	grid.position = grid_pos
 	grid.scale = GameManager.level_scale
 	playable_area.position = grid_pos
@@ -223,12 +233,15 @@ func _on_playable_area_input_event(_viewport: Node, _event: InputEvent, _shape_i
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_slider_active:
 			var min_distance: float = GameManager.cell_size / 2
 			var selected_slider: SliderArea
+
 			for slider in grid_sliders:
 				var pos := slider.get_slider_position()
 				var distance := pos.distance_to(_event.global_position)
+
 				if distance < min_distance:
 					min_distance = distance
 					selected_slider = slider
+
 			if selected_slider != null:
 				_has_slider_active = true
 				selected_slider.activate_slider()
@@ -259,12 +272,16 @@ func _get_slider_extension(slider_coord: Vector2i) -> Array[Cell]:
 			origin = Vector2i(0, slider_coord.y)
 
 	result.append(grid_cells.get(origin))
+
 	for i in range(1, max_extension):
 		var coord := origin + direction * i
 		if !grid_cells.has(coord):
 			break
+
 		var cell := grid_cells.get(coord) as Cell
 		if cell.is_cell_blocked():
 			break
+
 		result.append(cell)
+
 	return result

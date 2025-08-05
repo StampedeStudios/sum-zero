@@ -1,3 +1,6 @@
+## Slider logic as seen on Level Editor.
+##
+## Handles all modification as it happens for builder_cell but does not implement multiple selection.
 class_name BuilderSlider extends Node2D
 
 signal on_slider_change(ref: BuilderSlider, data: SliderData)
@@ -26,6 +29,21 @@ func _on_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: i
 		GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
 
 
+func set_slider_data(slider_data: SliderData) -> void:
+	_data = slider_data.duplicate()
+	_change_aspect()
+
+
+func clear_slider() -> void:
+	var color: Color = GameManager.palette.builder_slider_color
+	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
+	_data = SliderData.new()
+	slider_effect.visible = false
+	slider_behavior.visible = false
+	_is_valid = false
+	on_slider_change.emit(self, null)
+
+
 func _on_state_change(new_state: GlobalConst.GameState) -> void:
 	match new_state:
 		GlobalConst.GameState.BUILDER_IDLE:
@@ -45,17 +63,20 @@ func _check_screen_margin() -> void:
 
 	margin = GlobalConst.HALF_BUILDER_SELECTION * GameManager.level_scale.x
 	screen_size = get_viewport_rect().size
-	# orizzontal check
+
+	# Horizontal check
 	if global_position.x < margin:
 		offset.x = margin - global_position.x
 	elif global_position.x > screen_size.x - margin:
 		offset.x = screen_size.x - margin - global_position.x
-	# vertical check
+
+	# Vertical check
 	if global_position.y < margin:
 		offset.y = margin - global_position.y
 	elif global_position.y > screen_size.y - margin:
 		offset.y = screen_size.y - margin - global_position.y
-	# valid offset
+
+	# Valid offset
 	if offset != Vector2.ZERO:
 		await GameManager.level_builder.move_grid(offset)
 		_toggle_ui.call_deferred(true)
@@ -69,6 +90,7 @@ func _toggle_ui(ui_visible: bool) -> void:
 		GameManager.builder_selection.forward_action.connect(_next_effect)
 		GameManager.builder_selection.special_action.connect(_next_behavior)
 		GameManager.builder_selection.remove_action.connect(clear_slider)
+
 		var size: Vector2
 		if int(rotation_degrees) == 0 or int(rotation_degrees) == 180:
 			size = Vector2(GlobalConst.SLIDER_SIZE, GlobalConst.CELL_SIZE)
@@ -83,9 +105,9 @@ func _toggle_ui(ui_visible: bool) -> void:
 		GameManager.builder_selection.remove_action.disconnect(clear_slider)
 
 
+## Iterates to the previous effect option, wrapping around if reach the first available option.
 func _previous_effect() -> void:
-	var i: int
-	i = _data.area_effect
+	var i: int = _data.area_effect
 	if _is_valid:
 		i -= 1
 	if i < 0:
@@ -95,9 +117,9 @@ func _previous_effect() -> void:
 	on_slider_change.emit(self, _data)
 
 
+## Iterates to the next effect option, wrapping around if reach the last available option.
 func _next_effect() -> void:
-	var i: int
-	i = _data.area_effect
+	var i: int = _data.area_effect
 	if _is_valid:
 		i += 1
 	if i > GlobalConst.AreaEffect.size() - 1:
@@ -107,10 +129,9 @@ func _next_effect() -> void:
 	on_slider_change.emit(self, _data)
 
 
+## Iterates to the next behavior option, wrapping around if reach the last available option.
 func _next_behavior() -> void:
-	var i: int
-	i = _data.area_behavior
-	i += 1
+	var i: int = _data.area_behavior + 1
 	if i > GlobalConst.AreaBehavior.size() - 1:
 		i = 0
 	_data.area_behavior = GlobalConst.AreaBehavior.values()[i]
@@ -127,6 +148,7 @@ func _change_aspect() -> void:
 
 	slider_effect.visible = true
 	slider_effect.texture = SLIDER_COLLECTION.get_effect_texture(_data.area_effect)
+
 	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
 		slider_effect.material = null
 	else:
@@ -149,18 +171,3 @@ func _change_aspect() -> void:
 		color = GameManager.palette.slider_colors.get("FULL")
 	else:
 		slider_behavior.hide()
-
-
-func set_slider_data(slider_data: SliderData) -> void:
-	_data = slider_data.duplicate()
-	_change_aspect()
-
-
-func clear_slider() -> void:
-	var color: Color = GameManager.palette.builder_slider_color
-	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
-	_data = SliderData.new()
-	slider_effect.visible = false
-	slider_behavior.visible = false
-	_is_valid = false
-	on_slider_change.emit(self, null)
