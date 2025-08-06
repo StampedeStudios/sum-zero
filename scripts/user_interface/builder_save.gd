@@ -31,7 +31,7 @@ func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
 
 func close() -> void:
 	await panel.close()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+	GameManager.change_state(Constants.GameState.BUILDER_IDLE)
 	self.queue_free.call_deferred()
 
 

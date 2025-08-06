@@ -40,17 +40,17 @@ func _on_scale_change(new_scale: Vector2) -> void:
 	create_tween().tween_property(grid, "scale", new_scale, 0.05).from_current()
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 
-		GlobalConst.GameState.BUILDER_IDLE:
+		Constants.GameState.BUILDER_IDLE:
 			self.visible = true
 			_multiselection_cells.clear()
 			_on_scale_change(GameManager.level_scale)
 
-		GlobalConst.GameState.BUILDER_SAVE:
+		Constants.GameState.BUILDER_SAVE:
 			self.visible = true
 			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
 			var builder_save := scene.instantiate() as BuilderSave
@@ -60,7 +60,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			var moves := str(_level_data.moves_left)
 			builder_save.init_info(level_name, moves, is_valid_data())
 
-		GlobalConst.GameState.BUILDER_RESIZE:
+		Constants.GameState.BUILDER_RESIZE:
 			self.visible = true
 			if !GameManager.builder_resize:
 				var scene := ResourceLoader.load(BUILDER_RESIZE) as PackedScene
@@ -75,7 +75,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 			level_size.y = _level_data.height
 			GameManager.builder_resize.init_query.call_deferred(level_size)
 
-		GlobalConst.GameState.BUILDER_SELECTION:
+		Constants.GameState.BUILDER_SELECTION:
 			self.visible = true
 			if _multiselection_cells.size() > 0:
 				var size: Vector2
@@ -95,7 +95,7 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 					elif cell_pos.y > bottom_right.y:
 						bottom_right.y = cell_pos.y
 				size = (bottom_right - top_left) / GameManager.level_scale
-				size += Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
+				size += Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 				pos = top_left + (bottom_right - top_left) / 2
 				GameManager.builder_selection.init_selection.call_deferred(true, pos, size)
 		_:
@@ -107,8 +107,8 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		_level_data = level_data
 
 	GameManager.set_level_scale(_level_data.width, _level_data.height)
-	var half_cell := Vector2.ONE * GlobalConst.CELL_SIZE / 2
-	var half_grid := Vector2(_level_data.width, _level_data.height) * GlobalConst.CELL_SIZE / 2
+	var half_cell := Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
+	var half_grid := Vector2(_level_data.width, _level_data.height) * Constants.Sizes.CELL_SIZE / 2
 	var old_collection: Dictionary
 
 	# add cell space
@@ -116,7 +116,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 	for column in range(0, _level_data.width):
 		for row in range(0, _level_data.height):
 			var cell_coord := Vector2i(column, row)
-			var cell_pos := Vector2(cell_coord) * GlobalConst.CELL_SIZE
+			var cell_pos := Vector2(cell_coord) * Constants.Sizes.CELL_SIZE
 			var cell: BuilderCell
 
 			if _cell_collection.has(cell_coord):
@@ -147,7 +147,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 
 	# add slider space
 	old_collection = _slider_collection.duplicate()
-	var half_slider := Vector2.ONE * GlobalConst.SLIDER_SIZE / 2
+	var half_slider := Vector2.ONE * Constants.Sizes.SLIDER_SIZE / 2
 	var slider_pos: Vector2
 	var edge_start_pos: Vector2
 	var slider: BuilderSlider
@@ -167,7 +167,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		else:
 			slider.clear_slider()
 
-		slider_pos.x = column * GlobalConst.CELL_SIZE
+		slider_pos.x = column * Constants.Sizes.CELL_SIZE
 		slider_pos.y = 0
 		edge_start_pos.x = -half_grid.x + half_cell.x
 		edge_start_pos.y = -half_grid.y - half_slider.y
@@ -191,7 +191,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 			slider.clear_slider()
 
 		slider_pos.x = 0
-		slider_pos.y = row * GlobalConst.CELL_SIZE
+		slider_pos.y = row * Constants.Sizes.CELL_SIZE
 		edge_start_pos.x = half_grid.x + half_slider.x
 		edge_start_pos.y = -half_grid.y + half_cell.y
 		slider.position = edge_start_pos + slider_pos
@@ -213,7 +213,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		else:
 			slider.clear_slider()
 
-		slider_pos.x = column * GlobalConst.CELL_SIZE
+		slider_pos.x = column * Constants.Sizes.CELL_SIZE
 		slider_pos.y = 0
 		edge_start_pos.x = -half_grid.x + half_cell.x
 		edge_start_pos.y = half_grid.y + half_slider.y
@@ -237,7 +237,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 			slider.clear_slider()
 
 		slider_pos.x = 0
-		slider_pos.y = row * GlobalConst.CELL_SIZE
+		slider_pos.y = row * Constants.Sizes.CELL_SIZE
 		edge_start_pos.x = -half_grid.x - half_slider.x
 		edge_start_pos.y = -half_grid.y + half_cell.y
 		slider.position = edge_start_pos + slider_pos
@@ -301,7 +301,7 @@ func _end_multiselection() -> void:
 	_multiselection_area.area_exited.disconnect(on_multiselection_exit)
 	_multiselection_area.queue_free()
 	_multiselection_panel.queue_free()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+	GameManager.change_state(Constants.GameState.BUILDER_SELECTION)
 
 
 func _process(_delta: float) -> void:
@@ -380,14 +380,14 @@ func initialize_randomizer() -> bool:
 	return false
 
 
-func generate_level(element: GlobalConst.GenerationElement) -> void:
+func generate_level(element: Constants.GenerationElement) -> void:
 	match element:
-		GlobalConst.GenerationElement.HOLE:
+		Constants.GenerationElement.HOLE:
 			await _randomizer.create_holes(_level_data)
-		GlobalConst.GenerationElement.BLOCK:
+		Constants.GenerationElement.BLOCK:
 			await _randomizer.create_block(_level_data)
-		GlobalConst.GenerationElement.SLIDER:
+		Constants.GenerationElement.SLIDER:
 			await _randomizer.create_sliders(_level_data)
 
 	construct_level.call_deferred(_level_data, true)
-	_on_state_change.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
+	_on_state_change.call_deferred(Constants.GameState.BUILDER_IDLE)

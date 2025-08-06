@@ -33,11 +33,11 @@ func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_IDLE:
+		Constants.GameState.BUILDER_IDLE:
 			self.visible = true
 		_:
 			self.visible = false
@@ -50,7 +50,7 @@ func _on_reset_btn_pressed() -> void:
 
 func _on_resize_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_RESIZE)
+	GameManager.change_state(Constants.GameState.BUILDER_RESIZE)
 
 
 func _on_play_btn_pressed() -> void:
@@ -70,26 +70,26 @@ func _on_play_btn_pressed() -> void:
 		GameManager.builder_test = builder_test
 		get_tree().root.add_child(builder_test)
 
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	GameManager.change_state(Constants.GameState.LEVEL_START)
 
 
 func _on_save_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.BUILDER_SAVE)
+	GameManager.change_state(Constants.GameState.BUILDER_SAVE)
 
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 
 
 func _on_generate_hole_pressed() -> void:
-	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.HOLE)
+	GameManager.level_builder.generate_level(Constants.GenerationElement.HOLE)
 
 
 func _on_generate_block_pressed() -> void:
-	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.BLOCK)
+	GameManager.level_builder.generate_level(Constants.GenerationElement.BLOCK)
 
 
 func _on_generate_slider_pressed() -> void:
-	GameManager.level_builder.generate_level(GlobalConst.GenerationElement.SLIDER)
+	GameManager.level_builder.generate_level(Constants.GenerationElement.SLIDER)

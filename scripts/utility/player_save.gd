@@ -28,7 +28,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 		# Select starting language
 		var language: String = OS.get_locale_language()
 		print("No language set, reading from OS: [%s]" % language)
-		if GlobalConst.AVAILABLE_LANGS.has(language):
+		if Constants.AVAILABLE_LANGS.has(language):
 			player_options.language = language
 		else:
 			push_warning("[%s] not supported, falling back to English" % language)
@@ -114,17 +114,17 @@ func delete_custom_level(level_id: int) -> void:
 	custom_progress.erase(level_hash)
 
 
-func get_progress(group: GlobalConst.LevelGroup, level_id: int) -> LevelProgress:
+func get_progress(group: Constants.LevelGroup, level_id: int) -> LevelProgress:
 	var level_hash: String
 	var progress: Vector3i
 	var result := LevelProgress.new()
 	match group:
-		GlobalConst.LevelGroup.MAIN:
+		Constants.LevelGroup.MAIN:
 			if !_persistent.levels_hash.size() > level_id:
 				return null
 			level_hash = _persistent.levels_hash[level_id]
 			progress = persistent_progress.get(level_hash)
-		GlobalConst.LevelGroup.CUSTOM:
+		Constants.LevelGroup.CUSTOM:
 			if !custom_levels_hash.size() > level_id:
 				return null
 			level_hash = custom_levels_hash[level_id]
@@ -136,14 +136,14 @@ func get_progress(group: GlobalConst.LevelGroup, level_id: int) -> LevelProgress
 	return result
 
 
-func set_progress(group: GlobalConst.LevelGroup, level_id: int, progress: LevelProgress) -> void:
+func set_progress(group: Constants.LevelGroup, level_id: int, progress: LevelProgress) -> void:
 	var level_hash: String
 	var hash_progress := Vector3i(progress.is_unlocked, progress.is_completed, progress.move_left)
 	match group:
-		GlobalConst.LevelGroup.MAIN:
+		Constants.LevelGroup.MAIN:
 			level_hash = _persistent.levels_hash[level_id]
 			persistent_progress[level_hash] = hash_progress
-		GlobalConst.LevelGroup.CUSTOM:
+		Constants.LevelGroup.CUSTOM:
 			level_hash = custom_levels_hash[level_id]
 			custom_progress[level_hash] = hash_progress
 

@@ -70,7 +70,7 @@ func _update_separation(separation: int) -> void:
 	separator.add_theme_constant_override("separation", separation)
 
 
-func _close(next: GlobalConst.GameState) -> void:
+func _close(next: Constants.GameState) -> void:
 	await panel.close()
 	GameManager.change_state(next)
 	self.queue_free.call_deferred()
@@ -82,11 +82,11 @@ func initialize_score(game_summary: GameSummary) -> void:
 
 
 func _on_exit_btn_pressed() -> void:
-	_close(GlobalConst.GameState.MAIN_MENU)
+	_close(Constants.GameState.MAIN_MENU)
 
 
 func _on_replay_btn_pressed() -> void:
-	_close(GlobalConst.GameState.ARENA_MODE)
+	_close(Constants.GameState.ARENA_MODE)
 
 
 func _update_score(new_score: int) -> void:

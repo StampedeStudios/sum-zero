@@ -3,8 +3,8 @@ class_name RandomizerSlider
 var reachable: Array[Vector2i]
 var reached: Array[Vector2i]
 var is_stopped: bool
-var effect: GlobalConst.AreaEffect
-var behavior: GlobalConst.AreaBehavior
+var effect: Constants.Sliders.Effect
+var behavior: Constants.Sliders.Behavior
 
 
 func is_full() -> bool:

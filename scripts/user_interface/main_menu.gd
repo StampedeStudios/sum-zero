@@ -21,9 +21,9 @@ func _ready() -> void:
 	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.visible = true
 		_:
 			self.visible = false
@@ -44,7 +44,7 @@ func _on_level_btn_pressed() -> void:
 	var level_ui := scene.instantiate() as LevelUI
 	get_tree().root.add_child.call_deferred(level_ui)
 	GameManager.level_ui = level_ui
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 
 
 func _on_editor_btn_pressed() -> void:
@@ -60,7 +60,7 @@ func _on_editor_btn_pressed() -> void:
 	level_builder.construct_level.call_deferred(LevelData.new())
 	GameManager.level_builder = level_builder
 
-	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
+	GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
 
 
 func _on_quit_btn_pressed() -> void:

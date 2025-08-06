@@ -12,12 +12,12 @@ const EXTRA_STARS = "res://assets/ui/three_stars.png"
 const FONT = "res://assets/ui/fonts/FiraMono-Bold.ttf"
 
 
-func costruct(world: GlobalConst.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
+func costruct(world: Constants.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
 	if id < 0:
 		match world:
-			GlobalConst.LevelGroup.MAIN:
+			Constants.LevelGroup.MAIN:
 				icon = load(PLACEHOLDER_ICON)
-			GlobalConst.LevelGroup.CUSTOM:
+			Constants.LevelGroup.CUSTOM:
 				icon = load(IMPORT_ICON)
 		if has_theme_color_override("icon_normal_color"):
 			remove_theme_color_override("icon_normal_color")

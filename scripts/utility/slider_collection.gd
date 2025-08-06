@@ -17,40 +17,40 @@ class_name SliderCollection extends Resource
 @export_file("*.gdshader") var block_shader := "res://scripts/shaders/Block.gdshader"
 
 
-func get_effect_texture(effect: GlobalConst.AreaEffect) -> Texture2D:
+func get_effect_texture(effect: Constants.Sliders.Effect) -> Texture2D:
 	var path: String
 	match effect:
-		GlobalConst.AreaEffect.ADD:
+		Constants.Sliders.Effect.ADD:
 			path = add
-		GlobalConst.AreaEffect.SUBTRACT:
+		Constants.Sliders.Effect.SUBTRACT:
 			path = subtract
-		GlobalConst.AreaEffect.CHANGE_SIGN:
+		Constants.Sliders.Effect.CHANGE_SIGN:
 			path = change_sign
-		GlobalConst.AreaEffect.BLOCK:
+		Constants.Sliders.Effect.BLOCK:
 			path = block
 	if ResourceLoader.exists(path):
 		return ResourceLoader.load(path)
 	return null
 
 
-func get_behavior_texture(effect: GlobalConst.AreaBehavior) -> Texture2D:
+func get_behavior_texture(effect: Constants.Sliders.Behavior) -> Texture2D:
 	var path: String
 	match effect:
-		GlobalConst.AreaBehavior.BY_STEP:
+		Constants.Sliders.Behavior.BY_STEP:
 			path = by_step
-		GlobalConst.AreaBehavior.FULL:
+		Constants.Sliders.Behavior.FULL:
 			path = full
 	if ResourceLoader.exists(path):
 		return ResourceLoader.load(path)
 	return null
 
 
-func get_outline_texture(effect: GlobalConst.AreaBehavior) -> Texture2D:
+func get_outline_texture(effect: Constants.Sliders.Behavior) -> Texture2D:
 	var path: String
 	match effect:
-		GlobalConst.AreaBehavior.BY_STEP:
+		Constants.Sliders.Behavior.BY_STEP:
 			path = out_by_step
-		GlobalConst.AreaBehavior.FULL:
+		Constants.Sliders.Behavior.FULL:
 			path = out_full
 	if ResourceLoader.exists(path):
 		return ResourceLoader.load(path)

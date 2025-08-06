@@ -40,26 +40,26 @@ func _ready() -> void:
 	loading_icon.position = -icon_size / 2
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.ARENA_MODE:
+		Constants.GameState.ARENA_MODE:
 			self.show()
 			_hide_ui()
 			_render_tutorial()
-		GlobalConst.GameState.LEVEL_START:
+		Constants.GameState.LEVEL_START:
 			self.show()
 			_moves_count = 0
 			_reset_count = 0
-		GlobalConst.GameState.PLAY_LEVEL:
+		Constants.GameState.PLAY_LEVEL:
 			container.show()
 			if _current_mode.timer_options:
 				arena_time.show()
 				_timer.start()
-		GlobalConst.GameState.LEVEL_END:
+		Constants.GameState.LEVEL_END:
 			pass
-		GlobalConst.GameState.ARENA_END:
+		Constants.GameState.ARENA_END:
 			self.hide()
 			if _current_mode.one_shoot_mode:
 				var scene := ResourceLoader.load(LEVEL_END) as PackedScene
@@ -91,7 +91,7 @@ func _reset_level() -> void:
 
 func set_arena_mode(mode: ArenaMode) -> void:
 	_current_mode = mode
-	GameManager.change_state(GlobalConst.GameState.ARENA_MODE)
+	GameManager.change_state(Constants.GameState.ARENA_MODE)
 
 
 func _init_arena() -> void:
@@ -152,7 +152,7 @@ func _start_loading() -> void:
 	_tween.set_loops(30)
 	_tween.tween_property(loading, "rotation_degrees", 360, 1).as_relative()
 	# after 30 seconds of loading if you have not found playable levels go back to the menu
-	_tween.finished.connect(GameManager.change_state.bind(GlobalConst.GameState.MAIN_MENU))
+	_tween.finished.connect(GameManager.change_state.bind(Constants.GameState.MAIN_MENU))
 
 
 func _init_level() -> void:
@@ -166,7 +166,7 @@ func _init_level() -> void:
 
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
-		GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+		GameManager.change_state(Constants.GameState.LEVEL_START)
 		GameManager.level_manager.spawn_grid()
 
 
@@ -181,9 +181,9 @@ func _on_level_complete() -> void:
 			_set_arena_time(_time + extra_time)
 
 	if _current_mode.one_shoot_mode:
-		GameManager.change_state(GlobalConst.GameState.ARENA_END)
+		GameManager.change_state(Constants.GameState.ARENA_END)
 	else:
-		GameManager.change_state(GlobalConst.GameState.LEVEL_END)
+		GameManager.change_state(Constants.GameState.LEVEL_END)
 		if _game_summary:
 			var summary := LevelSummary.new()
 			summary.set_star_count(_current_level.moves_left, _moves_count)
@@ -200,7 +200,7 @@ func _on_consumed_move() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 
 
 func _on_reset_btn_pressed() -> void:
@@ -216,7 +216,7 @@ func _on_skip_btn_pressed() -> void:
 		_timer.stop()
 
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.LEVEL_END)
+	GameManager.change_state(Constants.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
 		_set_arena_time(_time - _current_mode.timer_options.skip_cost)
 	if _game_summary:
@@ -233,7 +233,7 @@ func _set_arena_time(new_time: int) -> void:
 		_time = 0
 		if !_timer.is_stopped():
 			_timer.stop()
-			GameManager.change_state(GlobalConst.GameState.ARENA_END)
+			GameManager.change_state(Constants.GameState.ARENA_END)
 	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
 
 

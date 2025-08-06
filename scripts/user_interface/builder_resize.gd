@@ -17,11 +17,11 @@ func _ready() -> void:
 		child.position.y = child.position.y - GameManager.CENTER_OFFSET
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_RESIZE:
+		Constants.GameState.BUILDER_RESIZE:
 			self.visible = true
 		_:
 			self.visible = false
@@ -37,28 +37,28 @@ func init_query(level_size: Vector2i) -> void:
 func _on_minus_width_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_width: int
-		new_width = clamp(_width - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		new_width = clamp(_width - 1, Constants.MIN_LEVEL_SIZE, Constants.MAX_LEVEL_SIZE)
 		_update_width(new_width)
 
 
 func _on_plus_width_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_width: int
-		new_width = clamp(_width + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		new_width = clamp(_width + 1, Constants.MIN_LEVEL_SIZE, Constants.MAX_LEVEL_SIZE)
 		_update_width(new_width)
 
 
 func _on_minus_height_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_height: int
-		new_height = clamp(_height - 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		new_height = clamp(_height - 1, Constants.MIN_LEVEL_SIZE, Constants.MAX_LEVEL_SIZE)
 		_update_height(new_height)
 
 
 func _on_plus_height_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		var new_height: int
-		new_height = clamp(_height + 1, GlobalConst.MIN_LEVEL_SIZE, GlobalConst.MAX_LEVEL_SIZE)
+		new_height = clamp(_height + 1, Constants.MIN_LEVEL_SIZE, Constants.MAX_LEVEL_SIZE)
 		_update_height(new_height)
 
 
@@ -79,7 +79,7 @@ func _update_height(new_height: int) -> void:
 func _update_zoom() -> void:
 	var new_scale: float
 	var max_size := maxi(_width, _height) + 2
-	new_scale = control.size.x / GlobalConst.CELL_SIZE / max_size
+	new_scale = control.size.x / Constants.Sizes.CELL_SIZE / max_size
 	if new_scale != _scale:
 		_scale = new_scale
 		on_zoom_change.emit(Vector2(_scale, _scale))
@@ -87,9 +87,9 @@ func _update_zoom() -> void:
 
 func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+		GameManager.change_state(Constants.GameState.BUILDER_IDLE)
 
 
 func _on_control_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+		GameManager.change_state(Constants.GameState.BUILDER_IDLE)

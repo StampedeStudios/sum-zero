@@ -8,7 +8,7 @@ const CUSTOM_LEVEL_INSPECT = "res://packed_scene/user_interface/CustomLevelInspe
 const LEVEL_IMPORT = "res://packed_scene/user_interface/LevelImport.tscn"
 
 var _levels: Array[LevelButtonBase]
-var _current_world: GlobalConst.LevelGroup
+var _current_world: Constants.LevelGroup
 var _current_page: int
 
 @onready var level_grid: GridContainer = %LevelGrid
@@ -32,7 +32,7 @@ func toggle_page(page_visible: bool) -> void:
 	level_grid.visible = page_visible
 
 
-func update_page(world: GlobalConst.LevelGroup, page: int) -> void:
+func update_page(world: Constants.LevelGroup, page: int) -> void:
 	_current_world = world
 	_current_page = page
 	refresh_page()
@@ -54,14 +54,14 @@ func refresh_page() -> void:
 			var star_count := clampi(levels_progress[i].move_left, -3, 1) + 3
 			level.costruct(_current_world, level_id, is_locked, star_count)
 			match _current_world:
-				GlobalConst.LevelGroup.CUSTOM:
+				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_custom_inspect.bind(level_id, levels_progress[i]))
-				GlobalConst.LevelGroup.MAIN:
+				Constants.LevelGroup.MAIN:
 					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))
 		else:
 			level.costruct(_current_world)
 			match _current_world:
-				GlobalConst.LevelGroup.CUSTOM:
+				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)
 
 

@@ -22,7 +22,6 @@ shader_parameter/is_selected = false
 shader_parameter/glow_intensity = 4.0
 
 [node name="ScalableArea" type="Node2D"]
-position = Vector2(454, 665)
 script = ExtResource("1_xjbxd")
 
 [node name="Body" type="Sprite2D" parent="."]

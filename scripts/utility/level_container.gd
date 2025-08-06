@@ -1,6 +1,15 @@
+## Defines informations on a set of levels.
+##
+## Currently there two set of levels:
+## - Classic: a set of levels whose difficulty is gradually increased;
+## - Custom: user defined levels;
 class_name LevelContainer extends Resource
 
-@export var tutorials: Dictionary
+## A set of optional tutorial. Each level, defined by its index, can have at most a single tutorial
+## object that defines hints for player. Once fully defined, a tutorial is executed before the level starts.
+@export var tutorials: Dictionary[int, TutorialData]
+
+## The list of levels encoded to have the minimum length possible. @see encoder.
 @export var levels_hash: Array[String]
 
 

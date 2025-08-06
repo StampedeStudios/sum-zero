@@ -16,22 +16,22 @@ func _ready() -> void:
 func get_tutorial() -> TutorialData:
 	if !_player_save.player_options.tutorial_on:
 		return null
-	if GameManager.get_active_context() == GlobalConst.LevelGroup.MAIN:
+	if GameManager.get_active_context() == Constants.LevelGroup.MAIN:
 		return _persistent_save.get_tutorial(GameManager.get_active_level_id())
 	return null
 
 
-func get_num_levels(group: GlobalConst.LevelGroup) -> int:
+func get_num_levels(group: Constants.LevelGroup) -> int:
 	match group:
-		GlobalConst.LevelGroup.CUSTOM:
+		Constants.LevelGroup.CUSTOM:
 			return _player_save.custom_levels_hash.size()
-		GlobalConst.LevelGroup.MAIN:
+		Constants.LevelGroup.MAIN:
 			return _persistent_save.levels_hash.size()
 		_:
 			return 0
 
 
-func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
+func get_page_levels(group: Constants.LevelGroup, first: int, last: int) -> Array[LevelProgress]:
 	var result: Array[LevelProgress]
 	for id in range(first, last + 1):
 		var progress := _player_save.get_progress(group, id)
@@ -45,9 +45,9 @@ func get_page_levels(group: GlobalConst.LevelGroup, first: int, last: int) -> Ar
 ## @return The most suited level to be played. If there is an unlocked level yet to be
 ## completed than it returns its id. Returns the first level otherwise.
 func get_start_level_playable() -> int:
-	GameManager.set_levels_context(GlobalConst.LevelGroup.MAIN)
+	GameManager.set_levels_context(Constants.LevelGroup.MAIN)
 	for id in range(_persistent_save.levels_hash.size()):
-		var progress := _player_save.get_progress(GlobalConst.LevelGroup.MAIN, id)
+		var progress := _player_save.get_progress(Constants.LevelGroup.MAIN, id)
 		if progress.is_unlocked and !progress.is_completed:
 			return id
 
@@ -58,7 +58,7 @@ func get_start_level_playable() -> int:
 
 func update_level_progress(move_left: int) -> bool:
 	var is_record: bool
-	var context: GlobalConst.LevelGroup = GameManager.get_active_context()
+	var context: Constants.LevelGroup = GameManager.get_active_context()
 	var id: int = GameManager.get_active_level_id()
 	var active_progress: LevelProgress = _player_save.get_progress(context, id)
 
@@ -88,17 +88,17 @@ func get_star_count() -> int:
 	return _player_save.player_rewards.stars_count
 
 
-func get_level(world: GlobalConst.LevelGroup, id: int) -> LevelData:
+func get_level(world: Constants.LevelGroup, id: int) -> LevelData:
 	match world:
-		GlobalConst.LevelGroup.CUSTOM:
+		Constants.LevelGroup.CUSTOM:
 			return _player_save.get_level(id)
-		GlobalConst.LevelGroup.MAIN:
+		Constants.LevelGroup.MAIN:
 			return _persistent_save.get_level(id)
 	return null
 
 
 func is_level_completed() -> bool:
-	var context: GlobalConst.LevelGroup = GameManager.get_active_context()
+	var context: Constants.LevelGroup = GameManager.get_active_context()
 	var id: int = GameManager.get_active_level_id()
 	return _player_save.get_progress(context, id).is_completed
 

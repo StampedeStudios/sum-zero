@@ -272,20 +272,20 @@ static func _encode_slider(slider_data: SliderData) -> String:
 	var encode_slider := ""
 
 	match slider_data.area_effect:
-		GlobalConst.AreaEffect.ADD:
+		Constants.Sliders.Effect.ADD:
 			encode_slider += ADD_EFFECT
-		GlobalConst.AreaEffect.SUBTRACT:
+		Constants.Sliders.Effect.SUBTRACT:
 			encode_slider += SUBTRACT_EFFECT
-		GlobalConst.AreaEffect.CHANGE_SIGN:
+		Constants.Sliders.Effect.CHANGE_SIGN:
 			encode_slider += CHANGE_SIGN_EFFECT
-		GlobalConst.AreaEffect.BLOCK:
+		Constants.Sliders.Effect.BLOCK:
 			encode_slider += BLOCK_EFFECT
 	encode_slider += "_"
 
 	match slider_data.area_behavior:
-		GlobalConst.AreaBehavior.FULL:
+		Constants.Sliders.Behavior.FULL:
 			encode_slider += FULL_BEHAVIOR
-		GlobalConst.AreaBehavior.BY_STEP:
+		Constants.Sliders.Behavior.BY_STEP:
 			encode_slider += BY_STEP_BEHAVIOR
 	return SLIDER.find_key(encode_slider)
 
@@ -299,8 +299,9 @@ static func _decode_moves(letter: String) -> int:
 
 static func _decode_cell_list(
 	encode_data: String, level_size: Vector2i, order: CellOrder
-) -> Dictionary:
-	var cell_list: Dictionary
+) -> Dictionary[Vector2i, CellData]:
+
+	var cell_list: Dictionary[Vector2i, CellData]
 	var cell_count := level_size.x * level_size.y
 	var count := 0
 	var cell_coord := Vector2i.ZERO
@@ -328,6 +329,7 @@ static func _decode_cell_list(
 			count = 0
 			if cell_count == 0:
 				break
+
 	return cell_list
 
 
@@ -353,8 +355,9 @@ static func _get_next_cell_coord(
 	return Vector2i(column, row)
 
 
-static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary:
-	var slider_list: Dictionary
+static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary[Vector2i, SliderData]:
+
+	var slider_list: Dictionary[Vector2i, SliderData]
 	var slider_count := level_size.x * 2 + level_size.y * 2
 	var slider_coord := Vector2i.ZERO
 	var count := 0
@@ -377,19 +380,19 @@ static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Di
 
 			match encode_slider_data.split("_")[0]:
 				ADD_EFFECT:
-					slider.area_effect = GlobalConst.AreaEffect.ADD
+					slider.area_effect = Constants.Sliders.Effect.ADD
 				SUBTRACT_EFFECT:
-					slider.area_effect = GlobalConst.AreaEffect.SUBTRACT
+					slider.area_effect = Constants.Sliders.Effect.SUBTRACT
 				CHANGE_SIGN_EFFECT:
-					slider.area_effect = GlobalConst.AreaEffect.CHANGE_SIGN
+					slider.area_effect = Constants.Sliders.Effect.CHANGE_SIGN
 				BLOCK_EFFECT:
-					slider.area_effect = GlobalConst.AreaEffect.BLOCK
+					slider.area_effect = Constants.Sliders.Effect.BLOCK
 
 			match encode_slider_data.split("_")[1]:
 				FULL_BEHAVIOR:
-					slider.area_behavior = GlobalConst.AreaBehavior.FULL
+					slider.area_behavior = Constants.Sliders.Behavior.FULL
 				BY_STEP_BEHAVIOR:
-					slider.area_behavior = GlobalConst.AreaBehavior.BY_STEP
+					slider.area_behavior = Constants.Sliders.Behavior.BY_STEP
 
 			slider_list[slider_coord] = slider
 			slider_coord = _get_next_slider_coord(slider_coord, level_size, 1)
