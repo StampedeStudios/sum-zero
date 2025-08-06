@@ -49,9 +49,9 @@ func set_cell_data(cell_data: CellData) -> void:
 	_change_aspect()
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.BUILDER_IDLE:
+		Constants.GameState.BUILDER_IDLE:
 			self.z_index = 0
 			toggle_connection.call_deferred(false)
 
@@ -60,7 +60,7 @@ func _decrease_value() -> void:
 	var value: int = 0
 	if target_value_txt.visible:
 		value = _data.value
-		value = clamp(_data.value - 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+		value = clamp(_data.value - 1, Constants.MIN_CELL_VALUE, Constants.MAX_CELL_VALUE)
 
 	_change_value(value)
 
@@ -69,7 +69,7 @@ func _increase_value() -> void:
 	var value: int = 0
 	if target_value_txt.visible:
 		value = _data.value
-		value = clamp(_data.value + 1, GlobalConst.MIN_CELL_VALUE, GlobalConst.MAX_CELL_VALUE)
+		value = clamp(_data.value + 1, Constants.MIN_CELL_VALUE, Constants.MAX_CELL_VALUE)
 
 	_change_value(value)
 

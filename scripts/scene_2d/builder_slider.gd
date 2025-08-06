@@ -6,6 +6,7 @@ class_name BuilderSlider extends Node2D
 signal on_slider_change(ref: BuilderSlider, data: SliderData)
 
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
+const HALF_BUILDER_SELECTION: int = 300
 
 var _data: SliderData
 var _is_valid: bool = false
@@ -26,7 +27,7 @@ func _ready() -> void:
 func _on_collision_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		GameManager.on_state_change.connect(_on_state_change)
-		GameManager.change_state(GlobalConst.GameState.BUILDER_SELECTION)
+		GameManager.change_state(Constants.GameState.BUILDER_SELECTION)
 
 
 func set_slider_data(slider_data: SliderData) -> void:
@@ -44,14 +45,14 @@ func clear_slider() -> void:
 	on_slider_change.emit(self, null)
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.BUILDER_IDLE:
+		Constants.GameState.BUILDER_IDLE:
 			self.z_index = 0
 			GameManager.level_builder.move_grid(Vector2.ZERO)
 			_toggle_ui.call_deferred(false)
 
-		GlobalConst.GameState.BUILDER_SELECTION:
+		Constants.GameState.BUILDER_SELECTION:
 			self.z_index = 10
 			_check_screen_margin.call_deferred()
 
@@ -61,7 +62,7 @@ func _check_screen_margin() -> void:
 	var offset: Vector2
 	var screen_size: Vector2
 
-	margin = GlobalConst.HALF_BUILDER_SELECTION * GameManager.level_scale.x
+	margin = HALF_BUILDER_SELECTION * GameManager.level_scale.x
 	screen_size = get_viewport_rect().size
 
 	# Horizontal check
@@ -93,9 +94,9 @@ func _toggle_ui(ui_visible: bool) -> void:
 
 		var size: Vector2
 		if int(rotation_degrees) == 0 or int(rotation_degrees) == 180:
-			size = Vector2(GlobalConst.SLIDER_SIZE, GlobalConst.CELL_SIZE)
+			size = Vector2(Constants.Sizes.SLIDER_SIZE, Constants.Sizes.CELL_SIZE)
 		else:
-			size = Vector2(GlobalConst.CELL_SIZE, GlobalConst.SLIDER_SIZE)
+			size = Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.SLIDER_SIZE)
 		GameManager.builder_selection.init_selection(false, self.global_position, size)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
@@ -111,8 +112,8 @@ func _previous_effect() -> void:
 	if _is_valid:
 		i -= 1
 	if i < 0:
-		i = GlobalConst.AreaEffect.size() - 1
-	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+		i = Constants.Sliders.Effect.size() - 1
+	_data.area_effect = Constants.Sliders.Effect.values()[i]
 	_change_aspect()
 	on_slider_change.emit(self, _data)
 
@@ -122,9 +123,9 @@ func _next_effect() -> void:
 	var i: int = _data.area_effect
 	if _is_valid:
 		i += 1
-	if i > GlobalConst.AreaEffect.size() - 1:
+	if i > Constants.Sliders.Effect.size() - 1:
 		i = 0
-	_data.area_effect = GlobalConst.AreaEffect.values()[i]
+	_data.area_effect = Constants.Sliders.Effect.values()[i]
 	_change_aspect()
 	on_slider_change.emit(self, _data)
 
@@ -132,9 +133,9 @@ func _next_effect() -> void:
 ## Iterates to the next behavior option, wrapping around if reach the last available option.
 func _next_behavior() -> void:
 	var i: int = _data.area_behavior + 1
-	if i > GlobalConst.AreaBehavior.size() - 1:
+	if i > Constants.Sliders.Behavior.size() - 1:
 		i = 0
-	_data.area_behavior = GlobalConst.AreaBehavior.values()[i]
+	_data.area_behavior = Constants.Sliders.Behavior.values()[i]
 	_change_aspect()
 	on_slider_change.emit(self, _data)
 
@@ -149,7 +150,7 @@ func _change_aspect() -> void:
 	slider_effect.visible = true
 	slider_effect.texture = SLIDER_COLLECTION.get_effect_texture(_data.area_effect)
 
-	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
+	if _data.area_effect == Constants.Sliders.Effect.BLOCK:
 		slider_effect.material = null
 	else:
 		if !slider_effect.material:
@@ -157,15 +158,15 @@ func _change_aspect() -> void:
 			mat.shader = ResourceLoader.load("res://scripts/shaders/BasicTile.gdshader")
 			slider_effect.material = mat
 		match _data.area_effect:
-			GlobalConst.AreaEffect.ADD:
+			Constants.Sliders.Effect.ADD:
 				color = GameManager.palette.slider_colors.get("ADD")
-			GlobalConst.AreaEffect.SUBTRACT:
+			Constants.Sliders.Effect.SUBTRACT:
 				color = GameManager.palette.slider_colors.get("SUBTRACT")
-			GlobalConst.AreaEffect.CHANGE_SIGN:
+			Constants.Sliders.Effect.CHANGE_SIGN:
 				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
 		slider_effect.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
-	if _data.area_behavior == GlobalConst.AreaBehavior.FULL:
+	if _data.area_behavior == Constants.Sliders.Behavior.FULL:
 		slider_behavior.show()
 		slider_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(_data.area_behavior)
 		color = GameManager.palette.slider_colors.get("FULL")

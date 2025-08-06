@@ -7,7 +7,7 @@ const PAGE_PER_SECOND: float = 5
 
 var has_consume_input: bool
 
-var _world: GlobalConst.LevelGroup
+var _world: Constants.LevelGroup
 var _current_page: int = 1
 var _start_drag: float
 var _start_position: float
@@ -73,24 +73,24 @@ func _set_start_point() -> void:
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
 	# Set starting world where the next playable level is
 	_world = GameManager.get_active_context()
-	world_btn.visible = _world == GlobalConst.LevelGroup.CUSTOM
-	custom_btn.visible = _world == GlobalConst.LevelGroup.MAIN
+	world_btn.visible = _world == Constants.LevelGroup.CUSTOM
+	custom_btn.visible = _world == Constants.LevelGroup.MAIN
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_START:
+		Constants.GameState.LEVEL_START:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.BUILDER_IDLE:
+		Constants.GameState.BUILDER_IDLE:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_INSPECT:
+		Constants.GameState.LEVEL_INSPECT:
 			self.show()
-		GlobalConst.GameState.CUSTOM_LEVEL_INSPECT:
+		Constants.GameState.CUSTOM_LEVEL_INSPECT:
 			self.show()
-		GlobalConst.GameState.LEVEL_PICK:
+		Constants.GameState.LEVEL_PICK:
 			self.show()
 		_:
 			self.hide()
@@ -98,14 +98,14 @@ func _on_state_change(new_state: GlobalConst.GameState) -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 
 
 func _check_pages() -> void:
 	match _world:
-		GlobalConst.LevelGroup.MAIN:
+		Constants.LevelGroup.MAIN:
 			_num_pages = ceil(float(SaveManager.get_num_levels(_world)) / PAGE_SIZE)
-		GlobalConst.LevelGroup.CUSTOM:
+		Constants.LevelGroup.CUSTOM:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(SaveManager.get_num_levels(_world) + 1) / PAGE_SIZE)
 	title.text = "%02d of %02d" % [_current_page, _num_pages]
@@ -189,7 +189,7 @@ func _move_right(transition_time: float) -> void:
 
 func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	_world = GlobalConst.LevelGroup.MAIN
+	_world = Constants.LevelGroup.MAIN
 	# Set starting page where the next playable level is
 	var active_level_id: int = SaveManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
@@ -201,7 +201,7 @@ func _on_world_btn_pressed() -> void:
 
 func _on_custom_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	_world = GlobalConst.LevelGroup.CUSTOM
+	_world = Constants.LevelGroup.CUSTOM
 	_current_page = 1
 	custom_btn.hide()
 	world_btn.show()

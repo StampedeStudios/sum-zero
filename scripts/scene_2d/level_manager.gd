@@ -29,16 +29,16 @@ func init_level(current_level: LevelData) -> void:
 	_clear()
 
 	if current_level == null:
-		GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+		GameManager.change_state(Constants.GameState.MAIN_MENU)
 		push_error("Invalid initial level found")
 		return
 
 	_current_level = current_level
 	var level_size: Vector2i
 	var half_grid_size: Vector2
-	var half_cell := roundi(float(GlobalConst.CELL_SIZE) / 2)
+	var half_cell := roundi(float(Constants.Sizes.CELL_SIZE) / 2)
 	level_size = Vector2i(current_level.width, current_level.height)
-	half_grid_size = level_size * GlobalConst.CELL_SIZE / 2
+	half_grid_size = level_size * Constants.Sizes.CELL_SIZE / 2
 
 	_init_grid(level_size)
 
@@ -50,8 +50,8 @@ func init_level(current_level: LevelData) -> void:
 		var relative_pos: Vector2
 		var cell_offset: Vector2
 	
-		relative_pos = coord * GlobalConst.CELL_SIZE
-		cell_offset = Vector2.ONE * GlobalConst.CELL_SIZE / 2
+		relative_pos = coord * Constants.Sizes.CELL_SIZE
+		cell_offset = Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
 		grid.add_child(cell_instance)
 		cell_instance.position = -half_grid_size + cell_offset + relative_pos
 		cell_instance.init_cell(current_level.cells_list.get(coord))
@@ -62,7 +62,7 @@ func init_level(current_level: LevelData) -> void:
 	# Placing sliders following a clockwise rotation.
 	for coord: Vector2i in current_level.slider_list.keys():
 		var edge: int = coord.x
-		var dist: int = coord.y * GlobalConst.CELL_SIZE
+		var dist: int = coord.y * Constants.Sizes.CELL_SIZE
 		var x_pos: float
 		var y_pos: float
 		var angle: float
@@ -117,7 +117,7 @@ func spawn_grid(animate: bool = true) -> void:
 
 	var grid_size: Vector2
 	var level_size := Vector2i(_current_level.width, _current_level.height)
-	grid_size = (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE * GameManager.level_scale.x
+	grid_size = (level_size + Vector2i.ONE) * Constants.Sizes.CELL_SIZE * GameManager.level_scale.x
 
 	var start_point: Vector2
 	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
@@ -128,7 +128,7 @@ func spawn_grid(animate: bool = true) -> void:
 	var time: float = _get_time_relative_to_radius(end, grid_size)
 
 	await create_tween().tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
-	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+	GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 
 
 func reset_level() -> void:
@@ -136,18 +136,18 @@ func reset_level() -> void:
 		cell.reset()
 	for slider in grid_sliders:
 		slider.reset()
-	GameManager.change_state(GlobalConst.GameState.PLAY_LEVEL)
+	GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_PICK:
+		Constants.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
-		GlobalConst.GameState.LEVEL_START:
+		Constants.GameState.LEVEL_START:
 			self.visible = true
-		GlobalConst.GameState.PLAY_LEVEL:
+		Constants.GameState.PLAY_LEVEL:
 			self.visible = true
 		_:
 			self.visible = false
@@ -219,7 +219,7 @@ func _clear() -> void:
 func _init_grid(level_size: Vector2i) -> void:
 	GameManager.set_level_scale(level_size.x, level_size.y)
 	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
-	var grid_size := (level_size + Vector2i.ONE) * GlobalConst.CELL_SIZE
+	var grid_size := (level_size + Vector2i.ONE) * Constants.Sizes.CELL_SIZE
 
 	grid.position = grid_pos
 	grid.scale = GameManager.level_scale

@@ -27,7 +27,7 @@ func _ready() -> void:
 
 func close() -> void:
 	await panel.close()
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
 
 
@@ -39,7 +39,7 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 	if !progress.is_completed:
 		num_stars = 0
 	else:
-		num_stars = GlobalConst.MAX_STARS_GAIN + progress.move_left
+		num_stars = Constants.MAX_STARS_GAIN + progress.move_left
 		if num_stars < 0:
 			num_stars = 0
 		# extra reward for beating the developers (you think ...)
@@ -50,7 +50,7 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 	var atlas := stars.texture as AtlasTexture
 	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
-	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
+	GameManager.set_levels_context(Constants.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
 	_level_code = Encoder.encode(level_data)
 	copy_btn.text = " " + _level_code
@@ -68,11 +68,11 @@ func _on_build_btn_pressed() -> void:
 	get_tree().root.add_child.call_deferred(level_builder)
 	GameManager.level_builder = level_builder
 
-	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
+	GameManager.set_levels_context(Constants.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
 	level_builder.construct_level.call_deferred(level_data.duplicate(), true)
 
-	GameManager.change_state.call_deferred(GlobalConst.GameState.BUILDER_IDLE)
+	GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
 	self.queue_free.call_deferred()
 
 
@@ -83,15 +83,15 @@ func _on_play_btn_pressed() -> void:
 	get_tree().root.add_child(level_manager)
 	GameManager.level_manager = level_manager
 
-	GameManager.set_levels_context(GlobalConst.LevelGroup.CUSTOM)
+	GameManager.set_levels_context(Constants.LevelGroup.CUSTOM)
 	var level_data: LevelData = GameManager.get_active_level(_level_id)
 	level_manager.init_level(level_data)
 
 	scene = ResourceLoader.load(GAME_UI) as PackedScene
 	var game_ui := scene.instantiate() as GameUI
 	get_tree().root.add_child(game_ui)
-	game_ui.initialize_ui(GlobalConst.GameState.LEVEL_PICK)
-	GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+	game_ui.initialize_ui(Constants.GameState.LEVEL_PICK)
+	GameManager.change_state(Constants.GameState.LEVEL_START)
 	GameManager.game_ui = game_ui
 
 	self.queue_free.call_deferred()

@@ -20,7 +20,7 @@ const SPAWN_TIME: float = 0.1
 var _origin_data: CellData
 var _current_data: CellData
 var _slider_stack: Array[SliderArea]
-var _effect_stack: Array[GlobalConst.AreaEffect]
+var _effect_stack: Array[Constants.Sliders.Effect]
 
 @onready var target_value_txt: Label = %TargetValueTxt
 @onready var tile: Sprite2D = %Tile
@@ -35,7 +35,7 @@ var _effect_stack: Array[GlobalConst.AreaEffect]
 ##
 ## @param slider SliderArea instance affecting this tile.
 ## @param effect Effect (e.g., PLUS, MINUS, INVERT) to apply or remove.
-func alter_value(slider: SliderArea, effect: GlobalConst.AreaEffect) -> void:
+func alter_value(slider: SliderArea, effect: Constants.Sliders.Effect) -> void:
 
 	# Removes the slider and its effect
 	for i in range(0, _slider_stack.size()):
@@ -109,13 +109,13 @@ func _calculate_effect() -> void:
 
 	for effect in _effect_stack:
 		match effect:
-			GlobalConst.AreaEffect.ADD:
+			Constants.Sliders.Effect.ADD:
 				_current_data.value += 1
-			GlobalConst.AreaEffect.SUBTRACT:
+			Constants.Sliders.Effect.SUBTRACT:
 				_current_data.value -= 1
-			GlobalConst.AreaEffect.CHANGE_SIGN:
+			Constants.Sliders.Effect.CHANGE_SIGN:
 				_current_data.value *= -1
-			GlobalConst.AreaEffect.BLOCK:
+			Constants.Sliders.Effect.BLOCK:
 				_current_data.value = 0
 				_current_data.is_blocked = true
 

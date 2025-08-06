@@ -1,5 +1,5 @@
-class_name Literals
 ## Class that contains all literal constants use in the project.
+class_name Literals
 
 
 ## Literals associated with the player input.

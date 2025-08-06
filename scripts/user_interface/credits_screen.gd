@@ -31,7 +31,7 @@ func start_credits_scroll() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 
 

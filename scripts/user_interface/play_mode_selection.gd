@@ -71,7 +71,7 @@ func _snap_to_current_mode() -> void:
 
 func _close() -> void:
 	await panel.close()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 
 
@@ -108,8 +108,8 @@ func _on_play_btn_pressed() -> void:
 			var game_ui := scene.instantiate() as GameUI
 			GameManager.game_ui = game_ui
 			get_tree().root.add_child(game_ui)
-			game_ui.initialize_ui(GlobalConst.GameState.MAIN_MENU)
-			GameManager.change_state(GlobalConst.GameState.LEVEL_START)
+			game_ui.initialize_ui(Constants.GameState.MAIN_MENU)
+			GameManager.change_state(Constants.GameState.LEVEL_START)
 
 	queue_free.call_deferred()
 

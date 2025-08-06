@@ -9,6 +9,12 @@ const HINT_ANIM_DURATION = 1
 const STAR_ANIM_DURATION = 0.15
 const STAR_ANIM_INTERVAL = 0.1
 const STARS_SPRITE_SIZE := Vector2(350, 239)
+const EXTRA_STARS_MSGS: Array[String] = ["EXTRA_STAR_MSG_1", "EXTRA_STAR_MSG_2", "EXTRA_STAR_MSG_3"]
+const THREE_STARS_MSGS: Array[String] = ["THREE_STAR_MSG_1", "THREE_STAR_MSG_2", "THREE_STAR_MSG_3"]
+const TWO_STARS_MSGS: Array[String] = ["TWO_STAR_MSG_1", "TWO_STAR_MSG_2", "TWO_STAR_MSG_3"]
+const ONE_STARS_MSGS: Array[String] = ["ONE_STAR_MSG_1", "ONE_STAR_MSG_2", "ONE_STAR_MSG_3"]
+const NO_STARS_MSGS: Array[String] = ["ZERO_STAR_MSG_1", "ZERO_STAR_MSG_2", "ZERO_STAR_MSG_3"]
+
 
 var _star_count: int
 var _has_next_level: bool
@@ -19,7 +25,6 @@ var _is_record: bool
 @onready var panel: AnimatedPanel = %Panel
 @onready var level_score_img: TextureRect = %LevelScoreImg
 @onready var new_record: TextureRect = %NewRecord
-
 
 func _ready() -> void:
 	new_record.hide()
@@ -37,7 +42,7 @@ func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
 
 func _close() -> void:
 	await panel.close()
-	GameManager.change_state.call_deferred(GlobalConst.GameState.LEVEL_PICK)
+	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
 
 
@@ -90,15 +95,16 @@ func _update_shader_percentage(value: float) -> void:
 
 func _select_random_text(num_stars: int) -> String:
 	if num_stars <= 0:
-		return tr(GlobalConst.NO_STARS_MSGS.pick_random())
+		return tr(NO_STARS_MSGS.pick_random())
 	if num_stars == 1:
-		return tr(GlobalConst.ONE_STARS_MSGS.pick_random())
+		return tr(ONE_STARS_MSGS.pick_random())
 	if num_stars == 2:
-		return tr(GlobalConst.TWO_STARS_MSGS.pick_random())
+		return tr(TWO_STARS_MSGS.pick_random())
 	if num_stars == 3:
-		return tr(GlobalConst.THREE_STARS_MSGS.pick_random())
-	# extra reward for beating the developers (you think ...)
-	return tr(GlobalConst.EXTRA_STARS_MSGS.pick_random())
+		return tr(THREE_STARS_MSGS.pick_random())
+
+	# Extra reward for beating the developers (you think ...)
+	return tr(EXTRA_STARS_MSGS.pick_random())
 
 
 func _update_stars_frame(frame: int) -> void:

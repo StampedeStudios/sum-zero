@@ -5,7 +5,7 @@ signal forward_action
 signal special_action
 signal remove_action
 
-const STD_SIZE := Vector2(GlobalConst.CELL_SIZE, GlobalConst.CELL_SIZE)
+const STD_SIZE := Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 
 @export var backward_cell_texture: Texture2D
 @export var forward_cell_texture: Texture2D
@@ -28,9 +28,9 @@ func _ready() -> void:
 	panel.size = get_viewport_rect().size
 
 
-func _on_state_change(new_state: GlobalConst.GameState) -> void:
+func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		GlobalConst.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		_:
 			self.visible = false
@@ -77,4 +77,4 @@ func _on_special_pressed() -> void:
 
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_released(Literals.Inputs.LEFT_CLICK):
-		GameManager.change_state(GlobalConst.GameState.BUILDER_IDLE)
+		GameManager.change_state(Constants.GameState.BUILDER_IDLE)

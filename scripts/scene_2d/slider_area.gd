@@ -89,7 +89,7 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	_reachable_cells = reachable
 	body.hide()
 
-	var color: Color = GameManager.palette.slider_colors.get("BG")
+	var color: Color = GameManager.palette.slider_colors.get("BACKGROUND")
 	body.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 	area_outline.texture = SLIDER_COLLECTION.get_outline_texture(data.area_behavior)
@@ -97,22 +97,22 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	area_outline.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 	area_effect.texture = SLIDER_COLLECTION.get_effect_texture(data.area_effect)
-	if data.area_effect != GlobalConst.AreaEffect.BLOCK:
+	if data.area_effect != Constants.Sliders.Effect.BLOCK:
 		var mat := ShaderMaterial.new()
 		mat.shader = ResourceLoader.load("res://scripts/shaders/BasicTile.gdshader")
 
 		match data.area_effect:
-			GlobalConst.AreaEffect.ADD:
+			Constants.Sliders.Effect.ADD:
 				color = GameManager.palette.slider_colors.get("ADD")
-			GlobalConst.AreaEffect.SUBTRACT:
+			Constants.Sliders.Effect.SUBTRACT:
 				color = GameManager.palette.slider_colors.get("SUBTRACT")
-			GlobalConst.AreaEffect.CHANGE_SIGN:
+			Constants.Sliders.Effect.CHANGE_SIGN:
 				color = GameManager.palette.slider_colors.get("CHANGE_SIGN")
 
 		mat.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 		area_effect.material = mat
 
-	if data.area_behavior == GlobalConst.AreaBehavior.FULL:
+	if data.area_behavior == Constants.Sliders.Behavior.FULL:
 		area_behavior.texture = SLIDER_COLLECTION.get_behavior_texture(data.area_behavior)
 		color = GameManager.palette.slider_colors.get("FULL")
 	else:
@@ -121,7 +121,7 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
 	_is_horizontal = _orientation.y == 0
 
-	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
+	if _data.area_effect == Constants.Sliders.Effect.BLOCK:
 		_create_blocked_cell()
 
 
@@ -163,7 +163,7 @@ func release_handle() -> void:
 func activate_slider() -> void:
 	match _data.area_behavior:
 		# Moves the area handle manually with the finger.
-		GlobalConst.AreaBehavior.BY_STEP:
+		Constants.Sliders.Behavior.BY_STEP:
 			area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, true)
 			_check_limit()
 			_last_scale = _current_scale
@@ -175,7 +175,7 @@ func activate_slider() -> void:
 				_last_affected_cells[cell] = cell.get_cell_value()
 
 		# Extends the slider to the maximum length to cover the last reachable cell.
-		GlobalConst.AreaBehavior.FULL:
+		Constants.Sliders.Behavior.FULL:
 			_check_limit()
 			_is_extended = !_is_extended
 			_is_manually_controlled = false
@@ -197,7 +197,7 @@ func _create_blocked_cell() -> void:
 		sprite.texture = SLIDER_COLLECTION.get_block_texture()
 		sprite.material = ShaderMaterial.new()
 		sprite.material.shader = SLIDER_COLLECTION.get_block_shader()
-		sprite.position.x = GlobalConst.CELL_SIZE * (i + 1)
+		sprite.position.x = Constants.Sizes.CELL_SIZE * (i + 1)
 		add_child.call_deferred(sprite)
 		_blocking_sprite.append(sprite)
 
@@ -219,16 +219,16 @@ func _update_changed_tiles(fixed_scale: int) -> void:
 
 
 func _apply_scaling(new_scale: float) -> void:
-	var area_extension := GlobalConst.SLIDER_SIZE + new_scale * GlobalConst.CELL_SIZE
+	var area_extension := Constants.Sizes.SLIDER_SIZE + new_scale * Constants.Sizes.CELL_SIZE
 	_play_sound(area_extension)
 	area_outline.size.x = area_extension
 
-	if _data.area_effect == GlobalConst.AreaEffect.BLOCK:
+	if _data.area_effect == Constants.Sliders.Effect.BLOCK:
 		for i in range(0, _blocking_sprite.size()):
 			_blocking_sprite[i].material.set_shader_parameter("percentage", new_scale - i)
 
 	if _is_manually_controlled:
-		handle.position.x = HANDLE_START + new_scale * GlobalConst.CELL_SIZE
+		handle.position.x = HANDLE_START + new_scale * Constants.Sizes.CELL_SIZE
 
 
 func _check_limit() -> void:
@@ -236,7 +236,7 @@ func _check_limit() -> void:
 	for i: int in range(_current_scale, _reachable_cells.size()):
 		var cell := _reachable_cells[i] as Cell
 		match _data.area_effect:
-			GlobalConst.AreaEffect.BLOCK:
+			Constants.Sliders.Effect.BLOCK:
 				if cell.is_cell_blocked() or cell.is_occupied():
 					break
 			_:

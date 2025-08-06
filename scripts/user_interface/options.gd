@@ -20,7 +20,7 @@ func _ready() -> void:
 	sfx_btn.set_pressed_no_signal(_player_options.sfx_on)
 	tutorial_btn.set_pressed_no_signal(_player_options.tutorial_on)
 
-	var index: int = GlobalConst.AVAILABLE_LANGS.find(_player_options.language)
+	var index: int = Constants.AVAILABLE_LANGS.find(_player_options.language)
 	options_btn.selected = index
 
 	await panel.open()
@@ -29,7 +29,7 @@ func _ready() -> void:
 func _exit_options() -> void:
 	SaveManager.save_player_data()
 	await panel.close()
-	GameManager.change_state(GlobalConst.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 
 
@@ -61,7 +61,7 @@ func _on_exit_btn_pressed() -> void:
 
 
 func _on_option_button_item_selected(index: int) -> void:
-	var preferred_locale: String = GlobalConst.AVAILABLE_LANGS[index]
+	var preferred_locale: String = Constants.AVAILABLE_LANGS[index]
 	_player_options.language = preferred_locale
 	TranslationServer.set_locale(preferred_locale)
 
