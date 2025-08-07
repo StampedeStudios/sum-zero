@@ -45,7 +45,7 @@ const MOVES: PackedStringArray = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", 
 
 ## Maps characters to grid sizes, from 2x2 (a) to 5x5 (s).
 ## Used in encoding to minimize character length.
-const SIZE: Dictionary = {
+const SIZE: Dictionary[String, Vector2i] = {
 	"a": Vector2i(2, 2),
 	"b": Vector2i(2, 3),
 	"c": Vector2i(2, 4),
@@ -64,11 +64,11 @@ const SIZE: Dictionary = {
 	"s": Vector2i(5, 5)
 }
 
-const CELL_ORDER: Dictionary = {"o": CellOrder.HORIZONTAL, "v": CellOrder.VERTICAL}
+const CELL_ORDER: Dictionary[String, CellOrder] = {"o": CellOrder.HORIZONTAL, "v": CellOrder.VERTICAL}
 
 ## Encodes cell value from -4 up to +4. This limit is set by design since the maximum amount of sliders that can
 ## have effect over a cell is 4.
-const CELL_VALUE: Dictionary = { "f": -4, "g": -3, "h": -2, "i": -1, "j": 0, "k": 1, "l": 2, "m": 3, "n": 4 }
+const CELL_VALUE: Dictionary[String, int] = { "f": -4, "g": -3, "h": -2, "i": -1, "j": 0, "k": 1, "l": 2, "m": 3, "n": 4 }
 ## Placeholder to highlight a missing cell, which is different from a cell defined as zero.
 const CELL_EMPTY := "z"
 ## Placeholder to highlight a permanently blocked cell.
@@ -77,7 +77,7 @@ const CELL_BLOCKED := "x"
 ## Defines slider encoding characters based on effect and behavior.
 ## Format: [effect + "_" + behavior]
 ## See also: ADD_EFFECT, FULL_BEHAVIOR
-const SLIDER: Dictionary = {
+const SLIDER: Dictionary[String, String] = {
 	"a": ADD_EFFECT + "_" + BY_STEP_BEHAVIOR,
 	"b": SUBTRACT_EFFECT + "_" + BY_STEP_BEHAVIOR,
 	"c": CHANGE_SIGN_EFFECT + "_" + BY_STEP_BEHAVIOR,
@@ -181,7 +181,7 @@ static func decode_name(encoded_data: String) -> String:
 	return ""
 
 
-static func _encode_cells_horizontal(cell_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_cells_horizontal(cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count := 1
@@ -214,7 +214,7 @@ static func _encode_cells_horizontal(cell_list: Dictionary, level_size: Vector2i
 	return encode_cells
 
 
-static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_cells_vertical(cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count := 1
@@ -247,7 +247,7 @@ static func _encode_cells_vertical(cell_list: Dictionary, level_size: Vector2i) 
 	return encode_cells
 
 
-static func _encode_sliders(slider_list: Dictionary, level_size: Vector2i) -> String:
+static func _encode_sliders(slider_list: Dictionary[Vector2i, SliderData], level_size: Vector2i) -> String:
 	var encode_sliders := ""
 	var empty_count := 0
 

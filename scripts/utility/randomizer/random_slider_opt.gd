@@ -1,13 +1,13 @@
 class_name RandomSliderOptions extends Resource
 
 ## Sliders occupation rule
-@export var occupation_rules: Dictionary = {"STANDARD": 70, "LOWER": 10, "UPPER": 20}
+@export var occupation_rules: Dictionary[String, int] = {"STANDARD": 70, "LOWER": 10, "UPPER": 20}
 ## Lower subtract probability
 @export_range(0, 100, .1) var lower_odd: int = 30
 ## Upper addiction probability
 @export_range(0, 100, .1) var upper_odd: int = 60
 ## Standard occupancy by number of possible places
-@export var std_occupation: Dictionary = {
+@export var std_occupation: Dictionary[int, Vector2i] = {
 	4: Vector2i(2, 3),
 	6: Vector2i(3, 4),
 	8: Vector2i(3, 5),
@@ -19,7 +19,7 @@ class_name RandomSliderOptions extends Resource
 	20: Vector2i(8, 14)
 }
 ## Sliders extension rule
-@export var extension_rules: Dictionary = {"NONE": 10, "MAX": 60, "RANDOM": 30}
+@export var extension_rules: Dictionary[String, int] = {"NONE": 10, "MAX": 60, "RANDOM": 30}
 ## Slider behavior-full probability for max extended
 @export_range(0, 100, .1) var full_odd: int = 15
 ## Slider behavior-full probability when stopped by another block
@@ -31,4 +31,4 @@ class_name RandomSliderOptions extends Resource
 ## Slider block retractable after stop other sliders
 @export_range(0, 100, .1) var block_full_retract_odd: int = 50
 ## Sliders type rules
-@export var type_rules: Dictionary = {"ADD": 45, "SUBTRACT": 45, "CHANGE_SIGN": 3, "BLOCK": 7}
+@export var type_rules: Dictionary[String, int] = {"ADD": 45, "SUBTRACT": 45, "CHANGE_SIGN": 3, "BLOCK": 7}

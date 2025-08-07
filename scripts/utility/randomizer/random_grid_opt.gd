@@ -1,7 +1,7 @@
 class_name RandomGridOptions extends Resource
 
 ## Grid size rule
-@export var size_rules: Dictionary = {"STANDARD": 50, "LOWER": 10, "UPPER": 40}
+@export var size_rules: Dictionary[String, int] = {"STANDARD": 50, "LOWER": 10, "UPPER": 40}
 ## Lower subtract probability
 @export_range(0, 100, .1) var lower_odd: int = 40
 ## Upper addiction probability

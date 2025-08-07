@@ -35,13 +35,13 @@ func toggle_connection(ui_visible: bool) -> void:
 		GameManager.builder_selection.backward_action.connect(_decrease_value)
 		GameManager.builder_selection.forward_action.connect(_increase_value)
 		GameManager.builder_selection.special_action.connect(_block_cell)
-		GameManager.builder_selection.remove_action.connect(_clear_cell)
+		GameManager.builder_selection.remove_action.connect(clear_cell)
 	else:
 		GameManager.on_state_change.disconnect(_on_state_change)
 		GameManager.builder_selection.backward_action.disconnect(_decrease_value)
 		GameManager.builder_selection.forward_action.disconnect(_increase_value)
 		GameManager.builder_selection.special_action.disconnect(_block_cell)
-		GameManager.builder_selection.remove_action.disconnect(_clear_cell)
+		GameManager.builder_selection.remove_action.disconnect(clear_cell)
 
 
 func set_cell_data(cell_data: CellData) -> void:
@@ -103,7 +103,7 @@ func _change_color(new_color: Color) -> void:
 	cell.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, new_color)
 
 
-func _clear_cell() -> void:
+func clear_cell() -> void:
 	_data = CellData.new()
 	target_value_txt.visible = false
 	block.visible = false

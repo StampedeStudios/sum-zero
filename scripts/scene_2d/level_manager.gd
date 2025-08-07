@@ -11,7 +11,7 @@ signal on_consume_move
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
 
-var grid_cells: Dictionary
+var grid_cells: Dictionary[Vector2i, Cell]
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
 var _current_level: LevelData

@@ -144,7 +144,7 @@ func _change_aspect() -> void:
 	var color: Color
 	_is_valid = true
 
-	color = GameManager.palette.slider_colors.get("BG")
+	color = GameManager.palette.slider_colors.get("BACKGROUND")
 	slider.material.set_shader_parameter(Literals.Parameters.BASE_COLOR, color)
 
 	slider_effect.visible = true
