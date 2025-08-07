@@ -1,3 +1,4 @@
+## Handles logic of main menu UI panel.
 class_name MainMenu extends Control
 
 const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"

@@ -1,3 +1,9 @@
+## Handles logic of Level Builder.
+##
+## Each custom level can be built with the Level Builder which offers the possibility
+## to create levels of any size and any composition.
+##
+## Makes use of encoder to persist the created levels.
 class_name LevelBuilder extends Node2D
 
 const BUILDER_CELL := preload("res://packed_scene/scene_2d/BuilderCell.tscn")
@@ -28,6 +34,7 @@ func _ready() -> void:
 	grid.scale = Vector2.ZERO
 	GameManager.on_state_change.connect(_on_state_change)
 	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
+
 	if !GameManager.builder_selection:
 		var scene := ResourceLoader.load(BUILDER_SELECTION) as PackedScene
 		var builder_selection := scene.instantiate() as BuilderSelection
@@ -82,6 +89,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 				var pos: Vector2
 				var top_left := _multiselection_cells[0].global_position
 				var bottom_right := top_left
+
 				for cell in _multiselection_cells:
 					cell.z_index = 10
 					cell.toggle_connection.call_deferred(true)
@@ -110,10 +118,10 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 	var half_cell := Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
 	var half_grid := Vector2(_level_data.width, _level_data.height) * Constants.Sizes.CELL_SIZE / 2
 
-	# Used as cell and slider collection, cannot be typed
+	# Used as cell and slider collection
 	var old_collection: Dictionary
 
-	# add cell space
+	# Add cell space
 	old_collection = _cell_collection.duplicate()
 	for column in range(0, _level_data.width):
 		for row in range(0, _level_data.height):
@@ -147,7 +155,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 		_level_data.cells_list.erase(coord)
 		old_collection.get(coord).queue_free()
 
-	# add slider space
+	# Add slider space
 	old_collection = _slider_collection.duplicate()
 	var half_slider := Vector2.ONE * Constants.Sizes.SLIDER_SIZE / 2
 	var slider_pos: Vector2
@@ -282,6 +290,7 @@ func _start_multiselection() -> void:
 	_multiselection_panel.add_theme_stylebox_override("Panel", PANEL)
 	_multiselection_panel.global_position = _multiselection_start_pos
 	get_tree().root.add_child(_multiselection_panel)
+
 	_multiselection_area = Area2D.new()
 	_multiselection_area.area_entered.connect(on_multiselection_enter)
 	_multiselection_area.area_exited.connect(on_multiselection_exit)
@@ -290,6 +299,7 @@ func _start_multiselection() -> void:
 	_multiselection_area.set_collision_layer_value(3, true)
 	_multiselection_area.set_collision_mask_value(1, false)
 	_multiselection_area.set_collision_mask_value(3, true)
+
 	get_tree().root.add_child(_multiselection_area)
 	_multiselection_coll = CollisionShape2D.new()
 	_multiselection_coll.shape = RectangleShape2D.new()
@@ -303,6 +313,7 @@ func _end_multiselection() -> void:
 	_multiselection_area.area_exited.disconnect(on_multiselection_exit)
 	_multiselection_area.queue_free()
 	_multiselection_panel.queue_free()
+
 	GameManager.change_state(Constants.GameState.BUILDER_SELECTION)
 
 
@@ -373,6 +384,9 @@ func is_valid_data() -> bool:
 	return _level_data.is_valid_data()
 
 
+## Randomizer is visible only to developers and helps to quickly generate random levels.
+##
+## @return `true` if correctly initialized. `false` otherwise.
 func initialize_randomizer() -> bool:
 	var options := ResourceLoader.load(RANDOMIZER_OPTIONS) as RandomizerOptions
 	if options:

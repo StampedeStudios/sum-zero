@@ -4,8 +4,8 @@
 ## - One for tracking which sliders are currently affecting the tile.
 ## - One for storing the sequence of applied effects (e.g., PLUS, MINUS, INVERT).
 ##
-## The tile's value is recalculated from scratch each time based on the effect stack. This ensures that
-## effects are applied in a strict, repeatable order.
+## The tile's value is recalculated from scratch each time based on the effect stack. This ensures
+## that effects are applied in a strict, repeatable order.
 ##
 ## This design prevents value inflation through effect abuse — for example, repeatedly applying and
 ## removing an "INVERT" effect could otherwise be used to artificially increase the cell value.

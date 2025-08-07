@@ -49,7 +49,7 @@ func init_level(current_level: LevelData) -> void:
 		var cell_instance := BASIC_CELL.instantiate()
 		var relative_pos: Vector2
 		var cell_offset: Vector2
-	
+
 		relative_pos = coord * Constants.Sizes.CELL_SIZE
 		cell_offset = Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
 		grid.add_child(cell_instance)
@@ -72,17 +72,17 @@ func init_level(current_level: LevelData) -> void:
 				angle = 90
 				x_pos = -half_grid_size.x + half_cell + dist
 				y_pos = -half_grid_size.y - half_cell
-			
+
 			1: # LEFT
 				angle = 180
 				x_pos = half_grid_size.x + half_cell
 				y_pos = -half_grid_size.y + half_cell + dist
-			
+
 			2: # BOTTOM
 				angle = 270
 				x_pos = -half_grid_size.x + half_cell + dist
 				y_pos = half_grid_size.y + half_cell
-			
+
 			3: # RIGHT
 				angle = 0
 				x_pos = -half_grid_size.x - half_cell

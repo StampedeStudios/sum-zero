@@ -1,10 +1,13 @@
-## Provides a simple way to encode and decode defined puzzle and the amount of moves required for the resolution.
-## The encoding structure is not human readable but represents an effort to reduce to the minimum the amount
-## of characters required to completely define a puzzle constraints. For instance, "2go-9k-1cbb1a" describes a 3x3 puzzle
-## with 4 sliders. The short string is helpful when users want to manually import a friend level.
+## Provides a simple way to encode and decode defined puzzle and the amount of moves required for
+## the resolution.
+##
+## The encoding structure is not human readable but represents an effort to reduce to the minimum
+## the amount of characters required to completely define a puzzle constraints. For instance,
+## "2go-9k-1cbb1a" describes a 3x3 puzzle with 4 sliders.
+## The short string is helpful when users want to manually import a friend level.
 ##
 ## Encoding rules are detailed below.
-## 
+##
 ## Format:
 ##   1st character  - Minimum amount of required moves encoded as a string. See MOVES.
 ##   2nd character  - Grid size encoded as a single letter. See SIZE.
@@ -64,10 +67,13 @@ const SIZE: Dictionary[String, Vector2i] = {
 	"s": Vector2i(5, 5)
 }
 
-const CELL_ORDER: Dictionary[String, CellOrder] = {"o": CellOrder.HORIZONTAL, "v": CellOrder.VERTICAL}
+const CELL_ORDER: Dictionary[String, CellOrder] = {
+	"o": CellOrder.HORIZONTAL,
+	"v": CellOrder.VERTICAL
+}
 
-## Encodes cell value from -4 up to +4. This limit is set by design since the maximum amount of sliders that can
-## have effect over a cell is 4.
+## Encodes cell value from -4 up to +4. This limit is set by design since the maximum amount of
+## sliders that can have effect over a cell is 4.
 const CELL_VALUE: Dictionary[String, int] = { "f": -4, "g": -3, "h": -2, "i": -1, "j": 0, "k": 1, "l": 2, "m": 3, "n": 4 }
 ## Placeholder to highlight a missing cell, which is different from a cell defined as zero.
 const CELL_EMPTY := "z"
@@ -96,7 +102,7 @@ const FULL_BEHAVIOR := "full"
 
 ## Encodes all relevant information about a level into a compact string format.
 ##
-## @param data Object that describes the whole level in a structured way. @see `level_data.gd` for full structure and subtypes.
+## @param data Object that describes the whole level in a structured way. @see `level_data.gd`.
 ## @return A string representing the encoded level.
 static func encode(data: LevelData) -> String:
 	var encode_data := ""
@@ -351,7 +357,7 @@ static func _get_next_cell_coord(
 			if row >= level_size.y:
 				column += 1
 				row = 0
-	
+
 	return Vector2i(column, row)
 
 

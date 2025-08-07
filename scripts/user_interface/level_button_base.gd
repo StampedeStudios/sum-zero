@@ -50,6 +50,6 @@ func costruct(world: Constants.LevelGroup, id := -1, is_locked := true, stars :=
 
 
 func _pressed() -> void:
-	if GameManager.level_ui.has_consume_input:
+	if GameManager.level_ui.has_consumed_input:
 		return
 	AudioManager.play_click_sound()

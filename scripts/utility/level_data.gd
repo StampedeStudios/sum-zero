@@ -26,7 +26,7 @@ class_name LevelData extends Resource
 ## Dictionary mapping cell coordinates to CellData.
 ## Key: Vector2i(column, row)
 ## Value: CellData (includes value and blocked state)
-## 
+##
 ## If some positions are missing, they are treated as empty cells.
 @export var cells_list: Dictionary[Vector2i, CellData]
 

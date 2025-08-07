@@ -1,3 +1,8 @@
+## Handles UI panel that shows all playable levels and their state.
+##
+## Levels are selectable from a specific interface that renders existing levels in multiple pages.
+## Previous and next page are also pre-rendered and moved away from the screen to better handling
+## transition from page to page.
 class_name LevelUI extends Control
 
 const PAGE_SIZE := 9
@@ -5,7 +10,7 @@ const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
 const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
 const PAGE_PER_SECOND: float = 5
 
-var has_consume_input: bool
+var has_consumed_input: bool
 
 var _world: Constants.LevelGroup
 var _current_page: int = 1
@@ -65,13 +70,13 @@ func _ready() -> void:
 	_init_pages()
 
 
+## Sets starting page to show the next playable level.
 func _set_start_point() -> void:
-	# Set starting page where the next playable level is
 	var active_level_id: int = GameManager.get_active_level_id()
 	if active_level_id <= 0:
 		active_level_id = SaveManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
-	# Set starting world where the next playable level is
+
 	_world = GameManager.get_active_context()
 	world_btn.visible = _world == Constants.LevelGroup.CUSTOM
 	custom_btn.visible = _world == Constants.LevelGroup.MAIN
@@ -129,12 +134,12 @@ func _check_pages() -> void:
 
 
 func _init_pages() -> void:
-	# previous page
+	# Previous page
 	if _current_page > 1:
 		_levels_page[0].update_page(_world, _current_page - 1)
-	# current page
+	# Current page
 	_levels_page[1].update_page(_world, _current_page)
-	# next page
+	# Next page
 	if _current_page < _num_pages:
 		_levels_page[2].update_page(_world, _current_page + 1)
 
@@ -161,10 +166,12 @@ func _move_left(transition_time: float) -> void:
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
 	await _tween.finished
 	_current_page += 1
+
 	var page := _levels_page.pop_front() as LevelPage
 	pages.move_child(page, 2)
 	_levels_page.push_back(page)
 	pages.global_position.x = _start_position
+
 	if _current_page < _num_pages:
 		page.update_page(_world, _current_page + 1)
 	_check_pages()
@@ -177,10 +184,12 @@ func _move_right(transition_time: float) -> void:
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
 	await _tween.finished
 	_current_page -= 1
+
 	var page := _levels_page.pop_back() as LevelPage
 	pages.move_child(page, 0)
 	_levels_page.push_front(page)
 	pages.global_position.x = _start_position
+
 	if _current_page > 1:
 		page.update_page(_world, _current_page - 1)
 	_check_pages()
@@ -190,7 +199,7 @@ func _move_right(transition_time: float) -> void:
 func _on_world_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_world = Constants.LevelGroup.MAIN
-	# Set starting page where the next playable level is
+
 	var active_level_id: int = SaveManager.get_start_level_playable()
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
 	world_btn.hide()
@@ -211,7 +220,7 @@ func _on_custom_btn_pressed() -> void:
 
 func _refresh_next() -> void:
 	_check_pages()
-	# next page
+	# Next page
 	if _current_page < _num_pages:
 		_levels_page[2].update_page(_world, _current_page + 1)
 
@@ -222,8 +231,8 @@ func _process(_delta: float) -> void:
 		offset_position = clamp(offset_position, _scroll_range.x, _scroll_range.y)
 		var current := absf(offset_position)
 		pages.global_position.x = _start_position + offset_position
-		if !has_consume_input:
-			has_consume_input = current > 10
+		if !has_consumed_input:
+			has_consumed_input = current > 10
 
 		if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
 			var start: float
@@ -252,7 +261,7 @@ func _process(_delta: float) -> void:
 
 
 func _end_animation() -> void:
-	has_consume_input = false
+	has_consumed_input = false
 	_has_movement = false
 
 

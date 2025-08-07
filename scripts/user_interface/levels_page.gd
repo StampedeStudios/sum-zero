@@ -77,7 +77,7 @@ func _disconnect_all(button_pressed: Signal) -> void:
 
 
 func show_import() -> void:
-	if GameManager.level_ui.has_consume_input:
+	if GameManager.level_ui.has_consumed_input:
 		return
 	var scene := load(LEVEL_IMPORT) as PackedScene
 	var level_import := scene.instantiate() as LevelImport
@@ -86,7 +86,7 @@ func show_import() -> void:
 
 
 func show_inspect(id: int, progress: LevelProgress) -> void:
-	if GameManager.level_ui.has_consume_input:
+	if GameManager.level_ui.has_consumed_input:
 		return
 	var scene := load(LEVEL_INSPECT) as PackedScene
 	var level_inspect := scene.instantiate() as LevelInspect
@@ -96,7 +96,7 @@ func show_inspect(id: int, progress: LevelProgress) -> void:
 
 
 func show_custom_inspect(id: int, progress: LevelProgress) -> void:
-	if GameManager.level_ui.has_consume_input:
+	if GameManager.level_ui.has_consumed_input:
 		return
 	var scene := load(CUSTOM_LEVEL_INSPECT) as PackedScene
 	var custom_level_inspect := scene.instantiate() as CustomLevelInspect

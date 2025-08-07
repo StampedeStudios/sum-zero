@@ -1,6 +1,10 @@
 ## Enums and common constants.
 class_name Constants
 
+## All existing game states.
+## Transitions are handled by the game_manager and a signal can be emitted by nodes
+## when another scene needs to be loaded. Each component that requires this feature
+## can connect to the signal at ready-time and handles state changes according to themselves.
 enum GameState {
 	MAIN_MENU,
 	LEVEL_PICK,

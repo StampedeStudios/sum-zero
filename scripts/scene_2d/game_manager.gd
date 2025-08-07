@@ -6,6 +6,7 @@
 extends Node
 
 ## Emitted when a new phase must be entered.
+## This signal triggers UI updates to transit from a scene to another scene.
 signal on_state_change(new_state: Constants.GameState)
 
 const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
@@ -136,7 +137,7 @@ func get_active_level(level_id: int = -1) -> LevelData:
 
 
 ## Updates level UI size according to the size of the grid.
-## This has the weird effect to make small grid levels visually too big and higher 
+## This has the weird effect to make small grid levels visually too big and higher
 ## size grid levels too hard to visualize, but not having it would only worsen the problem.
 ##
 ## @param level_width  Width of the level.

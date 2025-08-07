@@ -6,7 +6,8 @@
 class_name LevelContainer extends Resource
 
 ## A set of optional tutorial. Each level, defined by its index, can have at most a single tutorial
-## object that defines hints for player. Once fully defined, a tutorial is executed before the level starts.
+## object that defines hints for player.
+## Once fully defined, a tutorial is executed before the level starts.
 @export var tutorials: Dictionary[int, TutorialData]
 
 ## The list of levels encoded to have the minimum length possible. @see encoder.
