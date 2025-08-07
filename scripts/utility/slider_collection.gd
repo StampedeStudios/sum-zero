@@ -1,3 +1,4 @@
+## Collection of all sliders informations.
 class_name SliderCollection extends Resource
 
 @export_group("Slider effect")
