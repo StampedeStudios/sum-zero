@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://hqw2wppscbvl"]
+[gd_scene load_steps=11 format=3 uid="uid://hqw2wppscbvl"]
 
 [ext_resource type="Script" uid="uid://buijub1edr7x7" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_gcpbi"]
-[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="3_ucce4"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
 [ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="4_vg1ss"]
 [ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/menu_button_hover.tres" id="5_6t3t8"]
@@ -10,15 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_io541"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="7_g7qxx"]
 [ext_resource type="Texture2D" uid="uid://ba0e2tckss3e5" path="res://assets/ui/gear_icon.png" id="9_dpngq"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_lnl8v"]
-blend_mode = 1
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Gradient" id="Gradient_lk1wc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awjbt"]
 bg_color = Color(0.25098, 0.184314, 0.105882, 1)
@@ -41,27 +31,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_gcpbi")
 script = ExtResource("1_wcv12")
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-material = SubResource("CanvasItemMaterial_lnl8v")
-position = Vector2(480, 640)
-amount = 150
-lifetime = 20.0
-preprocess = 3.0
-speed_scale = 0.23
-randomness = 0.14
-texture = ExtResource("3_ucce4")
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 150.0
-initial_velocity_max = 400.0
-linear_accel_min = 2.0
-linear_accel_max = 5.0
-scale_amount_min = 0.1
-color = Color(0.384314, 0.745098, 0.364706, 1)
-color_ramp = SubResource("Gradient_lk1wc")
-anim_speed_min = 8.0
-anim_speed_max = 15.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
