@@ -1,29 +1,79 @@
+## Persists and fetch user's saved data.
 class_name PlayerSave extends Resource
 
+## Custom levels built and saved by the user.
 @export var custom_levels_hash: Array[String]
-@export var custom_progress: Dictionary
-@export var persistent_progress: Dictionary
+## Progress on customs level.
+@export var custom_progress: Dictionary[String, Vector3i]
+## Progress of in-game levels.
+@export var persistent_progress: Dictionary[String, Vector3i]
+## Player preferences.
 @export var player_options: PlayerOptions
+## Player stats.
 @export var player_rewards: RewardData
 
 var _persistent: LevelContainer
 
 
+## Checks game state to detect if any persisted information is obsolete.
+##
+## @param world Type of levels checked (classic or custom).
+## @return `true` if the state changed, `false` otherwise.
 func check_savegame_integrity(world: LevelContainer) -> bool:
 	_persistent = world
-	var has_change := false
+	var has_changed := false
 
-	# initialize player rewards
+	# Initialize player rewards
 	if !player_rewards:
 		print("No rewards found, resetting")
 		player_rewards = RewardData.new()
-		has_change = true
+		has_changed = true
 
-	# initialize player options
+	# Check custom progress (remove extra progress)
+	for level_hash: String in custom_progress.keys():
+		if !custom_levels_hash.has(level_hash):
+			custom_progress.erase(level_hash)
+			has_changed = true
+
+	# Check custom levels (add missing progress)
+	for level_hash in custom_levels_hash:
+		if !custom_progress.has(level_hash):
+			_add_custom_progress(level_hash)
+			has_changed = true
+
+	# Check persistent progress (remove extra progress)
+	for level_hash: String in persistent_progress.keys():
+		if !persistent_progress.has(level_hash):
+			persistent_progress.erase(level_hash)
+			has_changed = true
+
+	# Check persistent levels (add missing progress)
+	for level_hash: String in _persistent.levels_hash:
+		if !persistent_progress.has(level_hash):
+			add_world_progress(level_hash)
+			has_changed = true
+
+	# Check stars count on persistent levels
+	var stars_count: int = 0
+	for level_hash: String in _persistent.levels_hash:
+		if persistent_progress.has(level_hash):
+			var progress: Vector3i = persistent_progress.get(level_hash)
+			if progress.x == 1 and progress.y == 1:
+				var star := clampi(progress.z, -3, 0) + 3
+				stars_count += star
+
+	if player_rewards.stars_count != stars_count:
+		player_rewards.stars_count = stars_count
+		has_changed = true
+
+	return has_changed
+
+
+## Initializes player options.
+func init_player_settings() -> void:
 	if player_options == null:
 		print("No settings preferences found, resetting")
 		player_options = PlayerOptions.new()
-		has_change = true
 
 		# Select starting language
 		var language: String = OS.get_locale_language()
@@ -32,44 +82,6 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 			player_options.language = language
 		else:
 			push_warning("[%s] not supported, falling back to English" % language)
-
-	# check custom progress (remove extra progress)
-	for level_hash: String in custom_progress.keys():
-		if !custom_levels_hash.has(level_hash):
-			custom_progress.erase(level_hash)
-			has_change = true
-
-	# check custom levels (add missing progress)
-	for level_hash in custom_levels_hash:
-		if !custom_progress.has(level_hash):
-			_add_custom_progress(level_hash)
-			has_change = true
-
-	# check persistent progress (remove extra progress)
-	for level_hash: String in persistent_progress.keys():
-		if !persistent_progress.has(level_hash):
-			persistent_progress.erase(level_hash)
-			has_change = true
-
-	# check persistent levels (add missing progress)
-	for level_hash: String in _persistent.levels_hash:
-		if !persistent_progress.has(level_hash):
-			add_world_progress(level_hash)
-			has_change = true
-
-	# check stars count on persistent levels
-	var stars_count: int = 0
-	for level_hash: String in _persistent.levels_hash:
-		if persistent_progress.has(level_hash):
-			var progress: Vector3i = persistent_progress.get(level_hash)
-			if progress.x == 1 and progress.y == 1:
-				var star := clampi(progress.z, -3, 0) + 3
-				stars_count += star
-	if player_rewards.stars_count != stars_count:
-		player_rewards.stars_count = stars_count
-		has_change = true
-
-	return has_change
 
 
 func get_level(level_id: int) -> LevelData:

@@ -1,3 +1,4 @@
+## Informations about a tutorial object.
 class_name TutorialData extends Resource
 
 @export var tutorial_name: String

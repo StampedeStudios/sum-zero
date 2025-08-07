@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_o5d33")
-cell_color = {
+cell_color = Dictionary[int, Color]({
 -8: Color(0.972549, 0.388235, 0.92549, 1),
 -7: Color(0.972549, 0.388235, 0.729412, 1),
 -6: Color(0.972549, 0.388235, 0.533333, 1),
@@ -22,14 +22,14 @@ cell_color = {
 6: Color(0.435294, 0.388235, 0.972549, 1),
 7: Color(0.631373, 0.388235, 0.972549, 1),
 8: Color(0.827451, 0.388235, 0.972549, 1)
-}
+})
 builder_cell_color = Color(0.639216, 0.913725, 0.627451, 1)
 builder_slider_color = Color(0.384314, 0.745098, 0.364706, 1)
-slider_colors = {
+slider_colors = Dictionary[String, Color]({
 "ADD": Color(0, 0.901961, 0, 1),
 "BACKGROUND": Color(1, 1, 1, 1),
 "CHANGE_SIGN": Color(0.196078, 0.647059, 0.972549, 1),
 "FULL": Color(0.25098, 0.184314, 0.105882, 0.752941),
 "OUTLINE": Color(0.25098, 0.184314, 0.105882, 1),
 "SUBTRACT": Color(0.901961, 0, 0, 1)
-}
+})
