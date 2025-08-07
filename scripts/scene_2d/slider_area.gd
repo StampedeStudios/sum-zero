@@ -31,7 +31,7 @@ var _is_manually_controlled: bool = false
 var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
 var _last_percentage: float = 0.1
-var _last_affected_cells: Dictionary
+var _last_affected_cells: Dictionary[Cell, int]
 
 @onready var area_outline: NinePatchRect = %AreaOutline
 @onready var area_effect: Sprite2D = %AreaEffect

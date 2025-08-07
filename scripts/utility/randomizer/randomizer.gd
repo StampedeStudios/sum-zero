@@ -212,14 +212,14 @@ func create_sliders(data: LevelData) -> void:
 		_options.slider_opt = RandomSliderOptions.new()
 
 	# get all slider with reachable cells
-	var possible_sliders: Dictionary
+	var possible_sliders: Dictionary[Vector2i, Array]
 	await _get_possible_sliders(data, possible_sliders)
 	if possible_sliders.is_empty():
 		push_warning("Generated a level with no sliders. Generating again")
 		return
 
 	# filter random sliders with random extesion
-	var filtered_sliders: Dictionary
+	var filtered_sliders: Dictionary[Vector2i, RandomizerSlider]
 	await _get_filtered_sliders(possible_sliders, filtered_sliders)
 
 	# add sliders and calculate grid cells value
@@ -229,7 +229,7 @@ func create_sliders(data: LevelData) -> void:
 	await _remove_unnecessary_moves(data, filtered_sliders)
 
 
-func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
+func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary[Vector2i, RandomizerSlider]) -> void:
 	var unnecessaty_moves: int = 0
 	# remove moves if two opposite sliders cancel each other
 	# check top and right edge
@@ -277,13 +277,13 @@ func _remove_unnecessary_moves(data: LevelData, filtered: Dictionary) -> void:
 	await get_tree().process_frame
 
 
-func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
+func _add_sliders(data: LevelData, filtered: Dictionary[Vector2i, RandomizerSlider]) -> void:
 	var slider_options := _options.slider_opt
 	var block_sliders: Array[Vector2i]
 	var change_sliders: Array[Vector2i]
 	var normal_sliders: Array[Vector2i]
 	var locked_cells: Array[CellData]
-	var receiver_cells: Dictionary
+	var receiver_cells: Dictionary[Vector2i, Array]
 	var effect_slider_count: int = 0
 	var move_counter: int = 0
 
@@ -409,11 +409,12 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 
 	await get_tree().process_frame
 	# use stopped slider for check retractable slider-block
-	var stopped_sliders: Dictionary
+	var stopped_sliders: Dictionary[Vector2i, Vector2i]
 	for slider_coord: Vector2i in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		if slider.effect != Constants.Sliders.Effect.BLOCK and slider.is_stopped:
 			stopped_sliders[slider_coord] = slider.reachable[slider.reached.size()]
+
 	if stopped_sliders.size() > 1:
 		for slider_coord in block_sliders:
 			if !filtered.has(slider_coord):
@@ -472,7 +473,7 @@ func _add_sliders(data: LevelData, filtered: Dictionary) -> void:
 	await get_tree().process_frame
 
 
-func _get_filtered_sliders(possible: Dictionary, result: Dictionary) -> void:
+func _get_filtered_sliders(possible: Dictionary, result: Dictionary[Vector2i, RandomizerSlider]) -> void:
 	# calculate sliders diffusion
 	var slider_options := _options.slider_opt
 	var filterd := possible.keys()
@@ -576,7 +577,7 @@ func _is_opposite_slider(a: Vector2i, b: Vector2i) -> bool:
 	return false
 
 
-func _get_possible_sliders(data: LevelData, result: Dictionary) -> void:
+func _get_possible_sliders(data: LevelData, result: Dictionary[Vector2i, Array]) -> void:
 	var size := Vector2i(data.width, data.height)
 
 	for edge: int in range(4):
@@ -661,7 +662,7 @@ func _check_probability(probability: float) -> bool:
 	return true if random <= probability else false
 
 
-func _get_rule(rules_odd: Dictionary) -> String:
+func _get_rule(rules_odd: Dictionary[String, int]) -> String:
 	var random := randi_range(1, 100)
 	var counter_odd := 0
 

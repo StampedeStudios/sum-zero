@@ -10,8 +10,8 @@ const BUILDER_SELECTION := "res://packed_scene/user_interface/BuilderSelection.t
 
 var _randomizer: Randomizer
 var _level_data: LevelData
-var _cell_collection: Dictionary
-var _slider_collection: Dictionary
+var _cell_collection: Dictionary[Vector2i, BuilderCell]
+var _slider_collection: Dictionary[Vector2i, BuilderSlider]
 var _multiselection_enabled: bool
 var _multiselection_start_pos: Vector2
 var _multiselection_panel: Panel
@@ -109,6 +109,8 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 	GameManager.set_level_scale(_level_data.width, _level_data.height)
 	var half_cell := Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
 	var half_grid := Vector2(_level_data.width, _level_data.height) * Constants.Sizes.CELL_SIZE / 2
+
+	# Used as cell and slider collection, cannot be typed
 	var old_collection: Dictionary
 
 	# add cell space
