@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Sum Zero"
 config/description="A mobile puzzle game where players use math-based sliders to bring all tiles on a grid down to zero. Combining strategy, logic, and arithmetic, each level presents a unique challenge to solve."
-config/version="1.1.0"
+config/version="1.1.2"
 run/main_scene="res://packed_scene/scene_2d/Main.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.643137, 0.709804, 0.639216, 0.776471)
