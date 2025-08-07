@@ -7,9 +7,9 @@ Closes #<issue_number>
 
 ## Changes
 <!-- Provide a concise list of changes made in this PR. -->
-- [ ] Feature 1: (describe)
-- [ ] Bugfix 2: (describe)
-- [ ] Refactor 3: (describe)
+- Feature 1: (describe)
+- Bugfix 2: (describe)
+- Refactor 3: (describe)
 
 ## Checklist
 - [ ] My code follows the project’s style guidelines.
