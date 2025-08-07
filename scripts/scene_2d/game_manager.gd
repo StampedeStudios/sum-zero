@@ -10,6 +10,7 @@ extends Node
 signal on_state_change(new_state: Constants.GameState)
 
 const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
+const PARTICLES = "res://packed_scene/user_interface/BackgroundParticles.tscn"
 const SPLASH_SCREEN = "res://packed_scene/user_interface/SplashScreen.tscn"
 const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
 const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
@@ -63,6 +64,9 @@ func start() -> void:
 
 	# Starts background music if not disabled.
 	AudioManager.start_music()
+
+	var particles := ResourceLoader.load(PARTICLES) as PackedScene
+	get_tree().root.add_child(particles.instantiate())
 
 	# Instantiates main menu.
 	var scene := ResourceLoader.load(MAIN_MENU) as PackedScene
