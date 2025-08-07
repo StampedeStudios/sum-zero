@@ -32,7 +32,7 @@ func _ready() -> void:
 
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
 
-	# adapt loading icon at screen size
+	# Adapt loading icon at screen size
 	var screen_size := get_viewport_rect().size
 	var min_edge := minf(screen_size.x, screen_size.y)
 	var icon_size := Vector2(min_edge / 4, min_edge / 4)

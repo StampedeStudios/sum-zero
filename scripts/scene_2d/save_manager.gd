@@ -143,7 +143,7 @@ func _try_load_saved_data() -> bool:
 	if _player_save == null:
 		push_error("Saved data corrupted, impossible to read")
 		_player_save = PlayerSave.new()
-	
+
 	var modified := _player_save.check_savegame_integrity(_persistent_save)
 
 	if modified:

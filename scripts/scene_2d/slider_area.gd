@@ -152,7 +152,7 @@ func release_handle() -> void:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
 				move_count = true
 				break
-	
+
 	alter_grid.emit(move_count)
 
 

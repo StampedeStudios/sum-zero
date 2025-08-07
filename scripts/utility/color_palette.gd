@@ -1,6 +1,6 @@
 ## Information about a color palette.
 ##
-## The game is fully customizable with themes. Currently only a theme is supported and it's the default.
+## The game is fully customizable with themes. Currently it's supported only a theme.
 class_name CustomColorPalette extends Resource
 
 ## Colors of cell, each cell value is associated with a specific color.

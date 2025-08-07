@@ -1,3 +1,4 @@
+## Main UI scene — Handles grid rendering and main game loop events.
 class_name GameUI extends Control
 
 const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
@@ -27,9 +28,22 @@ func _ready() -> void:
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
 
 
-func _on_exit_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	_exit()
+func initialize_ui(prev_state: Constants.GameState) -> void:
+	_return_to = prev_state
+
+
+func next_level() -> void:
+	if _has_next_level:
+		var level: LevelData = GameManager.get_next_level()
+		await GameManager.level_manager.init_level(level)
+		GameManager.change_state(Constants.GameState.LEVEL_START)
+	else:
+		if GameManager.get_active_context() == Constants.LevelGroup.MAIN:
+			var scene := ResourceLoader.load(CREDITS) as PackedScene
+			var credits := scene.instantiate() as CreditsScreen
+			get_tree().root.add_child(credits)
+		else:
+			_exit()
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
@@ -84,8 +98,9 @@ func _on_level_complete() -> void:
 	GameManager.change_state(Constants.GameState.LEVEL_END)
 
 
-func initialize_ui(prev_state: Constants.GameState) -> void:
-	_return_to = prev_state
+func _on_exit_btn_pressed() -> void:
+	AudioManager.play_click_sound()
+	_exit()
 
 
 func _consume_move() -> void:
@@ -100,20 +115,6 @@ func _on_reset_btn_pressed() -> void:
 func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	next_level()
-
-
-func next_level() -> void:
-	if _has_next_level:
-		var level: LevelData = GameManager.get_next_level()
-		await GameManager.level_manager.init_level(level)
-		GameManager.change_state(Constants.GameState.LEVEL_START)
-	else:
-		if GameManager.get_active_context() == Constants.LevelGroup.MAIN:
-			var scene := ResourceLoader.load(CREDITS) as PackedScene
-			var credits := scene.instantiate() as CreditsScreen
-			get_tree().root.add_child(credits)
-		else:
-			_exit()
 
 
 func _exit() -> void:

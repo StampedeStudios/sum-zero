@@ -1,3 +1,4 @@
+## Handles logic of Level Builder UI panel.
 class_name BuilderUI extends Control
 
 signal reset_builder_level
