@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2701iq6kr7jy"]
+[gd_scene load_steps=4 format=3 uid="uid://c2701iq6kr7jy"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_ncc3j"]
 [ext_resource type="Script" uid="uid://bk7sonpreiywf" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
-[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_5iarc"]
-[ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="3_vagje"]
-[ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="5_gwge7"]
-[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="7_6mlv4"]
-[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="7_enxjh"]
+[ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_50nmf"]
 
 [node name="OptionsMenu" type="Control"]
 layout_mode = 3
@@ -18,34 +14,8 @@ grow_vertical = 2
 theme = ExtResource("1_ncc3j")
 script = ExtResource("2_mjy7k")
 
-[node name="Background" type="Panel" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = ExtResource("3_5iarc")
-
-[node name="Panel" type="Panel" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -275.0
-offset_top = -275.0
-offset_right = 275.0
-offset_bottom = 275.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("3_vagje")
-script = ExtResource("5_gwge7")
-
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,7 +27,28 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="OptionButton" type="OptionButton" parent="Background/Panel/MarginContainer"]
+[node name="BoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="TopBar" type="HBoxContainer" parent="MarginContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/BoxContainer/TopBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme = ExtResource("1_ncc3j")
+theme_override_constants/icon_max_width = 64
+theme_override_font_sizes/font_size = 50
+text = "BACK"
+icon = ExtResource("3_50nmf")
+flat = true
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/BoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -77,20 +68,21 @@ popup/item_3/id = 3
 popup/item_4/text = "Deutsch"
 popup/item_4/id = 4
 
-[node name="Options" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="MusicContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
 layout_mode = 2
 
-[node name="MusicLabel" type="Label" parent="Background/Panel/MarginContainer/Options/MusicContainer"]
+[node name="MusicLabel" type="Label" parent="MarginContainer/BoxContainer/Options/MusicContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "MUSIC"
 
-[node name="MusicBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/MusicContainer"]
+[node name="MusicBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/MusicContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -98,16 +90,17 @@ focus_mode = 0
 theme = ExtResource("1_ncc3j")
 flat = true
 
-[node name="SfxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+[node name="SfxContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SfxLabel" type="Label" parent="Background/Panel/MarginContainer/Options/SfxContainer"]
+[node name="SfxLabel" type="Label" parent="MarginContainer/BoxContainer/Options/SfxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "SFX"
 
-[node name="SfxBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/SfxContainer"]
+[node name="SfxBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/SfxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -115,15 +108,16 @@ focus_mode = 0
 button_pressed = true
 flat = true
 
-[node name="TutorialContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/Options"]
+[node name="TutorialContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
 layout_mode = 2
 
-[node name="TutorialLabel" type="Label" parent="Background/Panel/MarginContainer/Options/TutorialContainer"]
+[node name="TutorialLabel" type="Label" parent="MarginContainer/BoxContainer/Options/TutorialContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "TUTORIAL"
 
-[node name="TutorialBtn" type="CheckButton" parent="Background/Panel/MarginContainer/Options/TutorialContainer"]
+[node name="TutorialBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/TutorialContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -131,36 +125,18 @@ focus_mode = 0
 button_pressed = true
 flat = true
 
-[node name="LinkButton" type="LinkButton" parent="Background/Panel/MarginContainer/Options"]
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/Options"]
+unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 10
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 theme_override_colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 text = "About us"
 
-[node name="ExitBtn" type="Button" parent="Background/Panel"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -45.0
-offset_bottom = 45.0
-grow_horizontal = 0
-focus_mode = 0
-theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_styles/hover = ExtResource("7_enxjh")
-theme_override_styles/pressed = ExtResource("7_enxjh")
-theme_override_styles/normal = ExtResource("7_enxjh")
-icon = ExtResource("7_6mlv4")
-icon_alignment = 1
-
-[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
-[connection signal="item_selected" from="Background/Panel/MarginContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/MusicContainer/MusicBtn" to="." method="_on_music_btn_toggled"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/SfxContainer/SfxBtn" to="." method="_on_sfx_btn_toggled"]
-[connection signal="toggled" from="Background/Panel/MarginContainer/Options/TutorialContainer/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/Options/LinkButton" to="." method="_on_link_button_pressed"]
-[connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/TopBar/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="item_selected" from="MarginContainer/BoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/Options/MusicContainer/MusicBtn" to="." method="_on_music_btn_toggled"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/Options/SfxContainer/SfxBtn" to="." method="_on_sfx_btn_toggled"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/Options/TutorialContainer/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/Options/LinkButton" to="." method="_on_link_button_pressed"]

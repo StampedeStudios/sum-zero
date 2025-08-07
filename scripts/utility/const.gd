@@ -7,6 +7,7 @@ class_name Constants
 ## can connect to the signal at ready-time and handles state changes according to themselves.
 enum GameState {
 	MAIN_MENU,
+	OPTIONS_MENU,
 	LEVEL_PICK,
 	LEVEL_START,
 	PLAY_LEVEL,
