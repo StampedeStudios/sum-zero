@@ -128,6 +128,7 @@ flat = true
 [node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/Options"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)

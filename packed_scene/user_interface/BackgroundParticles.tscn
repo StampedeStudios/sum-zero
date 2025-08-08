@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c27uxtvl3hvnf"]
+[gd_scene load_steps=5 format=3 uid="uid://c27uxtvl3hvnf"]
 
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="1_3pr5c"]
 
@@ -9,15 +9,22 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
+[sub_resource type="Curve" id="Curve_3pr5c"]
+_data = [Vector2(0.165323, 0.368124), 0.0, 0.0, 0, 0, Vector2(0.409274, 0.578749), 0.0, 0.0, 0, 0, Vector2(0.667339, 0.833459), 0.0, 0.0, 0, 0, Vector2(0.957661, 0.147702), 0.0, 0.0, 0, 0]
+point_count = 4
+
 [sub_resource type="Gradient" id="Gradient_lk1wc"]
+offsets = PackedFloat32Array(0, 0.395745, 0.721277, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.280851, 0.280851, 0.280851, 1, 0.661702, 0.661702, 0.661702, 1, 1, 1, 1, 1)
 
 [node name="CPUParticles2D" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_lnl8v")
 amount = 150
 texture = ExtResource("1_3pr5c")
 lifetime = 20.0
-preprocess = 3.0
+preprocess = 15.0
 speed_scale = 0.23
+explosiveness = 0.1
 randomness = 0.14
 direction = Vector2(0.5, 0.5)
 spread = 90.0
@@ -28,10 +35,13 @@ linear_accel_min = 2.0
 linear_accel_max = 5.0
 radial_accel_min = 1.5
 radial_accel_max = 2.35
+angle_min = 0.1
+angle_max = 0.3
 scale_amount_min = 0.01
+scale_amount_curve = SubResource("Curve_3pr5c")
 color = Color(0.384314, 0.745098, 0.364706, 1)
 color_ramp = SubResource("Gradient_lk1wc")
 hue_variation_min = 0.04
-hue_variation_max = 0.15
+hue_variation_max = 0.3
 anim_speed_min = 8.0
 anim_speed_max = 15.0

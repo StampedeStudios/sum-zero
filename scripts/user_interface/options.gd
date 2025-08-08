@@ -3,7 +3,6 @@ class_name Options extends Control
 const CREDITS = "res://packed_scene/user_interface/CreditsScreen.tscn"
 var _player_options: PlayerOptions
 
-# @onready var panel: AnimatedPanel = %Panel
 @onready var music_btn: Button = %MusicBtn
 @onready var sfx_btn: Button = %SfxBtn
 @onready var tutorial_btn: Button = %TutorialBtn
@@ -56,7 +55,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 func _exit_options() -> void:
 	SaveManager.save_player_data()
-	# await panel.close()
 	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 
