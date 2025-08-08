@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdvls8h7b4v2p"]
+[gd_scene load_steps=9 format=3 uid="uid://cdvls8h7b4v2p"]
 
 [ext_resource type="Script" uid="uid://dpwsouj2eyd02" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_836sh"]
@@ -7,16 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://cv1wuwhbps7yu" path="res://assets/game/social/instagram.png" id="4_kher8"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="5_82hi4"]
 [ext_resource type="Texture2D" uid="uid://dvhjuww0sc1lc" path="res://assets/game/social/itch.png" id="6_3s6s5"]
-[ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="8_xfc5w"]
-
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2v6x3"]
-blend_mode = 1
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="Gradient" id="Gradient_0dj6i"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gagcj"]
 
@@ -40,27 +30,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
 color = Color(0.07, 0.0510533, 0.0294, 1)
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="ColorRect"]
-material = SubResource("CanvasItemMaterial_2v6x3")
-position = Vector2(480, 640)
-amount = 150
-lifetime = 20.0
-preprocess = 3.0
-speed_scale = 0.23
-randomness = 0.14
-texture = ExtResource("8_xfc5w")
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 150.0
-initial_velocity_max = 400.0
-linear_accel_min = 2.0
-linear_accel_max = 5.0
-scale_amount_min = 0.1
-color = Color(0.384314, 0.745098, 0.364706, 1)
-color_ramp = SubResource("Gradient_0dj6i")
-anim_speed_min = 8.0
-anim_speed_max = 15.0
 
 [node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
 unique_name_in_owner = true
@@ -138,9 +107,9 @@ offset_left = -45.0
 offset_bottom = 45.0
 grow_horizontal = 0
 focus_mode = 0
-theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
+theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 icon = ExtResource("5_82hi4")
 flat = true
 icon_alignment = 1
