@@ -127,7 +127,8 @@ func spawn_grid(animate: bool = true) -> void:
 	var end: float = _get_max_radius(grid_size, start_point)
 	var time: float = _get_time_relative_to_radius(end, grid_size)
 
-	await create_tween().tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
+	var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	await tween.tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
 	GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 
 
