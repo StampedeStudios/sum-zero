@@ -99,7 +99,10 @@ func show_cell(animate: bool = true) -> void:
 
 		if animate:
 			tile.scale = Vector2.ZERO
-			create_tween().tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)
+			tile.modulate.a = 0
+			var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+			tween.tween_property(tile, "modulate:a", 1.0, SPAWN_TIME)
+			tween.tween_property(tile, "scale", Vector2.ONE, SPAWN_TIME)
 
 
 ## Applies all the effects on the stack updating the cell value.
