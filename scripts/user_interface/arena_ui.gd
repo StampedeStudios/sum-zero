@@ -53,10 +53,10 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			_moves_count = 0
 			_reset_count = 0
 		Constants.GameState.PLAY_LEVEL:
-			container.show()
 			if _current_mode.timer_options:
-				arena_time.show()
-				_timer.start()
+				_show_ui(true)
+			else:
+				_show_ui(false)
 		Constants.GameState.LEVEL_END:
 			pass
 		Constants.GameState.ARENA_END:
@@ -81,7 +81,20 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 func _hide_ui() -> void:
 	container.hide()
 	loading.hide()
-	arena_time.hide()
+	if arena_time:
+		arena_time.modulate.a = 0
+
+
+func _show_ui(show_timer: bool) -> void:
+	if show_timer:
+		var tween := create_tween()
+		tween.tween_property(arena_time, "modulate:a", 1, 0.2)
+
+		_timer.start()
+
+	loading.hide()
+	container.show()
+	
 
 
 func _reset_level() -> void:
@@ -138,6 +151,7 @@ func _get_new_random_level() -> void:
 			_current_level = GameManager.get_active_level(id)
 		if _current_level.is_valid_data():
 			break
+
 	# start playing level
 	await get_tree().process_frame
 	loading.hide()
@@ -151,7 +165,8 @@ func _start_loading() -> void:
 	_tween = create_tween()
 	_tween.set_loops(30)
 	_tween.tween_property(loading, "rotation_degrees", 360, 1).as_relative()
-	# after 30 seconds of loading if you have not found playable levels go back to the menu
+
+	# After 30 seconds of loading if you have not found playable levels go back to the menu
 	_tween.finished.connect(GameManager.change_state.bind(Constants.GameState.MAIN_MENU))
 
 
