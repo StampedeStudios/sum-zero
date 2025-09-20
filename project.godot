@@ -38,6 +38,10 @@ window/size/resizable=false
 window/size/extend_to_title=true
 window/handheld/orientation=1
 
+[editor]
+
+movie_writer/movie_file="/home/simone/Repositories/sum-zero/demo.avi"
+
 [file_customization]
 
 folder_colors={
