@@ -138,10 +138,9 @@ focus_mode = 0
 theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_constants/icon_max_width = 32
-theme_override_styles/hover = ExtResource("10_32ph3")
-theme_override_styles/pressed = ExtResource("10_32ph3")
 theme_override_styles/normal = ExtResource("10_32ph3")
+theme_override_styles/pressed = ExtResource("10_32ph3")
+theme_override_styles/hover = ExtResource("10_32ph3")
 icon = ExtResource("11_pt48p")
 icon_alignment = 1
 
