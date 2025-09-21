@@ -6,7 +6,6 @@ const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
-const STARS_SPRITE_SIZE := Vector2(350, 239)
 
 var _level_id: int
 
@@ -15,10 +14,16 @@ var _level_id: int
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var panel: AnimatedPanel = %Panel
-@onready var stars: TextureRect = %Stars
+@onready var left_star: TextureRect = %LeftStar
+@onready var right_star: TextureRect = %RightStar
+@onready var middle_star: TextureRect = %MiddleStar
 
 
 func _ready() -> void:
+	right_star.scale = Vector2(0, 0)
+	left_star.scale = Vector2(0, 0)
+	middle_star.scale = Vector2(0, 0)
+
 	await panel.open()
 
 
@@ -36,13 +41,23 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 		# extra reward for beating the developers (you think ...)
 		elif num_stars > 3:
 			num_stars = 4
+		update_stars(num_stars)
 
-	var start_cut := Vector2(5 * STARS_SPRITE_SIZE.x * num_stars, 0)
-	var atlas := stars.texture as AtlasTexture
-	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
 
 	build_btn.disabled = !progress.is_completed
 	_update_buttons(progress.is_unlocked)
+
+
+func update_stars(star_count: int) -> void:
+
+	if star_count >= 1:
+		left_star.scale = Vector2(0.7, 0.7)
+
+	if star_count >= 2:
+		middle_star.scale = Vector2(0.8, 0.8)
+
+	if star_count == 3:
+		right_star.scale = Vector2(0.7, 0.7)
 
 
 func _on_build_btn_pressed() -> void:

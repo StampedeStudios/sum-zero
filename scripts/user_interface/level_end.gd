@@ -8,7 +8,6 @@ const EXIT_TEXT = "EXIT"
 const HINT_ANIM_DURATION = 1
 const STAR_ANIM_DURATION = 0.15
 const STAR_ANIM_INTERVAL = 0.1
-const STARS_SPRITE_SIZE := Vector2(350, 239)
 const EXTRA_STARS_MSGS: Array[String] = ["EXTRA_STAR_MSG_1", "EXTRA_STAR_MSG_2", "EXTRA_STAR_MSG_3"]
 const THREE_STARS_MSGS: Array[String] = ["THREE_STAR_MSG_1", "THREE_STAR_MSG_2", "THREE_STAR_MSG_3"]
 const TWO_STARS_MSGS: Array[String] = ["TWO_STAR_MSG_1", "TWO_STAR_MSG_2", "TWO_STAR_MSG_3"]
@@ -23,12 +22,16 @@ var _is_record: bool
 @onready var next_btn: Button = %NextBtn
 @onready var hint: Label = %Hint
 @onready var panel: AnimatedPanel = %Panel
-@onready var level_score_img: TextureRect = %LevelScoreImg
-@onready var new_record: TextureRect = %NewRecord
+@onready var left_star: TextureRect = %LeftStar
+@onready var right_star: TextureRect = %RightStar
+@onready var middle_star: TextureRect = %MiddleStar
 
 func _ready() -> void:
-	new_record.hide()
-	_update_stars_frame(0)
+
+	right_star.scale = Vector2(0, 0)
+	left_star.scale = Vector2(0, 0)
+	middle_star.scale = Vector2(0, 0)
+
 	_update_shader_percentage(0)
 	await panel.open()
 	_update_score()
@@ -48,41 +51,38 @@ func _close() -> void:
 
 func _update_score() -> void:
 	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
-	await _animate_stars(_star_count)
-	await _animate_hint(_star_count)
-	new_record.visible = _is_record
+	_animate_stars(_star_count)
+	_animate_hint(_star_count)
+	if _is_record:
+		print("Player set a new record for this level")
 
 
 func _animate_stars(star_count: int) -> void:
-	var tween := create_tween()
 
-	if star_count > 0:
-		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_update_stars_frame, 1, 5, STAR_ANIM_DURATION)
+	if star_count != 0:
+		var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
+		tween.parallel()
 
-	if star_count > 1:
-		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_update_stars_frame, 6, 10, STAR_ANIM_DURATION)
+		if star_count >= 1:
+			tween.tween_property(left_star, "scale", Vector2(0.7, 0.7), STAR_ANIM_DURATION)
+			tween.tween_interval(STAR_ANIM_INTERVAL)
 
-	if star_count > 2:
-		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_update_stars_frame, 11, 15, STAR_ANIM_DURATION)
+		if star_count >= 2:
+			tween.tween_property(middle_star, "scale", Vector2(0.8, 0.8), STAR_ANIM_DURATION)
+			tween.tween_interval(STAR_ANIM_INTERVAL)
 
-	# extra reward for beating the developers (you think ...)
-	if star_count > 3:
-		tween.tween_interval(STAR_ANIM_INTERVAL)
-		tween.tween_method(_update_stars_frame, 16, 20, STAR_ANIM_DURATION)
+		if star_count == 3:
+			tween.tween_property(right_star, "scale", Vector2(0.7, 0.7), STAR_ANIM_DURATION)
+			tween.tween_interval(STAR_ANIM_INTERVAL)
 
-	tween.tween_interval(STAR_ANIM_INTERVAL)
-	await tween.finished
+		await tween.finished
+	else:
+		print("Player has lost all stars, no star is being animated")
 
 
 func _animate_hint(star_count: int) -> void:
 	hint.text = _select_random_text(star_count)
-	var tween := create_tween()
-
-	tween.set_ease(Tween.EASE_OUT)
-	tween.set_trans(Tween.TRANS_CUBIC)
+	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	# Tween from 0 to 100
 	tween.tween_method(_update_shader_percentage, 0.0, 1.0, HINT_ANIM_DURATION)
@@ -105,13 +105,6 @@ func _select_random_text(num_stars: int) -> String:
 
 	# Extra reward for beating the developers (you think ...)
 	return tr(EXTRA_STARS_MSGS.pick_random())
-
-
-func _update_stars_frame(frame: int) -> void:
-	var start_cut := Vector2(STARS_SPRITE_SIZE.x * frame, 0)
-	var atlas := level_score_img.texture as AtlasTexture
-	atlas.region = Rect2(start_cut, STARS_SPRITE_SIZE)
-
 
 func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
