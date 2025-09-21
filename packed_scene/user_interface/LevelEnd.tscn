@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene load_steps=19 format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" uid="uid://ngoqn4ynfd74" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
@@ -6,19 +6,47 @@
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="4_dmvyx"]
 [ext_resource type="Shader" uid="uid://3vnof4misbe8" path="res://scripts/shaders/LinearReveal.gdshader" id="6_211iv"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="6_bnfmt"]
-[ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="6_uge2i"]
-[ext_resource type="Texture2D" uid="uid://by12dxftlylwu" path="res://assets/ui/stars_atlas.tres" id="7_54x3e"]
+[ext_resource type="Texture2D" uid="uid://cjyfb6xp723rk" path="res://assets/ui/star.png" id="6_wgqs3"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="7_dngta"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="7_e8pvp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fm4t"]
-shader = ExtResource("4_1hfem")
-shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="8_4cai0"]
+[ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="10_4cai0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a3ofu"]
 shader = ExtResource("6_211iv")
 shader_parameter/percentage = 0.635
 shader_parameter/right_to_left = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l7pcn"]
+shader = ExtResource("10_4cai0")
+shader_parameter/base_color = Color(0.62, 0.59106666, 0.49600002, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wgqs3"]
+shader = ExtResource("4_1hfem")
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3j0li"]
+shader = ExtResource("10_4cai0")
+shader_parameter/base_color = Color(0.61960787, 0.5921569, 0.49411765, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cai0"]
+shader = ExtResource("4_1hfem")
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vxedn"]
+shader = ExtResource("10_4cai0")
+shader_parameter/base_color = Color(0.61960787, 0.5921569, 0.49411765, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4fm4t"]
+resource_local_to_scene = true
+shader = ExtResource("4_1hfem")
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
 
 [node name="LevelEnd" type="Control"]
 layout_mode = 3
@@ -41,9 +69,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -275.0
-offset_top = -250.0
+offset_top = -275.0
 offset_right = 275.0
-offset_bottom = 300.0
+offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -65,54 +93,21 @@ theme_override_constants/margin_bottom = 40
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
 alignment = 1
-
-[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme = ExtResource("7_dngta")
-text = "COMPLETE"
-
-[node name="MarginContainter" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="LevelScoreImg" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainter"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_4fm4t")
-layout_mode = 2
-texture = ExtResource("7_54x3e")
-expand_mode = 1
-stretch_mode = 5
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/MarginContainter"]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="NewRecord" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/MarginContainter/MarginContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 128)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-texture = ExtResource("6_uge2i")
-expand_mode = 1
-stretch_mode = 4
 
 [node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_a3ofu")
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 2
 theme = ExtResource("7_dngta")
+theme_override_fonts/font = ExtResource("8_4cai0")
 theme_override_font_sizes/font_size = 26
+text = "Flawless finish!"
 
 [node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_vertical = 10
 alignment = 1
 
 [node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
@@ -133,6 +128,115 @@ focus_mode = 0
 theme = ExtResource("7_e8pvp")
 text = "NEXT"
 icon_alignment = 2
+
+[node name="LeftStarBg" type="TextureRect" parent="Panel"]
+material = SubResource("ShaderMaterial_l7pcn")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -128.0
+offset_right = 336.0
+offset_bottom = 128.0
+grow_vertical = 2
+rotation = -0.2617994
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
+
+[node name="LeftStar" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_wgqs3")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 80.0
+offset_top = -128.0
+offset_right = 336.0
+offset_bottom = 128.0
+grow_vertical = 2
+rotation = -0.2617994
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
+
+[node name="RightStarBg" type="TextureRect" parent="Panel"]
+material = SubResource("ShaderMaterial_3j0li")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -128.0
+offset_right = -80.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.2617994
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
+
+[node name="RightStar" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_4cai0")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -128.0
+offset_right = -80.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.2617994
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
+
+[node name="MiddleStarBg" type="TextureRect" parent="Panel"]
+material = SubResource("ShaderMaterial_vxedn")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
+
+[node name="MiddleStar" type="TextureRect" parent="Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_4fm4t")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -192.0
+offset_right = 128.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("6_wgqs3")
 
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/BottomRightContainer/ReplayBtn" to="." method="_on_replay_btn_pressed"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/BottomRightContainer/NextBtn" to="." method="_on_next_btn_pressed"]

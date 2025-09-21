@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene load_steps=22 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" uid="uid://cmua61pcxrhb" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
-[ext_resource type="Texture2D" uid="uid://by12dxftlylwu" path="res://assets/ui/stars_atlas.tres" id="2_6dotb"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="2_rmjy0"]
 [ext_resource type="Shader" uid="uid://bi7c682y5yhkv" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
@@ -10,13 +9,43 @@
 [ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
+[ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="6_obudt"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="8_el7sx"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_32ph3"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_pt48p"]
+[ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="12_phnp1"]
+[ext_resource type="Texture2D" uid="uid://cjyfb6xp723rk" path="res://assets/ui/star.png" id="13_3opmu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rfrax"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r6lt2"]
+shader = ExtResource("12_phnp1")
+shader_parameter/base_color = Color(0.62, 0.59106666, 0.49600002, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_phnp1"]
 shader = ExtResource("3_2dflr")
-shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_84u5x"]
+shader = ExtResource("12_phnp1")
+shader_parameter/base_color = Color(0.61960787, 0.5921569, 0.49411765, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_obudt"]
+shader = ExtResource("3_2dflr")
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlktl"]
+shader = ExtResource("12_phnp1")
+shader_parameter/base_color = Color(0.61960787, 0.5921569, 0.49411765, 1)
+shader_parameter/invert_base_color = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjbn1"]
+resource_local_to_scene = true
+shader = ExtResource("3_2dflr")
+shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
+shader_parameter/progress = 0.800000038
 
 [node name="LevelInspect" type="Control"]
 layout_mode = 3
@@ -73,21 +102,14 @@ theme_override_constants/separation = 10
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3an21")
+theme_override_fonts/font = ExtResource("6_obudt")
 text = "Level 01"
 horizontal_alignment = 1
-
-[node name="Stars" type="TextureRect" parent="Background/Panel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_rfrax")
-layout_mode = 2
-size_flags_vertical = 3
-texture = ExtResource("2_6dotb")
-expand_mode = 1
-stretch_mode = 5
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+size_flags_vertical = 10
 theme_override_constants/separation = 55
 alignment = 1
 
@@ -120,12 +142,6 @@ theme = ExtResource("8_el7sx")
 theme_override_constants/icon_max_width = 128
 icon = ExtResource("6_aqsoc")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="BoxContainer" type="BoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
 layout_mode = 1
 anchors_preset = 1
@@ -143,6 +159,115 @@ theme_override_styles/pressed = ExtResource("10_32ph3")
 theme_override_styles/hover = ExtResource("10_32ph3")
 icon = ExtResource("11_pt48p")
 icon_alignment = 1
+
+[node name="LeftStarBg" type="TextureRect" parent="Background/Panel"]
+material = SubResource("ShaderMaterial_r6lt2")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -160.0
+offset_right = 352.0
+offset_bottom = 96.0
+grow_vertical = 2
+rotation = -0.2617994
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
+
+[node name="LeftStar" type="TextureRect" parent="Background/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_phnp1")
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 96.0
+offset_top = -160.0
+offset_right = 352.0
+offset_bottom = 96.0
+grow_vertical = 2
+rotation = -0.2617994
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
+
+[node name="RightStarBg" type="TextureRect" parent="Background/Panel"]
+material = SubResource("ShaderMaterial_84u5x")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -352.0
+offset_top = -160.0
+offset_right = -96.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.2617994
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
+
+[node name="RightStar" type="TextureRect" parent="Background/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_obudt")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -352.0
+offset_top = -160.0
+offset_right = -96.0
+offset_bottom = 96.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 0.2617994
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
+
+[node name="MiddleStarBg" type="TextureRect" parent="Background/Panel"]
+material = SubResource("ShaderMaterial_tlktl")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -224.0
+offset_right = 128.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.7, 0.7)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
+
+[node name="MiddleStar" type="TextureRect" parent="Background/Panel"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_tjbn1")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -224.0
+offset_right = 128.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.8, 0.8)
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("13_3opmu")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/UnlockBtn" to="." method="_on_unlock_btn_pressed"]
