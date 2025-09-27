@@ -40,10 +40,7 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TopContainer"]
-layout_mode = 2
-
-[node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer/HBoxContainer2"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -144,7 +141,7 @@ theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_05dex")
 
-[connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer2/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateHole" to="." method="_on_generate_hole_pressed"]
 [connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateBlock" to="." method="_on_generate_block_pressed"]
 [connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateSlider" to="." method="_on_generate_slider_pressed"]
