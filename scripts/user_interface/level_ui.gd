@@ -30,10 +30,7 @@ var _levels_page: Array[LevelPage]
 @onready var title: Label = %Title
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
-@onready var world_btn: Button = %WorldBtn
-@onready var custom_btn: Button = %CustomBtn
 @onready var pages: HBoxContainer = %Pages
-
 
 func _ready() -> void:
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
@@ -41,16 +38,12 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-	world_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	custom_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
 	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	left.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
 	right.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
-	world_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
-	custom_btn.add_theme_constant_override("icon_max_width", int(GameManager.icon_max_width * 1.5))
 
 	_page_width = get_viewport().size.x
 	pages.size.x = _page_width * 3
@@ -70,16 +63,19 @@ func _ready() -> void:
 	_init_pages()
 
 
+func set_context(world: Constants.LevelGroup) -> void:
+	_world = world
+
+
 ## Sets starting page to show the next playable level.
 func _set_start_point() -> void:
 	var active_level_id: int = GameManager.get_active_level_id()
 	if active_level_id <= 0:
-		active_level_id = SaveManager.get_start_level_playable()
+		if _world == Constants.LevelGroup.MAIN:
+			active_level_id = SaveManager.get_start_level_playable()
+		else:
+			active_level_id = 0
 	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
-
-	_world = GameManager.get_active_context()
-	world_btn.visible = _world == Constants.LevelGroup.CUSTOM
-	custom_btn.visible = _world == Constants.LevelGroup.MAIN
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
@@ -113,6 +109,7 @@ func _check_pages() -> void:
 		Constants.LevelGroup.CUSTOM:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(SaveManager.get_num_levels(_world) + 1) / PAGE_SIZE)
+
 	title.text = "%02d of %02d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
@@ -194,28 +191,6 @@ func _move_right(transition_time: float) -> void:
 		page.update_page(_world, _current_page - 1)
 	_check_pages()
 	_end_animation.call_deferred()
-
-
-func _on_world_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	_world = Constants.LevelGroup.MAIN
-
-	var active_level_id: int = SaveManager.get_start_level_playable()
-	_current_page = ceili(float(active_level_id + 1) / PAGE_SIZE)
-	world_btn.hide()
-	custom_btn.show()
-	_check_pages()
-	_init_pages()
-
-
-func _on_custom_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	_world = Constants.LevelGroup.CUSTOM
-	_current_page = 1
-	custom_btn.hide()
-	world_btn.show()
-	_check_pages()
-	_init_pages()
 
 
 func _refresh_next() -> void:

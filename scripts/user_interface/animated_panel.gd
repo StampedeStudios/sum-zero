@@ -10,15 +10,13 @@ func _ready() -> void:
 
 
 func open() -> void:
-	var tween := create_tween()
+	var tween := create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_method(_animate, Vector2.ZERO, GameManager.ui_scale, anim_time)
 	await tween.finished
 
 
 func close() -> void:
-	var tween := create_tween()
-	tween.tween_method(_animate, GameManager.ui_scale, Vector2.ZERO, anim_time)
-	await tween.finished
+	scale = Vector2.ZERO
 
 
 func _animate(animated_scale: Vector2) -> void:

@@ -1,12 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=7 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" uid="uid://ctotyoyltbhbc" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2fw0e"]
-[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_kqnek"]
-[ext_resource type="Texture2D" uid="uid://bpffu8oqt7i7m" path="res://assets/ui/lamp.png" id="6_a5f4w"]
-[ext_resource type="Texture2D" uid="uid://dq2m6w1rm5o5v" path="res://assets/ui/home.png" id="6_bxt07"]
-[ext_resource type="ButtonGroup" uid="uid://bkkea7y2rhc4i" path="res://assets/resources/utility/tab_group.tres" id="8_101tc"]
 [ext_resource type="Theme" uid="uid://4knxac0hwf4n" path="res://assets/resources/themes/simple.tres" id="9_7bhus"]
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
 [ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="9_mex7s"]
@@ -19,6 +15,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hkyqh")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -37,15 +41,14 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="Top" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 0
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/Top"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 0
+size_flags_vertical = 2
 focus_mode = 0
 theme = ExtResource("2_cshsk")
 theme_override_constants/icon_max_width = 64
@@ -54,48 +57,10 @@ text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
 
-[node name="NavigationTab" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 2
-theme = ExtResource("2_cshsk")
-theme_override_constants/separation = 50
-
-[node name="WorldBtn" type="Button" parent="MarginContainer/VBoxContainer/NavigationTab"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_horizontal = 2
-focus_mode = 0
-theme = ExtResource("4_kqnek")
-theme_override_constants/icon_max_width = 92
-theme_override_font_sizes/font_size = 35
-toggle_mode = true
-button_pressed = true
-button_group = ExtResource("8_101tc")
-text = "WORLD"
-icon = ExtResource("6_bxt07")
-
-[node name="CustomBtn" type="Button" parent="MarginContainer/VBoxContainer/NavigationTab"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-focus_mode = 0
-theme = ExtResource("2_cshsk")
-theme_override_colors/icon_normal_color = Color(0.980392, 0.796078, 0.317647, 1)
-theme_override_colors/icon_pressed_color = Color(0.980392, 0.796078, 0.317647, 1)
-theme_override_colors/icon_hover_color = Color(0.980392, 0.796078, 0.317647, 1)
-theme_override_constants/icon_max_width = 92
-theme_override_font_sizes/font_size = 35
-toggle_mode = true
-button_group = ExtResource("8_101tc")
-text = "CUSTOM"
-icon = ExtResource("6_a5f4w")
-icon_alignment = 2
-
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+size_flags_vertical = 10
 
 [node name="Left" type="Button" parent="MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
@@ -147,8 +112,6 @@ layout_mode = 2
 [node name="Page3" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Top/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/WorldBtn" to="." method="_on_world_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/NavigationTab/CustomBtn" to="." method="_on_custom_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Right" to="." method="_on_right_pressed"]

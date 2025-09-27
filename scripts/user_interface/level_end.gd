@@ -44,7 +44,7 @@ func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
 
 
 func _close() -> void:
-	await panel.close()
+	panel.close()
 	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
 

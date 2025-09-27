@@ -71,7 +71,7 @@ func _update_separation(separation: int) -> void:
 
 
 func _close(next: Constants.GameState) -> void:
-	await panel.close()
+	panel.close()
 	GameManager.change_state(next)
 	self.queue_free.call_deferred()
 
