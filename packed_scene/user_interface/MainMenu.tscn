@@ -4,11 +4,27 @@
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_gcpbi"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
 [ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="4_vg1ss"]
-[ext_resource type="StyleBox" uid="uid://cj1newmx2cfow" path="res://assets/resources/themes/menu_button_hover.tres" id="5_6t3t8"]
 [ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="5_anua8"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_io541"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="7_g7qxx"]
 [ext_resource type="Texture2D" uid="uid://ba0e2tckss3e5" path="res://assets/ui/gear_icon.png" id="9_dpngq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xecmt"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(1, 0.972549, 0.937255, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.514949, 0.394965, 0.254651, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awjbt"]
 bg_color = Color(0.25098, 0.184314, 0.105882, 1)
@@ -60,10 +76,10 @@ focus_mode = 0
 theme = ExtResource("3_gcpbi")
 theme_override_constants/icon_max_width = 70
 theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
 theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("4_vg1ss")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
 text = "PLAY"
 icon = ExtResource("4_1eqng")
 alignment = 0
@@ -76,10 +92,10 @@ focus_mode = 0
 theme = ExtResource("3_gcpbi")
 theme_override_constants/icon_max_width = 75
 theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
 theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
 text = "LEVELS"
 icon = ExtResource("5_anua8")
 alignment = 0
@@ -92,10 +108,10 @@ focus_mode = 0
 theme = ExtResource("3_gcpbi")
 theme_override_constants/icon_max_width = 70
 theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
 theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
 text = "EDITOR"
 icon = ExtResource("6_io541")
 alignment = 0
@@ -108,10 +124,10 @@ focus_mode = 0
 theme = ExtResource("3_gcpbi")
 theme_override_constants/icon_max_width = 75
 theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
 theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
 text = "OPTIONS"
 icon = ExtResource("9_dpngq")
 alignment = 0
@@ -136,10 +152,10 @@ focus_mode = 0
 theme = ExtResource("3_gcpbi")
 theme_override_constants/icon_max_width = 75
 theme_override_font_sizes/font_size = 60
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("5_6t3t8")
-theme_override_styles/pressed = ExtResource("5_6t3t8")
 theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
 text = "QUIT"
 icon = ExtResource("7_g7qxx")
 alignment = 0

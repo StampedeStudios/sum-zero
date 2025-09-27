@@ -1,7 +1,6 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dujdfelccpvvo"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://dujdfelccpvvo"]
 
 [ext_resource type="StyleBox" uid="uid://bm8qxem5qdgem" path="res://assets/resources/themes/primary_button_disabled.tres" id="1_i6ml5"]
-[ext_resource type="StyleBox" uid="uid://th4mf6g23rib" path="res://assets/resources/themes/primary_button_hover.tres" id="2_cg004"]
 [ext_resource type="StyleBox" uid="uid://dlj6yf7levthn" path="res://assets/resources/themes/primary_button.tres" id="3_wlhdb"]
 [ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="4_2w0u2"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="5_i0l08"]
@@ -23,9 +22,9 @@ Button/colors/icon_pressed_color = Color(1, 0.972549, 0.937255, 1)
 Button/constants/icon_max_width = 128
 Button/font_sizes/font_size = 60
 Button/styles/disabled = ExtResource("1_i6ml5")
-Button/styles/hover = ExtResource("2_cg004")
+Button/styles/hover = ExtResource("3_wlhdb")
 Button/styles/normal = ExtResource("3_wlhdb")
-Button/styles/pressed = ExtResource("2_cg004")
+Button/styles/pressed = ExtResource("3_wlhdb")
 CheckButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 LineEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)

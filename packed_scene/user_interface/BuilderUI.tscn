@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://bpri6h0m2juyf"]
+[gd_scene load_steps=12 format=3 uid="uid://bpri6h0m2juyf"]
 
 [ext_resource type="Script" uid="uid://p0ttlgs7a8s5" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_0xa7q"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_6lbb1"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="3_34h8o"]
-[ext_resource type="StyleBox" uid="uid://yu11lo2sslu4" path="res://assets/resources/themes/small_button_hover.tres" id="4_0sgsf"]
 [ext_resource type="Texture2D" uid="uid://bx5rrmh1alb5g" path="res://assets/ui/resize_icon.png" id="4_5ca4s"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_05dex"]
 [ext_resource type="Texture2D" uid="uid://hs4xs472vpsw" path="res://assets/ui/save_icon.png" id="5_e30bv"]
@@ -32,9 +31,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 20
+theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 20
+theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
 
 [node name="TopContainer" type="HBoxContainer" parent="MarginContainer"]
@@ -70,8 +69,6 @@ focus_mode = 0
 theme = ExtResource("2_0xa7q")
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = ExtResource("4_0sgsf")
-theme_override_styles/pressed = ExtResource("4_0sgsf")
 theme_override_styles/normal = ExtResource("5_n8w6v")
 icon = ExtResource("6_yivi7")
 icon_alignment = 2
@@ -82,8 +79,6 @@ focus_mode = 0
 theme = ExtResource("2_0xa7q")
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = ExtResource("4_0sgsf")
-theme_override_styles/pressed = ExtResource("4_0sgsf")
 theme_override_styles/normal = ExtResource("5_n8w6v")
 icon = ExtResource("7_la7xs")
 icon_alignment = 2
@@ -92,13 +87,11 @@ icon_alignment = 2
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_colors/icon_hover_color = Color(0, 0.556863, 0.67451, 0.858824)
-theme_override_colors/icon_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_colors/icon_normal_color = Color(0, 0.556863, 0.67451, 0.858824)
+theme_override_colors/icon_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
+theme_override_colors/icon_hover_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
-theme_override_styles/hover = ExtResource("4_0sgsf")
-theme_override_styles/pressed = ExtResource("4_0sgsf")
 theme_override_styles/normal = ExtResource("5_n8w6v")
 icon = ExtResource("8_locvh")
 icon_alignment = 2

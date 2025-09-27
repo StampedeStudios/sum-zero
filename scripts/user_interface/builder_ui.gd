@@ -31,11 +31,14 @@ func _ready() -> void:
 		button.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
+
 	GameManager.on_state_change.connect(_on_state_change)
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
+		Constants.GameState.LEVEL_PICK:
+			self.queue_free.call_deferred()
 		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 		Constants.GameState.BUILDER_IDLE:
@@ -81,7 +84,7 @@ func _on_save_btn_pressed() -> void:
 
 func _on_exit_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	GameManager.change_state(Constants.GameState.MAIN_MENU)
+	GameManager.change_state(Constants.GameState.LEVEL_PICK)
 
 
 func _on_generate_hole_pressed() -> void:

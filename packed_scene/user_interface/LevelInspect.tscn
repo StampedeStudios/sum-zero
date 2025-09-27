@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene load_steps=21 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" uid="uid://cmua61pcxrhb" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
@@ -6,7 +6,6 @@
 [ext_resource type="Shader" uid="uid://bi7c682y5yhkv" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_3an21"]
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="4_0o6mq"]
-[ext_resource type="Texture2D" uid="uid://fhgbromk22a0" path="res://assets/ui/unlock_icon.png" id="4_hx5r7"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="6_obudt"]
@@ -108,21 +107,10 @@ horizontal_alignment = 1
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 10
 theme_override_constants/separation = 55
 alignment = 1
-
-[node name="UnlockBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 2
-focus_mode = 0
-theme = ExtResource("3_3an21")
-theme_override_constants/icon_max_width = 128
-theme_override_font_sizes/font_size = 100
-disabled = true
-icon = ExtResource("4_hx5r7")
 
 [node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
@@ -270,7 +258,6 @@ pivot_offset = Vector2(128, 128)
 texture = ExtResource("13_3opmu")
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/UnlockBtn" to="." method="_on_unlock_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/BuildBtn" to="." method="_on_build_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/PlayBtn" to="." method="_on_play_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

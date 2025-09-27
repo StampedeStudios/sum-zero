@@ -1,7 +1,5 @@
 class_name LevelInspect extends Control
 
-signal level_unlocked
-
 const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 const GAME_UI = "res://packed_scene/user_interface/GameUI.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
@@ -10,7 +8,6 @@ const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 var _level_id: int
 
 @onready var label: Label = %LevelName
-@onready var unlock_btn: Button = %UnlockBtn
 @onready var build_btn: Button = %BuildBtn
 @onready var play_btn: Button = %PlayBtn
 @onready var panel: AnimatedPanel = %Panel
@@ -115,14 +112,7 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 
 func _update_buttons(is_unlocked: bool) -> void:
-	unlock_btn.disabled = is_unlocked
 	play_btn.disabled = !is_unlocked
-
-
-func _on_unlock_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	_update_buttons(true)
-	level_unlocked.emit()
 
 
 func _on_exit_btn_pressed() -> void:
