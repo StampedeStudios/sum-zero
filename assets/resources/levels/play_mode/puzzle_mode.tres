@@ -10,25 +10,23 @@
 
 [sub_resource type="Resource" id="Resource_0pgrr"]
 script = ExtResource("2_crj40")
-size_rules = {
+size_rules = Dictionary[String, int]({
 "LOWER": 0,
 "STANDARD": 100,
 "UPPER": 0
-}
+})
 lower_odd = 0
 upper_odd = 0
 std_grid_sizes = Array[Vector2i]([Vector2i(5, 5)])
 
 [sub_resource type="Resource" id="Resource_w7n2w"]
 script = ExtResource("4_84n5d")
-occupation_rules = {
+occupation_rules = Dictionary[String, int]({
 "LOWER": 0,
 "STANDARD": 60,
 "UPPER": 40
-}
-lower_odd = 30
-upper_odd = 60
-std_occupation = {
+})
+std_occupation = Dictionary[int, Vector2i]({
 4: Vector2i(2, 3),
 6: Vector2i(3, 4),
 8: Vector2i(3, 5),
@@ -38,23 +36,23 @@ std_occupation = {
 16: Vector2i(6, 9),
 18: Vector2i(7, 11),
 20: Vector2i(14, 14)
-}
-extension_rules = {
+})
+extension_rules = Dictionary[String, int]({
 "MAX": 60,
 "NONE": 0,
 "RANDOM": 40
-}
+})
 full_odd = 5
 full_odd_on_stop = 50
 block_full_odd = 25
 block_full_odd_on_stop = 75
 block_full_retract_odd = 75
-type_rules = {
+type_rules = Dictionary[String, int]({
 "ADD": 35,
 "BLOCK": 15,
 "CHANGE_SIGN": 15,
 "SUBTRACT": 35
-}
+})
 
 [sub_resource type="Resource" id="Resource_6dhtk"]
 script = ExtResource("3_d3nix")
@@ -63,11 +61,7 @@ slider_opt = SubResource("Resource_w7n2w")
 
 [sub_resource type="Resource" id="Resource_ai02r"]
 script = ExtResource("6_xpigj")
-is_countdown = false
-max_game_time = 0
 skip_cost = 0
-time_gained_per_move = 0.0
-boost_per_score = 2.0
 
 [resource]
 script = ExtResource("2_i1lkq")

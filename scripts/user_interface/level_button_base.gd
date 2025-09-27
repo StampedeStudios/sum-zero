@@ -13,40 +13,40 @@ const FONT = "res://assets/ui/fonts/FiraMono-Bold.ttf"
 
 
 func construct(id := -1, is_locked := true, stars := 0) -> void:
-	if id < 0:
-		if has_theme_color_override("icon_normal_color"):
-			remove_theme_color_override("icon_normal_color")
-			remove_theme_color_override("icon_hover_color")
-			remove_theme_color_override("icon_pressed_color")
-
-		text = ""
-		return
 
 	if is_locked:
-		icon = load(LOCK_ICON)
 		disabled = true
+		icon = load(LOCK_ICON)
+
 		text = ""
-		return
+		add_theme_color_override("icon_normal_color", Color(0.251, 0.184, 0.106, 1.0))
+		add_theme_color_override("icon_hover_color", Color(0.251, 0.184, 0.106, 1.0))
+		add_theme_color_override("icon_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
 
-	disabled = false
+	else:
+		disabled = false
 
-	if !has_theme_color_override("icon_normal_color"):
 		add_theme_color_override("icon_normal_color", Color.WHITE)
 		add_theme_color_override("icon_hover_color", Color.WHITE)
 		add_theme_color_override("icon_pressed_color", Color.WHITE)
 
-	var icon_path: String
-	icon_path = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS, EXTRA_STARS][stars]
-	icon = load(icon_path)
-	text = str(id + 1)
+		var font := ResourceLoader.load(FONT) as Font
+		var icon_path: String = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS, EXTRA_STARS][stars]
 
-	self.add_theme_font_size_override("font_size", GameManager.text_font_size)
-	var font := ResourceLoader.load(FONT) as Font
-	self.add_theme_font_override("font", font)
+		icon = load(icon_path)
+		text = str(id + 1)
+
+		self.add_theme_font_size_override("font_size", GameManager.text_font_size)
+		self.add_theme_font_override("font", font)
 
 
 func construct_empty() -> void:
+	text = ""
 	icon = load(ADD_ICON)
+
+	add_theme_color_override("icon_normal_color", Color(0.251, 0.184, 0.106, 1.0))
+	add_theme_color_override("icon_hover_color", Color(0.251, 0.184, 0.106, 1.0))
+	add_theme_color_override("icon_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
 
 
 func _pressed() -> void:

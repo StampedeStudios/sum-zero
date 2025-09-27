@@ -22,7 +22,8 @@ enum GameState {
 	CUSTOM_LEVEL_INSPECT,
 	ARENA_MODE,
 	ARENA_END,
-	TUTORIAL_ZERO
+	TUTORIAL_ZERO,
+	MODE_SELECTION
 }
 enum LevelGroup { CUSTOM, MAIN }
 enum GenerationElement { HOLE, BLOCK, SLIDER }

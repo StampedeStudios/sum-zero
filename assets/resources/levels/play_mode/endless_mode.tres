@@ -11,24 +11,18 @@
 
 [sub_resource type="Resource" id="Resource_ka2yw"]
 script = ExtResource("2_6e8np")
-size_rules = {
-"LOWER": 10,
-"STANDARD": 50,
-"UPPER": 40
-}
 lower_odd = 20
 upper_odd = 30
 std_grid_sizes = Array[Vector2i]([Vector2i(3, 3), Vector2i(4, 4), Vector2i(3, 4), Vector2i(4, 5)])
 
 [sub_resource type="Resource" id="Resource_6l1df"]
 script = ExtResource("3_vj0pr")
-diffusion_rules = {
+diffusion_rules = Dictionary[String, int]({
 "LOWER": 20,
 "MAX": 20,
 "NONE": 60
-}
+})
 remove_odd = 35
-std_diffusion = 25
 
 [sub_resource type="Resource" id="Resource_ppfa4"]
 script = ExtResource("4_pe733")
@@ -38,16 +32,11 @@ slider_opt = ExtResource("4_myq3e")
 
 [sub_resource type="Resource" id="Resource_ssd72"]
 script = ExtResource("3_bwsl1")
-is_countdown = false
-max_game_time = 0
 skip_cost = 0
-time_gained_per_move = 0.0
-boost_per_score = 2.0
 
 [resource]
 script = ExtResource("2_lqxql")
 is_skippable = true
-one_shoot_mode = false
 timer_options = SubResource("Resource_ssd72")
 level_options = SubResource("Resource_ppfa4")
 title = "ENDLESS"
