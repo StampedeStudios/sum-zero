@@ -52,14 +52,14 @@ func refresh_page() -> void:
 			var level_id := first_level + i
 			var is_locked := !levels_progress[i].is_unlocked
 			var star_count := clampi(levels_progress[i].move_left, -3, 1) + 3
-			level.construct(_current_world, level_id, is_locked, star_count)
+			level.construct(level_id, is_locked, star_count)
 			match _current_world:
 				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_custom_inspect.bind(level_id, levels_progress[i]))
 				Constants.LevelGroup.MAIN:
 					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))
 		else:
-			level.construct(_current_world)
+			level.construct_empty()
 			match _current_world:
 				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)
@@ -92,22 +92,17 @@ func show_inspect(id: int, progress: LevelProgress) -> void:
 	var level_inspect := scene.instantiate() as LevelInspect
 	get_tree().root.add_child(level_inspect)
 	level_inspect.init_inspector(id, progress)
-	level_inspect.level_unlocked.connect(_unlock_level.bind(id))
 
 
 func show_custom_inspect(id: int, progress: LevelProgress) -> void:
 	if GameManager.level_ui.has_consumed_input:
 		return
+
 	var scene := load(CUSTOM_LEVEL_INSPECT) as PackedScene
 	var custom_level_inspect := scene.instantiate() as CustomLevelInspect
 	get_tree().root.add_child(custom_level_inspect)
 	custom_level_inspect.init_inspector(id, progress)
 	custom_level_inspect.level_deleted.connect(_delete_level.bind(id))
-
-
-func _unlock_level(id: int) -> void:
-	SaveManager.unlock_level(id)
-	refresh_page()
 
 
 func _import_level() -> void:

@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=8 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" uid="uid://ctotyoyltbhbc" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2fw0e"]
+[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_jlv17"]
 [ext_resource type="Theme" uid="uid://4knxac0hwf4n" path="res://assets/resources/themes/simple.tres" id="9_7bhus"]
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
 [ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="9_mex7s"]
@@ -41,10 +42,10 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -56,6 +57,14 @@ theme_override_font_sizes/font_size = 50
 text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
+
+[node name="BuilderBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 2
+theme = ExtResource("2_cshsk")
+icon = ExtResource("6_jlv17")
 
 [node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -112,6 +121,7 @@ layout_mode = 2
 [node name="Page3" parent="Pages" instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/BuilderBtn" to="." method="_on_builder_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Left" to="." method="_on_left_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Controls/Right" to="." method="_on_right_pressed"]

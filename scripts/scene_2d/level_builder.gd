@@ -44,11 +44,15 @@ func _ready() -> void:
 
 
 func _on_scale_change(new_scale: Vector2) -> void:
-	create_tween().tween_property(grid, "scale", new_scale, 0.05).from_current()
+	var tween : Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(grid, "scale", new_scale, 0.1).from_current()
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
+		Constants.GameState.LEVEL_PICK:
+			self.queue_free.call_deferred()
+
 		Constants.GameState.MAIN_MENU:
 			self.queue_free.call_deferred()
 

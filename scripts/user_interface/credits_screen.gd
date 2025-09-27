@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func start_credits_scroll() -> void:
-	var tween := create_tween()
+	var tween := create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	var scrollbar := text.get_v_scroll_bar()
 	var max_scroll := scrollbar.max_value
 	tween.tween_property(scrollbar, "value", max_scroll, 45.0).from(0)

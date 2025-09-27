@@ -1,9 +1,7 @@
 ## Handles logic of main menu UI panel.
 class_name MainMenu extends Control
 
-const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 const OPTIONS = "res://packed_scene/user_interface/Options.tscn"
-const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection.tscn"
 
@@ -61,21 +59,6 @@ func _on_editor_btn_pressed() -> void:
 	GameManager.level_ui = level_ui
 	GameManager.set_levels_context(Constants.LevelGroup.CUSTOM)
 	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
-
-	# TODO: move this logic into level_ui visibile only when _world == CUSTOM
-	# AudioManager.play_click_sound()
-	# var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
-	# var builder_ui := scene.instantiate() as BuilderUI
-	# get_tree().root.add_child.call_deferred(builder_ui)
-	# GameManager.builder_ui = builder_ui
-	#
-	# scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene
-	# var level_builder := scene.instantiate() as LevelBuilder
-	# get_tree().root.add_child.call_deferred(level_builder)
-	# level_builder.construct_level.call_deferred(LevelData.new())
-	# GameManager.level_builder = level_builder
-	#
-	# GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
 
 
 func _on_quit_btn_pressed() -> void:

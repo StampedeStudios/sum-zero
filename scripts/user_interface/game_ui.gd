@@ -124,6 +124,8 @@ func _exit() -> void:
 		Constants.GameState.LEVEL_PICK:
 			var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
 			var level_ui := scene.instantiate() as LevelUI
+			level_ui.set_context(GameManager.get_active_context())
 			get_tree().root.add_child.call_deferred(level_ui)
 			GameManager.level_ui = level_ui
+
 			GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)

@@ -9,6 +9,8 @@ const PAGE_SIZE := 9
 const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
 const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
 const PAGE_PER_SECOND: float = 5
+const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
+const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 
 var has_consumed_input: bool
 
@@ -31,8 +33,13 @@ var _levels_page: Array[LevelPage]
 @onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
 @onready var pages: HBoxContainer = %Pages
+@onready var builder_btn: Button = $MarginContainer/VBoxContainer/VBoxContainer/BuilderBtn
+
 
 func _ready() -> void:
+	if _world == Constants.LevelGroup.CUSTOM:
+		builder_btn.show()
+
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
@@ -84,8 +91,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
 		Constants.GameState.LEVEL_START:
-			self.queue_free.call_deferred()
-		Constants.GameState.BUILDER_IDLE:
 			self.queue_free.call_deferred()
 		Constants.GameState.LEVEL_INSPECT:
 			self.show()
@@ -159,7 +164,7 @@ func _on_right_pressed() -> void:
 
 func _move_left(transition_time: float) -> void:
 	_has_movement = true
-	_tween = get_tree().create_tween()
+	_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
 	await _tween.finished
 	_current_page += 1
@@ -177,7 +182,7 @@ func _move_left(transition_time: float) -> void:
 
 func _move_right(transition_time: float) -> void:
 	_has_movement = true
-	_tween = get_tree().create_tween()
+	_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
 	await _tween.finished
 	_current_page -= 1
@@ -229,7 +234,7 @@ func _process(_delta: float) -> void:
 				end = 0
 				interp = (1 - remap(current, start, end, 0, 1)) / PAGE_PER_SECOND
 				_target_position = _start_position
-				_tween = get_tree().create_tween()
+				_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 				_tween.tween_property(pages, "global_position:x", _target_position, interp)
 				_tween.finished.connect(_end_animation)
 			return
@@ -245,3 +250,20 @@ func _on_pages_drag() -> void:
 		_start_drag = get_global_mouse_position().x
 		_start_position = pages.global_position.x
 		_has_drag = true
+
+
+func _on_builder_btn_pressed() -> void:
+
+	AudioManager.play_click_sound()
+	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
+	var builder_ui := scene.instantiate() as BuilderUI
+	get_tree().root.add_child.call_deferred(builder_ui)
+	GameManager.builder_ui = builder_ui
+
+	scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene
+	var level_builder := scene.instantiate() as LevelBuilder
+	get_tree().root.add_child.call_deferred(level_builder)
+	level_builder.construct_level.call_deferred(LevelData.new())
+	GameManager.level_builder = level_builder
+
+	GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
