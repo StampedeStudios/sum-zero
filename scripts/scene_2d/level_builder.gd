@@ -57,12 +57,10 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			self.queue_free.call_deferred()
 
 		Constants.GameState.BUILDER_IDLE:
-			self.visible = true
 			_multiselection_cells.clear()
 			_on_scale_change(GameManager.level_scale)
 
 		Constants.GameState.BUILDER_SAVE:
-			self.visible = true
 			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
 			var builder_save := scene.instantiate() as BuilderSave
 			builder_save.on_query_close.connect(_on_save_query_received)
@@ -72,7 +70,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			builder_save.init_info(level_name, moves, is_valid_data())
 
 		Constants.GameState.BUILDER_RESIZE:
-			self.visible = true
 			if !GameManager.builder_resize:
 				var scene := ResourceLoader.load(BUILDER_RESIZE) as PackedScene
 				var builder_resize := scene.instantiate() as BuilderResize
@@ -87,7 +84,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			GameManager.builder_resize.init_query.call_deferred(level_size)
 
 		Constants.GameState.BUILDER_SELECTION:
-			self.visible = true
 			if _multiselection_cells.size() > 0:
 				var size: Vector2
 				var pos: Vector2
@@ -106,6 +102,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 						top_left.y = cell_pos.y
 					elif cell_pos.y > bottom_right.y:
 						bottom_right.y = cell_pos.y
+
 				size = (bottom_right - top_left) / GameManager.level_scale
 				size += Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 				pos = top_left + (bottom_right - top_left) / 2
