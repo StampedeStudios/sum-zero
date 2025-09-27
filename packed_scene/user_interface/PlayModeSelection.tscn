@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://cgcph1mual0b8"]
+[gd_scene load_steps=16 format=3 uid="uid://cgcph1mual0b8"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_wbtf6"]
 [ext_resource type="Script" uid="uid://dgqqsla4soc8h" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
 [ext_resource type="Script" uid="uid://bvtwtisjf6pso" path="res://scripts/utility/play_mode/play_mode.gd" id="3_syb7d"]
 [ext_resource type="Resource" uid="uid://cdb1s2jwkb0yd" path="res://assets/resources/levels/play_mode/tutorial_mode.tres" id="4_hwcqv"]
 [ext_resource type="Resource" uid="uid://bn7pmxwdrvgdw" path="res://assets/resources/levels/play_mode/classic_mode.tres" id="4_sd7pi"]
-[ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="5_fuib4"]
 [ext_resource type="Resource" uid="uid://cqsjj643jp1lf" path="res://assets/resources/levels/play_mode/endless_mode.tres" id="6_0xo1f"]
 [ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/play_mode/blitz_mode.tres" id="7_i45mq"]
 [ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="8_du4gt"]
@@ -31,16 +30,15 @@ theme = ExtResource("1_wbtf6")
 script = ExtResource("2_j1dwl")
 arena_modes = Array[ExtResource("3_syb7d")]([ExtResource("4_hwcqv"), ExtResource("4_sd7pi"), ExtResource("6_0xo1f"), ExtResource("7_i45mq"), ExtResource("8_gywfq")])
 
-[node name="Background" type="Panel" parent="."]
+[node name="Backdrop" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("5_fuib4")
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="Panel" type="Panel" parent="Backdrop"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -58,7 +56,7 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k64a5")
 script = ExtResource("10_r6ujm")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Backdrop/Panel"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -67,21 +65,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ArenaSelection" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="ArenaSelection" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Container" type="HBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection"]
+[node name="Container" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 15
 
-[node name="LeftBox" type="VBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
+[node name="LeftBox" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 
-[node name="LeftBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection/Container/LeftBox"]
+[node name="LeftBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/LeftBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
@@ -94,12 +92,12 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("10_2lfuk")
 flat = true
 
-[node name="Content" type="VBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
+[node name="Content" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="HContainer" type="ScrollContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container/Content"]
+[node name="HContainer" type="ScrollContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -107,16 +105,16 @@ size_flags_stretch_ratio = 9.0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container/Content/HContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/Content/HContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RightBox" type="VBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection/Container"]
+[node name="RightBox" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 
-[node name="RightBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection/Container/RightBox"]
+[node name="RightBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/RightBox"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
@@ -129,15 +127,15 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("8_du4gt")
 flat = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Background/Panel/MarginContainer/ArenaSelection"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
 
-[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+[node name="PlayBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -147,13 +145,13 @@ theme = ExtResource("9_r4e6y")
 text = "PLAY"
 icon_alignment = 2
 
-[node name="VSeparator2" type="VSeparator" parent="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
 
-[connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/Container/LeftBox/LeftBtn" to="." method="_on_left_btn_pressed"]
-[connection signal="scroll_ended" from="Background/Panel/MarginContainer/ArenaSelection/Container/Content/HContainer" to="." method="_on_h_container_scroll_ended"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/Container/RightBox/RightBtn" to="." method="_on_right_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/MarginContainer/ArenaSelection/HBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="gui_input" from="Backdrop" to="." method="_on_backdrop_gui_input"]
+[connection signal="pressed" from="Backdrop/Panel/MarginContainer/ArenaSelection/Container/LeftBox/LeftBtn" to="." method="_on_left_btn_pressed"]
+[connection signal="scroll_ended" from="Backdrop/Panel/MarginContainer/ArenaSelection/Container/Content/HContainer" to="." method="_on_h_container_scroll_ended"]
+[connection signal="pressed" from="Backdrop/Panel/MarginContainer/ArenaSelection/Container/RightBox/RightBtn" to="." method="_on_right_btn_pressed"]
+[connection signal="pressed" from="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]

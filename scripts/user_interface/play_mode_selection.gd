@@ -19,8 +19,22 @@ var _current_mode_index := 0
 
 
 func _ready() -> void:
+
+	GameManager.on_state_change.connect(_on_state_change)
+
 	# Animate entry
 	await panel.open()
+
+
+func _on_state_change(new_state: Constants.GameState) -> void:
+	match new_state:
+		Constants.GameState.MAIN_MENU:
+			self.visible = false
+		Constants.GameState.MODE_SELECTION:
+			self.visible = true
+			setup()
+		_:
+			self.visible = false
 
 
 func setup() -> void:
@@ -75,12 +89,6 @@ func _close() -> void:
 	queue_free.call_deferred()
 
 
-func _on_background_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
-		AudioManager.play_click_sound()
-		_close()
-
-
 func _on_play_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var mode := arena_modes[_current_mode_index]
@@ -103,6 +111,7 @@ func _on_play_btn_pressed() -> void:
 			GameManager.level_manager = level_manager
 			get_tree().root.add_child(level_manager)
 			level_manager.init_level(playable_level)
+
 			# load game ui
 			scene = ResourceLoader.load(GAME_UI) as PackedScene
 			var game_ui := scene.instantiate() as GameUI
@@ -132,3 +141,9 @@ func _on_h_container_scroll_ended() -> void:
 	)
 
 	_select_mode(current_position)
+
+
+func _on_backdrop_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
+		_close()

@@ -19,12 +19,10 @@ is_countdown = true
 max_game_time = 180
 skip_cost = 20
 time_gained_per_move = 1.0
-boost_per_score = 2.0
 
 [resource]
 script = ExtResource("1_lxvna")
 is_skippable = true
-one_shoot_mode = false
 timer_options = SubResource("Resource_fs88p")
 level_options = SubResource("Resource_hvo1a")
 title = "BLITZ"

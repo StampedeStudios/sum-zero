@@ -3,10 +3,10 @@
 [resource]
 content_margin_bottom = 5.0
 bg_color = Color(1, 0.972549, 0.937255, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
 border_color = Color(0.627451, 0.627451, 0.627451, 1)
 corner_radius_top_left = 10
 corner_radius_top_right = 10

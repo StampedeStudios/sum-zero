@@ -34,7 +34,7 @@ func _on_play_btn_pressed() -> void:
 	var play_mode_selection := scene.instantiate() as PlayModeSelection
 
 	get_tree().root.add_child(play_mode_selection)
-	play_mode_selection.setup.call_deferred()
+	GameManager.change_state.call_deferred(Constants.GameState.MODE_SELECTION)
 
 
 func _on_level_btn_pressed() -> void:
