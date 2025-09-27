@@ -19,7 +19,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.280851, 0.280851, 0.280851, 1, 0.661702,
 
 [node name="CPUParticles2D" type="CPUParticles2D"]
 material = SubResource("CanvasItemMaterial_lnl8v")
-amount = 300
+amount = 150
 texture = ExtResource("1_3pr5c")
 lifetime = 20.0
 preprocess = 15.0
