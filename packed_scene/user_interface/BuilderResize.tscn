@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://vvet7yb7thao"]
+[gd_scene load_steps=7 format=3 uid="uid://vvet7yb7thao"]
 
 [ext_resource type="Script" uid="uid://3vyf8r8ubnb4" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
+[ext_resource type="Texture2D" uid="uid://cxddfjw2cirsx" path="res://assets/ui/arrow_down.png" id="2_70sha"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_bcgsc"]
 [ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="2_sr71w"]
 
@@ -37,10 +38,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 120
-theme_override_constants/margin_top = 140
-theme_override_constants/margin_right = 120
-theme_override_constants/margin_bottom = 140
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 60
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/MarginContainer"]
 layout_mode = 2
@@ -61,6 +62,7 @@ offset_bottom = 128.0
 grow_vertical = 2
 mouse_filter = 0
 texture = ExtResource("2_sr71w")
+expand_mode = 3
 flip_h = true
 
 [node name="PlusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
@@ -78,6 +80,7 @@ grow_horizontal = 0
 grow_vertical = 2
 mouse_filter = 0
 texture = ExtResource("2_sr71w")
+expand_mode = 3
 
 [node name="MinusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
 material = SubResource("ShaderMaterial_8113u")
@@ -93,6 +96,7 @@ grow_horizontal = 2
 rotation = 1.5708
 mouse_filter = 0
 texture = ExtResource("2_sr71w")
+expand_mode = 3
 flip_h = true
 
 [node name="PlusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
@@ -111,6 +115,43 @@ grow_vertical = 0
 rotation = 1.5708
 mouse_filter = 0
 texture = ExtResource("2_sr71w")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Top" type="Button" parent="Background/MarginContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+icon = ExtResource("2_70sha")
+flat = true
+icon_alignment = 1
+vertical_icon_alignment = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Left" type="Button" parent="Background/MarginContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+icon = ExtResource("2_70sha")
+flat = true
+icon_alignment = 1
+
+[node name="Right" type="Button" parent="Background/MarginContainer/AspectRatioContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+icon = ExtResource("2_70sha")
+flat = true
+icon_alignment = 1
+
+[node name="Bottom" type="Button" parent="Background/MarginContainer/AspectRatioContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+icon = ExtResource("2_70sha")
+flat = true
+icon_alignment = 1
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
 [connection signal="gui_input" from="Background/MarginContainer/AspectRatioContainer/Control" to="." method="_on_control_gui_input"]

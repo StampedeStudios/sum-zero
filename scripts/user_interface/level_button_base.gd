@@ -12,7 +12,7 @@ const EXTRA_STARS = "res://assets/ui/three_stars.png"
 const FONT = "res://assets/ui/fonts/FiraMono-Bold.ttf"
 
 
-func costruct(world: Constants.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
+func construct(world: Constants.LevelGroup, id := -1, is_locked := true, stars := 0) -> void:
 	if id < 0:
 		match world:
 			Constants.LevelGroup.MAIN:

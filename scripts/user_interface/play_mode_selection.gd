@@ -70,7 +70,7 @@ func _snap_to_current_mode() -> void:
 
 
 func _close() -> void:
-	await panel.close()
+	panel.close()
 	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 

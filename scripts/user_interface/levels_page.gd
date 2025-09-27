@@ -52,14 +52,14 @@ func refresh_page() -> void:
 			var level_id := first_level + i
 			var is_locked := !levels_progress[i].is_unlocked
 			var star_count := clampi(levels_progress[i].move_left, -3, 1) + 3
-			level.costruct(_current_world, level_id, is_locked, star_count)
+			level.construct(_current_world, level_id, is_locked, star_count)
 			match _current_world:
 				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_custom_inspect.bind(level_id, levels_progress[i]))
 				Constants.LevelGroup.MAIN:
 					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))
 		else:
-			level.costruct(_current_world)
+			level.construct(_current_world)
 			match _current_world:
 				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)

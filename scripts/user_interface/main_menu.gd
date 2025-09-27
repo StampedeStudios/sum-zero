@@ -43,25 +43,39 @@ func _on_level_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
 	var level_ui := scene.instantiate() as LevelUI
+	level_ui.set_context(Constants.LevelGroup.MAIN)
+
 	get_tree().root.add_child.call_deferred(level_ui)
 	GameManager.level_ui = level_ui
+	GameManager.set_levels_context(Constants.LevelGroup.MAIN)
 	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 
 
 func _on_editor_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
-	var builder_ui := scene.instantiate() as BuilderUI
-	get_tree().root.add_child.call_deferred(builder_ui)
-	GameManager.builder_ui = builder_ui
+	var scene := ResourceLoader.load(LEVEL_UI) as PackedScene
+	var level_ui := scene.instantiate() as LevelUI
+	level_ui.set_context(Constants.LevelGroup.CUSTOM)
 
-	scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene
-	var level_builder := scene.instantiate() as LevelBuilder
-	get_tree().root.add_child.call_deferred(level_builder)
-	level_builder.construct_level.call_deferred(LevelData.new())
-	GameManager.level_builder = level_builder
+	get_tree().root.add_child.call_deferred(level_ui)
+	GameManager.level_ui = level_ui
+	GameManager.set_levels_context(Constants.LevelGroup.CUSTOM)
+	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 
-	GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
+	# TODO: move this logic into level_ui visibile only when _world == CUSTOM
+	# AudioManager.play_click_sound()
+	# var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
+	# var builder_ui := scene.instantiate() as BuilderUI
+	# get_tree().root.add_child.call_deferred(builder_ui)
+	# GameManager.builder_ui = builder_ui
+	#
+	# scene = ResourceLoader.load(LEVEL_BUILDER) as PackedScene
+	# var level_builder := scene.instantiate() as LevelBuilder
+	# get_tree().root.add_child.call_deferred(level_builder)
+	# level_builder.construct_level.call_deferred(LevelData.new())
+	# GameManager.level_builder = level_builder
+	#
+	# GameManager.change_state.call_deferred(Constants.GameState.BUILDER_IDLE)
 
 
 func _on_quit_btn_pressed() -> void:

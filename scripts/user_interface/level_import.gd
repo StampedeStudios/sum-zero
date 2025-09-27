@@ -78,7 +78,7 @@ func _update_save_btn() -> void:
 
 
 func close() -> void:
-	await panel.close()
+	panel.close()
 	self.queue_free.call_deferred()
 
 

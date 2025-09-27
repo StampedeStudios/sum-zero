@@ -103,7 +103,7 @@ func _on_play_btn_pressed() -> void:
 
 
 func close() -> void:
-	await panel.close()
+	panel.close()
 	GameManager.change_state.call_deferred(Constants.GameState.LEVEL_PICK)
 	self.queue_free.call_deferred()
 
