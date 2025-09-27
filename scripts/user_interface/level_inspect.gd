@@ -56,7 +56,7 @@ func update_stars(star_count: int) -> void:
 	if star_count >= 2:
 		middle_star.scale = Vector2(0.8, 0.8)
 
-	if star_count == 3:
+	if star_count >= 3:
 		right_star.scale = Vector2(0.7, 0.7)
 
 
