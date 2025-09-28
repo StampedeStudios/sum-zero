@@ -7,11 +7,11 @@
 [ext_resource type="Resource" uid="uid://bn7pmxwdrvgdw" path="res://assets/resources/levels/play_mode/classic_mode.tres" id="4_sd7pi"]
 [ext_resource type="Resource" uid="uid://cqsjj643jp1lf" path="res://assets/resources/levels/play_mode/endless_mode.tres" id="6_0xo1f"]
 [ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/play_mode/blitz_mode.tres" id="7_i45mq"]
-[ext_resource type="Texture2D" uid="uid://c5jubmd8054c4" path="res://assets/ui/arrow.png" id="8_du4gt"]
 [ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/play_mode/puzzle_mode.tres" id="8_gywfq"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
 [ext_resource type="Texture2D" uid="uid://h48pyaujdk6b" path="res://assets/ui/arrow_left.png" id="10_2lfuk"]
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="10_r6ujm"]
+[ext_resource type="Texture2D" uid="uid://clfwc2p3n18qx" path="res://assets/ui/arrow_right.png" id="11_j8ioe"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k64a5"]
 
@@ -124,7 +124,7 @@ theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
 theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
-icon = ExtResource("8_du4gt")
+icon = ExtResource("11_j8ioe")
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection"]
