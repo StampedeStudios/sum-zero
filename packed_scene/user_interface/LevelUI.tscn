@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene load_steps=9 format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" uid="uid://ctotyoyltbhbc" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2fw0e"]
+[ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_cofj7"]
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_jlv17"]
 [ext_resource type="Theme" uid="uid://4knxac0hwf4n" path="res://assets/resources/themes/simple.tres" id="9_7bhus"]
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
@@ -46,6 +47,7 @@ focus_mode = 0
 theme = ExtResource("2_cshsk")
 theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
+theme_override_styles/pressed = ExtResource("3_cofj7")
 text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
