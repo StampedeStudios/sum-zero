@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://boo7egubuj8lm"]
+[gd_scene load_steps=24 format=3 uid="uid://boo7egubuj8lm"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_xhbmd"]
 [ext_resource type="Script" uid="uid://bn38i7gbykx10" path="res://scripts/user_interface/custom_level_inspect.gd" id="2_hvtap"]
@@ -17,11 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="13_7ds18"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="15_lwbnm"]
 [ext_resource type="Texture2D" uid="uid://cjyfb6xp723rk" path="res://assets/ui/star.png" id="16_16vjm"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ktg2c"]
-shader = ExtResource("4_vh8y7")
-shader_parameter/base_color = Color(0.992157, 0.937255, 0.768627, 1)
-shader_parameter/progress = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ijrkn"]
 shader = ExtResource("15_lwbnm")
@@ -82,9 +77,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -300.0
+offset_top = -350.0
 offset_right = 300.0
-offset_bottom = 300.0
+offset_bottom = 350.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_f7xua")
@@ -115,19 +110,11 @@ theme_override_fonts/font = ExtResource("6_16vjm")
 text = "Level 01"
 horizontal_alignment = 1
 
-[node name="Stars" type="TextureRect" parent="Background/Panel/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-material = SubResource("ShaderMaterial_ktg2c")
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand_mode = 1
-stretch_mode = 5
-
 [node name="CopyBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 10
 focus_mode = 0
 theme_override_styles/normal = ExtResource("6_p0coo")
 theme_override_styles/pressed = ExtResource("6_p0coo")
@@ -139,6 +126,7 @@ icon_alignment = 2
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 theme_override_constants/separation = 55
 alignment = 1
 
