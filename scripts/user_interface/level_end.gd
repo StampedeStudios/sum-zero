@@ -38,6 +38,7 @@ func _ready() -> void:
 
 
 func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
+	print("Player gained %s stars" % star_count)
 	_star_count = star_count
 	_has_next_level = has_next_level
 	_is_record = is_record
@@ -71,7 +72,7 @@ func _animate_stars(star_count: int) -> void:
 			tween.tween_property(middle_star, "scale", Vector2(0.8, 0.8), STAR_ANIM_DURATION)
 			tween.tween_interval(STAR_ANIM_INTERVAL)
 
-		if star_count == 3:
+		if star_count >= 3:
 			tween.tween_property(right_star, "scale", Vector2(0.7, 0.7), STAR_ANIM_DURATION)
 			tween.tween_interval(STAR_ANIM_INTERVAL)
 
