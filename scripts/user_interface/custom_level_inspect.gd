@@ -7,7 +7,6 @@ const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 const PASTE_CHECK_ICON = "res://assets/ui/paste_check_icon.png"
-const STARS_SPRITE_SIZE := Vector2(350, 239)
 
 var _level_id: int
 var _level_code: String
@@ -18,7 +17,6 @@ var _level_code: String
 @onready var play_btn: Button = %PlayBtn
 @onready var copy_btn: Button = %CopyBtn
 @onready var panel: AnimatedPanel = %Panel
-@onready var stars: TextureRect = %Stars
 @onready var left_star: TextureRect = %LeftStar
 @onready var right_star: TextureRect = %RightStar
 @onready var middle_star: TextureRect = %MiddleStar
