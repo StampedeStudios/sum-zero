@@ -57,9 +57,9 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			self.queue_free.call_deferred()
 
 		Constants.GameState.BUILDER_IDLE:
+			self.show()
 			_multiselection_cells.clear()
 			_on_scale_change(GameManager.level_scale)
-			self.show()
 
 		Constants.GameState.BUILDER_SAVE:
 			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
@@ -79,6 +79,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 				builder_resize.on_width_change.connect(_on_width_change)
 				builder_resize.on_zoom_change.connect(_on_scale_change)
 				GameManager.builder_resize = builder_resize
+
 			var level_size: Vector2i
 			level_size.x = _level_data.width
 			level_size.y = _level_data.height
