@@ -59,6 +59,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 		Constants.GameState.BUILDER_IDLE:
 			_multiselection_cells.clear()
 			_on_scale_change(GameManager.level_scale)
+			self.show()
 
 		Constants.GameState.BUILDER_SAVE:
 			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene

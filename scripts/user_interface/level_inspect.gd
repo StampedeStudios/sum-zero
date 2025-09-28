@@ -59,9 +59,8 @@ func update_stars(star_count: int) -> void:
 
 func _on_build_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var builder_ui: BuilderUI
 	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
-	builder_ui = scene.instantiate() as BuilderUI
+	var builder_ui := scene.instantiate() as BuilderUI
 	get_tree().root.add_child.call_deferred(builder_ui)
 	GameManager.builder_ui = builder_ui
 
