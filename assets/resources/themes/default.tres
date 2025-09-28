@@ -1,7 +1,8 @@
-[gd_resource type="Theme" load_steps=13 format=3 uid="uid://d018ofb37nf7u"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d018ofb37nf7u"]
 
 [ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_hrj5r"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_ikw2u"]
+[ext_resource type="StyleBox" uid="uid://thigj8uvljxh" path="res://assets/resources/themes/button_pressed.tres" id="3_kjaq3"]
 [ext_resource type="StyleBox" uid="uid://dqghhw5h7ydnr" path="res://assets/resources/themes/text_area.tres" id="4_ntt6a"]
 [ext_resource type="Texture2D" uid="uid://cxddfjw2cirsx" path="res://assets/ui/arrow_down.png" id="5_tiomi"]
 [ext_resource type="StyleBox" uid="uid://bmkhuh7v8acp5" path="res://assets/resources/themes/options_button.tres" id="6_thkdp"]
@@ -34,7 +35,7 @@ Button/styles/disabled = ExtResource("1_hrj5r")
 Button/styles/disabled_mirrored = ExtResource("1_hrj5r")
 Button/styles/hover = ExtResource("3_ikw2u")
 Button/styles/normal = ExtResource("3_ikw2u")
-Button/styles/pressed = ExtResource("3_ikw2u")
+Button/styles/pressed = ExtResource("3_kjaq3")
 CheckBox/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckBox/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckBox/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
