@@ -90,12 +90,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 		Constants.GameState.MAIN_MENU:
 			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
-		Constants.GameState.LEVEL_START:
-			self.queue_free.call_deferred()
-		Constants.GameState.LEVEL_INSPECT:
-			self.show()
-		Constants.GameState.CUSTOM_LEVEL_INSPECT:
-			self.show()
 		Constants.GameState.LEVEL_PICK:
 			self.show()
 		_:

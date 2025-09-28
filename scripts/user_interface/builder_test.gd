@@ -30,8 +30,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			GameManager.level_manager.spawn_grid(false)
 		Constants.GameState.PLAY_LEVEL:
 			self.visible = true
-		Constants.GameState.LEVEL_END:
-			self.visible = true
 		_:
 			self.visible = false
 

@@ -39,8 +39,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
 		Constants.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
-		Constants.GameState.MAIN_MENU:
-			self.queue_free.call_deferred()
 		Constants.GameState.BUILDER_IDLE:
 			self.visible = true
 		_:
