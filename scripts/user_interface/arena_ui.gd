@@ -182,7 +182,7 @@ func _init_level() -> void:
 
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
-		GameManager.change_state(Constants.GameState.LEVEL_START)
+		GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 		GameManager.level_manager.spawn_grid()
 
 

@@ -53,18 +53,28 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 		Constants.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
 		Constants.GameState.PLAY_LEVEL:
+			self.visible = true
 			_moves_left = GameManager.get_active_level().moves_left
+
 			if !GameManager.level_manager.on_consume_move.is_connected(_consume_move):
 				GameManager.level_manager.on_consume_move.connect(_consume_move)
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
 				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
-			self.visible = true
+			print("[Game UI] Ready to receive events")
 
 		Constants.GameState.LEVEL_START:
 			self.visible = true
-			_render_tutorial()
+
+			var tutorial: TutorialData = SaveManager.get_tutorial()
+			if tutorial:
+				_render_tutorial(tutorial)
+			else:
+				GameManager.change_state(Constants.GameState.PLAY_LEVEL)
+				GameManager.level_manager.spawn_grid()
+
 			_has_next_level = GameManager.set_next_level()
 			skip_btn.visible = _has_next_level and SaveManager.is_level_completed()
+			print("[Game UI] Starting level")
 
 		Constants.GameState.LEVEL_END:
 			self.visible = false
@@ -72,16 +82,12 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			self.visible = false
 
 
-func _render_tutorial() -> void:
-	var tutorial: TutorialData = SaveManager.get_tutorial()
-	if tutorial:
-		var scene := ResourceLoader.load(TUTORIAL) as PackedScene
-		var tutorial_ui := scene.instantiate() as TutorialUi
-		tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.spawn_grid)
-		get_tree().root.add_child(tutorial_ui)
-		tutorial_ui.setup(tutorial)
-	else:
-		GameManager.level_manager.spawn_grid()
+func _render_tutorial(tutorial: TutorialData) -> void:
+	var scene := ResourceLoader.load(TUTORIAL) as PackedScene
+	var tutorial_ui := scene.instantiate() as TutorialUi
+	tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.spawn_grid)
+	get_tree().root.add_child(tutorial_ui)
+	tutorial_ui.setup(tutorial)
 
 
 func _on_level_complete() -> void:

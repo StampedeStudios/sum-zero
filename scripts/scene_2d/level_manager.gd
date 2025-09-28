@@ -26,11 +26,12 @@ func _ready() -> void:
 
 
 func init_level(current_level: LevelData) -> void:
+	print("[Level Manager] Initializing level")
 	_clear()
 
 	if current_level == null:
 		GameManager.change_state(Constants.GameState.MAIN_MENU)
-		push_error("Invalid initial level found")
+		push_error("Invalid starting level found")
 		return
 
 	_current_level = current_level
@@ -129,7 +130,7 @@ func spawn_grid(animate: bool = true) -> void:
 
 	var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tween.tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
-	GameManager.change_state(Constants.GameState.PLAY_LEVEL)
+	# GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 
 
 func reset_level() -> void:
@@ -171,6 +172,7 @@ func _check_grid(is_effective_move: bool) -> void:
 			break
 
 	if level_complete:
+		print("[Level Manager] Level completed")
 		on_level_complete.emit()
 
 
