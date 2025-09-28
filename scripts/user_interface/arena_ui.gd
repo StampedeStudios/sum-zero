@@ -166,7 +166,8 @@ func _start_loading() -> void:
 	_tween.set_loops(30)
 	_tween.tween_property(loading, "rotation_degrees", 360, 1).as_relative()
 
-	# After 30 seconds of loading if you have not found playable levels go back to the menu
+	# After 30 seconds of loading if no playable level has been generated send user back to the menu
+	# This should never happen
 	_tween.finished.connect(GameManager.change_state.bind(Constants.GameState.MAIN_MENU))
 
 
