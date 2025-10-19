@@ -33,6 +33,8 @@ func _ready() -> void:
 	middle_star.scale = Vector2(0, 0)
 
 	_update_shader_percentage(0)
+	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
+
 	await panel.open()
 	_update_score()
 
@@ -51,7 +53,6 @@ func _close() -> void:
 
 
 func _update_score() -> void:
-	next_btn.text = tr(PLAY_TEXT) if _has_next_level else tr(EXIT_TEXT)
 	_animate_stars(_star_count)
 	_animate_hint(_star_count)
 	if _is_record:
@@ -106,6 +107,7 @@ func _select_random_text(num_stars: int) -> String:
 
 	# Extra reward for beating the developers (you think ...)
 	return tr(EXTRA_STARS_MSGS.pick_random())
+
 
 func _on_replay_btn_pressed() -> void:
 	AudioManager.play_click_sound()
