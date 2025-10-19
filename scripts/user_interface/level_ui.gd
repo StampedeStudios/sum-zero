@@ -91,6 +91,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
 		Constants.GameState.LEVEL_PICK:
+			_init_pages()
 			self.show()
 		_:
 			self.hide()
