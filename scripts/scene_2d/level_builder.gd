@@ -387,7 +387,12 @@ func is_valid_data() -> bool:
 	return _level_data.is_valid_data()
 
 
-## Randomizer is visible only to developers and helps to quickly generate random levels.
+## Randomizer is is a set of features that simplify the process of level creation by
+## giving three basic functionalities:
+##
+## - Generate random holes on the given grid;
+## - Generate random blocked cells on the given grid;
+## - Generate a complete level covering all non-hole and non-blocked cells.
 ##
 ## @return `true` if correctly initialized. `false` otherwise.
 func initialize_randomizer() -> bool:

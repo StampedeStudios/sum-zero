@@ -13,9 +13,8 @@ const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 
 
 func _ready() -> void:
-	if OS.has_feature("debug"):
-		if GameManager.level_builder.initialize_randomizer():
-			top_buttons.show()
+	if GameManager.level_builder.initialize_randomizer():
+		top_buttons.show()
 	else:
 		top_buttons.hide()
 
