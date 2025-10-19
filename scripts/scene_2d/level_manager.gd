@@ -130,7 +130,6 @@ func spawn_grid(animate: bool = true) -> void:
 
 	var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	await tween.tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
-	# GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 
 
 func reset_level() -> void:

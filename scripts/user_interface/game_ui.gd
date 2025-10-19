@@ -60,6 +60,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 				GameManager.level_manager.on_consume_move.connect(_consume_move)
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
 				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
+
 			print("[Game UI] Ready to receive events")
 
 		Constants.GameState.LEVEL_START:
@@ -85,6 +86,8 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 func _render_tutorial(tutorial: TutorialData) -> void:
 	var scene := ResourceLoader.load(TUTORIAL) as PackedScene
 	var tutorial_ui := scene.instantiate() as TutorialUi
+
+	GameManager.change_state(Constants.GameState.PLAY_LEVEL)
 	tutorial_ui.on_tutorial_closed.connect(GameManager.level_manager.spawn_grid)
 	get_tree().root.add_child(tutorial_ui)
 	tutorial_ui.setup(tutorial)
