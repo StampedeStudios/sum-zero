@@ -54,7 +54,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 
 func _exit_options() -> void:
-	SaveManager.save_player_data()
 	GameManager.change_state(Constants.GameState.MAIN_MENU)
 	queue_free.call_deferred()
 
@@ -68,17 +67,20 @@ func _on_background_gui_input(event: InputEvent) -> void:
 func _on_music_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_music()
 	_player_options.music_on = toggled_on
+	SaveManager.save_player_data()
 
 
 func _on_sfx_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.toggle_sfx()
 	AudioManager.play_click_sound()
 	_player_options.sfx_on = toggled_on
+	SaveManager.save_player_data()
 
 
 func _on_tutorial_btn_toggled(toggled_on: bool) -> void:
 	AudioManager.play_click_sound()
 	_player_options.set_tutorial_visibility(toggled_on)
+	SaveManager.save_player_data()
 
 
 func _on_exit_btn_pressed() -> void:
@@ -90,6 +92,7 @@ func _on_option_button_item_selected(index: int) -> void:
 	var preferred_locale: String = Constants.AVAILABLE_LANGS[index]
 	_player_options.language = preferred_locale
 	TranslationServer.set_locale(preferred_locale)
+	SaveManager.save_player_data()
 
 
 func _on_link_button_pressed() -> void:
