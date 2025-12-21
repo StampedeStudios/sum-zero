@@ -8,7 +8,8 @@ class_name SliderArea extends Node2D
 ##
 ## Sometime a slider movement does not change the grid state, for example when a PLUS slider
 ## is moved toward a direction for at least a tile and than brought back at the exact same position.
-signal alter_grid(is_effective_move: bool)
+## Also, moving the same slider twice, does not count as effective move.
+signal alter_grid(is_effective_move: bool, slider: SliderArea)
 
 const SPAWN_TIME: float = 0.1
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
@@ -139,21 +140,21 @@ func get_slider_position() -> Vector2:
 
 ## Handles slider release clamping its extension to the closest tile border.
 func release_handle() -> void:
-	var move_count: bool
+	var is_effective_move: bool
 	_is_scaling = false
 	_apply_scaling(_current_scale)
 	area_outline.material.set_shader_parameter(Literals.Parameters.IS_SELECTED, false)
 
 	if _current_scale != _last_scale:
 		_last_scale = _current_scale
-		move_count = true
+		is_effective_move = true
 	else:
 		for cell: Cell in _last_affected_cells:
 			if cell.get_cell_value() != _last_affected_cells.get(cell):
-				move_count = true
+				is_effective_move = true
 				break
 
-	alter_grid.emit(move_count)
+	alter_grid.emit(is_effective_move, self)
 
 
 ## Handles touch event for a slider.
