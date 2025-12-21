@@ -15,6 +15,7 @@ var grid_cells: Dictionary[Vector2i, Cell]
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
 var _current_level: LevelData
+var _last_slider: SliderArea = null
 
 @onready var grid: Node2D = %Grid
 @onready var playable_area: Area2D = %PlayableArea
@@ -159,9 +160,14 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 ##
 ## @param is_effective_move If a move alter the state of the grid is considered effective and needs
 ## to be counted as a user move.
-func _check_grid(is_effective_move: bool) -> void:
-	if is_effective_move:
+## @param slider The callee of this function. Used to avoid reducing moves
+## when a slider is used more multiple times in a row.
+func _check_grid(is_effective_move: bool, slider: SliderArea) -> void:
+
+	if is_effective_move and slider != _last_slider:
 		on_consume_move.emit()
+		_last_slider = slider
+
 	_has_slider_active = false
 
 	var level_complete: bool = true
@@ -172,6 +178,7 @@ func _check_grid(is_effective_move: bool) -> void:
 
 	if level_complete:
 		print("[Level Manager] Level completed")
+		_last_slider = null
 		on_level_complete.emit()
 
 
