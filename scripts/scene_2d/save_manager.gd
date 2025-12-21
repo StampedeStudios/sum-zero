@@ -58,6 +58,20 @@ func get_start_level_playable() -> int:
 	return 0
 
 
+## Returns the last completed level.
+##
+## @return The last completed level, useful to check real player progress.
+func get_last_completed_level() -> int:
+	GameManager.set_levels_context(Constants.LevelGroup.MAIN)
+	var last_id := -1
+	for id in range(_persistent_save.levels_hash.size()):
+		var progress := _player_save.get_progress(Constants.LevelGroup.MAIN, id)
+		if progress.is_completed and id > last_id:
+			last_id = id
+
+	return last_id
+
+
 func update_level_progress(move_left: int) -> bool:
 	var is_record: bool
 	var context: Constants.LevelGroup = GameManager.get_active_context()
