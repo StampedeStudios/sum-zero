@@ -40,7 +40,7 @@ func _ready() -> void:
 
 
 func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
-	print("Player gained %s stars" % star_count)
+	print("[Level End] Player gained %s stars" % star_count)
 	_star_count = star_count
 	_has_next_level = has_next_level
 	_is_record = is_record
@@ -56,7 +56,7 @@ func _update_score() -> void:
 	_animate_stars(_star_count)
 	_animate_hint(_star_count)
 	if _is_record:
-		print("Player set a new record for this level")
+		print("[Level End] Player set a new record for this level")
 
 
 func _animate_stars(star_count: int) -> void:
@@ -79,7 +79,7 @@ func _animate_stars(star_count: int) -> void:
 
 		await tween.finished
 	else:
-		print("Player has lost all stars, no star is being animated")
+		print("[Level End] Player has used too many moves, no star is being animated")
 
 
 func _animate_hint(star_count: int) -> void:
