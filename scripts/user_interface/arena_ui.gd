@@ -53,6 +53,9 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			_moves_count = 0
 			_reset_count = 0
 		Constants.GameState.PLAY_LEVEL:
+
+			print("[Arena UI] - Handling state: PLAY_LEVEL")
+			self.show()
 			if _current_mode.timer_options:
 				_show_ui(true)
 			else:
@@ -79,6 +82,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 
 func _hide_ui() -> void:
+	print("[Arena UI] - Hiding UI")
 	container.hide()
 	loading.hide()
 	if arena_time:
@@ -86,6 +90,9 @@ func _hide_ui() -> void:
 
 
 func _show_ui(show_timer: bool) -> void:
+
+	print("[Arena UI] - Showing UI")
+
 	if show_timer:
 		var tween := create_tween()
 		tween.tween_property(arena_time, "modulate:a", 1, 0.2)
@@ -94,7 +101,6 @@ func _show_ui(show_timer: bool) -> void:
 
 	loading.hide()
 	container.show()
-	
 
 
 func _reset_level() -> void:
@@ -183,6 +189,7 @@ func _init_level() -> void:
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
 		GameManager.change_state(Constants.GameState.PLAY_LEVEL)
+		print("[Arena UI] - Spawning grid")
 		GameManager.level_manager.spawn_grid()
 
 
