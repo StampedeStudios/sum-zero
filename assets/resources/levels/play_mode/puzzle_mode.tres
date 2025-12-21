@@ -44,7 +44,7 @@ extension_rules = Dictionary[String, int]({
 })
 full_odd = 5
 full_odd_on_stop = 50
-block_full_odd = 25
+block_full_odd = 15
 block_full_odd_on_stop = 75
 block_full_retract_odd = 75
 type_rules = Dictionary[String, int]({
