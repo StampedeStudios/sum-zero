@@ -8,23 +8,20 @@
 
 [sub_resource type="Resource" id="Resource_gqv2n"]
 script = ExtResource("2_wdd2b")
-diffusion_rules = {
-"LOWER": 30,
-"MAX": 30,
-"NONE": 40
-}
-remove_odd = 50
-std_diffusion = 25
+diffusion_rules = Dictionary[String, int]({
+"LOWER": 50,
+"MAX": 50,
+"NONE": 0
+})
 
 [sub_resource type="Resource" id="Resource_1u5ll"]
 script = ExtResource("2_vx7y4")
-diffusion_rules = {
+diffusion_rules = Dictionary[String, int]({
 "LOWER": 50,
-"MAX": 10,
-"NONE": 40
-}
-remove_odd = 50
-std_diffusion = 15
+"MAX": 50,
+"NONE": 0
+})
+std_diffusion = 25
 
 [resource]
 script = ExtResource("1_76fmt")

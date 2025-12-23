@@ -78,12 +78,16 @@ func _remove_holes(data: LevelData) -> void:
 
 
 func create_holes(data: LevelData) -> void:
+
+	var empty_cells : Array[Vector2i] = _get_empty_cells(data)
+
 	await _remove_holes(data)
 	if _options.hole_opt == null:
 		return
 
 	var hole_options := _options.hole_opt
 	var cell_count := data.cells_list.size()
+
 	var counter: int = 0
 
 	if hole_options.std_diffusion > 0:
@@ -102,15 +106,15 @@ func create_holes(data: LevelData) -> void:
 						break
 
 			"MAX":
-				# max hole count is percetage of all cells
+				# max hole count is percentage of all cells
 				counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
 
-	if counter == 0:
-		return
+	var new_empty_cells : Array[Vector2i] = []
 
 	await get_tree().process_frame
 	var cells := data.cells_list.keys()
 	var origin := cells.pick_random() as Vector2i
+	new_empty_cells.append(origin)
 	data.cells_list.erase(origin)
 	counter -= 1
 
@@ -119,8 +123,14 @@ func create_holes(data: LevelData) -> void:
 		if adiacent.is_empty():
 			break
 		origin = adiacent.pick_random()
+		new_empty_cells.append(origin)
 		data.cells_list.erase(origin)
 		counter -= 1
+
+	# If randomly generated holes are equal to the previous position, regenerate
+	if _arrays_equal_unordered(empty_cells, new_empty_cells):
+		await create_holes(data)
+
 	await get_tree().process_frame
 
 
@@ -128,12 +138,17 @@ func _remove_blocks(data: LevelData) -> void:
 	for coord: Vector2i in data.cells_list.keys():
 		var cell_data := data.cells_list.get(coord) as CellData
 		cell_data.is_blocked = false
+
 	await get_tree().process_frame
 
 
 func create_block(data: LevelData) -> void:
+
+	var blocked_cells : Array[Vector2i] = _get_blocked_cells(data)
+
 	if data.cells_list.is_empty():
 		await _remove_holes(data)
+
 	await _remove_blocks(data)
 	if _options.locked_opt == null:
 		return
@@ -164,13 +179,18 @@ func create_block(data: LevelData) -> void:
 	await get_tree().process_frame
 	var cells := data.cells_list.keys()
 
+	var new_blocked_cells : Array[Vector2i] = []
+
 	if counter > 0:
 		cells.shuffle()
 		while counter > 0:
 			var coord := cells.pop_back() as Vector2i
 			var cell_data := data.cells_list.get(coord) as CellData
+
+			new_blocked_cells.append(coord)
 			cell_data.is_blocked = true
 			counter -= 1
+
 	await get_tree().process_frame
 
 	# lock orphan cells
@@ -184,15 +204,22 @@ func create_block(data: LevelData) -> void:
 				if !cell_data.is_blocked:
 					has_adiacent = true
 					break
+
 			if !has_adiacent:
 				var cell_data := data.cells_list.get(coord) as CellData
+				new_blocked_cells.append(coord)
 				cell_data.is_blocked = true
 				cells.erase(coord)
 				has_horphan = true
 				break
+
 		await get_tree().process_frame
 		if !has_horphan:
 			break
+
+	# If randomly generated block are equal to the previous position, regenerate
+	if _arrays_equal_unordered(blocked_cells, new_blocked_cells):
+		await create_block(data)
 
 
 func _remove_sliders(data: LevelData) -> void:
@@ -673,3 +700,32 @@ func _get_rule(rules_odd: Dictionary[String, int]) -> String:
 
 	push_error("No rules found!")
 	return ""
+
+
+func _get_empty_cells(data: LevelData) -> Array[Vector2i]:
+
+	var coords: Array[Vector2i] = []
+
+	for x in range(data.width):
+		for y in range(data.height):
+			var coord := Vector2i(x, y)
+			if !data.cells_list.has(coord):
+				coords.append(coord)
+
+	return coords
+
+
+func _get_blocked_cells(data: LevelData) -> Array[Vector2i]:
+
+	var coords: Array[Vector2i] = []
+
+	for coord: Vector2i in data.cells_list.keys():
+		var cell_data := data.cells_list.get(coord) as CellData
+		if cell_data.is_blocked:
+			coords.append(coord)
+
+	return coords
+
+
+func _arrays_equal_unordered(a: Array[Vector2i], b: Array[Vector2i]) -> bool:
+	return a.size() == b.size() and a.all(func(v: Vector2i) -> bool: return b.has(v))
