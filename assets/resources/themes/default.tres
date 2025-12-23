@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://d018ofb37nf7u"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://d018ofb37nf7u"]
 
 [ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_hrj5r"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_ikw2u"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://daqayrg5ld2ss" path="res://assets/ui/unchecked.png" id="8_kv1c1"]
 [ext_resource type="Texture2D" uid="uid://8y1m1b3j6hwp" path="res://assets/ui/checked_dot.png" id="9_svjh8"]
 [ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="10_odfmv"]
+[ext_resource type="Texture2D" uid="uid://d3ehsr6nh3m74" path="res://assets/ui/small_checked_dot.png" id="11_igg4a"]
+[ext_resource type="Texture2D" uid="uid://dw8hgdj8n2lm4" path="res://assets/ui/small_unchecked_dot.png" id="12_ajkck"]
 [ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_pvygh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ad0u"]
@@ -29,7 +31,6 @@ Button/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 Button/colors/icon_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 Button/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
 Button/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
-Button/constants/icon_max_width = 128
 Button/font_sizes/font_size = 60
 Button/styles/disabled = ExtResource("1_hrj5r")
 Button/styles/disabled_mirrored = ExtResource("1_hrj5r")
@@ -65,9 +66,10 @@ OptionButton/icons/arrow = ExtResource("5_tiomi")
 OptionButton/styles/hover = ExtResource("6_thkdp")
 OptionButton/styles/normal = ExtResource("6_thkdp")
 OptionButton/styles/pressed = ExtResource("6_thkdp")
+PopupMenu/constants/icon_max_width = 32
 PopupMenu/constants/item_start_padding = 10
-PopupMenu/icons/radio_checked = ExtResource("9_svjh8")
-PopupMenu/icons/radio_unchecked = ExtResource("10_odfmv")
+PopupMenu/icons/radio_checked = ExtResource("11_igg4a")
+PopupMenu/icons/radio_unchecked = ExtResource("12_ajkck")
 PopupMenu/styles/hover = ExtResource("7_f000m")
 PopupMenu/styles/panel = ExtResource("7_f000m")
 TextEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
