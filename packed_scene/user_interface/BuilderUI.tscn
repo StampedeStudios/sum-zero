@@ -117,6 +117,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
+theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_e30bv")
 
@@ -127,6 +128,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
+theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("4_5ca4s")
 
@@ -137,6 +139,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
+theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("3_34h8o")
 
@@ -147,6 +150,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
+theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_05dex")
 
