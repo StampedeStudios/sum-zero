@@ -115,9 +115,9 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("3_18iy2")
-theme_override_styles/hover = ExtResource("4_8lej0")
-theme_override_styles/pressed = ExtResource("4_8lej0")
 theme_override_styles/normal = ExtResource("4_8lej0")
+theme_override_styles/pressed = ExtResource("4_8lej0")
+theme_override_styles/hover = ExtResource("4_8lej0")
 icon = ExtResource("3_w7fk6")
 flat = true
 alignment = 0
@@ -142,6 +142,7 @@ text = "SAVE"
 icon_alignment = 2
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -153,9 +154,10 @@ focus_mode = 0
 theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
 theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_styles/hover = ExtResource("8_d7aa4")
-theme_override_styles/pressed = ExtResource("8_d7aa4")
+theme_override_constants/icon_max_width = 32
 theme_override_styles/normal = ExtResource("8_d7aa4")
+theme_override_styles/pressed = ExtResource("8_d7aa4")
+theme_override_styles/hover = ExtResource("8_d7aa4")
 icon = ExtResource("9_g62vk")
 icon_alignment = 1
 

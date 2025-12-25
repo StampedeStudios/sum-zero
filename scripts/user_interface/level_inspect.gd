@@ -14,9 +14,12 @@ var _level_id: int
 @onready var left_star: TextureRect = %LeftStar
 @onready var right_star: TextureRect = %RightStar
 @onready var middle_star: TextureRect = %MiddleStar
+@onready var exit_btn: Button = $Background/Panel/ExitBtn
 
 
 func _ready() -> void:
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
+
 	right_star.scale = Vector2(0, 0)
 	left_star.scale = Vector2(0, 0)
 	middle_star.scale = Vector2(0, 0)
