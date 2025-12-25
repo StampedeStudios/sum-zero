@@ -54,7 +54,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			_reset_count = 0
 		Constants.GameState.PLAY_LEVEL:
 
-			print("[Arena UI] - Handling state: PLAY_LEVEL")
 			self.show()
 			if _current_mode.timer_options:
 				_show_ui(true)
@@ -82,7 +81,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 
 func _hide_ui() -> void:
-	print("[Arena UI] - Hiding UI")
 	container.hide()
 	loading.hide()
 	if arena_time:
@@ -90,8 +88,6 @@ func _hide_ui() -> void:
 
 
 func _show_ui(show_timer: bool) -> void:
-
-	print("[Arena UI] - Showing UI")
 
 	if show_timer:
 		var tween := create_tween()
@@ -189,7 +185,6 @@ func _init_level() -> void:
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
 		GameManager.change_state(Constants.GameState.PLAY_LEVEL)
-		print("[Arena UI] - Spawning grid")
 		GameManager.level_manager.spawn_grid()
 
 
@@ -209,11 +204,12 @@ func _on_level_complete() -> void:
 		GameManager.change_state(Constants.GameState.LEVEL_END)
 		if _game_summary:
 			var summary := LevelSummary.new()
+
 			summary.set_star_count(_current_level.moves_left, _moves_count)
 			summary.reset_used = _reset_count
-			var chain := _game_summary.add_completed_level(summary)
+			_game_summary.add_completed_level(summary)
+			_moves_count = 0
 			# TODO: show level streak
-			print(chain)
 		_get_new_random_level()
 
 
