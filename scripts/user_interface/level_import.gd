@@ -12,9 +12,11 @@ var _inserted_code: String
 @onready var save_btn: Button = %SaveBtn
 @onready var panel: AnimatedPanel = %Panel
 @onready var code: LineEdit = %Code
+@onready var exit_btn: Button = %ExitBtn
 
 
 func _ready() -> void:
+	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	panel.open()
 
 
