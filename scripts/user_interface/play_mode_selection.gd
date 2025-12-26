@@ -53,7 +53,7 @@ func _set_first_uncompleted_mode() -> void:
 	for id: int in range(arena_modes.size()):
 		_current_mode_index = id
 		var mode := arena_modes[id]
-		if mode is StoryMode and SaveManager.get_start_level_playable() > mode.id_end - 1:
+		if mode is StoryMode and SaveManager.get_last_completed_level() >= (mode.id_end - 1):
 			continue
 		else:
 			break
