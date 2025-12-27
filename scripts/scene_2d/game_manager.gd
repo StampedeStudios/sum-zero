@@ -19,13 +19,15 @@ const CENTER_OFFSET: int = 40
 ## Defines color palette applied over all the game.
 var palette: CustomColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
 
-## Set of variables that handles different size dynamically applied for responsivness.
+## Set of variables that handles different size dynamically applied for responsiveness.
 var ui_scale: Vector2
 var title_font_size: int
 var subtitle_font_size: int
 var text_font_size: int
 var small_text_font_size: int
 var icon_max_width: int
+## Size of buttons scale up accordingly to resolution.
+## It should only be set from Game Manager itself.
 var btn_icon_max_width: int
 var btns_separation: int
 var vertical_margin: int

@@ -17,7 +17,6 @@ slider_opt = ExtResource("4_6wt32")
 script = ExtResource("3_0t8i1")
 is_countdown = true
 max_game_time = 180
-skip_cost = 20
 time_gained_per_move = 1.0
 
 [resource]

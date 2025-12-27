@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://ps5hw3lo3yc5"]
+[gd_scene load_steps=23 format=3 uid="uid://ps5hw3lo3yc5"]
 
 [ext_resource type="Script" uid="uid://c50pe6wet867c" path="res://scripts/user_interface/arena_end.gd" id="1_25tly"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
@@ -11,57 +11,45 @@
 [ext_resource type="Texture2D" uid="uid://bddhptimka45i" path="res://assets/ui/one_stars_blitz.png" id="4_y8amu"]
 [ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="6_552vy"]
 [ext_resource type="Texture2D" uid="uid://dutxv6bnvtt0g" path="res://assets/ui/two_stars_blitz.png" id="6_eaxuy"]
-[ext_resource type="Script" uid="uid://doe1s2j15i7t3" path="res://scripts/utility/play_mode/skip_calculation.gd" id="8_y6ku0"]
-[ext_resource type="Texture2D" uid="uid://c0ey1sai6yl66" path="res://assets/ui/skip_blitz.png" id="9_ev54t"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_lw2sj"]
 [ext_resource type="Script" uid="uid://bouq6v0ngjdyb" path="res://scripts/utility/play_mode/chain_calculation.gd" id="10_5lirc"]
 [ext_resource type="Texture2D" uid="uid://br3q7cabiw1k4" path="res://assets/ui/chain_blitz.png" id="11_lu6ib"]
 [ext_resource type="Texture2D" uid="uid://c88aoya4bir6s" path="res://assets/ui/new_record.png" id="12_70rhp"]
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="12_ymho7"]
 
-[sub_resource type="Resource" id="Resource_bu2vx"]
+[sub_resource type="Resource" id="Resource_63kpr"]
 script = ExtResource("3_2vcy5")
 mode = 1
-star_completation = 0
-value = 10
-boost = 2.0
-step_icon = ExtResource("4_1wyoo")
+star_completation = 3
+value = 30
+boost = 3.0
+step_icon = ExtResource("4_n53ea")
+
+[sub_resource type="Resource" id="Resource_d7sui"]
+script = ExtResource("3_2vcy5")
+mode = 1
+star_completation = 2
+value = 25
+boost = 2.5
+step_icon = ExtResource("6_eaxuy")
 
 [sub_resource type="Resource" id="Resource_3yu0s"]
 script = ExtResource("3_2vcy5")
 mode = 1
 star_completation = 1
 value = 20
-boost = 2.0
 step_icon = ExtResource("4_y8amu")
 
-[sub_resource type="Resource" id="Resource_d7sui"]
+[sub_resource type="Resource" id="Resource_bu2vx"]
 script = ExtResource("3_2vcy5")
 mode = 1
-star_completation = 2
-value = 40
-boost = 2.5
-step_icon = ExtResource("6_eaxuy")
-
-[sub_resource type="Resource" id="Resource_63kpr"]
-script = ExtResource("3_2vcy5")
-mode = 1
-star_completation = 3
-value = 80
-boost = 3.0
-step_icon = ExtResource("4_n53ea")
+value = 10
+step_icon = ExtResource("4_1wyoo")
 
 [sub_resource type="Resource" id="Resource_cbk86"]
 script = ExtResource("10_5lirc")
-mode = 0
-value = 100
+value = 10
 step_icon = ExtResource("11_lu6ib")
-
-[sub_resource type="Resource" id="Resource_81rd0"]
-script = ExtResource("8_y6ku0")
-boost = 1.2
-malus = 50
-step_icon = ExtResource("9_ev54t")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s74rf"]
 
@@ -73,7 +61,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_25tly")
-steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_bu2vx"), SubResource("Resource_3yu0s"), SubResource("Resource_d7sui"), SubResource("Resource_63kpr"), SubResource("Resource_cbk86"), SubResource("Resource_81rd0")])
+steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_63kpr"), SubResource("Resource_d7sui"), SubResource("Resource_3yu0s"), SubResource("Resource_bu2vx"), SubResource("Resource_cbk86")])
 
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true

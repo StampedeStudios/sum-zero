@@ -24,7 +24,6 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 	for button in top_buttons.get_children():
 		button.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
