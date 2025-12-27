@@ -247,8 +247,11 @@ func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(Constants.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
-		_set_arena_time(_time - _current_mode.timer_options.skip_cost)
-		_animate_extra_time(-_current_mode.timer_options.skip_cost)
+		var has_cost : bool = _current_mode.timer_options.skip_cost > 0
+
+		if has_cost:
+			_set_arena_time(_time - _current_mode.timer_options.skip_cost)
+			_animate_extra_time(-_current_mode.timer_options.skip_cost)
 
 	if _game_summary:
 		_game_summary.skip_level()
