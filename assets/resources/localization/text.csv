@@ -12,10 +12,10 @@ TUTORIAL,Tutorial,Tutorial,Tutoriel,Tutorial,Tutorial
 COMPLETE,Done!,Completato!,Terminé!,¡Listo!,Fertig!
 NEXT,Next,Avanti,Prochain,Próximo,Volgend
 EXIT,Exit,Esci,Sortie,Salir,Zurück
-LEV_NAME,Name,Nome,Nom,Nombre,Naam
+LEV_NAME,Name*,Nome*,Nom*,Nombre*,Naam*
 MOVES,Moves,Mosse,Mouvements,Acción,Bewegen
 SAVE,Save,Salva,Sauver,Salvar,Speichern
-CODE,Code,Codice,Code,Código,Code
+CODE,Code*,Codice*,Code*,Código*,Code*
 SCORE,Score,Punteggio,Score,Puntaje,Punktzahl
 
 THREE_STAR_MSG_1,"3 Star victory!","Vittoria stellare!","Victoire étoilée!","¡Victoria estrellada!","Sieg mit Sternen!"
