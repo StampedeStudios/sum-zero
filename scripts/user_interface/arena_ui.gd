@@ -1,5 +1,7 @@
 class_name ArenaUI extends Control
 
+@export var bonus_time_floating_curve: Curve2D
+
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 const ARENA_END := "res://packed_scene/user_interface/ArenaEnd.tscn"
 const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
@@ -7,6 +9,8 @@ const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 
 var _current_mode: ArenaMode
 var _tween: Tween
+var _time_tween: Tween
+var _displayed_time := 0
 var _current_level: LevelData
 var _moves_count: int
 var _reset_count: int
@@ -19,6 +23,7 @@ var _randomizer: Randomizer
 @onready var container: HBoxContainer = %BottomRightContainer
 @onready var loading: Control = %Loading
 @onready var arena_time: Label = %ArenaTime
+@onready var added_time: Label = %AddedTime
 @onready var loading_icon: TextureRect = %LoadingIcon
 @onready var skip_btn: Button = %SkipBtn
 
@@ -31,6 +36,8 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
 	container.add_theme_constant_override("separation", GameManager.btns_separation)
+	arena_time.add_theme_font_size_override("font_size", GameManager.title_font_size)
+	added_time.add_theme_font_size_override("font_size", GameManager.text_font_size)
 
 	# Adapt loading icon at screen size
 	var screen_size := get_viewport_rect().size
@@ -54,7 +61,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			_reset_count = 0
 		Constants.GameState.PLAY_LEVEL:
 
-			print("[Arena UI] - Handling state: PLAY_LEVEL")
 			self.show()
 			if _current_mode.timer_options:
 				_show_ui(true)
@@ -82,7 +88,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 
 func _hide_ui() -> void:
-	print("[Arena UI] - Hiding UI")
 	container.hide()
 	loading.hide()
 	if arena_time:
@@ -90,8 +95,6 @@ func _hide_ui() -> void:
 
 
 func _show_ui(show_timer: bool) -> void:
-
-	print("[Arena UI] - Showing UI")
 
 	if show_timer:
 		var tween := create_tween()
@@ -143,7 +146,6 @@ func _init_arena() -> void:
 
 
 func _get_new_random_level() -> void:
-	_hide_ui()
 	_start_loading()
 	_current_level = LevelData.new()
 	while true:
@@ -189,7 +191,6 @@ func _init_level() -> void:
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
 		GameManager.change_state(Constants.GameState.PLAY_LEVEL)
-		print("[Arena UI] - Spawning grid")
 		GameManager.level_manager.spawn_grid()
 
 
@@ -201,6 +202,11 @@ func _on_level_complete() -> void:
 		var options := _current_mode.timer_options
 		if options and options.time_gained_per_move > 0:
 			var extra_time := options.get_time_gained(_current_level.moves_left, _moves_count)
+
+			if extra_time != 0:
+				_animate_extra_time(extra_time)
+
+			arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
 			_set_arena_time(_time + extra_time)
 
 	if _current_mode.one_shoot_mode:
@@ -211,9 +217,9 @@ func _on_level_complete() -> void:
 			var summary := LevelSummary.new()
 			summary.set_star_count(_current_level.moves_left, _moves_count)
 			summary.reset_used = _reset_count
-			var chain := _game_summary.add_completed_level(summary)
+			_game_summary.add_completed_level(summary)
+			_moves_count = 0
 			# TODO: show level streak
-			print(chain)
 		_get_new_random_level()
 
 
@@ -242,23 +248,52 @@ func _on_skip_btn_pressed() -> void:
 	GameManager.change_state(Constants.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
 		_set_arena_time(_time - _current_mode.timer_options.skip_cost)
+		_animate_extra_time(-_current_mode.timer_options.skip_cost)
+
 	if _game_summary:
 		_game_summary.skip_level()
 	_get_new_random_level()
 
 
 func _set_arena_time(new_time: int) -> void:
+	new_time = max(new_time, 0)
+
+	# Update authoritative time immediately
 	_time = new_time
+
 	if _current_mode.is_skippable and _current_mode.timer_options:
 		if _current_mode.timer_options.is_countdown:
 			skip_btn.visible = _time > _current_mode.timer_options.skip_cost
+
 	if _time <= 0:
-		_time = 0
 		if !_timer.is_stopped():
 			_timer.stop()
 			GameManager.change_state(Constants.GameState.ARENA_END)
-	arena_time.text = "%02d:%02d" % [floori(float(_time) / 60), _time % 60]
 
+	if _time_tween and _time_tween.is_running():
+		_time_tween.kill()
+
+	var start := _displayed_time
+	var end := _time
+
+	if start == end:
+		arena_time.text = "%02d:%02d" % [floori(float(end) / 60), end % 60]
+		return
+
+	var duration : float = clamp(abs(end - start) * 0.03, 0.15, 0.6)
+
+	_time_tween = create_tween()
+	_time_tween.tween_method(
+		func(value: float) -> void:
+			var t := int(value)
+			if t != _displayed_time:
+				_displayed_time = t
+				arena_time.text = "%02d:%02d" % [floori(float(_displayed_time) / 60), _displayed_time % 60],
+		start,
+		end,
+		duration
+	).set_trans(Tween.TRANS_LINEAR)
+	
 
 func _render_tutorial() -> void:
 	var tutorial: TutorialData = _current_mode.tutorial
@@ -270,3 +305,39 @@ func _render_tutorial() -> void:
 		tutorial_ui.setup(tutorial)
 	else:
 		_init_arena()
+
+
+func _animate_extra_time(extra_time: int) -> void:
+
+	added_time.show()
+	added_time.text = "%+d" % floori(float(extra_time))
+
+	var color_index: int = clampi(extra_time, 4, 8)
+
+	# Using red for negative values as there are no different cases
+	# other than skip which has a constant cost
+	if extra_time < 0:
+		color_index = -5
+
+	var color: Color = GameManager.palette.cell_color.get(color_index)
+	added_time.add_theme_color_override("font_color", color)
+
+	added_time.modulate.a = 1.0
+
+	var start_pos := added_time.position
+	var tween := create_tween()
+
+	tween.tween_method(
+		func(t: float) -> void:
+			added_time.position = start_pos + bonus_time_floating_curve.samplef(t),
+		0.0,
+		1.0,
+		0.8
+	)
+
+	tween.parallel().tween_property( added_time, "modulate:a", 0.0, 0.6)
+
+	tween.finished.connect(func() -> void:
+		added_time.hide()
+		added_time.position = start_pos
+	)

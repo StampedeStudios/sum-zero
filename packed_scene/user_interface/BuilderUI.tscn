@@ -45,7 +45,7 @@ size_flags_vertical = 0
 [node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 2
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
@@ -58,49 +58,45 @@ flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TopContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_constants/separation = 15
+alignment = 2
 
 [node name="GenerateHole" type="Button" parent="MarginContainer/TopContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
-theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("6_yivi7")
-icon_alignment = 2
 
 [node name="GenerateBlock" type="Button" parent="MarginContainer/TopContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("7_la7xs")
-icon_alignment = 2
 
 [node name="GenerateSlider" type="Button" parent="MarginContainer/TopContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
 theme_override_colors/icon_normal_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_colors/icon_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_colors/icon_hover_color = Color(0, 0.556863, 0.67451, 0.858824)
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("8_locvh")
-icon_alignment = 2
 
 [node name="BottomContainer" type="HBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
@@ -117,7 +113,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_e30bv")
 
@@ -128,8 +123,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
-theme_override_font_sizes/font_size = 50
 icon = ExtResource("4_5ca4s")
 
 [node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer"]
@@ -139,7 +132,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("3_34h8o")
 
@@ -150,7 +142,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
 theme_override_font_sizes/font_size = 50
 icon = ExtResource("5_05dex")
 
