@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=16 format=3 uid="uid://d018ofb37nf7u"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://d018ofb37nf7u"]
 
 [ext_resource type="StyleBox" uid="uid://cb50e8yk3jwwf" path="res://assets/resources/themes/button_disabled.tres" id="1_hrj5r"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_ikw2u"]
@@ -13,13 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://oflkjh6mmhap" path="res://assets/ui/unchecked_dot.png" id="10_odfmv"]
 [ext_resource type="Texture2D" uid="uid://d3ehsr6nh3m74" path="res://assets/ui/small_checked_dot.png" id="11_igg4a"]
 [ext_resource type="Texture2D" uid="uid://dw8hgdj8n2lm4" path="res://assets/ui/small_unchecked_dot.png" id="12_ajkck"]
-[ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="12_pvygh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2ad0u"]
 
 [resource]
-default_font = ExtResource("12_pvygh")
-default_font_size = 48
 Button/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 Button/colors/font_disabled_color = Color(0.870588, 0.847059, 0.819608, 1)
 Button/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
@@ -49,11 +46,13 @@ CheckButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 CheckButton/icons/checked = ExtResource("7_g1gne")
 CheckButton/icons/unchecked = ExtResource("8_kv1c1")
 Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+Label/font_sizes/font_size = 60
 LineEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
 LineEdit/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 LineEdit/colors/font_placeholder_color = Color(0.25, 0.182333, 0.105, 0.584314)
 LineEdit/colors/font_uneditable_color = Color(0.25098, 0.184314, 0.105882, 1)
 LineEdit/constants/caret_width = 3
+LineEdit/font_sizes/font_size = 50
 LineEdit/styles/normal = ExtResource("4_ntt6a")
 LineEdit/styles/read_only = ExtResource("4_ntt6a")
 OptionButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
