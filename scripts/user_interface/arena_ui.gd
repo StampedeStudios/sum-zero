@@ -315,12 +315,18 @@ func _animate_extra_time(extra_time: int) -> void:
 	added_time.show()
 	added_time.text = "%+d" % floori(float(extra_time))
 
-	var color_index: int = clampi(extra_time, 4, 8)
+	var color_index: int = 4
 
 	# Using red for negative values as there are no different cases
 	# other than skip which has a constant cost
 	if extra_time < 0:
 		color_index = -5
+
+	if extra_time > 4 and extra_time <= 7:
+		color_index = 6
+
+	if extra_time > 7:
+		color_index = 8
 
 	var color: Color = GameManager.palette.cell_color.get(color_index)
 	added_time.add_theme_color_override("font_color", color)
@@ -335,10 +341,10 @@ func _animate_extra_time(extra_time: int) -> void:
 			added_time.position = start_pos + bonus_time_floating_curve.samplef(t),
 		0.0,
 		1.0,
-		0.8
+		1.2
 	)
 
-	tween.parallel().tween_property( added_time, "modulate:a", 0.0, 0.6)
+	tween.parallel().tween_property( added_time, "modulate:a", 0.0, 1.0)
 
 	tween.finished.connect(func() -> void:
 		added_time.hide()
