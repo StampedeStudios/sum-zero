@@ -24,9 +24,9 @@ func get_time_gained(needed_moves: int, used_moves: int) -> int:
 	var estimated_needed_moves: int = min(needed_moves, used_moves)
 
 	# 1. Difficulty normalization
-	# 5–12 moves mapped into [0, 1]
+	# 4–12 moves mapped into [0, 1]
 	var difficulty := clampf(
-		(float(estimated_needed_moves) - 5.0) / 7.0,
+		(float(estimated_needed_moves) - 4.0) / 8.0,
 		0.0,
 		1.0
 	)
@@ -39,5 +39,9 @@ func get_time_gained(needed_moves: int, used_moves: int) -> int:
 
 	# 4. Hard safety cap
 	time_sum = min(time_sum, 15.0)
+
+	# If player find a better solution than one generated, gives an extra second
+	if used_moves < needed_moves:
+		time_sum += 1
 
 	return 1 + roundi(time_sum)
