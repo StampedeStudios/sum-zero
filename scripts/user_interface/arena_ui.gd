@@ -244,6 +244,7 @@ func _on_reset_btn_pressed() -> void:
 
 
 func _on_skip_btn_pressed() -> void:
+	skip_btn.disabled = true
 	if _timer:
 		_timer.stop()
 
@@ -258,7 +259,8 @@ func _on_skip_btn_pressed() -> void:
 
 	if _game_summary:
 		_game_summary.skip_level()
-	_get_new_random_level()
+	await _get_new_random_level()
+	skip_btn.disabled = false
 
 
 func _set_arena_time(new_time: int) -> void:
