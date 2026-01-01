@@ -46,6 +46,9 @@ func _ready() -> void:
 	loading_icon.size = icon_size
 	loading_icon.position = -icon_size / 2
 
+	var color : Color = GameManager.palette.slider_colors.get("OUTLINE")
+	arena_time.add_theme_color_override("font_color", color)
+
 
 func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
@@ -266,6 +269,26 @@ func _set_arena_time(new_time: int) -> void:
 
 	if _current_mode.is_skippable and _current_mode.timer_options:
 		if _current_mode.timer_options.is_countdown:
+
+			var tween := create_tween()
+			if _time < 5:
+				var color: Color = GameManager.palette.cell_color.get(-5)
+				tween.tween_property(
+					arena_time,
+					"theme_override_colors/font_color",
+					color,
+					0.5
+				)
+
+			else:
+				var color : Color = GameManager.palette.slider_colors.get("OUTLINE")
+				tween.tween_property(
+					arena_time,
+					"theme_override_colors/font_color",
+					color,
+					0.5
+				)
+
 			skip_btn.visible = _time > _current_mode.timer_options.skip_cost
 
 	if _time <= 0:
