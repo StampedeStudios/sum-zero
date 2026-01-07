@@ -13,10 +13,6 @@ const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 
 
 func _ready() -> void:
-	if GameManager.level_builder.initialize_randomizer():
-		top_buttons.show()
-	else:
-		top_buttons.hide()
 
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
