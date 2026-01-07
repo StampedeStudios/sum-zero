@@ -14,7 +14,6 @@ const BUILDER_RESIZE := "res://packed_scene/user_interface/BuilderResize.tscn"
 const BUILDER_SAVE := "res://packed_scene/user_interface/BuilderSave.tscn"
 const BUILDER_SELECTION := "res://packed_scene/user_interface/BuilderSelection.tscn"
 
-var _randomizer: Randomizer
 var _level_data: LevelData
 var _cell_collection: Dictionary[Vector2i, BuilderCell]
 var _slider_collection: Dictionary[Vector2i, BuilderSlider]
@@ -387,31 +386,22 @@ func is_valid_data() -> bool:
 	return _level_data.is_valid_data()
 
 
-## Randomizer is is a set of features that simplify the process of level creation by
-## giving three basic functionalities:
-##
-## - Generate random holes on the given grid;
-## - Generate random blocked cells on the given grid;
-## - Generate a complete level covering all non-hole and non-blocked cells.
-##
-## @return `true` if correctly initialized. `false` otherwise.
-func initialize_randomizer() -> bool:
-	var options := ResourceLoader.load(RANDOMIZER_OPTIONS) as RandomizerOptions
-	if options:
-		_randomizer = Randomizer.new(options)
-		add_child(_randomizer)
-		return true
-	return false
-
-
 func generate_level(element: Constants.GenerationElement) -> void:
+	var options := ResourceLoader.load(RANDOMIZER_OPTIONS) as RandomizerOptions
+	if not options:
+		return
+
+	var randomizer := Randomizer.new(options)
+
 	match element:
 		Constants.GenerationElement.HOLE:
-			await _randomizer.create_holes(_level_data)
+			await randomizer.create_holes(_level_data)
 		Constants.GenerationElement.BLOCK:
-			await _randomizer.create_block(_level_data)
+			await randomizer.create_block(_level_data)
 		Constants.GenerationElement.SLIDER:
-			await _randomizer.create_sliders(_level_data)
+			await randomizer.create_sliders(_level_data)
+	
+	randomizer.queue_free()
 
 	construct_level.call_deferred(_level_data, true)
 	_on_state_change.call_deferred(Constants.GameState.BUILDER_IDLE)
