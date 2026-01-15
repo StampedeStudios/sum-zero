@@ -22,6 +22,11 @@ func _ready() -> void:
 
 	GameManager.on_state_change.connect(_on_state_change)
 
+	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
+	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
+	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+
 	# Animate entry
 	await panel.open()
 
