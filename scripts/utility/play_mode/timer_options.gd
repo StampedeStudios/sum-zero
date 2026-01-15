@@ -15,11 +15,6 @@ class_name TimerOptions extends Resource
 ## Calculate time gained for complete level
 func get_time_gained(needed_moves: int, used_moves: int) -> int:
 
-	# Baseline for wasted moves
-	if used_moves > needed_moves:
-		print("[Arena Score] Suboptimal solution, gains 1s")
-		return 1
-
 	# Player-validated difficulty
 	var estimated_needed_moves: int = min(needed_moves, used_moves)
 
@@ -43,5 +38,10 @@ func get_time_gained(needed_moves: int, used_moves: int) -> int:
 	# If player find a better solution than one generated, gives an extra second
 	if used_moves < needed_moves:
 		time_sum += 1
+
+	# Baseline for wasted moves
+	if used_moves > needed_moves:
+		print("[Arena Score] Suboptimal solution, gain half of the seconds")
+		return 1 + roundi(time_sum / 2)
 
 	return 1 + roundi(time_sum)
