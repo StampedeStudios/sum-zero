@@ -9,9 +9,9 @@
 [ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/play_mode/blitz_mode.tres" id="7_i45mq"]
 [ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/play_mode/puzzle_mode.tres" id="8_gywfq"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_r4e6y"]
-[ext_resource type="Texture2D" uid="uid://h48pyaujdk6b" path="res://assets/ui/arrow_left.png" id="10_2lfuk"]
+[ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="10_j8ioe"]
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="10_r6ujm"]
-[ext_resource type="Texture2D" uid="uid://clfwc2p3n18qx" path="res://assets/ui/arrow_right.png" id="11_j8ioe"]
+[ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="12_ipigk"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k64a5"]
 
@@ -74,34 +74,34 @@ alignment = 1
 [node name="Container" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 15
+size_flags_stretch_ratio = 5.0
 
 [node name="LeftBox" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="LeftBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/LeftBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
+theme = ExtResource("1_wbtf6")
 theme_override_constants/icon_max_width = 64
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
-icon = ExtResource("10_2lfuk")
+icon = ExtResource("10_j8ioe")
 flat = true
 
 [node name="Content" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_stretch_ratio = 8.0
 alignment = 1
 
 [node name="HContainer" type="ScrollContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 9.0
+size_flags_stretch_ratio = 8.0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 0
 
@@ -110,25 +110,26 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+alignment = 1
 
 [node name="RightBox" type="VBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="RightBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/RightBox"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
-theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_focus_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
-theme_override_colors/icon_hover_color = Color(1, 1, 1, 1)
 theme_override_constants/icon_max_width = 64
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
-icon = ExtResource("11_j8ioe")
+icon = ExtResource("12_ipigk")
 flat = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Backdrop/Panel/MarginContainer/ArenaSelection"]
 layout_mode = 2
+size_flags_vertical = 10
+theme_override_constants/separation = 15
 
 [node name="VSeparator" type="VSeparator" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer"]
 layout_mode = 2
@@ -139,7 +140,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 6.0
+size_flags_stretch_ratio = 8.0
 focus_mode = 0
 theme = ExtResource("9_r4e6y")
 text = "PLAY"

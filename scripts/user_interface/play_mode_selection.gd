@@ -14,8 +14,10 @@ var _current_mode_index := 0
 @onready var hbox_container: HBoxContainer = %HBoxContainer
 
 @onready var arena_selection: VBoxContainer = %ArenaSelection
-@onready var play_btn: Button = %PlayBtn
 @onready var margin: MarginContainer = %MarginContainer
+@onready var play_btn: Button = %PlayBtn
+@onready var left_btn: Button = %LeftBtn
+@onready var right_btn: Button = %RightBtn
 
 
 func _ready() -> void:
@@ -27,7 +29,6 @@ func _ready() -> void:
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
 	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
 
-	# Animate entry
 	await panel.open()
 
 
@@ -52,6 +53,9 @@ func setup() -> void:
 		mode_ui.setup(mode)
 
 	_set_first_uncompleted_mode.call_deferred()
+
+	if _current_mode_index == 0:
+		left_btn.disabled = true
 
 
 func _set_first_uncompleted_mode() -> void:
@@ -136,11 +140,21 @@ func _on_left_btn_pressed() -> void:
 	_select_mode(_current_mode_index - 1)
 	_snap_to_current_mode()
 
+	if _current_mode_index == 0:
+		left_btn.disabled = true
+
+	right_btn.disabled = false
+
 
 func _on_right_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_select_mode(_current_mode_index + 1)
 	_snap_to_current_mode()
+
+	if _current_mode_index == arena_modes.size() - 1:
+		right_btn.disabled = true
+
+	left_btn.disabled = false
 
 
 func _on_h_container_scroll_ended() -> void:
