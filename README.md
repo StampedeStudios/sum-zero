@@ -1,7 +1,12 @@
 <div align="center">
 
 # Sum Zero
-#### Strategic math puzzles. Can you reach zero?
+
+<a href="https://www.youtube.com/watch?v=yEIHPfmL5Jw">
+  <img width="1925" height="1085" alt="Preview of YouTube video" src="./assets/game/social/video-preview.png" />
+</a>
+
+#### A minimalistic math puzzle
 
 [![Godot Engine](https://img.shields.io/badge/Godot-%23FFFFFF.svg?style=for-the-badge&logo=godot-engine)](https://godotengine.org/)
 [![Inkscape](https://img.shields.io/badge/Inkscape-000000?style=for-the-badge&logo=Inkscape&logoColor=white)](https://inkscape.org/)
