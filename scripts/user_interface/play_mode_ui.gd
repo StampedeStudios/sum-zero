@@ -20,14 +20,15 @@ func setup(mode: PlayMode) -> void:
 			_is_completed = SaveManager.get_last_completed_level() >= mode.id_end - 1
 			_is_locked = false
 		PlayMode.UnlockMode.LEVEL:
-			message.text = tr("LEVEL_LOCK_MSG") % mode.unlock_count
+			message.text = tr("LEVEL_LOCK_MSG")
 
 			_is_completed = SaveManager.get_last_completed_level() >= (mode.id_end - 1)
 			_is_locked = SaveManager.get_last_completed_level() + 1 < mode.id_start - 1
 
 		PlayMode.UnlockMode.STAR:
 			# Modes unlocked with stars are never completed
-			message.text = tr("STAR_LOCK_MSG") % mode.unlock_count
+			var missing_stars: int = mode.unlock_count - SaveManager.get_star_count()
+			message.text = tr("STAR_LOCK_MSG") % missing_stars
 			_is_locked = SaveManager.get_star_count() < mode.unlock_count
 
 	if _is_locked:
