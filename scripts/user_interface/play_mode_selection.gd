@@ -24,10 +24,13 @@ func _ready() -> void:
 
 	GameManager.on_state_change.connect(_on_state_change)
 
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
+	var h_margin: int = roundi(GameManager.horizontal_margin / 2.0)
+	var v_margin: int = roundi(GameManager.horizontal_margin / 2.0)
+
+	margin.add_theme_constant_override("margin_left", v_margin)
+	margin.add_theme_constant_override("margin_right", h_margin)
+	margin.add_theme_constant_override("margin_top", v_margin)
+	margin.add_theme_constant_override("margin_bottom", h_margin)
 
 	await panel.open()
 
