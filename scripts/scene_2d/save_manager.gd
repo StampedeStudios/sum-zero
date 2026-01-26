@@ -78,10 +78,9 @@ func update_level_progress(move_left: int) -> bool:
 	var id: int = GameManager.get_active_level_id()
 	var active_progress: LevelProgress = _player_save.get_progress(context, id)
 
-	if !active_progress.is_completed:
-		active_progress.is_completed = true
-		if id < _persistent_save.levels_hash.size() - 1:
-			_player_save.unlock_level(id + 1)
+	active_progress.is_completed = true
+	if id < _persistent_save.levels_hash.size() - 1:
+		_player_save.unlock_level(id + 1)
 
 	if move_left > active_progress.move_left:
 		var old_star := clampi(active_progress.move_left, -3, 0) + 3
