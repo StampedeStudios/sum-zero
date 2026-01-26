@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene load_steps=20 format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" uid="uid://cmua61pcxrhb" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
@@ -6,9 +6,8 @@
 [ext_resource type="Shader" uid="uid://bi7c682y5yhkv" path="res://scripts/shaders/Stars.gdshader" id="3_2dflr"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_3an21"]
 [ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="4_0o6mq"]
-[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_rcr73"]
-[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="6_aqsoc"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="6_obudt"]
+[ext_resource type="Texture2D" uid="uid://dwtpf7xit01sm" path="res://assets/ui/edit.png" id="7_3opmu"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="8_el7sx"]
 [ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="10_32ph3"]
 [ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="11_pt48p"]
@@ -107,7 +106,6 @@ horizontal_alignment = 1
 
 [node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
 size_flags_vertical = 10
 theme_override_constants/separation = 55
 alignment = 1
@@ -115,20 +113,21 @@ alignment = 1
 [node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 2
 focus_mode = 0
 theme = ExtResource("3_3an21")
 theme_override_constants/icon_max_width = 128
-icon = ExtResource("5_rcr73")
+icon = ExtResource("7_3opmu")
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("8_el7sx")
 theme_override_constants/icon_max_width = 128
-icon = ExtResource("6_aqsoc")
+text = "PLAY"
 
 [node name="ExitBtn" type="Button" parent="Background/Panel"]
 layout_mode = 1
@@ -156,9 +155,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
-offset_top = -160.0
+offset_top = -140.0
 offset_right = 320.0
-offset_bottom = 96.0
+offset_bottom = 116.0
 grow_vertical = 2
 rotation = -0.2617994
 scale = Vector2(0.6, 0.6)
@@ -173,9 +172,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 64.0
-offset_top = -160.0
+offset_top = -140.0
 offset_right = 320.0
-offset_bottom = 96.0
+offset_bottom = 116.0
 grow_vertical = 2
 rotation = -0.2617994
 scale = Vector2(0.7, 0.7)
@@ -191,9 +190,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -304.0
-offset_top = -160.0
+offset_top = -140.0
 offset_right = -48.0
-offset_bottom = 96.0
+offset_bottom = 116.0
 grow_horizontal = 0
 grow_vertical = 2
 rotation = 0.2617994
@@ -211,9 +210,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_left = -304.0
-offset_top = -160.0
+offset_top = -140.0
 offset_right = -48.0
-offset_bottom = 96.0
+offset_bottom = 116.0
 grow_horizontal = 0
 grow_vertical = 2
 rotation = 0.2617994
@@ -230,9 +229,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
-offset_top = -224.0
+offset_top = -204.0
 offset_right = 128.0
-offset_bottom = 32.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.7, 0.7)
@@ -249,9 +248,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
-offset_top = -224.0
+offset_top = -204.0
 offset_right = 128.0
-offset_bottom = 32.0
+offset_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.8, 0.8)
