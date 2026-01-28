@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjy0fic8rbjku"]
+[gd_scene format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" uid="uid://ctotyoyltbhbc" path="res://scripts/user_interface/level_ui.gd" id="1_hkyqh"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_cshsk"]
@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://wqs3xar34kkp" path="res://packed_scene/user_interface/LevelsPage.tscn" id="9_j0vij"]
 [ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="9_mex7s"]
 
-[node name="LevelMenu" type="Control"]
+[node name="LevelMenu" type="Control" unique_id=1028608935]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hkyqh")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=854631824]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -31,14 +31,14 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 60
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=586247672]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=321728578]
 layout_mode = 2
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=1226511757]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -52,7 +52,7 @@ text = "BACK"
 icon = ExtResource("3_2fw0e")
 flat = true
 
-[node name="BuilderBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+[node name="BuilderBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer" unique_id=820219646]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 8
@@ -60,19 +60,19 @@ size_flags_vertical = 2
 theme = ExtResource("2_cshsk")
 icon = ExtResource("6_jlv17")
 
-[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=46038158]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 
-[node name="Left" type="Button" parent="MarginContainer/VBoxContainer/Controls"]
+[node name="Left" type="Button" parent="MarginContainer/VBoxContainer/Controls" unique_id=1866702200]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("9_7bhus")
 icon = ExtResource("3_2fw0e")
 
-[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Controls"]
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/Controls" unique_id=1350251368]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -82,14 +82,14 @@ text = "1 ~ 9"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Right" type="Button" parent="MarginContainer/VBoxContainer/Controls"]
+[node name="Right" type="Button" parent="MarginContainer/VBoxContainer/Controls" unique_id=508751489]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 theme = ExtResource("9_7bhus")
 icon = ExtResource("9_mex7s")
 
-[node name="Pages" type="HBoxContainer" parent="."]
+[node name="Pages" type="HBoxContainer" parent="." unique_id=291956959]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -106,13 +106,13 @@ grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Page" parent="Pages" instance=ExtResource("9_j0vij")]
+[node name="Page" parent="Pages" unique_id=423440960 instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
-[node name="Page2" parent="Pages" instance=ExtResource("9_j0vij")]
+[node name="Page2" parent="Pages" unique_id=2056579338 instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
-[node name="Page3" parent="Pages" instance=ExtResource("9_j0vij")]
+[node name="Page3" parent="Pages" unique_id=1666176027 instance=ExtResource("9_j0vij")]
 layout_mode = 2
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/VBoxContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]

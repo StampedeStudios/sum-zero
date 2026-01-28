@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StoryMode" load_steps=3 format=3 uid="uid://bn7pmxwdrvgdw"]
+[gd_resource type="Resource" script_class="StoryMode" format=3 uid="uid://bn7pmxwdrvgdw"]
 
 [ext_resource type="Texture2D" uid="uid://cnv41jj3mhw2m" path="res://assets/ui/classic_icon.png" id="1_ovcld"]
 [ext_resource type="Script" uid="uid://cvpplq2rew027" path="res://scripts/utility/play_mode/story_mode.gd" id="1_wy4ra"]

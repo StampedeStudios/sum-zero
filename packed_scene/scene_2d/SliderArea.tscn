@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce6hhyfbr036r"]
+[gd_scene format=3 uid="uid://ce6hhyfbr036r"]
 
 [ext_resource type="Script" uid="uid://chqjcyqjrva2e" path="res://scripts/scene_2d/slider_area.gd" id="1_xjbxd"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="3_ognen"]
@@ -21,20 +21,20 @@ shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 shader_parameter/is_selected = false
 shader_parameter/glow_intensity = 4.0
 
-[node name="ScalableArea" type="Node2D"]
+[node name="ScalableArea" type="Node2D" unique_id=1652696563]
 script = ExtResource("1_xjbxd")
 
-[node name="Body" type="Sprite2D" parent="."]
+[node name="Body" type="Sprite2D" parent="." unique_id=1695722145]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_62o8u")
 position = Vector2(64, 0)
 texture = ExtResource("4_yil1j")
 
-[node name="AreaEffect" type="Sprite2D" parent="Body"]
+[node name="AreaEffect" type="Sprite2D" parent="Body" unique_id=163639958]
 unique_name_in_owner = true
 texture = ExtResource("5_3db0q")
 
-[node name="AreaOutline" type="NinePatchRect" parent="Body"]
+[node name="AreaOutline" type="NinePatchRect" parent="Body" unique_id=1171043176]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4iu34")
 offset_left = -64.0
@@ -47,15 +47,15 @@ patch_margin_top = 36
 patch_margin_right = 36
 patch_margin_bottom = 36
 
-[node name="AreaBehavior" type="Sprite2D" parent="Body"]
+[node name="AreaBehavior" type="Sprite2D" parent="Body" unique_id=1313519953]
 unique_name_in_owner = true
 position = Vector2(-64, -64)
 texture = ExtResource("7_hmjaf")
 
-[node name="Handle" type="Node2D" parent="."]
+[node name="Handle" type="Node2D" parent="." unique_id=366148719]
 unique_name_in_owner = true
 position = Vector2(110, 0)
 
-[node name="Start" type="Node2D" parent="."]
+[node name="Start" type="Node2D" parent="." unique_id=1856738467]
 unique_name_in_owner = true
 position = Vector2(128, 0)

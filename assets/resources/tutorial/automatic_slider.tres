@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="TutorialData" load_steps=4 format=3 uid="uid://bh5y4yi2t6c7v"]
+[gd_resource type="Resource" script_class="TutorialData" format=3 uid="uid://bh5y4yi2t6c7v"]
 
 [ext_resource type="Texture2D" uid="uid://b7ehrw3meq2fv" path="res://assets/ui/tutorial/automatic_slider.png" id="1_yptu4"]
 [ext_resource type="Texture2D" uid="uid://b646e2a6sm7mj" path="res://assets/ui/tutorial/automatic_slider_close.png" id="2_bv2mo"]
@@ -6,7 +6,5 @@
 
 [resource]
 script = ExtResource("2_npssr")
-tutorial_name = ""
 images = Array[Texture2D]([ExtResource("1_yptu4"), ExtResource("2_bv2mo")])
 hints = Array[String](["TUTORIAL_AUTOMATIC_SLIDER", "TUTORIAL_AUTOMATIC_SLIDER_CLOSE"])
-is_skippable = false

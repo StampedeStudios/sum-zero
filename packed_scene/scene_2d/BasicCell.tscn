@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bpr74i8ln7erw"]
+[gd_scene format=3 uid="uid://bpr74i8ln7erw"]
 
 [ext_resource type="Script" uid="uid://bnnydhddr2hjh" path="res://scripts/scene_2d/basic_cell.gd" id="1_f46k4"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_453u2"]
@@ -12,15 +12,15 @@ shader = ExtResource("2_453u2")
 shader_parameter/base_color = Color(1, 1, 1, 1)
 shader_parameter/invert_base_color = false
 
-[node name="BasicCell" type="Node2D"]
+[node name="BasicCell" type="Node2D" unique_id=303363494]
 script = ExtResource("1_f46k4")
 
-[node name="Tile" type="Sprite2D" parent="."]
+[node name="Tile" type="Sprite2D" parent="." unique_id=1252297052]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tc2y5")
 texture = ExtResource("3_xrc0q")
 
-[node name="TargetValueTxt" type="Label" parent="Tile"]
+[node name="TargetValueTxt" type="Label" parent="Tile" unique_id=849788434]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0

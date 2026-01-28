@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://drgb25lub04ll"]
+[gd_scene format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Script" uid="uid://drtpij1704ugl" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_iclks"]
@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
 [ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="7_nrp2l"]
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="Control" unique_id=1004930862]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ mouse_filter = 1
 script = ExtResource("1_xwl0a")
 metadata/_edit_horizontal_guides_ = [-135.0]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=187761418]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -32,14 +32,14 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer" unique_id=2114045492]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 20
 alignment = 2
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=735536582]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -48,7 +48,7 @@ focus_mode = 0
 theme = ExtResource("2_iclks")
 icon = ExtResource("3_6wjro")
 
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=1325641141]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
@@ -57,7 +57,7 @@ theme = ExtResource("2_iclks")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_vhyu8")
 
-[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=40110485]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

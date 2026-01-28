@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddsr10psgusqk"]
+[gd_scene format=3 uid="uid://ddsr10psgusqk"]
 
 [ext_resource type="Script" uid="uid://ci6j2d4weu5mk" path="res://scripts/user_interface/arena_ui.gd" id="1_3vb52"]
 [ext_resource type="Curve2D" uid="uid://cieak8gynmqiq" path="res://assets/resources/utility/floating_up_vanish.tres" id="2_hdwrw"]
@@ -15,7 +15,7 @@ shader = ExtResource("6_d0ym2")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 shader_parameter/invert_base_color = false
 
-[node name="ArenaUI" type="Control"]
+[node name="ArenaUI" type="Control" unique_id=1358268347]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -29,7 +29,7 @@ script = ExtResource("1_3vb52")
 bonus_time_floating_curve = ExtResource("2_hdwrw")
 metadata/_edit_horizontal_guides_ = [-135.0]
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1765784915]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -42,11 +42,11 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="TopContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="TopContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1305758385]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="ArenaTime" type="Label" parent="MarginContainer/TopContainer"]
+[node name="ArenaTime" type="Label" parent="MarginContainer/TopContainer" unique_id=328589401]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
@@ -55,7 +55,7 @@ theme = ExtResource("2_jitnk")
 text = "00:00"
 horizontal_alignment = 1
 
-[node name="AddedTime" type="Label" parent="MarginContainer/TopContainer/ArenaTime"]
+[node name="AddedTime" type="Label" parent="MarginContainer/TopContainer/ArenaTime" unique_id=1998010713]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -66,13 +66,13 @@ offset_bottom = 114.0
 theme_override_fonts/font = ExtResource("3_oebpu")
 text = "+1"
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer" unique_id=434475922]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 40
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=1289606699]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
@@ -80,7 +80,7 @@ focus_mode = 0
 theme = ExtResource("2_jitnk")
 icon = ExtResource("3_2u67y")
 
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=928619404]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -89,7 +89,7 @@ theme = ExtResource("2_jitnk")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("4_k3jki")
 
-[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer"]
+[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=845005883]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
@@ -99,7 +99,7 @@ theme = ExtResource("2_jitnk")
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("5_b32ap")
 
-[node name="Loading" type="Control" parent="."]
+[node name="Loading" type="Control" parent="." unique_id=418291706]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -111,7 +111,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LoadingIcon" type="TextureRect" parent="Loading"]
+[node name="LoadingIcon" type="TextureRect" parent="Loading" unique_id=851164683]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_x1k7w")
 custom_minimum_size = Vector2(64, 64)

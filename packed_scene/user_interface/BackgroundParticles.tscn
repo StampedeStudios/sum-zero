@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c27uxtvl3hvnf"]
+[gd_scene format=3 uid="uid://c27uxtvl3hvnf"]
 
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="1_3pr5c"]
 
@@ -17,7 +17,7 @@ point_count = 4
 offsets = PackedFloat32Array(0, 0.395745, 0.721277, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.280851, 0.280851, 0.280851, 1, 0.661702, 0.661702, 0.661702, 1, 1, 1, 1, 1)
 
-[node name="CPUParticles2D" type="CPUParticles2D"]
+[node name="CPUParticles2D" type="CPUParticles2D" unique_id=461503309]
 material = SubResource("CanvasItemMaterial_lnl8v")
 amount = 150
 texture = ExtResource("1_3pr5c")

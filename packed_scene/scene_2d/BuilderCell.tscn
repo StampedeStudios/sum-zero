@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dwy42e2etcl7x"]
+[gd_scene format=3 uid="uid://dwy42e2etcl7x"]
 
 [ext_resource type="Script" uid="uid://iq6e50n7qjkk" path="res://scripts/scene_2d/builder_cell.gd" id="1_bah0f"]
 [ext_resource type="Texture2D" uid="uid://cu6leqp2sdeof" path="res://assets/scenes_2d/tile_body.png" id="2_srl0q"]
@@ -16,15 +16,15 @@ shader_parameter/invert_base_color = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
 size = Vector2(256, 256)
 
-[node name="BuilderCell" type="Node2D"]
+[node name="BuilderCell" type="Node2D" unique_id=1677881540]
 position = Vector2(514, 625)
 script = ExtResource("1_bah0f")
 
-[node name="Cell" type="Sprite2D" parent="."]
+[node name="Cell" type="Sprite2D" parent="." unique_id=1455917518]
 material = SubResource("ShaderMaterial_42k15")
 texture = ExtResource("2_srl0q")
 
-[node name="TargetValueTxt" type="Label" parent="Cell"]
+[node name="TargetValueTxt" type="Label" parent="Cell" unique_id=101285914]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,14 +45,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Collision" type="Area2D" parent="."]
+[node name="Collision" type="Area2D" parent="." unique_id=114000239]
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision" unique_id=1357039518]
 shape = SubResource("RectangleShape2D_x3468")
 
-[node name="Block" type="Sprite2D" parent="."]
+[node name="Block" type="Sprite2D" parent="." unique_id=538941294]
 unique_name_in_owner = true
 texture = ExtResource("5_8tl6m")
 

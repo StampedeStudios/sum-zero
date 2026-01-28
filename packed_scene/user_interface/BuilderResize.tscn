@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://vvet7yb7thao"]
+[gd_scene format=3 uid="uid://vvet7yb7thao"]
 
 [ext_resource type="Script" uid="uid://3vyf8r8ubnb4" path="res://scripts/user_interface/builder_resize.gd" id="1_1u8ky"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_bcgsc"]
@@ -15,7 +15,7 @@ shader = ExtResource("2_bcgsc")
 shader_parameter/base_color = Color(0.25098, 0.184314, 0.105882, 1)
 shader_parameter/invert_base_color = false
 
-[node name="LevelInfoQuery" type="Control"]
+[node name="LevelInfoQuery" type="Control" unique_id=769720335]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1u8ky")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=818954586]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ikv7t")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=961347113]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -45,14 +45,14 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 60
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/MarginContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/MarginContainer" unique_id=710621894]
 layout_mode = 2
 
-[node name="Control" type="Control" parent="Background/MarginContainer/AspectRatioContainer"]
+[node name="Control" type="Control" parent="Background/MarginContainer/AspectRatioContainer" unique_id=2073722851]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MinusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
+[node name="MinusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control" unique_id=95428913]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 4
@@ -67,7 +67,7 @@ mouse_filter = 0
 texture = ExtResource("3_jiamv")
 expand_mode = 3
 
-[node name="PlusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
+[node name="PlusWidth" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control" unique_id=1844092368]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 6
@@ -85,7 +85,7 @@ mouse_filter = 0
 texture = ExtResource("4_jiamv")
 expand_mode = 3
 
-[node name="MinusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
+[node name="MinusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control" unique_id=1019556799]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 5
@@ -100,7 +100,7 @@ mouse_filter = 0
 texture = ExtResource("2_vipjf")
 expand_mode = 3
 
-[node name="PlusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control"]
+[node name="PlusHeight" type="TextureRect" parent="Background/MarginContainer/AspectRatioContainer/Control" unique_id=59851371]
 material = SubResource("ShaderMaterial_8113u")
 layout_mode = 1
 anchors_preset = 7

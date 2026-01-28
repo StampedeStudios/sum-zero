@@ -1,16 +1,7 @@
-[gd_resource type="Resource" script_class="SliderCollection" load_steps=2 format=3 uid="uid://b7l0sgcymgm1h"]
+[gd_resource type="Resource" script_class="SliderCollection" format=3 uid="uid://b7l0sgcymgm1h"]
 
 [ext_resource type="Script" uid="uid://cpn854fsr0scs" path="res://scripts/utility/slider_collection.gd" id="1_byvgh"]
 
 [resource]
 script = ExtResource("1_byvgh")
-add = "res://assets/scenes_2d/plus_icon.png"
-subtract = "res://assets/scenes_2d/minus_icon.png"
-change_sign = "res://assets/scenes_2d/invert_icon.png"
-block = "res://assets/scenes_2d/block.png"
-by_step = ""
-out_by_step = "res://assets/scenes_2d/slider_outline.png"
 full = "res://assets/scenes_2d/automatic.png"
-out_full = "res://assets/scenes_2d/auto_slider_outline.png"
-block_texture = "res://assets/scenes_2d/blocked_tile.png"
-block_shader = "res://scripts/shaders/Block.gdshader"

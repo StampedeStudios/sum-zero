@@ -1,40 +1,6 @@
-[gd_resource type="Resource" script_class="RandomSliderOptions" load_steps=2 format=3 uid="uid://kn4gnwbv8b53"]
+[gd_resource type="Resource" script_class="RandomSliderOptions" format=3 uid="uid://kn4gnwbv8b53"]
 
 [ext_resource type="Script" uid="uid://chfp1076pad2c" path="res://scripts/utility/randomizer/random_slider_opt.gd" id="1_81d5c"]
 
 [resource]
 script = ExtResource("1_81d5c")
-occupation_rules = {
-"LOWER": 10,
-"STANDARD": 70,
-"UPPER": 20
-}
-lower_odd = 30
-upper_odd = 60
-std_occupation = {
-4: Vector2i(2, 3),
-6: Vector2i(3, 4),
-8: Vector2i(3, 5),
-10: Vector2i(4, 6),
-12: Vector2i(4, 8),
-14: Vector2i(5, 8),
-16: Vector2i(6, 9),
-18: Vector2i(7, 11),
-20: Vector2i(8, 14)
-}
-extension_rules = {
-"MAX": 60,
-"NONE": 10,
-"RANDOM": 30
-}
-full_odd = 15
-full_odd_on_stop = 30
-block_full_odd = 50
-block_full_odd_on_stop = 50
-block_full_retract_odd = 50
-type_rules = {
-"ADD": 45,
-"BLOCK": 7,
-"CHANGE_SIGN": 3,
-"SUBTRACT": 45
-}

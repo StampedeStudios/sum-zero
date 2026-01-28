@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://di2d17ii3aqn8"]
+[gd_scene format=3 uid="uid://di2d17ii3aqn8"]
 
 [ext_resource type="Script" uid="uid://d1lpog0j100i5" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_ya4n7"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bs8543o34whrb" path="res://assets/ui/trash_icon.png" id="9_yyv7m"]
 [ext_resource type="Texture2D" uid="uid://saxmgl8f8ade" path="res://assets/ui/lock_icon.png" id="10_aav8u"]
 
-[node name="BuilderSelection" type="Control"]
+[node name="BuilderSelection" type="Control" unique_id=765648699]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,20 +26,19 @@ forward_slider_texture = ExtResource("5_ya4n7")
 special_slider_texture = ExtResource("6_lyil8")
 metadata/_edit_vertical_guides_ = [-1584.0]
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=1032773026]
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme_override_styles/panel = ExtResource("7_7x6ip")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1015502451]
 unique_name_in_owner = true
 z_index = 20
-layout_mode = 3
 anchors_preset = 0
 
-[node name="Backward" type="Button" parent="Control"]
+[node name="Backward" type="Button" parent="Control" unique_id=1176447307]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -60,7 +59,7 @@ icon = ExtResource("7_0ydmo")
 flat = true
 icon_alignment = 1
 
-[node name="Forward" type="Button" parent="Control"]
+[node name="Forward" type="Button" parent="Control" unique_id=101496099]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
@@ -78,7 +77,7 @@ icon = ExtResource("8_ud0wv")
 flat = true
 icon_alignment = 1
 
-[node name="Remove" type="Button" parent="Control"]
+[node name="Remove" type="Button" parent="Control" unique_id=242352856]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
@@ -96,7 +95,7 @@ icon = ExtResource("9_yyv7m")
 flat = true
 icon_alignment = 1
 
-[node name="Special" type="Button" parent="Control"]
+[node name="Special" type="Button" parent="Control" unique_id=7434757]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 7

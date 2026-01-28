@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=10 format=3 uid="uid://d0xanyjlyiox4"]
+[gd_resource type="Resource" script_class="ArenaMode" format=3 uid="uid://d0xanyjlyiox4"]
 
 [ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="1_cmxgt"]
 [ext_resource type="Script" uid="uid://bfx6yvridntks" path="res://scripts/utility/play_mode/arena_mode.gd" id="1_lxvna"]

@@ -1,21 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqii2e6dq0dmu"]
+[gd_scene format=3 uid="uid://bqii2e6dq0dmu"]
 
 [ext_resource type="Script" uid="uid://dbgc0hied3no5" path="res://scripts/scene_2d/level_manager.gd" id="1_lxew3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uc548"]
 
-[node name="LevelManager" type="Node2D"]
+[node name="LevelManager" type="Node2D" unique_id=567381132]
 script = ExtResource("1_lxew3")
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="." unique_id=939940375]
 unique_name_in_owner = true
 
-[node name="PlayableArea" type="Area2D" parent="."]
+[node name="PlayableArea" type="Area2D" parent="." unique_id=270381047]
 unique_name_in_owner = true
 collision_layer = 2
 collision_mask = 0
 
-[node name="Collider" type="CollisionShape2D" parent="PlayableArea"]
+[node name="Collider" type="CollisionShape2D" parent="PlayableArea" unique_id=75846710]
 unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_uc548")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbbdwisd4p364"]
+[gd_scene format=3 uid="uid://bbbdwisd4p364"]
 
 [ext_resource type="Script" uid="uid://ngoqn4ynfd74" path="res://scripts/user_interface/level_end.gd" id="1_2umli"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_0i47p"]
@@ -48,7 +48,7 @@ shader = ExtResource("4_1hfem")
 shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
 shader_parameter/progress = 0.800000038
 
-[node name="LevelEnd" type="Control"]
+[node name="LevelEnd" type="Control" unique_id=1227426258]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -60,7 +60,7 @@ size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_2umli")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=191238627]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -79,7 +79,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("2_0i47p")
 script = ExtResource("4_dmvyx")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1528498091]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,11 +91,11 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=447859982]
 layout_mode = 2
 alignment = 1
 
-[node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Hint" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=880385230]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_a3ofu")
 layout_mode = 2
@@ -105,12 +105,12 @@ theme_override_fonts/font = ExtResource("8_4cai0")
 theme_override_font_sizes/font_size = 26
 text = "Flawless finish!"
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="BottomRightContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=13074318]
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 1
 
-[node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
+[node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer" unique_id=1701960434]
 layout_mode = 2
 size_flags_horizontal = 2
 focus_mode = 0
@@ -119,7 +119,7 @@ theme_type_variation = &"FlatButton"
 theme_override_constants/icon_max_width = 96
 icon = ExtResource("6_bnfmt")
 
-[node name="NextBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer"]
+[node name="NextBtn" type="Button" parent="Panel/MarginContainer/VBoxContainer/BottomRightContainer" unique_id=1708001406]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -129,7 +129,7 @@ theme = ExtResource("7_e8pvp")
 text = "NEXT"
 icon_alignment = 2
 
-[node name="LeftStarBg" type="TextureRect" parent="Panel"]
+[node name="LeftStarBg" type="TextureRect" parent="Panel" unique_id=790876561]
 material = SubResource("ShaderMaterial_l7pcn")
 layout_mode = 1
 anchors_preset = 4
@@ -145,7 +145,7 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_wgqs3")
 
-[node name="LeftStar" type="TextureRect" parent="Panel"]
+[node name="LeftStar" type="TextureRect" parent="Panel" unique_id=2003652445]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_wgqs3")
 layout_mode = 1
@@ -162,7 +162,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_wgqs3")
 
-[node name="RightStarBg" type="TextureRect" parent="Panel"]
+[node name="RightStarBg" type="TextureRect" parent="Panel" unique_id=967519850]
 material = SubResource("ShaderMaterial_3j0li")
 layout_mode = 1
 anchors_preset = 6
@@ -181,7 +181,7 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_wgqs3")
 
-[node name="RightStar" type="TextureRect" parent="Panel"]
+[node name="RightStar" type="TextureRect" parent="Panel" unique_id=1897789507]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4cai0")
 layout_mode = 1
@@ -201,7 +201,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_wgqs3")
 
-[node name="MiddleStarBg" type="TextureRect" parent="Panel"]
+[node name="MiddleStarBg" type="TextureRect" parent="Panel" unique_id=599869782]
 material = SubResource("ShaderMaterial_vxedn")
 layout_mode = 1
 anchors_preset = 8
@@ -219,7 +219,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("6_wgqs3")
 
-[node name="MiddleStar" type="TextureRect" parent="Panel"]
+[node name="MiddleStar" type="TextureRect" parent="Panel" unique_id=178751042]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_4fm4t")
 layout_mode = 1

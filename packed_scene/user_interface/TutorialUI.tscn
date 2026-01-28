@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d02737poi7uja"]
+[gd_scene format=3 uid="uid://d02737poi7uja"]
 
 [ext_resource type="Script" uid="uid://bgc4hkh51hukh" path="res://scripts/user_interface/tutorial_ui.gd" id="1_wj154"]
 [ext_resource type="Texture2D" uid="uid://dgbqkgkmtt1m5" path="res://assets/ui/tutorial/tutorial_zero_1.png" id="2_jp4ma"]
@@ -12,7 +12,7 @@ bg_color = Color(0.827451, 0.913725, 0.823529, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d6cak"]
 
-[node name="Tutorial" type="Control"]
+[node name="Tutorial" type="Control" unique_id=1466489103]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wj154")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1740471226]
 z_index = 100
 layout_mode = 1
 anchors_preset = 15
@@ -31,7 +31,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6imht")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=1045853009]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -44,11 +44,11 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer" unique_id=420962871]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer" unique_id=2086390917]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 2
@@ -56,7 +56,7 @@ theme = ExtResource("3_yxr7t")
 text = "[Tip 1 of 4]"
 horizontal_alignment = 1
 
-[node name="Hint" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer"]
+[node name="Hint" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer" unique_id=4424632]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
@@ -71,7 +71,7 @@ text = "Complete the levels by resetting the matrix!"
 fit_content = true
 scroll_active = false
 
-[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/VBoxContainer" unique_id=1842665850]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -80,12 +80,12 @@ texture = ExtResource("2_jp4ma")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="HintOptions" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+[node name="HintOptions" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer" unique_id=789727718]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 15
 
-[node name="ShowHints" type="CheckBox" parent="Background/MarginContainer/VBoxContainer/HintOptions"]
+[node name="ShowHints" type="CheckBox" parent="Background/MarginContainer/VBoxContainer/HintOptions" unique_id=59895923]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_yxr7t")
@@ -94,7 +94,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_d6cak")
 flat = true
 alignment = 2
 
-[node name="HintLabel" type="Label" parent="Background/MarginContainer/VBoxContainer/HintOptions"]
+[node name="HintLabel" type="Label" parent="Background/MarginContainer/VBoxContainer/HintOptions" unique_id=80159891]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -102,7 +102,7 @@ theme = ExtResource("3_yxr7t")
 theme_override_font_sizes/font_size = 32
 text = "HIDE_HINT"
 
-[node name="NextBtn" type="Button" parent="Background/MarginContainer/VBoxContainer"]
+[node name="NextBtn" type="Button" parent="Background/MarginContainer/VBoxContainer" unique_id=1188942142]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

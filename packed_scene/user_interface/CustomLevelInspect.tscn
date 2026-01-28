@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://boo7egubuj8lm"]
+[gd_scene format=3 uid="uid://boo7egubuj8lm"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_xhbmd"]
 [ext_resource type="Script" uid="uid://bn38i7gbykx10" path="res://scripts/user_interface/custom_level_inspect.gd" id="2_hvtap"]
@@ -49,7 +49,7 @@ shader = ExtResource("4_vh8y7")
 shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
 shader_parameter/progress = 0.800000038
 
-[node name="LevelInspect" type="Control"]
+[node name="LevelInspect" type="Control" unique_id=885143667]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,7 +59,7 @@ grow_vertical = 2
 theme = ExtResource("1_xhbmd")
 script = ExtResource("2_hvtap")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=894912456]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_r5v54")
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="Panel" type="Panel" parent="Background" unique_id=1075332675]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -85,7 +85,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("3_f7xua")
 script = ExtResource("5_fggqr")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel" unique_id=1875585078]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -97,11 +97,11 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer" unique_id=2116833486]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="LevelName" type="Label" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="LevelName" type="Label" parent="Background/Panel/MarginContainer/VBoxContainer" unique_id=1619671844]
 unique_name_in_owner = true
 z_index = 1
 layout_mode = 2
@@ -110,7 +110,7 @@ theme_override_fonts/font = ExtResource("6_16vjm")
 text = "Level 01"
 horizontal_alignment = 1
 
-[node name="CopyBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="CopyBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer" unique_id=512703290]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -124,13 +124,13 @@ alignment = 0
 text_overrun_behavior = 3
 icon_alignment = 2
 
-[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer" unique_id=2016852009]
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 55
 alignment = 1
 
-[node name="DeleteBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="DeleteBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=1055756802]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -140,7 +140,7 @@ theme_override_constants/icon_max_width = 128
 theme_override_font_sizes/font_size = 100
 icon = ExtResource("7_gy07g")
 
-[node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=2023278970]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
@@ -149,7 +149,7 @@ theme = ExtResource("1_xhbmd")
 theme_override_constants/icon_max_width = 128
 icon = ExtResource("8_805tn")
 
-[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=2070252837]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -158,7 +158,7 @@ theme = ExtResource("9_pmfwt")
 theme_override_constants/icon_max_width = 128
 icon = ExtResource("9_m2lq8")
 
-[node name="ExitBtn" type="Button" parent="Background/Panel"]
+[node name="ExitBtn" type="Button" parent="Background/Panel" unique_id=158621335]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
@@ -178,7 +178,7 @@ theme_override_styles/hover = ExtResource("12_bfmt0")
 icon = ExtResource("13_7ds18")
 icon_alignment = 1
 
-[node name="LeftStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="LeftStarBg" type="TextureRect" parent="Background/Panel" unique_id=510042965]
 material = SubResource("ShaderMaterial_ijrkn")
 layout_mode = 1
 anchors_preset = 4
@@ -194,7 +194,7 @@ scale = Vector2(0.68, 0.68)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("16_16vjm")
 
-[node name="LeftStar" type="TextureRect" parent="Background/Panel"]
+[node name="LeftStar" type="TextureRect" parent="Background/Panel" unique_id=512788626]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_kdghs")
 layout_mode = 1
@@ -211,7 +211,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("16_16vjm")
 
-[node name="RightStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="RightStarBg" type="TextureRect" parent="Background/Panel" unique_id=1390967753]
 material = SubResource("ShaderMaterial_clpvx")
 layout_mode = 1
 anchors_preset = 6
@@ -230,7 +230,7 @@ scale = Vector2(0.68, 0.68)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("16_16vjm")
 
-[node name="RightStar" type="TextureRect" parent="Background/Panel"]
+[node name="RightStar" type="TextureRect" parent="Background/Panel" unique_id=496092153]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_6kio4")
 layout_mode = 1
@@ -250,7 +250,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("16_16vjm")
 
-[node name="MiddleStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="MiddleStarBg" type="TextureRect" parent="Background/Panel" unique_id=987182726]
 material = SubResource("ShaderMaterial_cwl8i")
 layout_mode = 1
 anchors_preset = 8
@@ -268,7 +268,7 @@ scale = Vector2(0.78, 0.78)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("16_16vjm")
 
-[node name="MiddleStar" type="TextureRect" parent="Background/Panel"]
+[node name="MiddleStar" type="TextureRect" parent="Background/Panel" unique_id=1342520773]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_0gqrc")
 layout_mode = 1

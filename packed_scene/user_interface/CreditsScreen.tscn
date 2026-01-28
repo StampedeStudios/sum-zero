@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdvls8h7b4v2p"]
+[gd_scene format=3 uid="uid://cdvls8h7b4v2p"]
 
 [ext_resource type="Script" uid="uid://dpwsouj2eyd02" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_836sh"]
@@ -10,7 +10,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gagcj"]
 
-[node name="CreditsScreen" type="Control"]
+[node name="CreditsScreen" type="Control" unique_id=111736078]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +21,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_lf1g6")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=291750912]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,7 +31,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 color = Color(0.07, 0.0510533, 0.0294, 1)
 
-[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=1616573001]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -44,7 +44,7 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="ColorRect/MarginContainer" unique_id=2087445924]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -64,41 +64,41 @@ Raffaele
 fit_content = true
 scroll_active = false
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="ColorRect/MarginContainer" unique_id=1231216616]
 layout_mode = 2
 size_flags_vertical = 0
 texture = ExtResource("3_rsjq7")
 stretch_mode = 5
 
-[node name="ExtButtons" type="HBoxContainer" parent="ColorRect/MarginContainer"]
+[node name="ExtButtons" type="HBoxContainer" parent="ColorRect/MarginContainer" unique_id=1754119869]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="GitHubBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
+[node name="GitHubBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons" unique_id=593613848]
 layout_mode = 2
 theme_override_constants/icon_max_width = 128
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
 icon = ExtResource("4_4cb2l")
 flat = true
 
-[node name="InstaBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
+[node name="InstaBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons" unique_id=771742189]
 layout_mode = 2
 theme_override_constants/icon_max_width = 128
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
 icon = ExtResource("4_kher8")
 flat = true
 
-[node name="ItchBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons"]
+[node name="ItchBtn" type="Button" parent="ColorRect/MarginContainer/ExtButtons" unique_id=1547057587]
 layout_mode = 2
 theme_override_constants/icon_max_width = 128
 theme_override_styles/focus = SubResource("StyleBoxEmpty_gagcj")
 icon = ExtResource("6_3s6s5")
 flat = true
 
-[node name="ExitBtn" type="Button" parent="ColorRect/MarginContainer"]
+[node name="ExitBtn" type="Button" parent="ColorRect/MarginContainer" unique_id=188853381]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
