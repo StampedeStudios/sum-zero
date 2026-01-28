@@ -16,7 +16,6 @@ config/version="1.4.3"
 run/main_scene="res://packed_scene/scene_2d/Main.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 boot_splash/bg_color=Color(0.643137, 0.709804, 0.639216, 0.776471)
-boot_splash/show_image=false
 config/icon="uid://ct7bcbg7xarx1"
 config/windows_native_icon="res://assets/game/logo.ico"
 
