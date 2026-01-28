@@ -40,7 +40,7 @@ func init_level(current_level: LevelData) -> void:
 	var half_grid_size: Vector2
 	var half_cell := roundi(float(Constants.Sizes.CELL_SIZE) / 2)
 	level_size = Vector2i(current_level.width, current_level.height)
-	half_grid_size = level_size * Constants.Sizes.CELL_SIZE / 2
+	half_grid_size = level_size * roundi(Constants.Sizes.CELL_SIZE / 2.0)
 
 	_init_grid(level_size)
 
