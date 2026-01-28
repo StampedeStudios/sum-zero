@@ -2,8 +2,6 @@ class_name CreditsScreen extends Control
 
 @onready var text: RichTextLabel = %RichTextLabel
 @onready var margin: MarginContainer = %MarginContainer
-@onready var ext_buttons: HBoxContainer = %ExtButtons
-@onready var exit_btn: Button = %ExitBtn
 
 
 func _ready() -> void:
@@ -16,10 +14,6 @@ func _ready() -> void:
 	text.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
 	text.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
 
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
-	for child in ext_buttons.get_children():
-		child.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
-
 	await get_tree().create_timer(1).timeout
 	start_credits_scroll()
 
@@ -31,23 +25,12 @@ func start_credits_scroll() -> void:
 	tween.tween_property(scrollbar, "value", max_scroll, 45.0).from(0)
 
 
-func _on_exit_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	GameManager.change_state(Constants.GameState.MAIN_MENU)
-	queue_free.call_deferred()
-
-
-func _on_git_hub_btn_pressed() -> void:
-	OS.shell_open("https://github.com/StampedeStudios")
-
-
-func _on_insta_btn_pressed() -> void:
-	OS.shell_open("https://www.instagram.com/stampede_studios")
-
-
-func _on_itch_btn_pressed() -> void:
-	OS.shell_open("https://stampede-studios.itch.io/")
-
-
 func _on_rich_text_label_meta_clicked(meta: Variant) -> void:
 	OS.shell_open(str(meta))
+
+
+func _on_background_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		AudioManager.play_click_sound()
+		GameManager.change_state(Constants.GameState.MAIN_MENU)
+		queue_free.call_deferred()
