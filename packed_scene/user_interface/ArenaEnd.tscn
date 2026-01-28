@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ps5hw3lo3yc5"]
+[gd_scene format=3 uid="uid://ps5hw3lo3yc5"]
 
 [ext_resource type="Script" uid="uid://c50pe6wet867c" path="res://scripts/user_interface/arena_end.gd" id="1_25tly"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
@@ -53,7 +53,7 @@ step_icon = ExtResource("11_lu6ib")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s74rf"]
 
-[node name="ArenaEnd" type="Control"]
+[node name="ArenaEnd" type="Control" unique_id=414505309]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_vertical = 2
 script = ExtResource("1_25tly")
 steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_63kpr"), SubResource("Resource_d7sui"), SubResource("Resource_3yu0s"), SubResource("Resource_bu2vx"), SubResource("Resource_cbk86")])
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=955685007]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -82,7 +82,7 @@ size_flags_vertical = 4
 theme_override_styles/panel = ExtResource("2_1qk6b")
 script = ExtResource("12_ymho7")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=326965080]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -94,7 +94,7 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="RecordIcon" type="TextureRect" parent="Panel/MarginContainer"]
+[node name="RecordIcon" type="TextureRect" parent="Panel/MarginContainer" unique_id=492951119]
 unique_name_in_owner = true
 visible = false
 z_index = 10
@@ -105,19 +105,19 @@ size_flags_vertical = 0
 texture = ExtResource("12_70rhp")
 expand_mode = 3
 
-[node name="Stats" type="HBoxContainer" parent="Panel/MarginContainer"]
+[node name="Stats" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=258259032]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
 alignment = 1
 
-[node name="StatsIcon" type="TextureRect" parent="Panel/MarginContainer/Stats"]
+[node name="StatsIcon" type="TextureRect" parent="Panel/MarginContainer/Stats" unique_id=1531190571]
 unique_name_in_owner = true
 layout_mode = 2
 texture = ExtResource("4_n53ea")
 expand_mode = 2
 
-[node name="StatsMultiplier" type="Label" parent="Panel/MarginContainer/Stats"]
+[node name="StatsMultiplier" type="Label" parent="Panel/MarginContainer/Stats" unique_id=1007341171]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -126,17 +126,17 @@ theme_override_fonts/font = ExtResource("4_i3esg")
 theme_override_font_sizes/font_size = 64
 text = "1"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=123306006]
 layout_mode = 2
 alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=2145114777]
 layout_mode = 2
 theme = ExtResource("3_ty0yv")
 text = "SCORE"
 horizontal_alignment = 1
 
-[node name="Score" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Score" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=695312911]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ty0yv")
@@ -145,19 +145,19 @@ theme_override_font_sizes/font_size = 100
 text = "000000"
 horizontal_alignment = 1
 
-[node name="Separator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="Separator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer" unique_id=793877919]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 1
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s74rf")
 
-[node name="Actions" type="HBoxContainer" parent="Panel/MarginContainer"]
+[node name="Actions" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=897176563]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 8
 alignment = 2
 
-[node name="ExitBtn" type="Button" parent="Panel/MarginContainer/Actions"]
+[node name="ExitBtn" type="Button" parent="Panel/MarginContainer/Actions" unique_id=1741947576]
 layout_mode = 2
 size_flags_horizontal = 2
 focus_mode = 0
@@ -166,7 +166,7 @@ theme_type_variation = &"FlatButton"
 theme_override_constants/icon_max_width = 96
 icon = ExtResource("6_552vy")
 
-[node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/Actions"]
+[node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/Actions" unique_id=2049407670]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

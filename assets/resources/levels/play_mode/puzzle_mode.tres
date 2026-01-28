@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=12 format=3 uid="uid://bopno5li70h0j"]
+[gd_resource type="Resource" script_class="ArenaMode" format=3 uid="uid://bopno5li70h0j"]
 
 [ext_resource type="Texture2D" uid="uid://4s6jri585ac4" path="res://assets/ui/puzzle_icon.png" id="1_u7kg1"]
 [ext_resource type="Script" uid="uid://dfue7w73jrsbq" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_crj40"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hqw2wppscbvl"]
+[gd_scene format=3 uid="uid://hqw2wppscbvl"]
 
 [ext_resource type="Script" uid="uid://buijub1edr7x7" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_gcpbi"]
@@ -38,7 +38,7 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
-[node name="MainMenu" type="Control"]
+[node name="MainMenu" type="Control" unique_id=2057554486]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -48,7 +48,7 @@ grow_vertical = 2
 theme = ExtResource("3_gcpbi")
 script = ExtResource("1_wcv12")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1672711889]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -57,19 +57,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Content" type="VBoxContainer" parent="MarginContainer"]
+[node name="Content" type="VBoxContainer" parent="MarginContainer" unique_id=1492734379]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Content"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Content" unique_id=643153509]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 size_flags_stretch_ratio = 5.0
 theme_override_constants/separation = 30
 
-[node name="PlayBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
+[node name="PlayBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=806694494]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -85,7 +85,7 @@ icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
-[node name="LevelBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
+[node name="LevelBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=110603086]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -101,7 +101,7 @@ icon = ExtResource("5_anua8")
 alignment = 0
 icon_alignment = 2
 
-[node name="EditorBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
+[node name="EditorBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=404020286]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -117,7 +117,7 @@ icon = ExtResource("6_io541")
 alignment = 0
 icon_alignment = 2
 
-[node name="OptionBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
+[node name="OptionBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=733544514]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -133,19 +133,19 @@ icon = ExtResource("9_dpngq")
 alignment = 0
 icon_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/VBoxContainer" unique_id=254824134]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_right = 50
 
-[node name="Separator" type="HSeparator" parent="MarginContainer/Content/VBoxContainer/MarginContainer"]
+[node name="Separator" type="HSeparator" parent="MarginContainer/Content/VBoxContainer/MarginContainer" unique_id=859941588]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 100
 theme_override_styles/separator = SubResource("StyleBoxFlat_awjbt")
 
-[node name="QuitBtn" type="Button" parent="MarginContainer/Content/VBoxContainer"]
+[node name="QuitBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=1640872941]
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0

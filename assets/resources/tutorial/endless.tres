@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="TutorialData" load_steps=2 format=3 uid="uid://dhjt4l6v3n7vd"]
+[gd_resource type="Resource" script_class="TutorialData" format=3 uid="uid://dhjt4l6v3n7vd"]
 
 [ext_resource type="Script" uid="uid://difn18qocpkgb" path="res://scripts/utility/tutorial_data.gd" id="2_ndyb0"]
 
 [resource]
 script = ExtResource("2_ndyb0")
 tutorial_name = "ZEN"
-images = Array[Texture2D]([])
 hints = Array[String](["TUTORIAL_ENDLESS"])
 is_skippable = true

@@ -15,3 +15,5 @@ dest_files=["res://assets/resources/localization/text.en.translation", "res://as
 
 compress=true
 delimiter=0
+unescape_keys=false
+unescape_translations=true

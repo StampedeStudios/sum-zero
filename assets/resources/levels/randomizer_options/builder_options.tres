@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="RandomizerOptions" load_steps=8 format=3 uid="uid://rxcnbkc4kqpy"]
+[gd_resource type="Resource" script_class="RandomizerOptions" format=3 uid="uid://rxcnbkc4kqpy"]
 
 [ext_resource type="Script" uid="uid://v2uteibxf607" path="res://scripts/utility/randomizer/randomizer_options.gd" id="1_76fmt"]
 [ext_resource type="Resource" uid="uid://cajui7s5bdu0b" path="res://assets/resources/levels/randomizer_options/base_grid_options.tres" id="1_px4d6"]

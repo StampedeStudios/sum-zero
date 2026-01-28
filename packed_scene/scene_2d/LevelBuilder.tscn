@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://rd2nhwp026ek"]
+[gd_scene format=3 uid="uid://rd2nhwp026ek"]
 
 [ext_resource type="Script" uid="uid://cog5sbxcxkaov" path="res://scripts/scene_2d/level_builder.gd" id="1_tn3c0"]
 
-[node name="LevelBuilder" type="Node2D"]
+[node name="LevelBuilder" type="Node2D" unique_id=577176353]
 script = ExtResource("1_tn3c0")
 
-[node name="Grid" type="Node2D" parent="."]
+[node name="Grid" type="Node2D" parent="." unique_id=1939749762]
 unique_name_in_owner = true

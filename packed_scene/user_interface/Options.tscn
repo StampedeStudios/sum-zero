@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2701iq6kr7jy"]
+[gd_scene format=3 uid="uid://c2701iq6kr7jy"]
 
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_ncc3j"]
 [ext_resource type="Script" uid="uid://bk7sonpreiywf" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_50nmf"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_lkk5h"]
 
-[node name="OptionsMenu" type="Control"]
+[node name="OptionsMenu" type="Control" unique_id=664681847]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,7 @@ grow_vertical = 2
 theme = ExtResource("1_ncc3j")
 script = ExtResource("2_mjy7k")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1250767671]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -28,15 +28,15 @@ theme_override_constants/margin_top = 80
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="BoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="BoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1823285031]
 layout_mode = 2
 theme_override_constants/separation = 50
 
-[node name="TopBar" type="HBoxContainer" parent="MarginContainer/BoxContainer"]
+[node name="TopBar" type="HBoxContainer" parent="MarginContainer/BoxContainer" unique_id=1206371537]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BoxContainer/TopBar"]
+[node name="ExitBtn" type="Button" parent="MarginContainer/BoxContainer/TopBar" unique_id=1990110647]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -50,7 +50,7 @@ text = "BACK"
 icon = ExtResource("3_50nmf")
 flat = true
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/BoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/BoxContainer" unique_id=527340861]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -70,21 +70,21 @@ popup/item_3/id = 3
 popup/item_4/text = "Deutsch"
 popup/item_4/id = 4
 
-[node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer"]
+[node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer" unique_id=1483602569]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
+[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1116718912]
 layout_mode = 2
 
-[node name="MusicLabel" type="Label" parent="MarginContainer/BoxContainer/Options/MusicContainer"]
+[node name="MusicLabel" type="Label" parent="MarginContainer/BoxContainer/Options/MusicContainer" unique_id=341521505]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "MUSIC"
 
-[node name="MusicBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/MusicContainer"]
+[node name="MusicBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/MusicContainer" unique_id=1289450015]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -93,17 +93,17 @@ theme = ExtResource("1_ncc3j")
 theme_override_constants/icon_max_width = 128
 flat = true
 
-[node name="SfxContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
+[node name="SfxContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1109193070]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SfxLabel" type="Label" parent="MarginContainer/BoxContainer/Options/SfxContainer"]
+[node name="SfxLabel" type="Label" parent="MarginContainer/BoxContainer/Options/SfxContainer" unique_id=10797646]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "SFX"
 
-[node name="SfxBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/SfxContainer"]
+[node name="SfxBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/SfxContainer" unique_id=503549544]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -112,16 +112,16 @@ theme_override_constants/icon_max_width = 128
 button_pressed = true
 flat = true
 
-[node name="TutorialContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options"]
+[node name="TutorialContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1691322220]
 layout_mode = 2
 
-[node name="TutorialLabel" type="Label" parent="MarginContainer/BoxContainer/Options/TutorialContainer"]
+[node name="TutorialLabel" type="Label" parent="MarginContainer/BoxContainer/Options/TutorialContainer" unique_id=497640080]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "TUTORIAL"
 
-[node name="TutorialBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/TutorialContainer"]
+[node name="TutorialBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/TutorialContainer" unique_id=182084780]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
@@ -130,7 +130,7 @@ theme_override_constants/icon_max_width = 128
 button_pressed = true
 flat = true
 
-[node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/Options"]
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/Options" unique_id=857452754]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

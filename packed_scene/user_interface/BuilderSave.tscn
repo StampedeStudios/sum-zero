@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://devm2geibslsw"]
+[gd_scene format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" uid="uid://bq3y5cchmck2m" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
@@ -11,7 +11,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obo31"]
 
-[node name="SaveQuery" type="Control"]
+[node name="SaveQuery" type="Control" unique_id=870907382]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -20,7 +20,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bggib")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=1851240232]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -30,7 +30,7 @@ grow_vertical = 2
 theme = ExtResource("2_q3qhm")
 theme_override_styles/panel = ExtResource("3_wt55p")
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="Panel" type="Panel" parent="Background" unique_id=1236012570]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -47,7 +47,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_qhpg7")
 script = ExtResource("5_xk0ej")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel" unique_id=390668365]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -59,17 +59,17 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Background/Panel/MarginContainer" unique_id=558622172]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer2" unique_id=1724912276]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 20
 
-[node name="LevelName" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="LevelName" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=281510799]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -84,7 +84,7 @@ selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
-[node name="Moves" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="Moves" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1663833553]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -93,19 +93,19 @@ placeholder_text = "MOVES"
 alignment = 1
 max_length = 2
 context_menu_enabled = false
-virtual_keyboard_type = 2
 shortcut_keys_enabled = false
 middle_mouse_paste_enabled = false
 selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
+virtual_keyboard_type = 2
 
-[node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1173606816]
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_obo31")
 
-[node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer"]
+[node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1856775553]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -115,7 +115,7 @@ theme = ExtResource("4_a08wn")
 text = "SAVE"
 icon_alignment = 2
 
-[node name="ExitBtn" type="Button" parent="Background/Panel"]
+[node name="ExitBtn" type="Button" parent="Background/Panel" unique_id=1224360565]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1

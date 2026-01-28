@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dl8k8vj01hhjj"]
+[gd_scene format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" uid="uid://cmua61pcxrhb" path="res://scripts/user_interface/level_inspect.gd" id="1_aoj50"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_56b6k"]
@@ -45,7 +45,7 @@ shader = ExtResource("3_2dflr")
 shader_parameter/base_color = Color(1, 0.74509805, 0.31764707, 1)
 shader_parameter/progress = 0.800000038
 
-[node name="LevelInspect" type="Control"]
+[node name="LevelInspect" type="Control" unique_id=429231417]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +54,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_aoj50")
 
-[node name="Background" type="Panel" parent="."]
+[node name="Background" type="Panel" parent="." unique_id=790359687]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_rmjy0")
 
-[node name="Panel" type="Panel" parent="Background"]
+[node name="Panel" type="Panel" parent="Background" unique_id=1746163151]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
@@ -80,7 +80,7 @@ grow_vertical = 2
 theme_override_styles/panel = ExtResource("2_56b6k")
 script = ExtResource("4_0o6mq")
 
-[node name="MarginContainer" type="MarginContainer" parent="Background/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Background/Panel" unique_id=1234060898]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -92,11 +92,11 @@ theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 40
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/Panel/MarginContainer" unique_id=1691549777]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LevelName" type="Label" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="LevelName" type="Label" parent="Background/Panel/MarginContainer/VBoxContainer" unique_id=630992331]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_3an21")
@@ -104,13 +104,13 @@ theme_override_fonts/font = ExtResource("6_obudt")
 text = "Level 01"
 horizontal_alignment = 1
 
-[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/MarginContainer/VBoxContainer" unique_id=264049561]
 layout_mode = 2
 size_flags_vertical = 10
 theme_override_constants/separation = 55
 alignment = 1
 
-[node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="BuildBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=1085503368]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -119,7 +119,7 @@ theme = ExtResource("3_3an21")
 theme_override_constants/icon_max_width = 128
 icon = ExtResource("7_3opmu")
 
-[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls"]
+[node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=845744544]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -129,7 +129,7 @@ theme = ExtResource("8_el7sx")
 theme_override_constants/icon_max_width = 128
 text = "PLAY"
 
-[node name="ExitBtn" type="Button" parent="Background/Panel"]
+[node name="ExitBtn" type="Button" parent="Background/Panel" unique_id=1441875806]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -148,7 +148,7 @@ theme_override_styles/hover = ExtResource("10_32ph3")
 icon = ExtResource("11_pt48p")
 icon_alignment = 1
 
-[node name="LeftStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="LeftStarBg" type="TextureRect" parent="Background/Panel" unique_id=1152401004]
 material = SubResource("ShaderMaterial_r6lt2")
 layout_mode = 1
 anchors_preset = 4
@@ -164,7 +164,7 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(96, 160)
 texture = ExtResource("13_3opmu")
 
-[node name="LeftStar" type="TextureRect" parent="Background/Panel"]
+[node name="LeftStar" type="TextureRect" parent="Background/Panel" unique_id=1985373002]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_phnp1")
 layout_mode = 1
@@ -181,7 +181,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(96, 160)
 texture = ExtResource("13_3opmu")
 
-[node name="RightStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="RightStarBg" type="TextureRect" parent="Background/Panel" unique_id=909777117]
 material = SubResource("ShaderMaterial_84u5x")
 layout_mode = 1
 anchors_preset = 6
@@ -200,7 +200,7 @@ scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("13_3opmu")
 
-[node name="RightStar" type="TextureRect" parent="Background/Panel"]
+[node name="RightStar" type="TextureRect" parent="Background/Panel" unique_id=102926978]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_obudt")
 layout_mode = 1
@@ -220,7 +220,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("13_3opmu")
 
-[node name="MiddleStarBg" type="TextureRect" parent="Background/Panel"]
+[node name="MiddleStarBg" type="TextureRect" parent="Background/Panel" unique_id=334127855]
 material = SubResource("ShaderMaterial_tlktl")
 layout_mode = 1
 anchors_preset = 8
@@ -238,7 +238,7 @@ scale = Vector2(0.7, 0.7)
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("13_3opmu")
 
-[node name="MiddleStar" type="TextureRect" parent="Background/Panel"]
+[node name="MiddleStar" type="TextureRect" parent="Background/Panel" unique_id=2003665680]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_tjbn1")
 layout_mode = 1

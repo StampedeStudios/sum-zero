@@ -1,11 +1,9 @@
-[gd_resource type="Resource" script_class="TutorialData" load_steps=3 format=3 uid="uid://c4gu3yrwpivvm"]
+[gd_resource type="Resource" script_class="TutorialData" format=3 uid="uid://c4gu3yrwpivvm"]
 
 [ext_resource type="Texture2D" uid="uid://vqyim84r3667" path="res://assets/ui/tutorial/block.png" id="1_3rsu3"]
 [ext_resource type="Script" uid="uid://difn18qocpkgb" path="res://scripts/utility/tutorial_data.gd" id="2_n7eh0"]
 
 [resource]
 script = ExtResource("2_n7eh0")
-tutorial_name = ""
 images = Array[Texture2D]([ExtResource("1_3rsu3")])
 hints = Array[String](["TUTORIAL_BLOCKER"])
-is_skippable = false

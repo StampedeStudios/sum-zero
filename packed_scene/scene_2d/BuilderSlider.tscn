@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dnf8fupbfsi08"]
+[gd_scene format=3 uid="uid://dnf8fupbfsi08"]
 
 [ext_resource type="Script" uid="uid://beuogl6g74hmx" path="res://scripts/scene_2d/builder_slider.gd" id="1_l1yij"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="2_ndq7t"]
@@ -14,28 +14,28 @@ shader_parameter/invert_base_color = false
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x3468"]
 size = Vector2(128, 256)
 
-[node name="BuilderSlider" type="Node2D"]
+[node name="BuilderSlider" type="Node2D" unique_id=950195349]
 position = Vector2(514, 625)
 script = ExtResource("1_l1yij")
 
-[node name="Slider" type="Sprite2D" parent="."]
+[node name="Slider" type="Sprite2D" parent="." unique_id=2080593583]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_42k15")
 texture = ExtResource("9_sippf")
 region_rect = Rect2(133, 0, 123, 256)
 
-[node name="Collision" type="Area2D" parent="Slider"]
+[node name="Collision" type="Area2D" parent="Slider" unique_id=229888532]
 collision_layer = 8
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Slider/Collision"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Slider/Collision" unique_id=715798334]
 shape = SubResource("RectangleShape2D_x3468")
 
-[node name="SliderEffect" type="Sprite2D" parent="."]
+[node name="SliderEffect" type="Sprite2D" parent="." unique_id=1231350427]
 unique_name_in_owner = true
 texture = ExtResource("9_fh68b")
 
-[node name="SliderBehavior" type="Sprite2D" parent="."]
+[node name="SliderBehavior" type="Sprite2D" parent="." unique_id=1709296062]
 unique_name_in_owner = true
 position = Vector2(-64, -64)
 

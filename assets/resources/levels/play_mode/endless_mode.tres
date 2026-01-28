@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ArenaMode" load_steps=13 format=3 uid="uid://cqsjj643jp1lf"]
+[gd_resource type="Resource" script_class="ArenaMode" format=3 uid="uid://cqsjj643jp1lf"]
 
 [ext_resource type="Texture2D" uid="uid://b3lh5emdrn3ta" path="res://assets/ui/zen_icon.png" id="1_dmhjh"]
 [ext_resource type="Script" uid="uid://dfue7w73jrsbq" path="res://scripts/utility/randomizer/random_grid_opt.gd" id="2_6e8np"]
