@@ -74,7 +74,7 @@ click_dx={
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://assets/resources/localization/text.de.translation", "res://assets/resources/localization/text.en.translation", "res://assets/resources/localization/text.es.translation", "res://assets/resources/localization/text.fr.translation", "res://assets/resources/localization/text.it.translation")
+locale/translations=PackedStringArray("res://assets/resources/localization/text.de.translation", "res://assets/resources/localization/text.en.translation", "res://assets/resources/localization/text.es.translation", "res://assets/resources/localization/text.fr.translation", "res://assets/resources/localization/text.it.translation", "res://assets/resources/localization/text.pl.translation")
 
 [layer_names]
 

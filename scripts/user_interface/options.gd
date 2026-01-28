@@ -91,6 +91,7 @@ func _on_exit_btn_pressed() -> void:
 func _on_option_button_item_selected(index: int) -> void:
 	var preferred_locale: String = Constants.AVAILABLE_LANGS[index]
 	_player_options.language = preferred_locale
+	print("[Options] Select '%s' as preferred language" % preferred_locale)
 	TranslationServer.set_locale(preferred_locale)
 	SaveManager.save_player_data()
 
