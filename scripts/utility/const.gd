@@ -35,7 +35,7 @@ const MAX_CELL_VALUE: int = 4
 const MAX_STARS_GAIN: int = 3
 
 ## Currently available languages are listed here and are used to fill language selection menu.
-const AVAILABLE_LANGS: Array[String] = ["en", "fr", "it", "es", "de"]
+const AVAILABLE_LANGS: Array[String] = ["en", "fr", "it", "es", "de", "pl"]
 
 class Sliders:
 	enum Effect { ADD, SUBTRACT, CHANGE_SIGN, BLOCK }

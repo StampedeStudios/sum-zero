@@ -58,7 +58,7 @@ focus_mode = 0
 theme = ExtResource("1_ncc3j")
 expand_icon = true
 selected = 0
-item_count = 5
+item_count = 6
 popup/item_0/text = "English"
 popup/item_0/id = 0
 popup/item_1/text = "Français"
@@ -69,6 +69,8 @@ popup/item_3/text = "Español"
 popup/item_3/id = 3
 popup/item_4/text = "Deutsch"
 popup/item_4/id = 4
+popup/item_5/text = "Polski"
+popup/item_5/id = 5
 
 [node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer" unique_id=1483602569]
 layout_mode = 2
