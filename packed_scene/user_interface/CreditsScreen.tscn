@@ -73,7 +73,7 @@ gone-fishin — [b]Memoraphile[/b]
 
 [color=#62be5d]Community Playtesters[/color]
 
-Special thanks to everyone who helped improve the game ❤
+Special thanks to everyone who helped improve the game
 
 ====
 
@@ -87,4 +87,3 @@ Godot • Inkscape • Audacity and their communities
 scroll_active = false
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
-[connection signal="meta_clicked" from="Background/MarginContainer/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
