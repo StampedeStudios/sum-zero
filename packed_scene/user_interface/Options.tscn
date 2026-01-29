@@ -140,7 +140,7 @@ size_flags_vertical = 10
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 theme_override_colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
-text = "About us"
+text = "ABOUT_US"
 
 [connection signal="pressed" from="MarginContainer/BoxContainer/TopBar/ExitBtn" to="." method="_on_exit_btn_pressed"]
 [connection signal="item_selected" from="MarginContainer/BoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]

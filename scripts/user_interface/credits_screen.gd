@@ -14,7 +14,7 @@ func _ready() -> void:
 	text.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
 	text.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
 
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(3).timeout
 	start_credits_scroll()
 
 
@@ -22,11 +22,7 @@ func start_credits_scroll() -> void:
 	var tween := create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	var scrollbar := text.get_v_scroll_bar()
 	var max_scroll := scrollbar.max_value
-	tween.tween_property(scrollbar, "value", max_scroll, 45.0).from(0)
-
-
-func _on_rich_text_label_meta_clicked(meta: Variant) -> void:
-	OS.shell_open(str(meta))
+	tween.tween_property(scrollbar, "value", max_scroll, 60.0).from(0)
 
 
 func _on_background_gui_input(event: InputEvent) -> void:
