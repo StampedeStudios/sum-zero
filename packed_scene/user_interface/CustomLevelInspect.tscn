@@ -13,8 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="8_805tn"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="9_m2lq8"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_pmfwt"]
-[ext_resource type="StyleBox" uid="uid://bma3q5vfkjqlx" path="res://assets/resources/themes/round_button.tres" id="12_bfmt0"]
-[ext_resource type="Texture2D" uid="uid://jopy2aap5hw" path="res://assets/ui/x_icon.png" id="13_7ds18"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="15_lwbnm"]
 [ext_resource type="Texture2D" uid="uid://cjyfb6xp723rk" path="res://assets/ui/star.png" id="16_16vjm"]
 
@@ -158,26 +156,6 @@ theme = ExtResource("9_pmfwt")
 theme_override_constants/icon_max_width = 128
 icon = ExtResource("9_m2lq8")
 
-[node name="ExitBtn" type="Button" parent="Background/Panel" unique_id=158621335]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -45.0
-offset_bottom = 45.0
-grow_horizontal = 0
-focus_mode = 0
-theme_override_colors/icon_normal_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_colors/icon_pressed_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_colors/icon_hover_color = Color(0.972549, 0.196078, 0.196078, 1)
-theme_override_constants/icon_max_width = 64
-theme_override_styles/normal = ExtResource("12_bfmt0")
-theme_override_styles/pressed = ExtResource("12_bfmt0")
-theme_override_styles/hover = ExtResource("12_bfmt0")
-icon = ExtResource("13_7ds18")
-icon_alignment = 1
-
 [node name="LeftStarBg" type="TextureRect" parent="Background/Panel" unique_id=510042965]
 material = SubResource("ShaderMaterial_ijrkn")
 layout_mode = 1
@@ -292,4 +270,3 @@ texture = ExtResource("16_16vjm")
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/DeleteBtn" to="." method="_on_delete_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/BuildBtn" to="." method="_on_build_btn_pressed"]
 [connection signal="pressed" from="Background/Panel/MarginContainer/VBoxContainer/Controls/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="Background/Panel/ExitBtn" to="." method="_on_exit_btn_pressed"]

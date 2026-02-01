@@ -20,11 +20,9 @@ var _level_code: String
 @onready var left_star: TextureRect = %LeftStar
 @onready var right_star: TextureRect = %RightStar
 @onready var middle_star: TextureRect = %MiddleStar
-@onready var exit_btn: Button = %ExitBtn
 
 
 func _ready() -> void:
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	right_star.scale = Vector2(0, 0)
 	left_star.scale = Vector2(0, 0)
 	middle_star.scale = Vector2(0, 0)
@@ -117,10 +115,6 @@ func _on_copy_btn_pressed() -> void:
 func _on_delete_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	level_deleted.emit()
-	close()
-
-
-func _on_exit_btn_pressed() -> void:
 	close()
 
 
