@@ -55,6 +55,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_k64a5")
 script = ExtResource("10_r6ujm")
+anim_time = 0.0
 
 [node name="MarginContainer" type="MarginContainer" parent="Backdrop/Panel" unique_id=1237645159]
 unique_name_in_owner = true
