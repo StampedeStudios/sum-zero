@@ -44,5 +44,13 @@ func _ready() -> void:
 	var tween := get_tree().create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.1)
 	await tween.finished
+
+	Engine.set_time_scale(1)
+
 	GameManager.start()
 	queue_free()
+
+
+func _on_color_rect_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
+		Engine.set_time_scale(5)
