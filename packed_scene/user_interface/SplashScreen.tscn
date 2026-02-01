@@ -58,3 +58,5 @@ unique_name_in_owner = true
 position = Vector2(360, 707)
 scale = Vector2(0.7, 0.7)
 sprite_frames = ExtResource("2_mv0cm")
+
+[connection signal="gui_input" from="VBoxContainer/ColorRect" to="." method="_on_color_rect_gui_input"]
