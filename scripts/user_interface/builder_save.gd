@@ -13,11 +13,6 @@ var _invalid_level: bool
 @onready var moves: LineEdit = %Moves
 @onready var save_btn: Button = %SaveBtn
 @onready var panel: AnimatedPanel = %Panel
-@onready var exit_btn: Button = %ExitBtn
-
-
-func _ready() -> void:
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 
 
 func init_info(old_name: String, old_moves: String, is_valid: bool) -> void:
@@ -89,8 +84,3 @@ func _on_background_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouse and event.is_action_pressed(Literals.Inputs.LEFT_CLICK):
 		AudioManager.play_click_sound()
 		close()
-
-
-func _on_exit_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	close()

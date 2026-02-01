@@ -12,11 +12,9 @@ var _inserted_code: String
 @onready var save_btn: Button = %SaveBtn
 @onready var panel: AnimatedPanel = %Panel
 @onready var code: LineEdit = %Code
-@onready var exit_btn: Button = %ExitBtn
 
 
 func _ready() -> void:
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
 	panel.open()
 
 
@@ -95,8 +93,3 @@ func _show_error() -> void:
 	paste.remove_theme_color_override("icon_normal_color")
 	code.remove_theme_color_override("font_color")
 	code.text = ""
-
-
-func _on_exit_btn_pressed() -> void:
-	AudioManager.play_click_sound()
-	close()
