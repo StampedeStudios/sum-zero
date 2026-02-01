@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://47j3qad85ny6" path="res://assets/ui/paste_icon.png" id="6_botlw"]
 [ext_resource type="StyleBox" uid="uid://6j6cvsgplugk" path="res://assets/resources/themes/copy_button.tres" id="6_p0coo"]
 [ext_resource type="Texture2D" uid="uid://bs8543o34whrb" path="res://assets/ui/trash_icon.png" id="7_gy07g"]
-[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="8_805tn"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="9_m2lq8"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="9_pmfwt"]
+[ext_resource type="Texture2D" uid="uid://dwtpf7xit01sm" path="res://assets/ui/edit.png" id="10_85alp"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="15_lwbnm"]
 [ext_resource type="Texture2D" uid="uid://cjyfb6xp723rk" path="res://assets/ui/star.png" id="16_16vjm"]
 
@@ -145,7 +145,7 @@ size_flags_horizontal = 6
 focus_mode = 0
 theme = ExtResource("1_xhbmd")
 theme_override_constants/icon_max_width = 128
-icon = ExtResource("8_805tn")
+icon = ExtResource("10_85alp")
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer/Controls" unique_id=2070252837]
 unique_name_in_owner = true
