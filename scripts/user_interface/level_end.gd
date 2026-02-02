@@ -14,7 +14,6 @@ const TWO_STARS_MSGS: Array[String] = ["TWO_STAR_MSG_1", "TWO_STAR_MSG_2", "TWO_
 const ONE_STARS_MSGS: Array[String] = ["ONE_STAR_MSG_1", "ONE_STAR_MSG_2", "ONE_STAR_MSG_3"]
 const NO_STARS_MSGS: Array[String] = ["ZERO_STAR_MSG_1", "ZERO_STAR_MSG_2", "ZERO_STAR_MSG_3"]
 
-
 var _star_count: int
 var _has_next_level: bool
 var _is_record: bool
@@ -26,8 +25,8 @@ var _is_record: bool
 @onready var right_star: TextureRect = %RightStar
 @onready var middle_star: TextureRect = %MiddleStar
 
-func _ready() -> void:
 
+func _ready() -> void:
 	right_star.scale = Vector2(0, 0)
 	left_star.scale = Vector2(0, 0)
 	middle_star.scale = Vector2(0, 0)
@@ -60,7 +59,6 @@ func _update_score() -> void:
 
 
 func _animate_stars(star_count: int) -> void:
-
 	if star_count != 0:
 		var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN)
 		tween.parallel()

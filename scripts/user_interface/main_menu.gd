@@ -71,5 +71,4 @@ func _on_option_btn_pressed() -> void:
 	var option_ui := scene.instantiate() as Options
 	get_tree().root.add_child.call_deferred(option_ui)
 
-
 	GameManager.change_state(Constants.GameState.OPTIONS_MENU)

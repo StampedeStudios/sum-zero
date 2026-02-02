@@ -11,7 +11,7 @@ func _init(p_context: GenerationContext) -> void:
 
 ## Creates blocked cells in the grid.
 func generate() -> void:
-	var blocked_cells : Array[Vector2i] = _get_blocked_cells()
+	var blocked_cells: Array[Vector2i] = _get_blocked_cells()
 
 	while true:
 		if _context.level_data.cells_list.is_empty():
@@ -43,7 +43,7 @@ func generate() -> void:
 
 		await Engine.get_main_loop().process_frame
 		var cells := _context.level_data.cells_list.keys()
-		var new_blocked_cells : Array[Vector2i] = []
+		var new_blocked_cells: Array[Vector2i] = []
 
 		if counter > 0:
 			cells.shuffle()

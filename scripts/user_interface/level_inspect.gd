@@ -40,13 +40,11 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 			num_stars = 4
 		update_stars(num_stars)
 
-
 	build_btn.disabled = !progress.is_completed
 	_update_buttons(progress.is_unlocked)
 
 
 func update_stars(star_count: int) -> void:
-
 	if star_count >= 1:
 		left_star.scale = Vector2(0.7, 0.7)
 

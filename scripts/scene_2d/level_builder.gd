@@ -43,7 +43,7 @@ func _ready() -> void:
 
 
 func _on_scale_change(new_scale: Vector2) -> void:
-	var tween : Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(grid, "scale", new_scale, 0.1).from_current()
 
 
@@ -400,7 +400,7 @@ func generate_level(element: Constants.GenerationElement) -> void:
 			await randomizer.create_block(_level_data)
 		Constants.GenerationElement.SLIDER:
 			await randomizer.create_sliders(_level_data)
-	
+
 	randomizer.queue_free()
 
 	construct_level.call_deferred(_level_data, true)

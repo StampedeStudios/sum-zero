@@ -13,7 +13,6 @@ const FONT = "res://assets/ui/fonts/FiraMono-Bold.ttf"
 
 
 func construct(id := -1, is_locked := true, stars := 0) -> void:
-
 	if is_locked:
 		disabled = true
 		icon = load(LOCK_ICON)

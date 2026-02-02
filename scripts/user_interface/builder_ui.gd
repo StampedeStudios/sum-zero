@@ -13,7 +13,6 @@ const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 
 
 func _ready() -> void:
-
 	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
 	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)

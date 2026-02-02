@@ -3,9 +3,11 @@
 ## Initialize the levels and handles level-related events.
 class_name LevelManager extends Node2D
 
-## Signal emitted when, after a slider is released, the grid results in only cells having zero as value.
+## Signal emitted when, after a slider is released,
+## the grid results in only cells having zero as value.
 signal on_level_complete
-## Signal emitted each time a move effectively changes the state of the grid and needs to be counted as a valid move.
+## Signal emitted each time a move effectively changes the state of
+## the grid and needs to be counted as a valid move.
 signal on_consume_move
 
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
@@ -70,22 +72,22 @@ func init_level(current_level: LevelData) -> void:
 		var angle: float
 
 		match edge:
-			0: # TOP
+			0:  # TOP
 				angle = 90
 				x_pos = -half_grid_size.x + half_cell + dist
 				y_pos = -half_grid_size.y - half_cell
 
-			1: # LEFT
+			1:  # LEFT
 				angle = 180
 				x_pos = half_grid_size.x + half_cell
 				y_pos = -half_grid_size.y + half_cell + dist
 
-			2: # BOTTOM
+			2:  # BOTTOM
 				angle = 270
 				x_pos = -half_grid_size.x + half_cell + dist
 				y_pos = half_grid_size.y + half_cell
 
-			3: # RIGHT
+			3:  # RIGHT
 				angle = 0
 				x_pos = -half_grid_size.x - half_cell
 				y_pos = -half_grid_size.y + half_cell + dist
@@ -163,7 +165,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 ## @param slider The callee of this function. Used to avoid reducing moves
 ## when a slider is used more multiple times in a row.
 func _check_grid(is_effective_move: bool, slider: SliderArea) -> void:
-
 	if is_effective_move and slider != _last_slider:
 		on_consume_move.emit()
 		_last_slider = slider

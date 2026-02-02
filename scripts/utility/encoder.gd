@@ -38,13 +38,78 @@
 ##     - Grid size: g = 3x3
 ##     - Cell order: o = Horizontal
 ##     - Cells: 9k = Nine cells all equals to 1
-##     - Sliders: 1 = empty slider slot, c = change sign slider, bb = 2 consecutive subtract sliders, 1 = empty slider slot, a = add slider
+##     - Sliders: 1 = empty slider slot, c = change sign slider,
+##		 bb = 2 consecutive subtract sliders, 1 = empty slider slot, a = add slider
 class_name Encoder
 
 enum CellOrder { HORIZONTAL, VERTICAL }
 
-## One character to define the number of required moves. This approach limit the required moves to 62.
-const MOVES: PackedStringArray = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
+## One character to define the number of required moves.
+## This approach limit the required moves to 62.
+const MOVES: PackedStringArray = [
+	"0",
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"a",
+	"b",
+	"c",
+	"d",
+	"e",
+	"f",
+	"g",
+	"h",
+	"i",
+	"j",
+	"k",
+	"l",
+	"m",
+	"n",
+	"o",
+	"p",
+	"q",
+	"r",
+	"s",
+	"t",
+	"u",
+	"v",
+	"w",
+	"x",
+	"y",
+	"z",
+	"A",
+	"B",
+	"C",
+	"D",
+	"E",
+	"F",
+	"G",
+	"H",
+	"I",
+	"J",
+	"K",
+	"L",
+	"M",
+	"N",
+	"O",
+	"P",
+	"Q",
+	"R",
+	"S",
+	"T",
+	"U",
+	"V",
+	"W",
+	"X",
+	"Y",
+	"Z"
+]
 
 ## Maps characters to grid sizes, from 2x2 (a) to 5x5 (s).
 ## Used in encoding to minimize character length.
@@ -68,13 +133,15 @@ const SIZE: Dictionary[String, Vector2i] = {
 }
 
 const CELL_ORDER: Dictionary[String, CellOrder] = {
-	"o": CellOrder.HORIZONTAL,
-	"v": CellOrder.VERTICAL
+	"o": CellOrder.HORIZONTAL, "v": CellOrder.VERTICAL
 }
 
 ## Encodes cell value from -4 up to +4. This limit is set by design since the maximum amount of
 ## sliders that can have effect over a cell is 4.
-const CELL_VALUE: Dictionary[String, int] = { "f": -4, "g": -3, "h": -2, "i": -1, "j": 0, "k": 1, "l": 2, "m": 3, "n": 4 }
+const CELL_VALUE: Dictionary[String, int] = {
+	"f": -4, "g": -3, "h": -2, "i": -1, "j": 0, "k": 1, "l": 2, "m": 3, "n": 4
+}
+
 ## Placeholder to highlight a missing cell, which is different from a cell defined as zero.
 const CELL_EMPTY := "z"
 ## Placeholder to highlight a permanently blocked cell.
@@ -99,6 +166,7 @@ const CHANGE_SIGN_EFFECT := "invert"
 const BLOCK_EFFECT := "block"
 const BY_STEP_BEHAVIOR := "bystep"
 const FULL_BEHAVIOR := "full"
+
 
 ## Encodes all relevant information about a level into a compact string format.
 ##
@@ -187,7 +255,9 @@ static func decode_name(encoded_data: String) -> String:
 	return ""
 
 
-static func _encode_cells_horizontal(cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i) -> String:
+static func _encode_cells_horizontal(
+	cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i
+) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count := 1
@@ -220,7 +290,9 @@ static func _encode_cells_horizontal(cell_list: Dictionary[Vector2i, CellData], 
 	return encode_cells
 
 
-static func _encode_cells_vertical(cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i) -> String:
+static func _encode_cells_vertical(
+	cell_list: Dictionary[Vector2i, CellData], level_size: Vector2i
+) -> String:
 	var encode_cells := ""
 	var last := ""
 	var count := 1
@@ -253,7 +325,9 @@ static func _encode_cells_vertical(cell_list: Dictionary[Vector2i, CellData], le
 	return encode_cells
 
 
-static func _encode_sliders(slider_list: Dictionary[Vector2i, SliderData], level_size: Vector2i) -> String:
+static func _encode_sliders(
+	slider_list: Dictionary[Vector2i, SliderData], level_size: Vector2i
+) -> String:
 	var encode_sliders := ""
 	var empty_count := 0
 
@@ -306,7 +380,6 @@ static func _decode_moves(letter: String) -> int:
 static func _decode_cell_list(
 	encode_data: String, level_size: Vector2i, order: CellOrder
 ) -> Dictionary[Vector2i, CellData]:
-
 	var cell_list: Dictionary[Vector2i, CellData]
 	var cell_count := level_size.x * level_size.y
 	var count := 0
@@ -361,8 +434,9 @@ static func _get_next_cell_coord(
 	return Vector2i(column, row)
 
 
-static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Dictionary[Vector2i, SliderData]:
-
+static func _decode_slider_list(
+	encode_data: String, level_size: Vector2i
+) -> Dictionary[Vector2i, SliderData]:
 	var slider_list: Dictionary[Vector2i, SliderData]
 	var slider_count := level_size.x * 2 + level_size.y * 2
 	var slider_coord := Vector2i.ZERO
@@ -412,7 +486,6 @@ static func _decode_slider_list(encode_data: String, level_size: Vector2i) -> Di
 static func _get_next_slider_coord(
 	last_coord: Vector2i, level_size: Vector2i, offset: int
 ) -> Vector2i:
-
 	var edge := last_coord.x
 	var pos := last_coord.y
 

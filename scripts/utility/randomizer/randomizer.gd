@@ -35,10 +35,10 @@ func generate_level(data: LevelData) -> void:
 			if cell_data.value > 0:
 				valid_cell = true
 				break
-		
+
 		if valid_cell:
 			break
-		
+
 		push_warning("Generated a level with no moves needed. Generating again")
 		data.cells_list.clear()
 

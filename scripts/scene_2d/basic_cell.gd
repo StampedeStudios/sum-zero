@@ -36,7 +36,6 @@ var _effect_stack: Array[Constants.Sliders.Effect]
 ## @param slider SliderArea instance affecting this tile.
 ## @param effect Effect (e.g., PLUS, MINUS, INVERT) to apply or remove.
 func alter_value(slider: SliderArea, effect: Constants.Sliders.Effect) -> void:
-
 	# Removes the slider and its effect
 	for i in range(0, _slider_stack.size()):
 		if _slider_stack[i] == slider:

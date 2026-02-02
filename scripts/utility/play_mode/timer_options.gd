@@ -14,17 +14,12 @@ class_name TimerOptions extends Resource
 
 ## Calculate time gained for complete level
 func get_time_gained(needed_moves: int, used_moves: int) -> int:
-
 	# Player-validated difficulty
 	var estimated_needed_moves: int = min(needed_moves, used_moves)
 
 	# 1. Difficulty normalization
 	# 4–12 moves mapped into [0, 1]
-	var difficulty := clampf(
-		(float(estimated_needed_moves) - 4.0) / 8.0,
-		0.0,
-		1.0
-	)
+	var difficulty := clampf((float(estimated_needed_moves) - 4.0) / 8.0, 0.0, 1.0)
 
 	# 2. Exponential growth via easing
 	var growth := ease(difficulty, boost_per_score)

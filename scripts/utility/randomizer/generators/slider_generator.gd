@@ -109,8 +109,12 @@ func _add_sliders(filtered: Dictionary[Vector2i, RandomizerSlider]) -> void:
 	var change_sliders: Array[Vector2i] = categorized_sliders["change"]
 	var normal_sliders: Array[Vector2i] = categorized_sliders["normal"]
 
-	move_counter += await _apply_block_sliders(block_sliders, filtered, receiver_cells, locked_cells)
-	move_counter += await _apply_normal_sliders(normal_sliders, change_sliders, filtered, receiver_cells)
+	move_counter += await _apply_block_sliders(
+		block_sliders, filtered, receiver_cells, locked_cells
+	)
+	move_counter += await _apply_normal_sliders(
+		normal_sliders, change_sliders, filtered, receiver_cells
+	)
 	move_counter += await _handle_retractable_sliders(block_sliders, filtered, locked_cells)
 
 	_finalize_sliders(filtered, locked_cells)
@@ -158,16 +162,22 @@ func _categorize_sliders(filtered: Dictionary[Vector2i, RandomizerSlider]) -> Di
 			change_sliders.erase(slider_coord)
 		normal_sliders.append(slider_coord)
 
-	return { "block": block_sliders, "change": change_sliders, "normal": normal_sliders }
+	return {"block": block_sliders, "change": change_sliders, "normal": normal_sliders}
 
 
 ## Applies the effects of block sliders to the grid.
 ## @param block_sliders An array of coordinates for block sliders.
 ## @param filtered The dictionary of all filtered sliders.
-## @param receiver_cells A dictionary mapping cell coordinates to arrays of slider coordinates that affect them.
+## @param receiver_cells A dictionary mapping cell coordinates to arrays of slider
+## 		  coordinates that affect them.
 ## @param locked_cells An array of CellData objects that are temporarily locked.
 ## @return The number of moves added by block sliders.
-func _apply_block_sliders(block_sliders: Array[Vector2i], filtered: Dictionary[Vector2i, RandomizerSlider], receiver_cells: Dictionary[Vector2i, Array], locked_cells: Array[CellData]) -> int:
+func _apply_block_sliders(
+	block_sliders: Array[Vector2i],
+	filtered: Dictionary[Vector2i, RandomizerSlider],
+	receiver_cells: Dictionary[Vector2i, Array],
+	locked_cells: Array[CellData]
+) -> int:
 	var move_counter: int = 0
 	var slider_options := _context.options.slider_opt
 
@@ -199,7 +209,7 @@ func _apply_block_sliders(block_sliders: Array[Vector2i], filtered: Dictionary[V
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
-	
+
 	await Engine.get_main_loop().process_frame
 	return move_counter
 
@@ -208,9 +218,15 @@ func _apply_block_sliders(block_sliders: Array[Vector2i], filtered: Dictionary[V
 ## @param normal_sliders An array of coordinates for normal sliders.
 ## @param change_sliders An array of coordinates for change-sign sliders.
 ## @param filtered The dictionary of all filtered sliders.
-## @param receiver_cells A dictionary mapping cell coordinates to arrays of slider coordinates that affect them.
+## @param receiver_cells A dictionary mapping cell coordinates to arrays of slider
+## 		  coordinates that affect them.
 ## @return The number of moves added by normal and change-sign sliders.
-func _apply_normal_sliders(normal_sliders: Array[Vector2i], change_sliders: Array[Vector2i], filtered: Dictionary[Vector2i, RandomizerSlider], receiver_cells: Dictionary[Vector2i, Array]) -> int:
+func _apply_normal_sliders(
+	normal_sliders: Array[Vector2i],
+	change_sliders: Array[Vector2i],
+	filtered: Dictionary[Vector2i, RandomizerSlider],
+	receiver_cells: Dictionary[Vector2i, Array]
+) -> int:
 	var move_counter: int = 0
 	var slider_options := _context.options.slider_opt
 
@@ -246,7 +262,7 @@ func _apply_normal_sliders(normal_sliders: Array[Vector2i], change_sliders: Arra
 				emitter_sliders = receiver_cells.get(cell_coord)
 			emitter_sliders.append(slider_coord)
 			receiver_cells[cell_coord] = emitter_sliders
-	
+
 	await Engine.get_main_loop().process_frame
 	return move_counter
 
@@ -256,7 +272,11 @@ func _apply_normal_sliders(normal_sliders: Array[Vector2i], change_sliders: Arra
 ## @param filtered The dictionary of all filtered sliders.
 ## @param locked_cells An array of CellData objects that are temporarily locked.
 ## @return The number of moves added by retractable block sliders.
-func _handle_retractable_sliders(block_sliders: Array[Vector2i], filtered: Dictionary[Vector2i, RandomizerSlider], locked_cells: Array[CellData]) -> int:
+func _handle_retractable_sliders(
+	block_sliders: Array[Vector2i],
+	filtered: Dictionary[Vector2i, RandomizerSlider],
+	locked_cells: Array[CellData]
+) -> int:
 	var move_counter: int = 0
 	var slider_options := _context.options.slider_opt
 	var stopped_sliders: Dictionary[Vector2i, Vector2i] = {}
@@ -295,11 +315,13 @@ func _handle_retractable_sliders(block_sliders: Array[Vector2i], filtered: Dicti
 						move_counter += 1
 						if slider.effect != Constants.Sliders.Effect.CHANGE_SIGN:
 							for j in range(slider.reached.size(), slider.reachable.size()):
-								var cell := _context.level_data.cells_list[slider.reachable[j]] as CellData
+								var cell := (
+									_context.level_data.cells_list[slider.reachable[j]] as CellData
+								)
 								if cell.is_blocked:
 									break
 								_apply_slider_effect(cell, slider.effect)
-	
+
 	await Engine.get_main_loop().process_frame
 	return move_counter
 
@@ -307,7 +329,9 @@ func _handle_retractable_sliders(block_sliders: Array[Vector2i], filtered: Dicti
 ## Finalizes the slider data and updates the level data.
 ## @param filtered The dictionary of all filtered sliders.
 ## @param locked_cells An array of CellData objects that are temporarily locked.
-func _finalize_sliders(filtered: Dictionary[Vector2i, RandomizerSlider], locked_cells: Array[CellData]) -> void:
+func _finalize_sliders(
+	filtered: Dictionary[Vector2i, RandomizerSlider], locked_cells: Array[CellData]
+) -> void:
 	for slider_coord: Vector2i in filtered.keys():
 		var slider := filtered.get(slider_coord) as RandomizerSlider
 		var slider_data := SliderData.new()
@@ -318,12 +342,14 @@ func _finalize_sliders(filtered: Dictionary[Vector2i, RandomizerSlider], locked_
 	for cell_data in locked_cells:
 		cell_data.is_blocked = false
 		_apply_slider_effect(cell_data, Constants.Sliders.Effect.BLOCK)
-	
+
 	await Engine.get_main_loop().process_frame
 
 
 ## Filters the possible sliders based on the provided options and calculates their extension.
-func _get_filtered_sliders(possible: Dictionary, result: Dictionary[Vector2i, RandomizerSlider]) -> void:
+func _get_filtered_sliders(
+	possible: Dictionary, result: Dictionary[Vector2i, RandomizerSlider]
+) -> void:
 	var slider_options := _context.options.slider_opt
 	var filterd := possible.keys()
 	var slider_count: int = 0

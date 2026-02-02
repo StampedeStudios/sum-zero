@@ -45,7 +45,6 @@ var _last_affected_cells: Dictionary[Cell, int]
 ## Gradually updates extension of the slider and apply its effect on each affected tile.
 func _process(_delta: float) -> void:
 	if _is_scaling:
-
 		if _is_manually_controlled:
 			if Input.is_action_just_released(Literals.Inputs.LEFT_CLICK):
 				release_handle()

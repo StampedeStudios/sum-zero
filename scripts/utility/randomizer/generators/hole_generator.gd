@@ -10,7 +10,7 @@ func _init(p_context: GenerationContext) -> void:
 
 ## Creates holes in the grid.
 func generate() -> void:
-	var empty_cells : Array[Vector2i] = _get_empty_cells()
+	var empty_cells: Array[Vector2i] = _get_empty_cells()
 
 	while true:
 		_remove_holes()
@@ -37,7 +37,7 @@ func generate() -> void:
 				"MAX":
 					counter = ceili(float(cell_count) / 100 * hole_options.std_diffusion)
 
-		var new_empty_cells : Array[Vector2i] = []
+		var new_empty_cells: Array[Vector2i] = []
 
 		await Engine.get_main_loop().process_frame
 		var cells := _context.level_data.cells_list.keys()
@@ -57,7 +57,6 @@ func generate() -> void:
 
 		if not _arrays_equal_unordered(empty_cells, new_empty_cells):
 			break
-
 
 
 ## Fills all empty cells in the grid, effectively removing all holes.
@@ -88,7 +87,16 @@ func _get_empty_cells() -> Array[Vector2i]:
 ## @return An array of surrounding cell coordinates.
 func _get_round_cells(pos: Vector2i, cells: Array) -> Array[Vector2i]:
 	var result: Array[Vector2i]
-	for direction: Vector2i in [Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, -1), Vector2i(-1, 0), Vector2i(1, 1), Vector2i(1, -1), Vector2i(-1, -1), Vector2i(-1, 1)]:
+	for direction: Vector2i in [
+		Vector2i(0, 1),
+		Vector2i(1, 0),
+		Vector2i(0, -1),
+		Vector2i(-1, 0),
+		Vector2i(1, 1),
+		Vector2i(1, -1),
+		Vector2i(-1, -1),
+		Vector2i(-1, 1)
+	]:
 		var adiacent: Vector2i = pos + direction
 		if cells.has(adiacent):
 			result.append(adiacent)
