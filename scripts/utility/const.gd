@@ -37,9 +37,11 @@ const MAX_STARS_GAIN: int = 3
 ## Currently available languages are listed here and are used to fill language selection menu.
 const AVAILABLE_LANGS: Array[String] = ["en", "fr", "it", "es", "de", "pl"]
 
+
 class Sliders:
 	enum Effect { ADD, SUBTRACT, CHANGE_SIGN, BLOCK }
 	enum Behavior { BY_STEP, FULL }
+
 
 # List of all common UI sizes.
 class Sizes:
@@ -56,4 +58,3 @@ class Sizes:
 	const ICON_MAX_WIDTH: int = 64
 	const BTN_ICON_MAX_WIDTH: int = 128
 	const BTN_SEPARATION: int = 20
-

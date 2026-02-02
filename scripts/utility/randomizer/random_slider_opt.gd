@@ -31,9 +31,5 @@ class_name RandomSliderOptions extends Resource
 ## Slider block retractable after stop other sliders
 @export_range(0, 100, .1) var block_full_retract_odd: int = 50
 ## Sliders type rules
-@export var type_rules: Dictionary[String, int] = {
-	"ADD": 45,
-	"SUBTRACT": 45,
-	"CHANGE_SIGN": 3,
-	"BLOCK": 7
-}
+@export
+var type_rules: Dictionary[String, int] = {"ADD": 45, "SUBTRACT": 45, "CHANGE_SIGN": 3, "BLOCK": 7}

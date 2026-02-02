@@ -21,7 +21,6 @@ var _current_mode_index := 0
 
 
 func _ready() -> void:
-
 	GameManager.on_state_change.connect(_on_state_change)
 
 	var h_margin: int = roundi(GameManager.horizontal_margin / 2.0)
@@ -119,7 +118,6 @@ func _on_play_btn_pressed() -> void:
 
 		var playable_level: LevelData = GameManager.get_active_level(playable_id)
 		if playable_level != null:
-
 			# Load Level Manager
 			var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
 			var level_manager := scene.instantiate() as LevelManager

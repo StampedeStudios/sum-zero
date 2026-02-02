@@ -119,7 +119,6 @@ func _on_delete_btn_pressed() -> void:
 
 
 func update_stars(star_count: int) -> void:
-
 	if star_count >= 1:
 		left_star.scale = Vector2(0.7, 0.7)
 

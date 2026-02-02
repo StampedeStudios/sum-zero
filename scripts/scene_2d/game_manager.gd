@@ -83,7 +83,8 @@ func _set_ui_scale() -> void:
 	var max_screen_width: float = screen_size.x
 	var max_screen_height: float = screen_size.y
 	var min_scale: float = min(
-		max_screen_width / Constants.Sizes.SCREEN_SIZE_X, max_screen_height / Constants.Sizes.SCREEN_SIZE_Y
+		max_screen_width / Constants.Sizes.SCREEN_SIZE_X,
+		max_screen_height / Constants.Sizes.SCREEN_SIZE_Y
 	)
 	ui_scale = Vector2(min_scale, min_scale)
 

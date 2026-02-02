@@ -1,6 +1,6 @@
 ## Slider logic as seen on Level Editor.
 ##
-## Handles all modification as it happens for builder_cell but does not implement multiple selection.
+## Handles all changes as it happens for builder_cell but does not implement multiple selection.
 class_name BuilderSlider extends Node2D
 
 signal on_slider_change(ref: BuilderSlider, data: SliderData)

@@ -229,7 +229,9 @@ func _process(_delta: float) -> void:
 				end = 0
 				interp = (1 - remap(current, start, end, 0, 1)) / PAGE_PER_SECOND
 				_target_position = _start_position
-				_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+				_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(
+					Tween.EASE_OUT
+				)
 				_tween.tween_property(pages, "global_position:x", _target_position, interp)
 				_tween.finished.connect(_end_animation)
 			return
@@ -248,7 +250,6 @@ func _on_pages_drag() -> void:
 
 
 func _on_builder_btn_pressed() -> void:
-
 	AudioManager.play_click_sound()
 	var scene := ResourceLoader.load(BUILDER_UI) as PackedScene
 	var builder_ui := scene.instantiate() as BuilderUI

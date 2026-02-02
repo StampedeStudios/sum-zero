@@ -40,6 +40,7 @@ class_name LevelData extends Resource
 ## Number of moves required to complete the level with 3 stars
 @export var moves_left: int = 0
 
+
 func is_valid_data() -> bool:
 	if cells_list.is_empty():
 		return false

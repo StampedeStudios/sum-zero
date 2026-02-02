@@ -1,11 +1,11 @@
 class_name ArenaUI extends Control
 
-@export var bonus_time_floating_curve: Curve2D
-
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 const ARENA_END := "res://packed_scene/user_interface/ArenaEnd.tscn"
 const LEVEL_END = "res://packed_scene/user_interface/LevelEnd.tscn"
 const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
+
+@export var bonus_time_floating_curve: Curve2D
 
 var _current_mode: ArenaMode
 var _tween: Tween
@@ -46,7 +46,7 @@ func _ready() -> void:
 	loading_icon.size = icon_size
 	loading_icon.position = -icon_size / 2
 
-	var color : Color = GameManager.palette.slider_colors.get("OUTLINE")
+	var color: Color = GameManager.palette.slider_colors.get("OUTLINE")
 	arena_time.add_theme_color_override("font_color", color)
 
 
@@ -63,7 +63,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			_moves_count = 0
 			_reset_count = 0
 		Constants.GameState.PLAY_LEVEL:
-
 			self.show()
 			if _current_mode.timer_options:
 				_show_ui(true)
@@ -98,7 +97,6 @@ func _hide_ui() -> void:
 
 
 func _show_ui(show_timer: bool) -> void:
-
 	if show_timer:
 		var tween := create_tween()
 		tween.tween_property(arena_time, "modulate:a", 1, 0.2)
@@ -251,7 +249,7 @@ func _on_skip_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	GameManager.change_state(Constants.GameState.LEVEL_END)
 	if _current_mode.timer_options and _current_mode.timer_options.skip_cost < _time:
-		var has_cost : bool = _current_mode.timer_options.skip_cost > 0
+		var has_cost: bool = _current_mode.timer_options.skip_cost > 0
 
 		if has_cost:
 			_set_arena_time(_time - _current_mode.timer_options.skip_cost)
@@ -271,25 +269,14 @@ func _set_arena_time(new_time: int) -> void:
 
 	if _current_mode.is_skippable and _current_mode.timer_options:
 		if _current_mode.timer_options.is_countdown:
-
 			var tween := create_tween()
 			if _time < 5:
 				var color: Color = GameManager.palette.cell_color.get(-5)
-				tween.tween_property(
-					arena_time,
-					"theme_override_colors/font_color",
-					color,
-					0.5
-				)
+				tween.tween_property(arena_time, "theme_override_colors/font_color", color, 0.5)
 
 			else:
-				var color : Color = GameManager.palette.slider_colors.get("OUTLINE")
-				tween.tween_property(
-					arena_time,
-					"theme_override_colors/font_color",
-					color,
-					0.5
-				)
+				var color: Color = GameManager.palette.slider_colors.get("OUTLINE")
+				tween.tween_property(arena_time, "theme_override_colors/font_color", color, 0.5)
 
 			skip_btn.visible = _time > _current_mode.timer_options.skip_cost
 
@@ -308,20 +295,26 @@ func _set_arena_time(new_time: int) -> void:
 		arena_time.text = "%02d:%02d" % [floori(float(end) / 60), end % 60]
 		return
 
-	var duration : float = clamp(abs(end - start) * 0.03, 0.15, 0.6)
+	var duration: float = clamp(abs(end - start) * 0.03, 0.15, 0.6)
 
 	_time_tween = create_tween()
-	_time_tween.tween_method(
-		func(value: float) -> void:
-			var t := int(value)
-			if t != _displayed_time:
-				_displayed_time = t
-				arena_time.text = "%02d:%02d" % [floori(float(_displayed_time) / 60), _displayed_time % 60],
-		start,
-		end,
-		duration
-	).set_trans(Tween.TRANS_LINEAR)
-	
+	(
+		_time_tween
+		. tween_method(
+			func(value: float) -> void:
+				var t := int(value)
+				if t != _displayed_time:
+					_displayed_time = t
+					arena_time.text = (
+						"%02d:%02d" % [floori(float(_displayed_time) / 60), _displayed_time % 60]
+					),
+			start,
+			end,
+			duration
+		)
+		. set_trans(Tween.TRANS_LINEAR)
+	)
+
 
 func _render_tutorial() -> void:
 	var tutorial: TutorialData = _current_mode.tutorial
@@ -336,7 +329,6 @@ func _render_tutorial() -> void:
 
 
 func _animate_extra_time(extra_time: int) -> void:
-
 	added_time.show()
 	added_time.text = "%+d" % floori(float(extra_time))
 
@@ -369,9 +361,10 @@ func _animate_extra_time(extra_time: int) -> void:
 		1.2
 	)
 
-	tween.parallel().tween_property( added_time, "modulate:a", 0.0, 1.0)
+	tween.parallel().tween_property(added_time, "modulate:a", 0.0, 1.0)
 
-	tween.finished.connect(func() -> void:
-		added_time.hide()
-		added_time.position = start_pos
+	tween.finished.connect(
+		func() -> void:
+			added_time.hide()
+			added_time.position = start_pos
 	)
