@@ -1,0 +1,17 @@
+name: Notify site of new release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger site rebuild
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer ${{ secrets.SITE_REPO_PAT }}" \
+            https://api.github.com/repos/StampedeStudios/sum-zero-site/dispatches \
+            -d '{"event_type": "release-published"}'
