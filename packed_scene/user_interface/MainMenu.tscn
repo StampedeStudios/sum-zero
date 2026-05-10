@@ -85,6 +85,22 @@ icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
+[node name="Arcade" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=1766948944]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme = ExtResource("3_gcpbi")
+theme_override_constants/icon_max_width = 70
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = ExtResource("4_vg1ss")
+theme_override_styles/pressed = ExtResource("4_vg1ss")
+theme_override_styles/hover = ExtResource("4_vg1ss")
+theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+text = "ARCADE"
+icon = ExtResource("4_1eqng")
+alignment = 0
+icon_alignment = 2
+
 [node name="LevelBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=110603086]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -162,6 +178,7 @@ alignment = 0
 icon_alignment = 2
 
 [connection signal="pressed" from="MarginContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/Arcade" to="." method="_on_arcade_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
 [connection signal="pressed" from="MarginContainer/Content/VBoxContainer/OptionBtn" to="." method="_on_option_btn_pressed"]
