@@ -7,7 +7,11 @@ const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection
 const GAME_UI := "res://packed_scene/user_interface/GameUI.tscn"
 const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 
+## First unlockable mode, enable the Arcade mode if is unlocked
+@export var first_mode: PlayMode
+
 @onready var margin: MarginContainer = %MarginContainer
+@onready var arcade_btn: Button = %Arcade
 
 
 func _ready() -> void:
@@ -21,11 +25,16 @@ func _ready() -> void:
 	self.scale = GameManager.ui_scale
 	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
 
+	# Enable ARCADE mode if the first one is unlocked
+	arcade_btn.disabled = SaveManager.get_last_completed_level() < first_mode.unlock_count
+
 
 func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
 		Constants.GameState.MAIN_MENU:
 			self.visible = true
+			# Update arcade modes
+			arcade_btn.disabled = SaveManager.get_last_completed_level() < first_mode.unlock_count
 		_:
 			self.visible = false
 

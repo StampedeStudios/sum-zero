@@ -111,28 +111,6 @@ func _on_play_btn_pressed() -> void:
 		get_tree().root.add_child(arena_ui)
 		arena_ui.set_arena_mode(mode)
 
-	if mode is StoryMode:
-		var playable_id: int = SaveManager.get_start_level_playable()
-		if playable_id > mode.id_end - 1:
-			playable_id = mode.id_start - 1
-
-		var playable_level: LevelData = GameManager.get_active_level(playable_id)
-		if playable_level != null:
-			# Load Level Manager
-			var scene := ResourceLoader.load(LEVEL_MANAGER) as PackedScene
-			var level_manager := scene.instantiate() as LevelManager
-			get_tree().root.add_child(level_manager)
-			GameManager.level_manager = level_manager
-			level_manager.init_level(playable_level)
-
-			# Load game UI
-			scene = ResourceLoader.load(GAME_UI) as PackedScene
-			var game_ui := scene.instantiate() as GameUI
-			get_tree().root.add_child(game_ui)
-			game_ui.initialize_ui(Constants.GameState.MAIN_MENU)
-			GameManager.change_state(Constants.GameState.LEVEL_START)
-			GameManager.game_ui = game_ui
-
 	queue_free.call_deferred()
 
 

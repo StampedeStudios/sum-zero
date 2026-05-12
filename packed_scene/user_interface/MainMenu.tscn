@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://buijub1edr7x7" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
 [ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_gcpbi"]
+[ext_resource type="Resource" uid="uid://cqsjj643jp1lf" path="res://assets/resources/levels/arcade_mode/endless_mode.tres" id="3_jr41p"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
 [ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="4_vg1ss"]
 [ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="5_anua8"]
@@ -47,6 +48,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_gcpbi")
 script = ExtResource("1_wcv12")
+first_mode = ExtResource("3_jr41p")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1672711889]
 unique_name_in_owner = true
@@ -86,6 +88,7 @@ alignment = 0
 icon_alignment = 2
 
 [node name="Arcade" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=1766948944]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 focus_mode = 0
@@ -96,8 +99,8 @@ theme_override_styles/normal = ExtResource("4_vg1ss")
 theme_override_styles/pressed = ExtResource("4_vg1ss")
 theme_override_styles/hover = ExtResource("4_vg1ss")
 theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+disabled = true
 text = "ARCADE"
-icon = ExtResource("4_1eqng")
 alignment = 0
 icon_alignment = 2
 
