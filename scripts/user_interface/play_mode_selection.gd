@@ -6,6 +6,8 @@ const LEVEL_MANAGER := "res://packed_scene/scene_2d/LevelManager.tscn"
 const PLAY_MODE_UI := "res://packed_scene/user_interface/PlayModeUI.tscn"
 
 @export var arena_modes: Array[PlayMode]
+## Test locked arena modes without changing player progression. Ignored in exports.
+@export var unlock_arena_modes_in_editor: bool = false
 
 var _current_mode_index := 0
 
@@ -52,7 +54,7 @@ func setup() -> void:
 		var mode_ui := scene.instantiate() as PlayModeUI
 		mode_ui.custom_minimum_size.x = scroll_container.size.x
 		hbox_container.add_child(mode_ui)
-		mode_ui.setup(mode)
+		mode_ui.setup(mode, unlock_arena_modes_in_editor)
 
 	_set_first_uncompleted_mode.call_deferred()
 

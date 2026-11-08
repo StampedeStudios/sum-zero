@@ -13,19 +13,14 @@ var _has_next_level: bool
 @onready var skip_btn: Button = %SkipBtn
 @onready var exit_btn: Button = %ExitBtn
 
-@onready var margin: MarginContainer = %MarginContainer
-@onready var container: HBoxContainer = %BottomRightContainer
+@onready var board_host: Control = %BoardHost
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	container.add_theme_constant_override("separation", GameManager.btns_separation)
+	if is_instance_valid(GameManager.level_manager):
+		board_host.bind_level_manager(GameManager.level_manager)
 
 
 func initialize_ui(prev_state: Constants.GameState) -> void:

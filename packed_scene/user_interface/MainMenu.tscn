@@ -1,42 +1,12 @@
 [gd_scene format=3 uid="uid://hqw2wppscbvl"]
 
-[ext_resource type="Script" uid="uid://buijub1edr7x7" path="res://scripts/user_interface/main_menu.gd" id="1_wcv12"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_gcpbi"]
-[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="4_1eqng"]
-[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="4_vg1ss"]
-[ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="5_anua8"]
-[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="6_io541"]
-[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="7_g7qxx"]
-[ext_resource type="Texture2D" uid="uid://ba0e2tckss3e5" path="res://assets/ui/gear_icon.png" id="9_dpngq"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xecmt"]
-content_margin_left = 20.0
-content_margin_right = 20.0
-bg_color = Color(1, 0.972549, 0.937255, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.514949, 0.394965, 0.254651, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-expand_margin_left = 10.0
-expand_margin_top = 5.0
-expand_margin_bottom = 5.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awjbt"]
-bg_color = Color(0.25098, 0.184314, 0.105882, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.25098, 0.184314, 0.105882, 1)
-corner_radius_top_left = 30
-corner_radius_top_right = 30
-corner_radius_bottom_right = 30
-corner_radius_bottom_left = 30
+[ext_resource type="Script" uid="uid://buijub1edr7x7" path="res://scripts/user_interface/main_menu.gd" id="1_script"]
+[ext_resource type="Theme" path="res://assets/resources/themes/main_menu.tres" id="2_theme"]
+[ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="3_play"]
+[ext_resource type="Texture2D" uid="uid://be8f6t4tpvc0p" path="res://assets/ui/levels_icon.png" id="4_levels"]
+[ext_resource type="Texture2D" uid="uid://c7l47lki55rh1" path="res://assets/ui/editor_icon.png" id="5_editor"]
+[ext_resource type="Texture2D" uid="uid://dlo3s5bkq7x0c" path="res://assets/ui/exit_icon.png" id="6_quit"]
+[ext_resource type="Texture2D" uid="uid://ba0e2tckss3e5" path="res://assets/ui/gear_icon.png" id="7_options"]
 
 [node name="MainMenu" type="Control" unique_id=2057554486]
 layout_mode = 3
@@ -45,124 +15,90 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_gcpbi")
-script = ExtResource("1_wcv12")
+theme = ExtResource("2_theme")
+script = ExtResource("1_script")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1672711889]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"MenuMargins"
 
-[node name="Content" type="VBoxContainer" parent="MarginContainer" unique_id=1492734379]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
 layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer/ScrollContainer" unique_id=1492734379]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Content" unique_id=643153509]
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/ScrollContainer/Content" unique_id=643153509]
+custom_minimum_size = Vector2(280, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
-size_flags_stretch_ratio = 5.0
-theme_override_constants/separation = 30
+theme_type_variation = &"MenuSpacing"
 
-[node name="PlayBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=806694494]
+[node name="PlayBtn" type="Button" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=806694494]
 layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 70
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = ExtResource("4_vg1ss")
-theme_override_styles/pressed = ExtResource("4_vg1ss")
-theme_override_styles/hover = ExtResource("4_vg1ss")
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_type_variation = &"MainMenuButton"
 text = "PLAY"
-icon = ExtResource("4_1eqng")
+autowrap_mode = 3
+icon = ExtResource("3_play")
 alignment = 0
 icon_alignment = 2
 
-[node name="LevelBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=110603086]
+[node name="LevelBtn" type="Button" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=110603086]
 layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 75
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = ExtResource("4_vg1ss")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_type_variation = &"MainMenuButton"
 text = "LEVELS"
-icon = ExtResource("5_anua8")
+autowrap_mode = 3
+icon = ExtResource("4_levels")
 alignment = 0
 icon_alignment = 2
 
-[node name="EditorBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=404020286]
+[node name="EditorBtn" type="Button" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=404020286]
 layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 70
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = ExtResource("4_vg1ss")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_type_variation = &"MainMenuButton"
 text = "EDITOR"
-icon = ExtResource("6_io541")
+autowrap_mode = 3
+icon = ExtResource("5_editor")
 alignment = 0
 icon_alignment = 2
 
-[node name="OptionBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=733544514]
+[node name="OptionBtn" type="Button" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=733544514]
 layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 75
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = ExtResource("4_vg1ss")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_type_variation = &"MainMenuButton"
 text = "OPTIONS"
-icon = ExtResource("9_dpngq")
+autowrap_mode = 3
+icon = ExtResource("7_options")
 alignment = 0
 icon_alignment = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/Content/VBoxContainer" unique_id=254824134]
+[node name="Separator" type="HSeparator" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=859941588]
 layout_mode = 2
-theme_override_constants/margin_left = 50
-theme_override_constants/margin_right = 50
+theme_type_variation = &"MenuSeparator"
 
-[node name="Separator" type="HSeparator" parent="MarginContainer/Content/VBoxContainer/MarginContainer" unique_id=859941588]
+[node name="QuitBtn" type="Button" parent="MarginContainer/ScrollContainer/Content/Buttons" unique_id=1640872941]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/separation = 100
-theme_override_styles/separator = SubResource("StyleBoxFlat_awjbt")
-
-[node name="QuitBtn" type="Button" parent="MarginContainer/Content/VBoxContainer" unique_id=1640872941]
-layout_mode = 2
-size_flags_horizontal = 3
 focus_mode = 0
-theme = ExtResource("3_gcpbi")
-theme_override_constants/icon_max_width = 75
-theme_override_font_sizes/font_size = 60
-theme_override_styles/normal = ExtResource("4_vg1ss")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover = SubResource("StyleBoxFlat_xecmt")
-theme_override_styles/hover_pressed = ExtResource("4_vg1ss")
+theme_type_variation = &"MainMenuButton"
 text = "QUIT"
-icon = ExtResource("7_g7qxx")
+autowrap_mode = 3
+icon = ExtResource("6_quit")
 alignment = 0
 icon_alignment = 2
 
-[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/LevelBtn" to="." method="_on_level_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/EditorBtn" to="." method="_on_editor_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/OptionBtn" to="." method="_on_option_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/Content/VBoxContainer/QuitBtn" to="." method="_on_quit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/Content/Buttons/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/Content/Buttons/LevelBtn" to="." method="_on_level_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/Content/Buttons/EditorBtn" to="." method="_on_editor_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/Content/Buttons/OptionBtn" to="." method="_on_option_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/ScrollContainer/Content/Buttons/QuitBtn" to="." method="_on_quit_btn_pressed"]

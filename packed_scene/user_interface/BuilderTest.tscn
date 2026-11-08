@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://bk6lwja4mcomq"]
 
 [ext_resource type="Script" uid="uid://dgrbmxecv4fuh" path="res://scripts/user_interface/builder_test.gd" id="1_xo1x5"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_0tpta"]
+[ext_resource type="Theme" path="res://assets/resources/themes/gameplay.tres" id="2_0tpta"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_021hd"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_ks1t0"]
+[ext_resource type="Script" path="res://scripts/user_interface/board_host.gd" id="5_host"]
 
 [node name="BuilderTest" type="Control" unique_id=1215843636]
 layout_mode = 3
@@ -12,7 +13,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
+theme = ExtResource("2_0tpta")
 script = ExtResource("1_xo1x5")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1958715883]
@@ -27,42 +29,48 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+mouse_filter = 2
 
-[node name="BoxContainer" type="BoxContainer" parent="MarginContainer" unique_id=1384520651]
+[node name="Layout" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme = ExtResource("2_0tpta")
-
-[node name="MovesCount" type="Label" parent="MarginContainer/BoxContainer" unique_id=668875467]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
-theme_override_font_sizes/font_size = 80
-text = "0"
-
-[node name="BottomContainer" type="HBoxContainer" parent="MarginContainer" unique_id=599284963]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 8
+mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=716012840]
+[node name="MovesCount" type="Label" parent="MarginContainer/Layout" unique_id=668875467]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"PlaytestMoves"
+text = "0"
+horizontal_alignment = 1
+
+[node name="BoardHost" type="Control" parent="MarginContainer/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("5_host")
+
+[node name="BottomContainer" type="HBoxContainer" parent="MarginContainer/Layout" unique_id=599284963]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=716012840]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
-theme = ExtResource("2_0tpta")
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"GameplayIconButton"
 icon = ExtResource("3_021hd")
 
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=647028061]
+[node name="ResetBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=647028061]
 layout_mode = 2
 size_flags_horizontal = 10
 focus_mode = 0
-theme = ExtResource("2_0tpta")
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"GameplayIconButton"
 icon = ExtResource("4_ks1t0")
 
-[connection signal="pressed" from="MarginContainer/BottomContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]

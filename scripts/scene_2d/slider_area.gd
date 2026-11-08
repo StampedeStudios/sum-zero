@@ -20,14 +20,11 @@ const HANDLE_START: int = 110
 
 var _target_scale: float
 var _is_scaling: bool
-var _is_horizontal: bool
 var _current_scale: int
 var _reachable_cells: Array[Cell]
 var _last_scale: int
 var _max_scale: int
-var _orientation: Vector2
 var _data: SliderData
-var _new_cell_size: float = GameManager.cell_size
 var _is_manually_controlled: bool = false
 var _is_extended: bool = false
 var _blocking_sprite: Array[Sprite2D]
@@ -50,22 +47,7 @@ func _process(_delta: float) -> void:
 				release_handle()
 				return
 
-			var drag_direction: Vector2
-			var tile_distance: float
-
-			if _is_horizontal:
-				tile_distance = get_global_mouse_position().x - start.global_position.x
-				drag_direction = Vector2(tile_distance, 0).normalized()
-			else:
-				tile_distance = get_global_mouse_position().y - start.global_position.y
-				drag_direction = Vector2(0, tile_distance).normalized()
-
-			if drag_direction == _orientation:
-				tile_distance = abs(tile_distance) / _new_cell_size
-			else:
-				tile_distance = 0
-
-			_target_scale = clamp(tile_distance, 0, _max_scale)
+			_target_scale = get_drag_extension(get_global_mouse_position())
 		else:
 			if _is_extended:
 				_target_scale += 10 * _delta
@@ -118,9 +100,6 @@ func init_slider(data: SliderData, reachable: Array[Cell]) -> void:
 	else:
 		area_behavior.hide()
 
-	_orientation = Vector2(round(cos(self.rotation)), round(sin(self.rotation)))
-	_is_horizontal = _orientation.y == 0
-
 	if _data.area_effect == Constants.Sliders.Effect.BLOCK:
 		_create_blocked_cell()
 
@@ -135,6 +114,12 @@ func reset() -> void:
 
 func get_slider_position() -> Vector2:
 	return handle.global_position
+
+
+## Slider-local +X always points into the board, regardless of edge or scale.
+func get_drag_extension(canvas_position: Vector2) -> float:
+	var distance := to_local(canvas_position).x - start.position.x
+	return clampf(distance / Constants.Sizes.CELL_SIZE, 0.0, _max_scale)
 
 
 ## Handles slider release clamping its extension to the closest tile border.

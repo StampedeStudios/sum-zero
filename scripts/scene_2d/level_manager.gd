@@ -12,12 +12,17 @@ signal on_consume_move
 
 const BASIC_CELL = preload("res://packed_scene/scene_2d/BasicCell.tscn")
 const SLIDER_AREA = preload("res://packed_scene/scene_2d/SliderArea.tscn")
+## Logical canvas units; limits tiny puzzles on wide displays.
+const MAX_CELL_SIZE: float = 120.0
+const BOARD_PADDING: float = 8.0
 
 var grid_cells: Dictionary[Vector2i, Cell]
 var grid_sliders: Array[SliderArea]
 var _has_slider_active: bool
 var _current_level: LevelData
 var _last_slider: SliderArea = null
+var _board_rect: Rect2
+var _level_size: Vector2i
 
 @onready var grid: Node2D = %Grid
 @onready var playable_area: Area2D = %PlayableArea
@@ -121,18 +126,17 @@ func spawn_grid(animate: bool = true) -> void:
 
 	var grid_size: Vector2
 	var level_size := Vector2i(_current_level.width, _current_level.height)
-	grid_size = (level_size + Vector2i.ONE) * Constants.Sizes.CELL_SIZE * GameManager.level_scale.x
+	grid_size = (level_size + Vector2i.ONE) * Constants.Sizes.CELL_SIZE
 
 	var start_point: Vector2
 	start_point.x = randf_range(-grid_size.x / 2, grid_size.x / 2)
 	start_point.y = randf_range(-grid_size.y / 2, grid_size.y / 2)
 
-	var start: Vector2 = grid.global_position + start_point
 	var end: float = _get_max_radius(grid_size, start_point)
 	var time: float = _get_time_relative_to_radius(end, grid_size)
 
 	var tween := create_tween().set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	await tween.tween_method(_on_radius_update.bind(start), 0.0, end, time).finished
+	await tween.tween_method(_on_radius_update.bind(start_point), 0.0, end, time).finished
 
 
 func reset_level() -> void:
@@ -199,10 +203,10 @@ func _get_time_relative_to_radius(radius: float, size: Vector2) -> float:
 func _on_radius_update(progress: float, start_point: Vector2) -> void:
 	queue_redraw()
 	for cell: Cell in grid_cells.values():
-		if cell.global_position.distance_to(start_point) < progress:
+		if cell.position.distance_to(start_point) < progress:
 			cell.show_cell()
 	for slider in grid_sliders:
-		if slider.global_position.distance_to(start_point) < progress:
+		if slider.position.distance_to(start_point) < progress:
 			slider.show_slider()
 
 
@@ -225,28 +229,51 @@ func _clear() -> void:
 
 ## Initialize the grid by applying its scale based on UI size and updating its position.
 ##
-## @param level_scale 2-dimensional int indicating the amount of cells on each side of the grid.
+## @param level_size Number of cells on each side of the grid.
 func _init_grid(level_size: Vector2i) -> void:
-	GameManager.set_level_scale(level_size.x, level_size.y)
-	var grid_pos := get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
-	var grid_size := (level_size + Vector2i.ONE) * Constants.Sizes.CELL_SIZE
+	_level_size = level_size
+	_update_grid_layout()
+
+
+## The host rect and Node2D board share the root canvas coordinate system.
+func set_board_rect(rect: Rect2) -> void:
+	_board_rect = rect
+	if _level_size != Vector2i.ZERO:
+		_update_grid_layout()
+
+
+func _update_grid_layout() -> void:
+	var grid_pos: Vector2
+	var board_scale: Vector2
+	if _board_rect.has_area():
+		var available := _board_rect.grow(-BOARD_PADDING)
+		var extent := Vector2(_level_size + Vector2i(2, 2))
+		var cell_size := minf(MAX_CELL_SIZE, minf(available.size.x / extent.x, available.size.y / extent.y))
+		board_scale = Vector2.ONE * maxf(cell_size, 1.0) / Constants.Sizes.CELL_SIZE
+		grid_pos = to_local(available.get_center())
+	else:
+		# Arena and builder testing retain their layout until their own migration.
+		GameManager.set_level_scale(_level_size.x, _level_size.y)
+		grid_pos = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
+		board_scale = GameManager.level_scale
 
 	grid.position = grid_pos
-	grid.scale = GameManager.level_scale
+	grid.scale = board_scale
 	playable_area.position = grid_pos
-	playable_area.scale = GameManager.level_scale
-	collider.shape.size = grid_size
+	playable_area.scale = board_scale
+	# Include the full edge-cell band used to select slider handles.
+	collider.shape.size = (_level_size + Vector2i(2, 2)) * Constants.Sizes.CELL_SIZE
 
 
 func _on_playable_area_input_event(_viewport: Node, _event: InputEvent, _shape_idx: int) -> void:
 	if _event is InputEventMouse:
 		if _event.is_action_pressed(Literals.Inputs.LEFT_CLICK) and !_has_slider_active:
-			var min_distance: float = GameManager.cell_size / 2
+			var min_distance: float = Constants.Sizes.CELL_SIZE / 2.0
 			var selected_slider: SliderArea
 
 			for slider in grid_sliders:
-				var pos := slider.get_slider_position()
-				var distance := pos.distance_to(_event.global_position)
+				var pos := grid.to_local(slider.get_slider_position())
+				var distance := pos.distance_to(grid.make_input_local(_event).position)
 
 				if distance < min_distance:
 					min_distance = distance

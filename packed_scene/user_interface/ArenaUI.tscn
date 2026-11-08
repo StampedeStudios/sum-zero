@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://ci6j2d4weu5mk" path="res://scripts/user_interface/arena_ui.gd" id="1_3vb52"]
 [ext_resource type="Curve2D" uid="uid://cieak8gynmqiq" path="res://assets/resources/utility/floating_up_vanish.tres" id="2_hdwrw"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_jitnk"]
+[ext_resource type="Theme" path="res://assets/resources/themes/gameplay.tres" id="2_jitnk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2u67y"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="3_oebpu"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_k3jki"]
 [ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="5_b32ap"]
 [ext_resource type="Shader" uid="uid://dtgxclkm54q5h" path="res://scripts/shaders/BasicTile.gdshader" id="6_d0ym2"]
 [ext_resource type="Texture2D" uid="uid://bsoogs3ajwrp5" path="res://assets/ui/loading.png" id="7_cd4qi"]
+[ext_resource type="Script" path="res://scripts/user_interface/board_host.gd" id="8_host"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_x1k7w"]
 shader = ExtResource("6_d0ym2")
@@ -24,7 +25,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
+mouse_filter = 2
+theme = ExtResource("2_jitnk")
 script = ExtResource("1_3vb52")
 bonus_time_floating_curve = ExtResource("2_hdwrw")
 metadata/_edit_horizontal_guides_ = [-135.0]
@@ -41,65 +43,55 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+mouse_filter = 2
 
-[node name="TopContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1305758385]
+[node name="Layout" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 20
 
-[node name="ArenaTime" type="Label" parent="MarginContainer/TopContainer" unique_id=328589401]
+[node name="Header" type="HBoxContainer" parent="MarginContainer/Layout" unique_id=1305758385]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ArenaTime" type="Label" parent="MarginContainer/Layout/Header" unique_id=328589401]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(180, 0)
 layout_mode = 2
-size_flags_horizontal = 6
-theme = ExtResource("2_jitnk")
+size_flags_horizontal = 3
+mouse_filter = 2
+theme_type_variation = &"ArenaTimer"
 text = "00:00"
 horizontal_alignment = 1
 
-[node name="AddedTime" type="Label" parent="MarginContainer/TopContainer/ArenaTime" unique_id=1998010713]
+[node name="BonusAnchor" type="Control" parent="MarginContainer/Layout/Header/ArenaTime"]
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 72.0
+offset_right = 72.0
+offset_top = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+
+[node name="AddedTime" type="Label" parent="MarginContainer/Layout/Header/ArenaTime/BonusAnchor" unique_id=1998010713]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-offset_left = 136.0
-offset_top = 56.0
-offset_right = 194.0
-offset_bottom = 114.0
+mouse_filter = 2
+theme_type_variation = &"ArenaBonus"
 theme_override_fonts/font = ExtResource("3_oebpu")
 text = "+1"
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer" unique_id=434475922]
+[node name="BoardHost" type="Control" parent="MarginContainer/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/separation = 40
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("8_host")
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=1289606699]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_jitnk")
-icon = ExtResource("3_2u67y")
-
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=928619404]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_jitnk")
-theme_override_font_sizes/font_size = 100
-icon = ExtResource("4_k3jki")
-
-[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=845005883]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-focus_mode = 0
-theme = ExtResource("2_jitnk")
-theme_override_font_sizes/font_size = 100
-icon = ExtResource("5_b32ap")
-
-[node name="Loading" type="Control" parent="." unique_id=418291706]
+[node name="Loading" type="Control" parent="MarginContainer/Layout/BoardHost" unique_id=418291706]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -110,23 +102,52 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="LoadingIcon" type="TextureRect" parent="Loading" unique_id=851164683]
+[node name="LoadingIcon" type="TextureRect" parent="MarginContainer/Layout/BoardHost/Loading" unique_id=851164683]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_x1k7w")
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = -48.0
+offset_top = -48.0
+offset_right = 48.0
+offset_bottom = 48.0
+mouse_filter = 2
 texture = ExtResource("7_cd4qi")
 expand_mode = 1
 stretch_mode = 5
 
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer/Layout" unique_id=434475922]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=1289606699]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+focus_mode = 0
+theme_type_variation = &"GameplayIconButton"
+icon = ExtResource("3_2u67y")
+
+[node name="ResetBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=928619404]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+theme_type_variation = &"GameplayIconButton"
+icon = ExtResource("4_k3jki")
+
+[node name="SkipBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=845005883]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+focus_mode = 0
+theme_type_variation = &"GameplayIconButton"
+icon = ExtResource("5_b32ap")
+
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]

@@ -5,19 +5,9 @@ const OPTIONS = "res://packed_scene/user_interface/Options.tscn"
 const LEVEL_UI = "res://packed_scene/user_interface/LevelUI.tscn"
 const PLAY_MODE_SELECTION = "res://packed_scene/user_interface/PlayModeSelection.tscn"
 
-@onready var margin: MarginContainer = %MarginContainer
-
 
 func _ready() -> void:
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
 	GameManager.on_state_change.connect(_on_state_change)
-
-	self.scale = GameManager.ui_scale
-	self.position = get_viewport_rect().size / 2 - (self.size * self.scale) / 2
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:

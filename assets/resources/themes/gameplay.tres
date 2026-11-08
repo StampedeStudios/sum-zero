@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button.tres" id="1_normal"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button_pressed.tres" id="2_pressed"]
+
+[resource]
+PlaytestMoves/base_type = &"Label"
+PlaytestMoves/font_sizes/font_size = 48
+PlaytestMoves/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+ArenaTimer/base_type = &"Label"
+ArenaTimer/font_sizes/font_size = 40
+ArenaBonus/base_type = &"Label"
+ArenaBonus/font_sizes/font_size = 32
+GameplayIconButton/base_type = &"Button"
+GameplayIconButton/constants/icon_max_width = 80
+GameplayIconButton/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
+GameplayIconButton/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+GameplayIconButton/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+GameplayIconButton/colors/icon_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+GameplayIconButton/styles/normal = ExtResource("1_normal")
+GameplayIconButton/styles/hover = ExtResource("1_normal")
+GameplayIconButton/styles/pressed = ExtResource("2_pressed")
+GameplayIconButton/styles/hover_pressed = ExtResource("2_pressed")

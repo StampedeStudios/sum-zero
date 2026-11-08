@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://drgb25lub04ll"]
 
 [ext_resource type="Script" uid="uid://drtpij1704ugl" path="res://scripts/user_interface/game_ui.gd" id="1_xwl0a"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_iclks"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_6wjro"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
 [ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="7_nrp2l"]
+[ext_resource type="Script" path="res://scripts/user_interface/board_host.gd" id="8_board_host"]
+[ext_resource type="Theme" path="res://assets/resources/themes/gameplay.tres" id="9_gameplay"]
 
 [node name="GameUI" type="Control" unique_id=1004930862]
 layout_mode = 3
@@ -15,7 +16,8 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
+mouse_filter = 2
+theme = ExtResource("9_gameplay")
 script = ExtResource("1_xwl0a")
 metadata/_edit_horizontal_guides_ = [-135.0]
 
@@ -27,47 +29,58 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer" unique_id=2114045492]
+[node name="Layout" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="BoardHost" type="Control" parent="MarginContainer/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 8
-theme_override_constants/separation = 20
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("8_board_host")
+
+[node name="BottomRightContainer" type="HBoxContainer" parent="MarginContainer/Layout" unique_id=2114045492]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 14
 alignment = 2
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=735536582]
+[node name="ExitBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=735536582]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 focus_mode = 0
-theme = ExtResource("2_iclks")
+theme_type_variation = &"GameplayIconButton"
 icon = ExtResource("3_6wjro")
 
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=1325641141]
+[node name="ResetBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=1325641141]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 focus_mode = 0
-theme = ExtResource("2_iclks")
-theme_override_font_sizes/font_size = 100
+theme_type_variation = &"GameplayIconButton"
 icon = ExtResource("4_vhyu8")
 
-[node name="SkipBtn" type="Button" parent="MarginContainer/BottomRightContainer" unique_id=40110485]
+[node name="SkipBtn" type="Button" parent="MarginContainer/Layout/BottomRightContainer" unique_id=40110485]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 focus_mode = 0
-theme = ExtResource("2_iclks")
-theme_override_font_sizes/font_size = 100
+theme_type_variation = &"GameplayIconButton"
 icon = ExtResource("7_nrp2l")
 
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomRightContainer/SkipBtn" to="." method="_on_skip_btn_pressed"]

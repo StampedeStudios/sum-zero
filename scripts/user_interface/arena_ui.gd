@@ -10,6 +10,7 @@ const TUTORIAL = "res://packed_scene/user_interface/TutorialUI.tscn"
 var _current_mode: ArenaMode
 var _tween: Tween
 var _time_tween: Tween
+var _bonus_tween: Tween
 var _displayed_time := 0
 var _current_level: LevelData
 var _moves_count: int
@@ -19,32 +20,17 @@ var _timer: Timer
 var _game_summary: GameSummary
 var _randomizer: Randomizer
 
-@onready var margin: MarginContainer = %MarginContainer
+@onready var board_host: Control = %BoardHost
+@onready var header: Control = %Header
 @onready var container: HBoxContainer = %BottomRightContainer
 @onready var loading: Control = %Loading
 @onready var arena_time: Label = %ArenaTime
 @onready var added_time: Label = %AddedTime
-@onready var loading_icon: TextureRect = %LoadingIcon
 @onready var skip_btn: Button = %SkipBtn
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	container.add_theme_constant_override("separation", GameManager.btns_separation)
-	arena_time.add_theme_font_size_override("font_size", GameManager.title_font_size)
-	added_time.add_theme_font_size_override("font_size", GameManager.text_font_size)
-
-	# Adapt loading icon at screen size
-	var screen_size := get_viewport_rect().size
-	var min_edge := minf(screen_size.x, screen_size.y)
-	var icon_size := Vector2(min_edge / 4, min_edge / 4)
-	loading_icon.size = icon_size
-	loading_icon.position = -icon_size / 2
 
 	var color: Color = GameManager.palette.slider_colors.get("OUTLINE")
 	arena_time.add_theme_color_override("font_color", color)
@@ -97,6 +83,7 @@ func _hide_ui() -> void:
 
 
 func _show_ui(show_timer: bool) -> void:
+	header.visible = show_timer
 	if show_timer:
 		var tween := create_tween()
 		tween.tween_property(arena_time, "modulate:a", 1, 0.2)
@@ -114,6 +101,7 @@ func _reset_level() -> void:
 
 func set_arena_mode(mode: ArenaMode) -> void:
 	_current_mode = mode
+	header.visible = mode.timer_options != null
 	GameManager.change_state(Constants.GameState.ARENA_MODE)
 
 
@@ -188,6 +176,8 @@ func _init_level() -> void:
 		level_manager.on_level_complete.connect(_on_level_complete)
 		level_manager.on_consume_move.connect(_on_consumed_move)
 		get_tree().root.add_child(level_manager)
+
+	board_host.bind_level_manager(GameManager.level_manager)
 
 	if !_current_mode.timer_options or !_current_mode.timer_options.is_countdown or _time > 0:
 		await GameManager.level_manager.init_level(_current_level)
@@ -329,6 +319,9 @@ func _render_tutorial() -> void:
 
 
 func _animate_extra_time(extra_time: int) -> void:
+	if _bonus_tween:
+		_bonus_tween.kill()
+	added_time.position = Vector2.ZERO
 	added_time.show()
 	added_time.text = "%+d" % floori(float(extra_time))
 
@@ -350,21 +343,20 @@ func _animate_extra_time(extra_time: int) -> void:
 
 	added_time.modulate.a = 1.0
 
-	var start_pos := added_time.position
-	var tween := create_tween()
+	_bonus_tween = create_tween()
 
-	tween.tween_method(
+	_bonus_tween.tween_method(
 		func(t: float) -> void:
-			added_time.position = start_pos + bonus_time_floating_curve.samplef(t),
+			added_time.position = bonus_time_floating_curve.samplef(t),
 		0.0,
 		1.0,
 		1.2
 	)
 
-	tween.parallel().tween_property(added_time, "modulate:a", 0.0, 1.0)
+	_bonus_tween.parallel().tween_property(added_time, "modulate:a", 0.0, 1.0)
 
-	tween.finished.connect(
+	_bonus_tween.finished.connect(
 		func() -> void:
 			added_time.hide()
-			added_time.position = start_pos
+			added_time.position = Vector2.ZERO
 	)

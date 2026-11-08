@@ -2,19 +2,11 @@ class_name BuilderTest extends Control
 
 var _moves: int
 
-@onready var margin: MarginContainer = %MarginContainer
+@onready var board_host: Control = %BoardHost
 @onready var moves_count: Label = %MovesCount
-@onready var buttons: HBoxContainer = %BottomContainer
 
 
 func _ready() -> void:
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
-
 	GameManager.on_state_change.connect(_on_state_change)
 	_reset_moves()
 
@@ -25,6 +17,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			self.queue_free.call_deferred()
 		Constants.GameState.LEVEL_START:
 			self.visible = true
+			board_host.bind_level_manager(GameManager.level_manager)
 			if !GameManager.level_manager.on_consume_move.is_connected(_add_move):
 				GameManager.level_manager.on_consume_move.connect(_add_move)
 			GameManager.level_manager.spawn_grid(false)

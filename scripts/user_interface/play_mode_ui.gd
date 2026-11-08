@@ -11,8 +11,10 @@ var _is_completed := false
 @onready var message: RichTextLabel = %OverlayMessage
 
 
-func setup(mode: PlayMode) -> void:
+func setup(mode: PlayMode, unlock_arena_modes_in_editor: bool = false) -> void:
 	mode_texture.texture = mode.icon
+	_is_completed = false
+	message.text = ""
 
 	match mode.unlock_mode:
 		PlayMode.UnlockMode.NONE:
@@ -30,6 +32,10 @@ func setup(mode: PlayMode) -> void:
 			var missing_stars: int = mode.unlock_count - SaveManager.get_star_count()
 			message.text = tr("STAR_LOCK_MSG") % missing_stars
 			_is_locked = SaveManager.get_star_count() < mode.unlock_count
+
+	# The editor feature is absent from exported projects, including debug exports.
+	if unlock_arena_modes_in_editor and OS.has_feature("editor") and mode is ArenaMode:
+		_is_locked = false
 
 	if _is_locked:
 		overlay_texture.texture = load(LOCKED_MODE) as Texture2D

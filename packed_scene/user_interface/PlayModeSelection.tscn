@@ -29,6 +29,7 @@ grow_vertical = 2
 theme = ExtResource("1_wbtf6")
 script = ExtResource("2_j1dwl")
 arena_modes = Array[ExtResource("3_syb7d")]([ExtResource("4_hwcqv"), ExtResource("4_sd7pi"), ExtResource("6_0xo1f"), ExtResource("7_i45mq"), ExtResource("8_gywfq")])
+unlock_arena_modes_in_editor = true
 
 [node name="Backdrop" type="Control" parent="." unique_id=1553525725]
 layout_mode = 1
