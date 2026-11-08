@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ci6j2d4weu5mk" path="res://scripts/user_interface/arena_ui.gd" id="1_3vb52"]
 [ext_resource type="Curve2D" uid="uid://cieak8gynmqiq" path="res://assets/resources/utility/floating_up_vanish.tres" id="2_hdwrw"]
-[ext_resource type="Theme" path="res://assets/resources/themes/gameplay.tres" id="2_jitnk"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="2_jitnk"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_2u67y"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="3_oebpu"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_k3jki"]
@@ -81,7 +81,6 @@ visible = false
 layout_mode = 1
 mouse_filter = 2
 theme_type_variation = &"ArenaBonus"
-theme_override_fonts/font = ExtResource("3_oebpu")
 text = "+1"
 
 [node name="BoardHost" type="Control" parent="MarginContainer/Layout"]

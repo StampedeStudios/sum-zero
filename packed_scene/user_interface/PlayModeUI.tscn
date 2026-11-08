@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0kxf2aagymwn"]
 
-[ext_resource type="Theme" path="res://assets/resources/themes/mode_selection.tres" id="1_8okdn"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="1_8okdn"]
 [ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="2_ycfvy"]
 [ext_resource type="Script" uid="uid://csls7wodyuv2j" path="res://scripts/user_interface/play_mode_ui.gd" id="3_xnc8d"]
 [ext_resource type="Texture2D" uid="uid://16abxdrsop2l" path="res://assets/ui/locked_mode.png" id="4_3km7s"]
@@ -56,7 +56,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_8okdn")
-theme_override_fonts/bold_font = ExtResource("5_wxucm")
 theme_type_variation = &"ModeMessage"
 mouse_filter = 2
 bbcode_enabled = true

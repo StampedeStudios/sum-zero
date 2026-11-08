@@ -61,7 +61,9 @@ func _update_board_layout() -> void:
 	var rect := _preview_rect if _resizing and _preview_rect.has_area() else _board_rect
 	var extent := Vector2(_level_data.width + 2, _level_data.height + 2) * Constants.Sizes.CELL_SIZE
 	var available := (rect.size - Vector2.ONE * 16.0).max(Vector2.ONE)
-	var fit := minf(minf(available.x / extent.x, available.y / extent.y), 120.0 / Constants.Sizes.CELL_SIZE)
+	var fit := minf(
+		minf(available.x / extent.x, available.y / extent.y), 120.0 / Constants.Sizes.CELL_SIZE
+	)
 	if _move_tween:
 		_move_tween.kill()
 	grid.scale = Vector2.ONE * fit
@@ -399,7 +401,9 @@ func move_grid(offset: Vector2) -> void:
 	if _move_tween:
 		_move_tween.kill()
 	_move_tween = create_tween()
-	_move_tween.tween_property(grid, "global_position", _board_rect.get_center() + _pan_offset, 0.05).from_current()
+	_move_tween.tween_property(
+		grid, "global_position", _board_rect.get_center() + _pan_offset, 0.05
+	).from_current()
 	await _move_tween.finished
 
 

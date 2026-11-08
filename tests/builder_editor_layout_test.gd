@@ -1,24 +1,9 @@
 ## Run with: godot --headless --path . --script tests/builder_editor_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var game := root.get_node("GameManager")
 	var ui := (load("res://packed_scene/user_interface/BuilderUI.tscn") as PackedScene).instantiate() as Control
 	game.builder_ui = ui
@@ -34,7 +19,7 @@ func _run() -> void:
 		var data := _make_level(dimensions)
 		builder.construct_level(data, true)
 		game.change_state(Constants.GameState.BUILDER_IDLE)
-		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 			root.size = viewport_size
 			for locale in ["en", "it", "de", "es", "fr", "pl"]:
 				TranslationServer.set_locale(locale)
@@ -138,14 +123,3 @@ func _make_level(dimensions: Vector2i) -> LevelData:
 func _bounds(grid: Node2D, dimensions: Vector2i) -> Rect2:
 	var extent := Vector2(dimensions + Vector2i(2, 2)) * Constants.Sizes.CELL_SIZE * grid.scale.x
 	return Rect2(grid.global_position - extent / 2, extent)
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

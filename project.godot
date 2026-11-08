@@ -35,6 +35,8 @@ window/size/viewport_width=480
 window/size/viewport_height=853
 window/size/resizable=false
 window/size/extend_to_title=true
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 window/handheld/orientation=1
 
 [editor]
@@ -51,6 +53,7 @@ folder_colors={
 
 [gui]
 
+theme/custom="res://assets/resources/themes/ui.tres"
 theme/custom_font="res://assets/ui/fonts/FiraMono-Regular.ttf"
 
 [input]

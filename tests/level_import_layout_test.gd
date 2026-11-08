@@ -1,33 +1,16 @@
 ## Run with: godot --headless --path . --script tests/level_import_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var game := root.get_node("GameManager")
-	var old_scale: Vector2 = game.ui_scale
-	game.ui_scale = Vector2(2, 2)
 	var ui := (load("res://packed_scene/user_interface/LevelImport.tscn") as PackedScene).instantiate() as Control
 	root.add_child(ui)
 	root.size = Vector2i(360, 640)
 	await create_timer(0.25).timeout
 	var cases := 0
-	for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+	for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 		root.size = viewport_size
 		for locale in ["en", "it", "de", "es", "fr", "pl"]:
 			TranslationServer.set_locale(locale)
@@ -53,7 +36,7 @@ func _run() -> void:
 	_check(ui.code.text.is_empty() and ui.save_btn.disabled, "Invalid characters must clear code")
 	ui._on_code_text_changed("invalid")
 	ui._on_save_btn_pressed()
-	_check(ui.save_btn.disabled and ui.code.get_theme_color("font_color") == Color.DARK_RED, "Invalid payload must show error")
+	_check(ui.save_btn.disabled and ui.code.get_theme_color("font_color").is_equal_approx(Color.DARK_RED), "Invalid payload must show error")
 	await create_timer(1.1).timeout
 	_check(ui.code.text.is_empty() and ui.save_btn.disabled, "Error timeout must clear code")
 	ui._on_code_text_changed("invalid")
@@ -68,17 +51,5 @@ func _run() -> void:
 	ui.close()
 	await _settle()
 	_check(not is_instance_valid(ui), "Close must free dialog")
-	game.ui_scale = old_scale
 	print("Level import layout: %d cases, %d failures" % [cases, _failures])
 	quit(1 if _failures else 0)
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

@@ -12,28 +12,9 @@ signal on_state_change(new_state: Constants.GameState)
 const MAIN_MENU = "res://packed_scene/user_interface/MainMenu.tscn"
 const PARTICLES = "res://packed_scene/user_interface/BackgroundParticles.tscn"
 const SPLASH_SCREEN = "res://packed_scene/user_interface/SplashScreen.tscn"
-const DEFAULT_THEME = preload("res://assets/resources/themes/default.tres")
-const PRIMARY_THEME = preload("res://assets/resources/themes/primary.tres")
-const CENTER_OFFSET: int = 40
 
 ## Defines color palette applied over all the game.
 var palette: CustomColorPalette = preload("res://assets/resources/utility/rainbow_palette.tres")
-
-## Set of variables that handles different size dynamically applied for responsiveness.
-var ui_scale: Vector2
-var title_font_size: int
-var subtitle_font_size: int
-var text_font_size: int
-var small_text_font_size: int
-var icon_max_width: int
-## Size of buttons scale up accordingly to resolution.
-## It should only be set from Game Manager itself.
-var btn_icon_max_width: int
-var btns_separation: int
-var vertical_margin: int
-var horizontal_margin: int
-var cell_size: float
-var level_scale: Vector2
 
 var level_manager: LevelManager
 var level_builder: LevelBuilder
@@ -52,7 +33,6 @@ var _context: Constants.LevelGroup = Constants.LevelGroup.MAIN
 
 
 func _ready() -> void:
-	_set_ui_scale()
 	var mode := ResourceLoader.CACHE_MODE_IGNORE_DEEP
 	var scene := ResourceLoader.load(SPLASH_SCREEN, "", mode) as PackedScene
 	var splash_screen := scene.instantiate() as SplashScreen
@@ -75,34 +55,6 @@ func start() -> void:
 	var main_menu := scene.instantiate() as MainMenu
 	get_tree().root.add_child.call_deferred(main_menu)
 	change_state.call_deferred(Constants.GameState.MAIN_MENU)
-
-
-## Fetches viewport size and update screen sizes to make the game responsive.
-func _set_ui_scale() -> void:
-	var screen_size: Vector2 = get_viewport().size
-	var max_screen_width: float = screen_size.x
-	var max_screen_height: float = screen_size.y
-	var min_scale: float = min(
-		max_screen_width / Constants.Sizes.SCREEN_SIZE_X,
-		max_screen_height / Constants.Sizes.SCREEN_SIZE_Y
-	)
-	ui_scale = Vector2(min_scale, min_scale)
-
-	title_font_size = int(ui_scale.x * Constants.Sizes.TITLE_FONT_SIZE)
-	subtitle_font_size = int(ui_scale.x * Constants.Sizes.SUBTITLE_FONT_SIZE)
-	text_font_size = int(ui_scale.x * Constants.Sizes.TEXT_FONT_SIZE)
-	small_text_font_size = int(ui_scale.x * Constants.Sizes.SMALL_TEXT_FONT_SIZE)
-	icon_max_width = int(ui_scale.x * Constants.Sizes.ICON_MAX_WIDTH)
-	btn_icon_max_width = int(ui_scale.x * Constants.Sizes.BTN_ICON_MAX_WIDTH)
-
-	btns_separation = int(ui_scale.x * Constants.Sizes.BTN_SEPARATION)
-
-	vertical_margin = roundi(screen_size.y * Constants.Sizes.Y_MARGIN_PERCENTAGE)
-	horizontal_margin = roundi(screen_size.x * Constants.Sizes.X_MARGIN_PERCENTAGE)
-
-	# Updates buttons max_width according to the UI scale.
-	DEFAULT_THEME.set_constant("icon_max_width", "Button", btn_icon_max_width)
-	PRIMARY_THEME.set_constant("icon_max_width", "Button", btn_icon_max_width)
 
 
 func change_state(new_state: Constants.GameState) -> void:
@@ -141,17 +93,3 @@ func get_active_level(level_id: int = -1) -> LevelData:
 	if level_id > -1:
 		_active_level_id = level_id
 	return SaveManager.get_level(_context, _active_level_id)
-
-
-## Updates level UI size according to the size of the grid.
-## This has the weird effect to make small grid levels visually too big and higher
-## size grid levels too hard to visualize, but not having it would only worsen the problem.
-##
-## @param level_width  Width of the level.
-## @param level_height Height of the level.
-func set_level_scale(level_width: int, level_height: int) -> void:
-	var max_screen_width: float = get_viewport().size.x
-	var max_screen_height: float = get_viewport().size.y * 0.8
-	cell_size = min(max_screen_width / (level_width + 2), max_screen_height / (level_height + 2))
-	level_scale.x = (cell_size / Constants.Sizes.CELL_SIZE)
-	level_scale.y = (cell_size / Constants.Sizes.CELL_SIZE)

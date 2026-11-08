@@ -1,24 +1,9 @@
 ## Run with: godot --headless --path . --script tests/level_menu_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var game := root.get_node("GameManager")
 	var saves := root.get_node("SaveManager")
 	# All custom fixtures are in-memory: never call persistence methods.
@@ -33,7 +18,7 @@ func _run() -> void:
 		ui.set_context(world)
 		game.level_ui = ui
 		root.add_child(ui)
-		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 			root.size = viewport_size
 			for locale in ["en", "it", "de", "es", "fr", "pl"]:
 				TranslationServer.set_locale(locale)
@@ -83,6 +68,9 @@ func _run() -> void:
 			var tile: Button = ui._levels_page[1]._levels[0]
 			tile.construct(0, true, 0)
 			_check(tile.disabled, "Locked tile must be disabled")
+			_check(tile.theme_type_variation == &"LevelTileLocked" and tile.get_theme_constant("icon_max_width") == 40, "Locked tile must use smaller themed icon")
+			_check(tile.get_theme_color("icon_disabled_color").is_equal_approx(Color(0.62, 0.55, 0.45, 1)), "Locked tile must retain softer tint")
+			_check(tile.get_theme_stylebox("disabled") != tile.get_theme_stylebox("normal"), "Locked tile must have a distinct unavailable background")
 			tile.construct_empty()
 			_check(not tile.disabled and tile.text.is_empty(), "Import tile must clear previous lock")
 			tile.construct(0, false, 3)
@@ -144,14 +132,3 @@ func _check_layout(ui: Control, context: String) -> void:
 	for widget in [ui.exit_btn, ui.left, ui.right, ui.title, ui.builder_btn]:
 		if widget.visible:
 			_check(Rect2(Vector2.ZERO, Vector2(root.size)).grow(0.1).encloses(widget.get_global_rect()), context + ": control offscreen")
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

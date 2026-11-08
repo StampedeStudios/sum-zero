@@ -7,8 +7,6 @@ signal remove_action
 
 const STD_SIZE := Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 const BUTTON_SIZE := Vector2(44, 44)
-var _center: Vector2
-var _area_size: Vector2
 
 @export var backward_cell_texture: Texture2D
 @export var forward_cell_texture: Texture2D
@@ -16,6 +14,9 @@ var _area_size: Vector2
 @export var backward_slider_texture: Texture2D
 @export var forward_slider_texture: Texture2D
 @export var special_slider_texture: Texture2D
+
+var _center: Vector2
+var _area_size: Vector2
 
 @onready var backward: Button = %Backward
 @onready var forward: Button = %Forward
@@ -29,9 +30,9 @@ func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	for button in [backward, forward, special, remove]:
+	for button: Button in [backward, forward, special, remove]:
 		button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-		button.add_theme_constant_override("icon_max_width", 32)
+		button.theme_type_variation = &"IconOnlyButton"
 		button.size = BUTTON_SIZE
 		button.pivot_offset = BUTTON_SIZE / 2
 
@@ -75,7 +76,7 @@ func _update_layout() -> void:
 	special.position = center + Vector2(-BUTTON_SIZE.x / 2, -half_area.y - 6 - BUTTON_SIZE.y)
 	remove.position = center + Vector2(-BUTTON_SIZE.x / 2, half_area.y + 6)
 	var limit := get_viewport_rect().size - BUTTON_SIZE - Vector2.ONE * 8
-	for button in [backward, forward, special, remove]:
+	for button: Button in [backward, forward, special, remove]:
 		button.position = button.position.clamp(Vector2.ONE * 8, limit)
 
 

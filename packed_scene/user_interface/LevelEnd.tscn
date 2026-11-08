@@ -2,13 +2,15 @@
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_end.gd" id="1_script"]
 [ext_resource type="StyleBox" path="res://assets/resources/themes/panel.tres" id="2_panel"]
-[ext_resource type="Theme" path="res://assets/resources/themes/results.tres" id="3_theme"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="3_theme"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="touch"]
 [ext_resource type="Script" path="res://scripts/user_interface/responsive_dialog_panel.gd" id="4_layout"]
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="5_gold"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="6_empty"]
 [ext_resource type="Shader" path="res://scripts/shaders/LinearReveal.gdshader" id="7_reveal"]
 [ext_resource type="Texture2D" path="res://assets/ui/star.png" id="8_star"]
 [ext_resource type="Texture2D" path="res://assets/ui/reset_icon.png" id="9_replay"]
+[ext_resource type="Script" path="res://scripts/user_interface/inspection_stars_layout.gd" id="10_stars_layout"]
 
 [sub_resource type="ShaderMaterial" id="Gold"]
 shader = ExtResource("5_gold")
@@ -39,7 +41,7 @@ script = ExtResource("1_script")
 [node name="Panel" type="Panel" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-theme_override_styles/panel = ExtResource("2_panel")
+theme_type_variation = &"DialogPanel"
 script = ExtResource("4_layout")
 maximum_size = Vector2(460, 440)
 
@@ -80,21 +82,25 @@ text = "Flawless finish!"
 horizontal_alignment = 1
 autowrap_mode = 3
 
-[node name="Stars" type="HBoxContainer" parent="Panel/Margin/Layout/Scroll/Content"]
+[node name="Stars" type="Control" parent="Panel/Margin/Layout/Scroll/Content"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 8
+theme_type_variation = &"InspectStars"
+mouse_filter = 2
+script = ExtResource("10_stars_layout")
 
-[node name="LeftSlot" type="MarginContainer" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
-custom_minimum_size = Vector2(48, 120)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_top = 20
+[node name="LeftSlot" type="Control" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
+layout_mode = 0
+mouse_filter = 2
 
 [node name="LeftStarBg" type="TextureRect" parent="Panel/Margin/Layout/Scroll/Content/Stars/LeftSlot"]
 material = SubResource("Empty")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource("8_star")
 expand_mode = 1
@@ -114,15 +120,17 @@ texture = ExtResource("8_star")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="MiddleSlot" type="MarginContainer" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
-custom_minimum_size = Vector2(48, 120)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_bottom = 20
+[node name="MiddleSlot" type="Control" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
+z_index = 1
+layout_mode = 0
+mouse_filter = 2
 
 [node name="MiddleStarBg" type="TextureRect" parent="Panel/Margin/Layout/Scroll/Content/Stars/MiddleSlot"]
 material = SubResource("Empty")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource("8_star")
 expand_mode = 1
@@ -142,15 +150,16 @@ texture = ExtResource("8_star")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="RightSlot" type="MarginContainer" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
-custom_minimum_size = Vector2(48, 120)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_top = 20
+[node name="RightSlot" type="Control" parent="Panel/Margin/Layout/Scroll/Content/Stars"]
+layout_mode = 0
+mouse_filter = 2
 
 [node name="RightStarBg" type="TextureRect" parent="Panel/Margin/Layout/Scroll/Content/Stars/RightSlot"]
 material = SubResource("Empty")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 texture = ExtResource("8_star")
 expand_mode = 1
@@ -176,6 +185,8 @@ layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="ReplayBtn" type="Button" parent="Panel/Margin/Layout/Actions"]
+icon_alignment = 1
+script = ExtResource("touch")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
@@ -185,6 +196,7 @@ icon = ExtResource("9_replay")
 expand_icon = true
 
 [node name="NextBtn" type="Button" parent="Panel/Margin/Layout/Actions"]
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cdvls8h7b4v2p"]
 
 [ext_resource type="Script" uid="uid://dpwsouj2eyd02" path="res://scripts/user_interface/credits_screen.gd" id="1_lf1g6"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_836sh"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="2_836sh"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="2_joxhr"]
+[ext_resource type="Texture2D" path="res://assets/ui/chevron_icon.png" id="4_back"]
 
 [node name="CreditsScreen" type="Control" unique_id=111736078]
 layout_mode = 3
@@ -13,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_836sh")
 script = ExtResource("1_lf1g6")
 
 [node name="Background" type="Panel" parent="." unique_id=1372995502]
@@ -23,7 +25,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_vertical = 3
-theme_override_styles/panel = ExtResource("2_joxhr")
+theme_type_variation = &"DialogBackdrop"
 
 [node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=1616573001]
 unique_name_in_owner = true
@@ -38,13 +40,29 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Background/MarginContainer" unique_id=2087445924]
+[node name="Layout" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Back" type="Button" parent="Background/MarginContainer/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_type_variation = &"CreditsBack"
+text = "BACK"
+icon = ExtResource("4_back")
+expand_icon = true
+flat = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Background/MarginContainer/Layout" unique_id=2087445924]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 theme = ExtResource("2_836sh")
+theme_type_variation = &"CreditsText"
 bbcode_enabled = true
 text = "[center][color=#62be5d]An Open Source Game[/color]
 
@@ -84,6 +102,13 @@ Godot • Inkscape • Audacity and their communities
 
 
 [color=#62be5d][b]Thank you for playing![/b][/color]"
-scroll_active = false
+scroll_active = true
+
+[node name="ScrollDelay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]
+[connection signal="pressed" from="Background/MarginContainer/Layout/Back" to="." method="_close"]
+[connection signal="gui_input" from="Background/MarginContainer/Layout/RichTextLabel" to="." method="_on_text_gui_input"]
+[connection signal="timeout" from="ScrollDelay" to="." method="start_credits_scroll"]

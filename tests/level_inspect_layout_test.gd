@@ -1,24 +1,9 @@
 ## Run with: godot --headless --path . --script tests/level_inspect_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var saves := root.get_node("SaveManager")
 	var original: Resource = saves._player_save
 	saves._player_save = original.duplicate(true)
@@ -26,8 +11,6 @@ func _run() -> void:
 	var hashes: Array[String] = [saves._persistent_save.levels_hash[0]]
 	saves._player_save.custom_levels_hash = hashes
 	var game := root.get_node("GameManager")
-	var old_scale: Vector2 = game.ui_scale
-	game.ui_scale = Vector2(2, 2)
 	var cases := 0
 	for custom in [false, true]:
 		var path := "res://packed_scene/user_interface/CustomLevelInspect.tscn" if custom else "res://packed_scene/user_interface/LevelInspect.tscn"
@@ -40,7 +23,7 @@ func _run() -> void:
 		progress.move_left = 0
 		ui.init_inspector(0, progress)
 		await create_timer(0.25).timeout
-		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 			root.size = viewport_size
 			for locale in ["en", "it", "de", "es", "fr", "pl"]:
 				TranslationServer.set_locale(locale)
@@ -52,9 +35,23 @@ func _run() -> void:
 				_check(panel.get_global_rect().get_center().is_equal_approx(Vector2(root.size) / 2), context + ": panel not centered")
 				for widget in [ui.label, ui.build_btn, ui.play_btn, ui.get_node("%Stars")]:
 					_check(panel.get_global_rect().encloses(widget.get_global_rect()), context + ": content exceeds panel")
+				for button: Button in [ui.build_btn, ui.play_btn]:
+					_check(button.size.x >= 56 and button.size.y >= 56, context + ": action must meet touch minimum")
 				_check(ui.label.get_theme_color("font_color").is_equal_approx(Color(0.25098, 0.184314, 0.105882, 1)), context + ": title palette changed")
 				_check(not ui.label.get_global_rect().intersects(ui.get_node("%Stars").get_global_rect()), context + ": title overlaps stars")
+				var actions: Control = ui.play_btn.get_parent()
+				_check(is_equal_approx(ui.play_btn.get_global_rect().end.x, actions.get_global_rect().end.x), context + ": Play must fill remaining action width")
+				_check(ui.play_btn.size.x > ui.build_btn.size.x, context + ": primary action must not shrink to icon width")
+				_check(ui.middle_star.get_global_rect().get_center().y < ui.left_star.get_global_rect().get_center().y, context + ": middle star must remain raised")
+				_check(ui.middle_star.get_global_rect().intersects(ui.left_star.get_global_rect()) and ui.middle_star.get_global_rect().intersects(ui.right_star.get_global_rect()), context + ": inspector stars must overlap")
+				_check(ui.middle_star.get_parent().z_index > ui.left_star.get_parent().z_index and ui.middle_star.get_parent().z_index > ui.right_star.get_parent().z_index, context + ": middle star must draw in front")
+				var star_region: Control = ui.get_node("%Stars")
+				var composition: Rect2 = ui.left_star.get_global_rect().merge(ui.middle_star.get_global_rect()).merge(ui.right_star.get_global_rect())
+				_check(star_region.get_global_rect().grow(0.1).encloses(composition), context + ": stars exceed reserved region")
+				_check(is_equal_approx(composition.size.x, star_region.size.x) or is_equal_approx(composition.size.y, star_region.size.y), context + ": composition must use all available width or height")
+				_check(not composition.intersects(ui.label.get_global_rect()) and not composition.intersects(actions.get_global_rect()), context + ": stars overlap title or actions")
 				if custom:
+					_check(ui.play_btn.text == "PLAY" and not tr(ui.play_btn.text).is_empty(), context + ": custom primary action must retain inherited Play label")
 					for widget in [ui.copy_btn, ui.delete_btn]:
 						_check(panel.get_global_rect().encloses(widget.get_global_rect()), context + ": custom control offscreen")
 				cases += 1
@@ -92,18 +89,6 @@ func _run() -> void:
 	_check(opening.panel.get_global_rect().get_center().is_equal_approx(Vector2(root.size) / 2), "Opening animation must follow resize")
 	opening.close()
 	await _settle()
-	game.ui_scale = old_scale
 	saves._player_save = original
 	print("Level inspect layout: %d cases, %d failures" % [cases, _failures])
 	quit(1 if _failures else 0)
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

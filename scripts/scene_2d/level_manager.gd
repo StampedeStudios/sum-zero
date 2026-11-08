@@ -34,12 +34,12 @@ func _ready() -> void:
 
 
 func init_level(current_level: LevelData) -> void:
-	print("[Level Manager] Initializing level")
+	GameLog.debug("Level", "Initializing level")
 	_clear()
 
 	if current_level == null:
 		GameManager.change_state(Constants.GameState.MAIN_MENU)
-		push_error("Invalid starting level found")
+		GameLog.error("Level", "Cannot initialize invalid level data")
 		return
 
 	_current_level = current_level
@@ -182,7 +182,7 @@ func _check_grid(is_effective_move: bool, slider: SliderArea) -> void:
 			break
 
 	if level_complete:
-		print("[Level Manager] Level completed")
+		GameLog.debug("Level", "Level completed")
 		_last_slider = null
 		on_level_complete.emit()
 
@@ -208,15 +208,6 @@ func _on_radius_update(progress: float, start_point: Vector2) -> void:
 	for slider in grid_sliders:
 		if slider.position.distance_to(start_point) < progress:
 			slider.show_slider()
-
-
-func _get_grid_positions(width: int, height: int) -> Array[Vector2i]:
-	var result: Array[Vector2i]
-	for w: int in range(width):
-		for h: int in range(height):
-			result.append(Vector2i(w, h))
-	result.shuffle()
-	return result
 
 
 func _clear() -> void:
@@ -245,17 +236,15 @@ func set_board_rect(rect: Rect2) -> void:
 func _update_grid_layout() -> void:
 	var grid_pos: Vector2
 	var board_scale: Vector2
-	if _board_rect.has_area():
-		var available := _board_rect.grow(-BOARD_PADDING)
-		var extent := Vector2(_level_size + Vector2i(2, 2))
-		var cell_size := minf(MAX_CELL_SIZE, minf(available.size.x / extent.x, available.size.y / extent.y))
-		board_scale = Vector2.ONE * maxf(cell_size, 1.0) / Constants.Sizes.CELL_SIZE
-		grid_pos = to_local(available.get_center())
-	else:
-		# Arena and builder testing retain their layout until their own migration.
-		GameManager.set_level_scale(_level_size.x, _level_size.y)
-		grid_pos = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
-		board_scale = GameManager.level_scale
+	# Standalone renderers use the logical viewport until a UI host is bound.
+	var region := _board_rect if _board_rect.has_area() else get_viewport_rect()
+	var available := region.grow(-BOARD_PADDING)
+	var extent := Vector2(_level_size + Vector2i(2, 2))
+	var cell_size := minf(
+		MAX_CELL_SIZE, minf(available.size.x / extent.x, available.size.y / extent.y)
+	)
+	board_scale = Vector2.ONE * maxf(cell_size, 1.0) / Constants.Sizes.CELL_SIZE
+	grid_pos = to_local(available.get_center())
 
 	grid.position = grid_pos
 	grid.scale = board_scale

@@ -1,12 +1,13 @@
 [gd_scene format=3 uid="uid://devm2geibslsw"]
 
 [ext_resource type="Script" uid="uid://bq3y5cchmck2m" path="res://scripts/user_interface/builder_save.gd" id="1_bggib"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_q3qhm"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="2_q3qhm"]
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_wt55p"]
-[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="4_a08wn"]
 [ext_resource type="Script" path="res://scripts/user_interface/builder_save_panel.gd" id="5_xk0ej"]
-[ext_resource type="Theme" path="res://assets/resources/themes/builder.tres" id="6_builder"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="6_builder"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="touch"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obo31"]
 
@@ -27,7 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_q3qhm")
-theme_override_styles/panel = ExtResource("3_wt55p")
+theme_type_variation = &"DialogBackdrop"
 
 [node name="Panel" type="Panel" parent="Background" unique_id=1236012570]
 unique_name_in_owner = true
@@ -43,7 +44,7 @@ offset_right = 275.0
 offset_bottom = 250.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("2_qhpg7")
+theme_type_variation = &"DialogPanel"
 script = ExtResource("5_xk0ej")
 
 [node name="MarginContainer" type="MarginContainer" parent="Background/Panel" unique_id=390668365]
@@ -105,9 +106,10 @@ virtual_keyboard_type = 2
 [node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1173606816]
 layout_mode = 2
 theme_override_constants/separation = 8
-theme_override_styles/separator = SubResource("StyleBoxEmpty_obo31")
+theme_type_variation = &"InvisibleSeparator"
 
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1856775553]
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

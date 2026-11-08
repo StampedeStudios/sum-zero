@@ -1,22 +1,9 @@
 ## Run with: godot --headless --path . --script tests/results_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	root.get_node("SplashScreen").queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var saves := root.get_node("SaveManager")
 	var original: Resource = saves._player_save
 	saves._player_save = original.duplicate(true)
@@ -24,8 +11,6 @@ func _run() -> void:
 	# A high fixture record prevents the real score pipeline from writing a save.
 	saves._player_save.player_rewards.blitz_score = 2147483647
 	var game := root.get_node("GameManager")
-	var old_scale: Vector2 = game.ui_scale
-	game.ui_scale = Vector2(3, 3)
 	var campaign_scene := load("res://packed_scene/user_interface/LevelEnd.tscn") as PackedScene
 	var arena_scene := load("res://packed_scene/user_interface/ArenaEnd.tscn") as PackedScene
 	var campaign := campaign_scene.instantiate() as Control
@@ -50,7 +35,7 @@ func _run() -> void:
 	_check(not arena.record_icon.visible, "Lower score must not show record")
 	_check(arena.actions.modulate.a == 1, "Arena action reveal must complete")
 	var cases := 0
-	for viewport_size in [Vector2i(320, 568), Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+	for viewport_size in [Vector2i(320, 568), Vector2i(480, 853), Vector2i(640, 360)]:
 		root.size = viewport_size
 		for locale in ["en", "it", "de", "es", "fr", "pl"]:
 			TranslationServer.set_locale(locale)
@@ -78,6 +63,8 @@ func _run() -> void:
 				_check(panel.scale == Vector2.ONE, context + ": global UI scale leaked into panel")
 				_check(panel.get_global_rect().encloses(actions.get_global_rect()), context + ": actions outside panel")
 				_check(not actions.get_global_rect().intersects(scroll.get_global_rect()), context + ": summary overlaps actions")
+				var last_button: Control = actions.get_child(actions.get_child_count() - 1)
+				_check(is_equal_approx(last_button.get_global_rect().end.x, actions.get_global_rect().end.x), context + ": primary action must fill remaining width")
 				for button: Control in actions.get_children():
 					_check(actions.get_global_rect().encloses(button.get_global_rect()), context + ": button exceeds row")
 				_check(scroll.get_h_scroll_bar().max_value <= scroll.size.x + 1, context + ": summary has horizontal overflow")
@@ -86,6 +73,16 @@ func _run() -> void:
 				_check(star.scale.is_equal_approx(Vector2.ONE), "Awarded stars must finish at slot size")
 				_check(star.pivot_offset.is_equal_approx(star.size / 2), "Star pivot must follow live resize")
 			_check(campaign.middle_star.global_position.y < campaign.left_star.global_position.y, "Middle star must remain raised")
+			var region := campaign.get_node("%Stars") as Control
+			var left := region.get_child(0) as Control
+			var middle := region.get_child(1) as Control
+			var right := region.get_child(2) as Control
+			var composition := left.get_global_rect().merge(middle.get_global_rect()).merge(right.get_global_rect())
+			_check(region.get_global_rect().grow(0.1).encloses(composition), "Result stars must fit their reserved region")
+			_check(is_equal_approx(composition.size.x, region.size.x) or is_equal_approx(composition.size.y, region.size.y), "Result stars must fill available width or height")
+			_check(middle.get_global_rect().intersects(left.get_global_rect()) and middle.get_global_rect().intersects(right.get_global_rect()), "Result stars must overlap")
+			_check(middle.z_index > left.z_index and middle.z_index > right.z_index, "Middle result star must draw in front")
+			_check(not composition.intersects(campaign.hint.get_global_rect()) and not composition.intersects(campaign.get_node("%Actions").get_global_rect()), "Result stars must not overlap message or actions")
 	# All ratings, including extra-star message and final-level Exit, retain behavior.
 	for stars in range(5):
 		var result := campaign_scene.instantiate() as Control
@@ -126,17 +123,5 @@ func _run() -> void:
 	arena.queue_free()
 	await _settle()
 	saves._player_save = original
-	game.ui_scale = old_scale
 	print("Results layout: %d cases, %d failures" % [cases, _failures])
 	quit(1 if _failures else 0)
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

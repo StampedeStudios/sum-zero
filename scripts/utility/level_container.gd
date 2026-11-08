@@ -24,14 +24,8 @@ func get_level(level_id: int) -> LevelData:
 	return null
 
 
-func add_level(level_data: LevelData) -> String:
-	var level_hash := Encoder.encode(level_data)
-	levels_hash.append(level_hash)
-	return level_hash
-
-
 func get_tutorial(id: int) -> TutorialData:
 	if tutorials.has(id):
-		print("Retrieving tutorial for level having id %s" % id)
+		GameLog.debug("Tutorial", "Loading tutorial for level index %d" % id)
 		return tutorials.get(id)
 	return null

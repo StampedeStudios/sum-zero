@@ -27,7 +27,7 @@ var _is_record: bool
 
 
 func _ready() -> void:
-	for star in [left_star, middle_star, right_star]:
+	for star: TextureRect in [left_star, middle_star, right_star]:
 		star.resized.connect(func() -> void: star.pivot_offset = star.size / 2)
 		star.pivot_offset = star.size / 2
 	right_star.scale = Vector2(0, 0)
@@ -42,7 +42,7 @@ func _ready() -> void:
 
 
 func init_score(star_count: int, has_next_level: bool, is_record: bool) -> void:
-	print("[Level End] Player gained %s stars" % star_count)
+	GameLog.debug("Results", "Stars awarded: %d" % star_count)
 	_star_count = star_count
 	_has_next_level = has_next_level
 	_is_record = is_record
@@ -58,7 +58,7 @@ func _update_score() -> void:
 	_animate_stars(_star_count)
 	_animate_hint(_star_count)
 	if _is_record:
-		print("[Level End] Player set a new record for this level")
+		GameLog.debug("Results", "New level record")
 
 
 func _animate_stars(star_count: int) -> void:
@@ -80,7 +80,7 @@ func _animate_stars(star_count: int) -> void:
 
 		await tween.finished
 	else:
-		print("[Level End] Player has used too many moves, no star is being animated")
+		GameLog.debug("Results", "No earned stars to animate")
 
 
 func _animate_hint(star_count: int) -> void:

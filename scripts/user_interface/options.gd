@@ -23,7 +23,7 @@ func _ready() -> void:
 	music_btn.set_pressed_no_signal(_player_options.music_on)
 	sfx_btn.set_pressed_no_signal(_player_options.sfx_on)
 	tutorial_btn.set_pressed_no_signal(_player_options.tutorial_on)
-	for button in [music_btn, sfx_btn, tutorial_btn]:
+	for button: Button in [music_btn, sfx_btn, tutorial_btn]:
 		button.icon = TOGGLE_ON if button.button_pressed else TOGGLE_OFF
 		button.toggled.connect(func(enabled: bool) -> void:
 			button.icon = TOGGLE_ON if enabled else TOGGLE_OFF
@@ -79,7 +79,7 @@ func _on_exit_btn_pressed() -> void:
 func _on_option_button_item_selected(index: int) -> void:
 	var preferred_locale: String = Constants.AVAILABLE_LANGS[index]
 	_player_options.language = preferred_locale
-	print("[Options] Select '%s' as preferred language" % preferred_locale)
+	GameLog.debug("Options", "Selected language: %s" % preferred_locale)
 	TranslationServer.set_locale(preferred_locale)
 	SaveManager.save_player_data()
 

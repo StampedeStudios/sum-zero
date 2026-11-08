@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c2701iq6kr7jy"]
 
-[ext_resource type="Theme" path="res://assets/resources/themes/options.tres" id="1_ncc3j"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="1_ncc3j"]
 [ext_resource type="Script" uid="uid://bk7sonpreiywf" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_50nmf"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_lkk5h"]
@@ -46,7 +46,6 @@ size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("1_ncc3j")
 theme_type_variation = &"OptionsBack"
-theme_override_styles/pressed = ExtResource("3_lkk5h")
 text = "BACK"
 icon = ExtResource("3_50nmf")
 flat = true
@@ -163,9 +162,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
-theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
-theme_override_colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
-theme_override_colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 text = "ABOUT_US"
 
 [connection signal="pressed" from="MarginContainer/BoxContainer/TopBar/ExitBtn" to="." method="_on_exit_btn_pressed"]

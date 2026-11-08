@@ -205,17 +205,17 @@ static func decode(encoded_data: String) -> LevelData:
 	var splitted_data := encoded_data.split("-")
 
 	if splitted_data.size() < 3:
-		push_warning("Invalid code format")
+		GameLog.debug("Import", "Rejected level code: invalid format")
 		return null
 
 	var moves_left := _decode_moves(encoded_data[0])
 	if moves_left < 0:
-		push_warning("Invalid moves")
+		GameLog.debug("Import", "Rejected level code: invalid moves")
 		return null
 
 	data.moves_left = moves_left
 	if !SIZE.has(encoded_data[1]):
-		push_warning("Invalid size")
+		GameLog.debug("Import", "Rejected level code: invalid size")
 		return null
 
 	var level_size: Vector2i = SIZE.get(encoded_data[1])
@@ -224,18 +224,18 @@ static func decode(encoded_data: String) -> LevelData:
 
 	var cell_order: CellOrder = CELL_ORDER.get(encoded_data[2])
 	if cell_order == null:
-		push_warning("Invalid order")
+		GameLog.debug("Import", "Rejected level code: invalid cell order")
 		return null
 
 	var cell_list := _decode_cell_list(splitted_data[1], level_size, cell_order)
 	if cell_list.is_empty():
-		push_warning("Invalid cells")
+		GameLog.debug("Import", "Rejected level code: invalid cells")
 		return null
 
 	data.cells_list = cell_list
 	var slider_list := _decode_slider_list(splitted_data[2], level_size)
 	if slider_list.is_empty():
-		push_warning("Invalid sliders")
+		GameLog.debug("Import", "Rejected level code: invalid sliders")
 		return null
 
 	data.slider_list = slider_list

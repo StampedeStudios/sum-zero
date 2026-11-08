@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dl8k8vj01hhjj"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_inspect.gd" id="1_script"]
-[ext_resource type="Theme" path="res://assets/resources/themes/level_inspect.tres" id="2_theme"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="2_theme"]
 [ext_resource type="StyleBox" path="res://assets/resources/themes/panel.tres" id="3_panel"]
 [ext_resource type="StyleBox" path="res://assets/resources/themes/backdrop_panel.tres" id="4_backdrop"]
 [ext_resource type="Script" path="res://scripts/user_interface/responsive_dialog_panel.gd" id="5_panel"]
@@ -9,6 +9,8 @@
 [ext_resource type="Shader" path="res://scripts/shaders/Stars.gdshader" id="7_stars"]
 [ext_resource type="Shader" path="res://scripts/shaders/BasicTile.gdshader" id="8_basic"]
 [ext_resource type="Texture2D" path="res://assets/ui/edit.png" id="9_edit"]
+[ext_resource type="Script" path="res://scripts/user_interface/inspection_stars_layout.gd" id="10_stars_layout"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="11_touch"]
 
 [sub_resource type="ShaderMaterial" id="Gold"]
 shader = ExtResource("7_stars")
@@ -37,12 +39,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("4_backdrop")
+theme_type_variation = &"DialogBackdrop"
 
 [node name="Panel" type="Panel" parent="Background"]
 unique_name_in_owner = true
 layout_mode = 0
-theme_override_styles/panel = ExtResource("3_panel")
+theme_type_variation = &"DialogPanel"
 script = ExtResource("5_panel")
 
 [node name="Margin" type="MarginContainer" parent="Background/Panel"]
@@ -77,18 +79,17 @@ autowrap_mode = 3
 max_lines_visible = 2
 text_overrun_behavior = 3
 
-[node name="Stars" type="HBoxContainer" parent="Background/Panel/Margin/Scroll/Layout"]
+[node name="Stars" type="Control" parent="Background/Panel/Margin/Scroll/Layout"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/separation = 8
-alignment = 1
+theme_type_variation = &"InspectStars"
 mouse_filter = 2
+script = ExtResource("10_stars_layout")
 
 [node name="LeftSlot" type="Control" parent="Background/Panel/Margin/Scroll/Layout/Stars"]
-custom_minimum_size = Vector2(64, 72)
-size_flags_horizontal = 3
-layout_mode = 2
+layout_mode = 0
 mouse_filter = 2
 
 [node name="LeftStarBg" type="TextureRect" parent="Background/Panel/Margin/Scroll/Layout/Stars/LeftSlot"]
@@ -115,10 +116,8 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="MiddleSlot" type="Control" parent="Background/Panel/Margin/Scroll/Layout/Stars"]
-custom_minimum_size = Vector2(80, 72)
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 1.2
-layout_mode = 2
+z_index = 1
+layout_mode = 0
 mouse_filter = 2
 
 [node name="MiddleStarBg" type="TextureRect" parent="Background/Panel/Margin/Scroll/Layout/Stars/MiddleSlot"]
@@ -145,9 +144,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="RightSlot" type="Control" parent="Background/Panel/Margin/Scroll/Layout/Stars"]
-custom_minimum_size = Vector2(64, 72)
-size_flags_horizontal = 3
-layout_mode = 2
+layout_mode = 0
 mouse_filter = 2
 
 [node name="RightStarBg" type="TextureRect" parent="Background/Panel/Margin/Scroll/Layout/Stars/RightSlot"]
@@ -174,6 +171,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="CopyBtn" type="Button" parent="Background/Panel/Margin/Scroll/Layout"]
+script = ExtResource("11_touch")
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -184,13 +182,14 @@ text_overrun_behavior = 3
 alignment = 0
 icon_alignment = 2
 
-[node name="Controls" type="HFlowContainer" parent="Background/Panel/Margin/Scroll/Layout"]
+[node name="Controls" type="HBoxContainer" parent="Background/Panel/Margin/Scroll/Layout"]
 layout_mode = 2
-theme_override_constants/h_separation = 12
-theme_override_constants/v_separation = 8
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="DeleteBtn" type="Button" parent="Background/Panel/Margin/Scroll/Layout/Controls"]
+icon_alignment = 1
+script = ExtResource("11_touch")
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -198,6 +197,8 @@ custom_minimum_size = Vector2(48, 48)
 focus_mode = 0
 
 [node name="BuildBtn" type="Button" parent="Background/Panel/Margin/Scroll/Layout/Controls"]
+icon_alignment = 1
+script = ExtResource("11_touch")
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(48, 48)
@@ -205,8 +206,10 @@ focus_mode = 0
 icon = ExtResource("9_edit")
 
 [node name="PlayBtn" type="Button" parent="Background/Panel/Margin/Scroll/Layout/Controls"]
+script = ExtResource("11_touch")
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 custom_minimum_size = Vector2(80, 48)
 focus_mode = 0
 theme_type_variation = &"InspectPlay"

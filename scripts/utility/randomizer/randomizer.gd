@@ -39,7 +39,7 @@ func generate_level(data: LevelData) -> void:
 		if valid_cell:
 			break
 
-		push_warning("Generated a level with no moves needed. Generating again")
+		GameLog.debug("Generator", "Retrying generation: level needs no moves")
 		data.cells_list.clear()
 
 

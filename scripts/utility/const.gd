@@ -43,18 +43,7 @@ class Sliders:
 	enum Behavior { BY_STEP, FULL }
 
 
-# List of all common UI sizes.
+# Native board artwork dimensions, independent of UI theme metrics.
 class Sizes:
 	const CELL_SIZE: int = 256
 	const SLIDER_SIZE: int = 128
-	const SCREEN_SIZE_X: int = 720
-	const SCREEN_SIZE_Y: int = 1280
-	const Y_MARGIN_PERCENTAGE: float = 0.05
-	const X_MARGIN_PERCENTAGE: float = 0.1
-	const TITLE_FONT_SIZE: int = 60
-	const SUBTITLE_FONT_SIZE: int = 50
-	const TEXT_FONT_SIZE: int = 48
-	const SMALL_TEXT_FONT_SIZE: int = 36
-	const ICON_MAX_WIDTH: int = 64
-	const BTN_ICON_MAX_WIDTH: int = 128
-	const BTN_SEPARATION: int = 20

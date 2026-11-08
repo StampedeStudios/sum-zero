@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/user_interface/levels_page.gd" id="1_page"]
 [ext_resource type="Script" path="res://scripts/user_interface/level_button_base.gd" id="2_button"]
 [ext_resource type="Script" path="res://scripts/user_interface/level_grid_layout.gd" id="3_layout"]
-[ext_resource type="Theme" path="res://assets/resources/themes/level_menu.tres" id="4_theme"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="4_theme"]
 [ext_resource type="Texture2D" path="res://assets/ui/three_stars.png" id="5_three"]
 [ext_resource type="Texture2D" path="res://assets/ui/two_stars.png" id="6_two"]
 [ext_resource type="Texture2D" path="res://assets/ui/one_star.png" id="7_one"]
@@ -38,7 +38,6 @@ columns = 3
 [node name="Level1" type="Button" parent="Center/LevelGrid"]
 text = "1"
 icon = ExtResource("5_three")
-theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
@@ -50,7 +49,6 @@ script = ExtResource("2_button")
 [node name="Level2" type="Button" parent="Center/LevelGrid"]
 text = "2"
 icon = ExtResource("6_two")
-theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
@@ -62,7 +60,6 @@ script = ExtResource("2_button")
 [node name="Level3" type="Button" parent="Center/LevelGrid"]
 text = "3"
 icon = ExtResource("7_one")
-theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
@@ -74,7 +71,6 @@ script = ExtResource("2_button")
 [node name="Level4" type="Button" parent="Center/LevelGrid"]
 text = "4"
 icon = ExtResource("8_zero")
-theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
@@ -86,11 +82,10 @@ script = ExtResource("2_button")
 [node name="Level5" type="Button" parent="Center/LevelGrid"]
 disabled = true
 icon = ExtResource("9_lock")
-theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
+theme_type_variation = &"LevelTileLocked"
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_button")
@@ -98,11 +93,10 @@ script = ExtResource("2_button")
 [node name="Level6" type="Button" parent="Center/LevelGrid"]
 disabled = true
 icon = ExtResource("9_lock")
-theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
+theme_type_variation = &"LevelTileLocked"
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_button")
@@ -110,11 +104,10 @@ script = ExtResource("2_button")
 [node name="Level7" type="Button" parent="Center/LevelGrid"]
 disabled = true
 icon = ExtResource("9_lock")
-theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
+theme_type_variation = &"LevelTileLocked"
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_button")
@@ -122,11 +115,10 @@ script = ExtResource("2_button")
 [node name="Level8" type="Button" parent="Center/LevelGrid"]
 disabled = true
 icon = ExtResource("9_lock")
-theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
+theme_type_variation = &"LevelTileLocked"
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_button")
@@ -134,11 +126,10 @@ script = ExtResource("2_button")
 [node name="Level9" type="Button" parent="Center/LevelGrid"]
 disabled = true
 icon = ExtResource("9_lock")
-theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
+theme_type_variation = &"LevelTileLocked"
 layout_mode = 2
 focus_mode = 0
 mouse_filter = 1
-theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("2_button")

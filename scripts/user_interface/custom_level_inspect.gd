@@ -31,7 +31,7 @@ func _on_copy_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	DisplayServer.clipboard_set(_level_code)
 	copy_btn.icon = ResourceLoader.load(PASTE_CHECK_ICON) as Texture2D
-	copy_btn.add_theme_color_override("icon_normal_color", Color.WEB_GREEN)
+	copy_btn.theme_type_variation = &"CopySuccess"
 
 
 func _on_delete_btn_pressed() -> void:

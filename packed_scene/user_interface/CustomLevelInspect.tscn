@@ -21,7 +21,6 @@ visible = true
 icon = ExtResource("4_delete")
 
 [node name="PlayBtn" parent="Background/Panel/Margin/Scroll/Layout/Controls" index="2"]
-text = ""
 icon = ExtResource("5_play")
 
 [connection signal="pressed" from="Background/Panel/Margin/Scroll/Layout/CopyBtn" to="." method="_on_copy_btn_pressed"]

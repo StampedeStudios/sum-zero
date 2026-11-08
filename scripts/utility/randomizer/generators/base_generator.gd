@@ -30,5 +30,5 @@ func _get_rule(rules_odd: Dictionary[String, int]) -> String:
 		if random <= counter_odd:
 			return rule
 
-	push_error("No rules found!")
+	GameLog.error("Generator", "No rule matched generation weights")
 	return ""

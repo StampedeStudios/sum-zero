@@ -25,7 +25,7 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 
 	# Initialize player rewards
 	if !player_rewards:
-		print("No rewards found, resetting")
+		GameLog.debug("Save", "Initializing rewards")
 		player_rewards = RewardData.new()
 		has_changed = true
 
@@ -72,16 +72,16 @@ func check_savegame_integrity(world: LevelContainer) -> bool:
 ## Initializes player options.
 func init_player_settings() -> void:
 	if player_options == null:
-		print("No settings preferences found, resetting")
+		GameLog.debug("Save", "Initializing player preferences")
 		player_options = PlayerOptions.new()
 
 		# Select starting language
 		var language: String = OS.get_locale_language()
-		print("No language set, reading from OS: [%s]" % language)
+		GameLog.debug("Options", "Using system language: %s" % language)
 		if Constants.AVAILABLE_LANGS.has(language):
 			player_options.language = language
 		else:
-			push_warning("[%s] not supported, falling back to English" % language)
+			GameLog.debug("Options", "System language %s unsupported; using English" % language)
 
 
 func get_level(level_id: int) -> LevelData:

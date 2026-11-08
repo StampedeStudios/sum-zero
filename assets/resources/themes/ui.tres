@@ -1,0 +1,302 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="FontFile" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="1_regular"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="2_bold"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button.tres" id="3_button"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button_pressed.tres" id="4_pressed"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button_disabled.tres" id="5_disabled"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/primary_button.tres" id="6_primary"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/primary_button_disabled.tres" id="7_primary_disabled"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/copy_button.tres" id="8_copy"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/text_area.tres" id="9_field"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/level_button.tres" id="10_level"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/small_button.tres" id="11_small"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/small_button_pressed.tres" id="12_small_pressed"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/menu_button.tres" id="13_menu"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/options_button.tres" id="14_option"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/options_panel.tres" id="15_popup"]
+[ext_resource type="Texture2D" path="res://assets/ui/checked_dot.png" id="16_checked"]
+[ext_resource type="Texture2D" path="res://assets/ui/unchecked_dot.png" id="17_unchecked"]
+[ext_resource type="Texture2D" path="res://assets/ui/arrow_down.png" id="18_arrow"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/panel.tres" id="19_panel"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/backdrop_panel.tres" id="20_backdrop"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/button_error.tres" id="21_error"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/transparent_backdrop_panel.tres" id="22_selection"]
+
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[sub_resource type="StyleBoxFlat" id="MenuHover"]
+content_margin_left = 20.0
+content_margin_right = 20.0
+bg_color = Color(1, 0.972549, 0.937255, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.514949, 0.394965, 0.254651, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxLine" id="MenuLine"]
+color = Color(0.25098, 0.184314, 0.105882, 1)
+thickness = 4
+
+[sub_resource type="StyleBoxFlat" id="TutorialBackground"]
+bg_color = Color(0.827451, 0.913725, 0.823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="ResizeBackground"]
+bg_color = Color(0.525415, 0.683337, 0.522033, 0.454902)
+
+[sub_resource type="StyleBoxFlat" id="LockedLevel"]
+bg_color = Color(0.93, 0.90, 0.85, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.79, 0.74, 0.64, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+default_font = ExtResource("1_regular")
+default_font_size = 24
+Button/fonts/font = ExtResource("2_bold")
+Button/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_disabled_color = Color(0.870588, 0.847059, 0.819608, 1)
+Button/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_disabled_color = Color(0.870588, 0.847059, 0.819608, 1)
+Button/constants/icon_max_width = 40
+Button/constants/touch_minimum_width = 56
+Button/constants/touch_minimum_height = 56
+Button/styles/normal = ExtResource("3_button")
+Button/styles/hover = ExtResource("3_button")
+Button/styles/pressed = ExtResource("4_pressed")
+Button/styles/hover_pressed = ExtResource("4_pressed")
+Button/styles/disabled = ExtResource("5_disabled")
+Button/styles/focus = SubResource("Empty")
+PrimaryButton/base_type = &"Button"
+PrimaryButton/colors/font_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/font_hover_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/font_pressed_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/font_hover_pressed_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/font_disabled_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/icon_normal_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/icon_hover_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/icon_pressed_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/icon_hover_pressed_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/colors/icon_disabled_color = Color(1, 0.972549, 0.937255, 1)
+PrimaryButton/styles/normal = ExtResource("6_primary")
+PrimaryButton/styles/hover = ExtResource("6_primary")
+PrimaryButton/styles/pressed = ExtResource("6_primary")
+PrimaryButton/styles/hover_pressed = ExtResource("6_primary")
+PrimaryButton/styles/disabled = ExtResource("7_primary_disabled")
+IconOnlyButton/base_type = &"Button"
+IconOnlyButton/constants/icon_max_width = 32
+IconOnlyButton/styles/normal = SubResource("Empty")
+IconOnlyButton/styles/hover = SubResource("Empty")
+IconOnlyButton/styles/pressed = SubResource("Empty")
+IconOnlyButton/styles/hover_pressed = SubResource("Empty")
+IconOnlyButton/styles/disabled = SubResource("Empty")
+PanelIcon/base_type = &"Button"
+PanelIcon/constants/icon_max_width = 32
+Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/colors/font_placeholder_color = Color(0.25098, 0.184314, 0.105882, 0.58)
+LineEdit/colors/caret_color = Color(0.25098, 0.184314, 0.105882, 1)
+LineEdit/constants/caret_width = 3
+LineEdit/styles/normal = ExtResource("9_field")
+LineEdit/styles/read_only = ExtResource("9_field")
+RichTextLabel/fonts/normal_font = ExtResource("1_regular")
+RichTextLabel/fonts/bold_font = ExtResource("2_bold")
+RichTextLabel/font_sizes/normal_font_size = 22
+RichTextLabel/font_sizes/bold_font_size = 22
+RichTextLabel/font_sizes/italics_font_size = 22
+RichTextLabel/font_sizes/bold_italics_font_size = 22
+RichTextLabel/colors/default_color = Color(0.25098, 0.184314, 0.105882, 1)
+CheckBox/constants/icon_max_width = 32
+CheckBox/icons/checked = ExtResource("16_checked")
+CheckBox/icons/unchecked = ExtResource("17_unchecked")
+CheckBox/styles/normal = SubResource("Empty")
+CheckBox/styles/hover = SubResource("Empty")
+CheckBox/styles/pressed = SubResource("Empty")
+CheckBox/styles/focus = SubResource("Empty")
+OptionButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/constants/arrow_margin = 8
+OptionButton/icons/arrow = ExtResource("18_arrow")
+OptionButton/styles/normal = ExtResource("14_option")
+OptionButton/styles/hover = ExtResource("14_option")
+OptionButton/styles/pressed = ExtResource("14_option")
+PopupMenu/font_sizes/font_size = 24
+PopupMenu/styles/panel = ExtResource("15_popup")
+LinkButton/colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
+LinkButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+LinkButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+DialogPanel/base_type = &"Panel"
+DialogPanel/styles/panel = ExtResource("19_panel")
+DialogBackdrop/base_type = &"Panel"
+DialogBackdrop/styles/panel = ExtResource("20_backdrop")
+EmptyPanel/base_type = &"Panel"
+EmptyPanel/styles/panel = SubResource("Empty")
+TutorialBackground/base_type = &"Panel"
+TutorialBackground/styles/panel = SubResource("TutorialBackground")
+ResizeBackground/base_type = &"Panel"
+ResizeBackground/styles/panel = SubResource("ResizeBackground")
+SelectionBackdrop/base_type = &"Panel"
+SelectionBackdrop/styles/panel = ExtResource("22_selection")
+InvisibleSeparator/base_type = &"HSeparator"
+InvisibleSeparator/styles/separator = SubResource("Empty")
+MainMenuButton/base_type = &"Button"
+MainMenuButton/fonts/font = ExtResource("1_regular")
+MainMenuButton/constants/h_separation = 16
+MainMenuButton/constants/icon_max_width = 50
+MainMenuButton/font_sizes/font_size = 40
+MainMenuButton/styles/normal = ExtResource("13_menu")
+MainMenuButton/styles/hover = SubResource("MenuHover")
+MainMenuButton/styles/pressed = SubResource("MenuHover")
+MainMenuButton/styles/hover_pressed = SubResource("MenuHover")
+MenuMargins/base_type = &"MarginContainer"
+MenuMargins/constants/margin_bottom = 32
+MenuMargins/constants/margin_left = 24
+MenuMargins/constants/margin_right = 24
+MenuMargins/constants/margin_top = 32
+MenuSpacing/base_type = &"VBoxContainer"
+MenuSpacing/constants/separation = 20
+MenuSeparator/base_type = &"HSeparator"
+MenuSeparator/constants/separation = 64
+MenuSeparator/styles/separator = SubResource("MenuLine")
+InspectTitle/base_type = &"Label"
+InspectTitle/fonts/font = ExtResource("2_bold")
+InspectTitle/font_sizes/font_size = 32
+InspectStars/base_type = &"Control"
+InspectStars/constants/side_size = 100
+InspectStars/constants/front_size = 120
+InspectStars/constants/overlap = 40
+InspectStars/constants/rise = 30
+InspectPlay/base_type = &"PrimaryButton"
+InspectCopy/base_type = &"Button"
+InspectCopy/font_sizes/font_size = 18
+InspectCopy/styles/normal = ExtResource("8_copy")
+InspectCopy/styles/hover = ExtResource("8_copy")
+InspectCopy/styles/pressed = ExtResource("8_copy")
+InspectCopy/styles/hover_pressed = ExtResource("8_copy")
+CopySuccess/base_type = &"InspectCopy"
+CopySuccess/colors/icon_normal_color = Color(0, 0.501961, 0, 1)
+CopySuccess/colors/icon_hover_color = Color(0, 0.501961, 0, 1)
+CopySuccess/colors/icon_pressed_color = Color(0, 0.501961, 0, 1)
+CopySuccess/colors/icon_hover_pressed_color = Color(0, 0.501961, 0, 1)
+ImportError/base_type = &"InspectCopy"
+ImportError/colors/icon_normal_color = Color(0.545098, 0, 0, 1)
+ImportError/colors/icon_hover_color = Color(0.545098, 0, 0, 1)
+ImportError/colors/icon_pressed_color = Color(0.545098, 0, 0, 1)
+ImportError/styles/normal = ExtResource("21_error")
+ImportError/styles/hover = ExtResource("21_error")
+ImportError/styles/pressed = ExtResource("21_error")
+ImportField/base_type = &"LineEdit"
+ImportField/font_sizes/font_size = 24
+ImportErrorField/base_type = &"ImportField"
+ImportErrorField/colors/font_color = Color(0.545098, 0, 0, 1)
+LevelTile/base_type = &"Button"
+LevelTile/constants/icon_max_width = 0
+LevelTile/font_sizes/font_size = 24
+LevelTile/colors/icon_normal_color = Color(1, 1, 1, 1)
+LevelTile/colors/icon_hover_color = Color(1, 1, 1, 1)
+LevelTile/colors/icon_pressed_color = Color(1, 1, 1, 1)
+LevelTile/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+LevelTile/styles/normal = ExtResource("10_level")
+LevelTile/styles/hover = ExtResource("10_level")
+LevelTile/styles/pressed = ExtResource("10_level")
+LevelTile/styles/hover_pressed = ExtResource("10_level")
+LevelTile/styles/disabled = ExtResource("10_level")
+LevelTileEmpty/base_type = &"LevelTile"
+LevelTileEmpty/constants/icon_max_width = 40
+LevelTileEmpty/colors/icon_normal_color = Color(0.62, 0.55, 0.45, 1)
+LevelTileEmpty/colors/icon_hover_color = Color(0.62, 0.55, 0.45, 1)
+LevelTileEmpty/colors/icon_pressed_color = Color(0.62, 0.55, 0.45, 1)
+LevelTileEmpty/colors/icon_hover_pressed_color = Color(0.62, 0.55, 0.45, 1)
+LevelTileEmpty/colors/icon_disabled_color = Color(0.62, 0.55, 0.45, 1)
+LevelTileLocked/base_type = &"LevelTileEmpty"
+LevelTileLocked/constants/icon_max_width = 40
+LevelTileLocked/styles/disabled = SubResource("LockedLevel")
+LevelMenuBack/base_type = &"IconOnlyButton"
+LevelMenuIcon/base_type = &"IconOnlyButton"
+LevelMenuIcon/constants/icon_max_width = 40
+LevelPageNumber/base_type = &"Label"
+LevelPageNumber/font_sizes/font_size = 24
+GameplayIconButton/base_type = &"Button"
+GameplayIconButton/constants/icon_max_width = 80
+PlaytestMoves/base_type = &"Label"
+PlaytestMoves/font_sizes/font_size = 48
+ArenaTimer/base_type = &"Label"
+ArenaTimer/font_sizes/font_size = 40
+ArenaTimer/fonts/font = ExtResource("2_bold")
+ArenaBonus/base_type = &"Label"
+ArenaBonus/font_sizes/font_size = 32
+BuilderAction/base_type = &"Button"
+BuilderAction/constants/icon_max_width = 56
+BuilderAction/styles/normal = ExtResource("11_small")
+BuilderAction/styles/hover = ExtResource("11_small")
+BuilderAction/styles/pressed = ExtResource("12_small_pressed")
+BuilderAction/styles/hover_pressed = ExtResource("12_small_pressed")
+BuilderGenerator/base_type = &"BuilderAction"
+BuilderGenerator/constants/icon_max_width = 40
+BuilderGenerator/font_sizes/font_size = 50
+BuilderRandom/base_type = &"BuilderGenerator"
+BuilderRandom/colors/icon_normal_color = Color(0, 0.556863, 0.67451, 0.858824)
+BuilderRandom/colors/icon_hover_color = Color(0, 0.556863, 0.67451, 0.858824)
+BuilderRandom/colors/icon_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
+BuilderRandom/colors/icon_hover_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
+BuilderBack/base_type = &"IconOnlyButton"
+BuilderBack/constants/icon_max_width = 40
+BuilderField/base_type = &"LineEdit"
+BuilderSave/base_type = &"PrimaryButton"
+BuilderSave/font_sizes/font_size = 28
+ResultIcon/base_type = &"PanelIcon"
+ResultPrimary/base_type = &"PrimaryButton"
+ResultScore/base_type = &"Label"
+ResultScore/fonts/font = ExtResource("2_bold")
+ResultScore/font_sizes/font_size = 64
+ResultScoreHeading/base_type = &"Label"
+ResultScoreHeading/font_sizes/font_size = 32
+ResultScoreHeading/fonts/font = ExtResource("2_bold")
+ResultMultiplier/base_type = &"Label"
+ResultMultiplier/fonts/font = ExtResource("2_bold")
+ResultMultiplier/font_sizes/font_size = 44
+ModeNavigation/base_type = &"IconOnlyButton"
+ModeMessage/base_type = &"RichTextLabel"
+OptionsBack/base_type = &"IconOnlyButton"
+OptionsToggle/base_type = &"IconOnlyButton"
+OptionsToggle/constants/icon_max_width = 64
+OptionsToggle/colors/icon_normal_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_hover_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_pressed_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+ReadingCounter/base_type = &"Label"
+ReadingCounter/font_sizes/font_size = 22
+ReadingPrimary/base_type = &"PrimaryButton"
+ReadingPrimary/font_sizes/font_size = 28
+CreditsText/base_type = &"RichTextLabel"
+CreditsText/colors/default_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/base_type = &"IconOnlyButton"
+CreditsBack/colors/font_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/colors/font_hover_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/colors/font_pressed_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/colors/icon_normal_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/colors/icon_hover_color = Color(1, 0.972549, 0.937255, 1)
+CreditsBack/colors/icon_pressed_color = Color(1, 0.972549, 0.937255, 1)
+SplashLogo/base_type = &"Control"
+SplashLogo/constants/maximum_logo_width = 520

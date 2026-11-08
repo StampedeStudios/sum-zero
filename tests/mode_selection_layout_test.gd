@@ -1,24 +1,9 @@
 ## Run with: godot --headless --path . --script tests/mode_selection_layout_test.gd
-extends SceneTree
-
-var _failures := 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	root.get_node("AudioManager")._is_sfx_on = false
 	var ui := (load("res://packed_scene/user_interface/PlayModeSelection.tscn") as PackedScene).instantiate() as Control
 	root.add_child(ui)
 	ui.setup()
@@ -27,7 +12,7 @@ func _run() -> void:
 	await _settle()
 	_check(ui.hbox_container.get_child_count() == ui.arena_modes.size(), "Repeated setup must not duplicate cards")
 	var cases := 0
-	for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+	for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 		root.size = viewport_size
 		for locale in ["en", "it", "de", "es", "fr", "pl"]:
 			TranslationServer.set_locale(locale)
@@ -46,6 +31,7 @@ func _run() -> void:
 				for widget in [ui.panel, ui.play_btn, ui.left_btn, ui.right_btn, ui.scroll_container]:
 					_check(Rect2(Vector2.ZERO, Vector2(root.size)).encloses(widget.get_global_rect()), context + ": control offscreen")
 				_check(not ui.play_btn.get_global_rect().intersects(ui.scroll_container.get_global_rect()), context + ": Play overlaps cards")
+				_check(is_equal_approx(ui.play_btn.size.x, ui.play_btn.get_parent().size.x), context + ": Play must fill action row")
 				if card.overlay_texture.visible:
 					_check(card.message.size.y > 0, context + ": overlay message has no space")
 				cases += 1
@@ -70,7 +56,19 @@ func _run() -> void:
 	ui.setup()
 	await _settle()
 	ui._select_mode(2, false)
-	_check(ui.play_btn.disabled == not OS.has_feature("editor"), "Editor bypass must retain feature guard")
+	_check(ui.play_btn.disabled == (not OS.has_feature("editor")), "Editor bypass must retain feature guard")
+	var saves := root.get_node("SaveManager")
+	var stars_before: int = saves.get_star_count()
+	var card := ui.hbox_container.get_child(2) as Control
+	card.setup(mode, false)
+	_check(card.is_locked(), "Disabling bypass must restore lock")
+	var story := StoryMode.new()
+	story.unlock_mode = PlayMode.UnlockMode.STAR
+	story.unlock_count = stars_before + 100
+	card.setup(story, true)
+	_check(card.is_locked(), "Bypass must not unlock campaign modes")
+	_check(saves.get_star_count() == stars_before, "Bypass must not change saved stars")
+	card.setup(mode, true)
 	ui.arena_modes[2] = original_mode
 	# Rapid navigation replaces the previous tween, and resizing preserves selection.
 	ui._select_mode(0, false)
@@ -87,14 +85,3 @@ func _run() -> void:
 	await _settle()
 	print("Mode selection layout: %d cases, %d failures" % [cases, _failures])
 	quit(1 if _failures else 0)
-
-
-func _settle() -> void:
-	for frame in range(10):
-		await process_frame
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

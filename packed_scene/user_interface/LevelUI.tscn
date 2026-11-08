@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cjy0fic8rbjku"]
 
 [ext_resource type="Script" path="res://scripts/user_interface/level_ui.gd" id="1_script"]
-[ext_resource type="Theme" path="res://assets/resources/themes/level_menu.tres" id="2_theme"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="2_theme"]
 [ext_resource type="Texture2D" path="res://assets/ui/chevron_icon.png" id="3_back"]
 [ext_resource type="Texture2D" path="res://assets/ui/editor_icon.png" id="4_builder"]
 [ext_resource type="Texture2D" path="res://assets/ui/chevron_right_icon.png" id="5_next"]

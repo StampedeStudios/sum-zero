@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://bgc4hkh51hukh" path="res://scripts/user_interface/tutorial_ui.gd" id="1_wj154"]
 [ext_resource type="Texture2D" uid="uid://dgbqkgkmtt1m5" path="res://assets/ui/tutorial/tutorial_zero_1.png" id="2_jp4ma"]
 [ext_resource type="FontFile" uid="uid://fu083i16qn34" path="res://assets/ui/fonts/FiraMono-Regular.ttf" id="3_opl83"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="3_yxr7t"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="3_yxr7t"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="touch"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="4_o3tgm"]
-[ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_rf8c4"]
+[ext_resource type="Script" path="res://scripts/user_interface/tutorial_content_layout.gd" id="6_layout"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6imht"]
 bg_color = Color(0.827451, 0.913725, 0.823529, 1)
@@ -19,6 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_yxr7t")
 script = ExtResource("1_wj154")
 
 [node name="Background" type="Panel" parent="." unique_id=1740471226]
@@ -29,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6imht")
+theme_type_variation = &"TutorialBackground"
 
 [node name="MarginContainer" type="MarginContainer" parent="Background" unique_id=1045853009]
 unique_name_in_owner = true
@@ -46,36 +48,39 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer" unique_id=420962871]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 16
 
 [node name="Label" type="Label" parent="Background/MarginContainer/VBoxContainer" unique_id=2086390917]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 2
+theme_type_variation = &"ReadingCounter"
 theme = ExtResource("3_yxr7t")
 text = "[Tip 1 of 4]"
 horizontal_alignment = 1
+autowrap_mode = 3
 
-[node name="Hint" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer" unique_id=4424632]
+[node name="Content" type="BoxContainer" parent="Background/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-clip_contents = false
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 16
+vertical = true
+script = ExtResource("6_layout")
+
+[node name="Hint" type="RichTextLabel" parent="Background/MarginContainer/VBoxContainer/Content" unique_id=4424632]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 theme = ExtResource("3_yxr7t")
-theme_override_fonts/normal_font = ExtResource("3_opl83")
-theme_override_fonts/bold_font = ExtResource("4_o3tgm")
-theme_override_font_sizes/bold_font_size = 36
 bbcode_enabled = true
 text = "Complete the levels by resetting the matrix!"
-fit_content = true
-scroll_active = false
+scroll_active = true
 
-[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/VBoxContainer" unique_id=1842665850]
+[node name="TextureRect" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Content" unique_id=1842665850]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
-size_flags_stretch_ratio = 9.0
 texture = ExtResource("2_jp4ma")
 expand_mode = 1
 stretch_mode = 5
@@ -89,27 +94,29 @@ theme_override_constants/separation = 15
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_yxr7t")
-theme_override_constants/icon_max_width = 32
-theme_override_styles/focus = SubResource("StyleBoxEmpty_d6cak")
 flat = true
 alignment = 2
 
 [node name="HintLabel" type="Label" parent="Background/MarginContainer/VBoxContainer/HintOptions" unique_id=80159891]
 unique_name_in_owner = true
 layout_mode = 2
+theme_type_variation = &"ReadingCounter"
 size_flags_horizontal = 3
 theme = ExtResource("3_yxr7t")
-theme_override_font_sizes/font_size = 32
 text = "HIDE_HINT"
+autowrap_mode = 3
 
 [node name="NextBtn" type="Button" parent="Background/MarginContainer/VBoxContainer" unique_id=1188942142]
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
+custom_minimum_size = Vector2(0, 56)
 size_flags_horizontal = 3
-size_flags_vertical = 10
+size_flags_vertical = 4
 focus_mode = 0
-theme = ExtResource("4_rf8c4")
+theme_type_variation = &"ReadingPrimary"
 text = "NEXT"
+autowrap_mode = 3
 icon_alignment = 2
 
 [connection signal="toggled" from="Background/MarginContainer/VBoxContainer/HintOptions/ShowHints" to="." method="_on_show_hints_toggled"]

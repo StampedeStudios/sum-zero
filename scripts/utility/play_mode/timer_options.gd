@@ -36,7 +36,7 @@ func get_time_gained(needed_moves: int, used_moves: int) -> int:
 
 	# Baseline for wasted moves
 	if used_moves > needed_moves:
-		print("[Arena Score] Suboptimal solution, gain half of the seconds")
+		GameLog.debug("Arena", "Suboptimal solution: applying half time bonus")
 		return 1 + roundi(time_sum / 2)
 
 	return 1 + roundi(time_sum)

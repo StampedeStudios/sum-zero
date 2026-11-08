@@ -49,7 +49,8 @@ func setup() -> void:
 			hbox_container.add_child(mode_ui)
 		_cards_initialized = true
 	for index in range(arena_modes.size()):
-		(hbox_container.get_child(index) as PlayModeUI).setup(arena_modes[index], unlock_arena_modes_in_editor)
+		var card := hbox_container.get_child(index) as PlayModeUI
+		card.setup(arena_modes[index], unlock_arena_modes_in_editor)
 	_resize_cards()
 	_set_first_uncompleted_mode.call_deferred()
 

@@ -56,7 +56,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			if !GameManager.level_manager.on_level_complete.is_connected(_on_level_complete):
 				GameManager.level_manager.on_level_complete.connect(_on_level_complete)
 
-			print("[Game UI] Ready to receive events")
+			GameLog.debug("GameUI", "Ready for level input")
 
 		Constants.GameState.LEVEL_START:
 			self.visible = true
@@ -70,7 +70,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 			_has_next_level = GameManager.set_next_level()
 			skip_btn.visible = _has_next_level and SaveManager.is_level_completed()
-			print("[Game UI] Starting level")
+			GameLog.debug("GameUI", "Starting level")
 
 		Constants.GameState.LEVEL_END:
 			self.visible = false

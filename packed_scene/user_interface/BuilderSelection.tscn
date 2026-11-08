@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1lpog0j100i5" path="res://scripts/user_interface/builder_selection.gd" id="1_bawj5"]
 [ext_resource type="Texture2D" uid="uid://cexydgocdclnk" path="res://assets/ui/play_icon.png" id="5_ya4n7"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="6_3iilm"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="6_3iilm"]
 [ext_resource type="Texture2D" uid="uid://bltremx72y4lg" path="res://assets/ui/lightning_icon.png" id="6_lyil8"]
 [ext_resource type="Texture2D" uid="uid://b2evvomhq6oay" path="res://assets/ui/minus_icon.png" id="7_0ydmo"]
 [ext_resource type="StyleBox" uid="uid://buh2tmpgrlcpe" path="res://assets/resources/themes/transparent_backdrop_panel.tres" id="7_7x6ip"]
@@ -34,7 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("7_7x6ip")
+theme_type_variation = &"SelectionBackdrop"
 
 [node name="Control" type="Control" parent="." unique_id=1015502451]
 unique_name_in_owner = true
@@ -65,7 +65,7 @@ rotation = 3.14159
 pivot_offset = Vector2(24, 24)
 focus_mode = 0
 theme = ExtResource("6_3iilm")
-theme_override_constants/icon_max_width = 32
+theme_type_variation = &"IconOnlyButton"
 icon = ExtResource("7_0ydmo")
 flat = true
 icon_alignment = 1
@@ -85,7 +85,7 @@ offset_bottom = 24.0
 grow_vertical = 2
 focus_mode = 0
 theme = ExtResource("6_3iilm")
-theme_override_constants/icon_max_width = 32
+theme_type_variation = &"IconOnlyButton"
 icon = ExtResource("8_ud0wv")
 flat = true
 icon_alignment = 1
@@ -105,7 +105,7 @@ offset_bottom = 124.0
 grow_horizontal = 2
 focus_mode = 0
 theme = ExtResource("6_3iilm")
-theme_override_constants/icon_max_width = 32
+theme_type_variation = &"IconOnlyButton"
 icon = ExtResource("9_yyv7m")
 flat = true
 icon_alignment = 1
@@ -126,7 +126,7 @@ grow_horizontal = 2
 grow_vertical = 0
 focus_mode = 0
 theme = ExtResource("6_3iilm")
-theme_override_constants/icon_max_width = 32
+theme_type_variation = &"IconOnlyButton"
 icon = ExtResource("10_aav8u")
 flat = true
 icon_alignment = 1

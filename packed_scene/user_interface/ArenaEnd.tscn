@@ -4,7 +4,8 @@
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_1qk6b"]
 [ext_resource type="Script" uid="uid://bi5epibmov65b" path="res://scripts/utility/play_mode/score_calculation.gd" id="2_1wtv5"]
 [ext_resource type="Script" uid="uid://dbo2c7v3ivhqp" path="res://scripts/utility/play_mode/star_calculation.gd" id="3_2vcy5"]
-[ext_resource type="Theme" path="res://assets/resources/themes/results.tres" id="3_ty0yv"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="3_ty0yv"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="touch"]
 [ext_resource type="Texture2D" uid="uid://cjdi5oe8gstjm" path="res://assets/ui/zero_stars_blitz.png" id="4_1wyoo"]
 [ext_resource type="FontFile" uid="uid://jk2k0v0x2552" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="4_i3esg"]
 [ext_resource type="Texture2D" uid="uid://3xf2heq2gc04" path="res://assets/ui/three_stars_blitz.png" id="4_n53ea"]
@@ -66,7 +67,7 @@ steps = Array[ExtResource("2_1wtv5")]([SubResource("Resource_63kpr"), SubResourc
 [node name="Panel" type="Panel" parent="." unique_id=955685007]
 unique_name_in_owner = true
 layout_mode = 0
-theme_override_styles/panel = ExtResource("2_1qk6b")
+theme_type_variation = &"DialogPanel"
 script = ExtResource("12_ymho7")
 maximum_size = Vector2(460, 480)
 
@@ -138,7 +139,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("3_ty0yv")
-theme_override_fonts/font = ExtResource("4_i3esg")
 theme_type_variation = &"ResultMultiplier"
 text = "1"
 
@@ -158,7 +158,6 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("3_ty0yv")
-theme_override_fonts/font = ExtResource("4_i3esg")
 theme_type_variation = &"ResultScore"
 text = "000000"
 horizontal_alignment = 1
@@ -168,7 +167,7 @@ autowrap_mode = 3
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
-theme_override_styles/separator = SubResource("StyleBoxEmpty_s74rf")
+theme_type_variation = &"InvisibleSeparator"
 
 [node name="Actions" type="HBoxContainer" parent="Panel/MarginContainer/Layout" unique_id=897176563]
 unique_name_in_owner = true
@@ -178,10 +177,12 @@ alignment = 2
 theme_override_constants/separation = 12
 
 [node name="ExitBtn" type="Button" parent="Panel/MarginContainer/Layout/Actions" unique_id=1741947576]
+icon_alignment = 1
+script = ExtResource("touch")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 1
 focus_mode = 0
 theme = ExtResource("3_ty0yv")
 theme_type_variation = &"ResultIcon"
@@ -189,6 +190,7 @@ icon = ExtResource("6_552vy")
 expand_icon = true
 
 [node name="ReplayBtn" type="Button" parent="Panel/MarginContainer/Layout/Actions" unique_id=2049407670]
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

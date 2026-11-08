@@ -146,15 +146,15 @@ func update_blitz_score(new: int) -> bool:
 func _try_load_saved_data() -> bool:
 	_persistent_save = load(PERSISTENT_SAVE_PATH) as LevelContainer
 	if _persistent_save == null or _persistent_save.is_empty():
-		push_error("No levels found on persisted data")
+		GameLog.error("Save", "Bundled level data is missing or empty; cannot initialize game")
 		return false
 	if !FileAccess.file_exists(PLAYER_SAVE_PATH):
-		push_warning("No data found on disk, generating fresh save game")
+		GameLog.debug("Save", "No player save found; creating a new save")
 		_player_save = PlayerSave.new()
 	else:
 		_player_save = load(PLAYER_SAVE_PATH) as PlayerSave
 	if _player_save == null:
-		push_error("Saved data corrupted, impossible to read")
+		GameLog.error("Save", "Player save could not be loaded; falling back to a new save")
 		_player_save = PlayerSave.new()
 
 	var modified := _player_save.check_savegame_integrity(_persistent_save)

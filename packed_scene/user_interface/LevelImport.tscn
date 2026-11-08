@@ -2,10 +2,11 @@
 
 [ext_resource type="StyleBox" path="res://assets/resources/themes/panel.tres" id="1_panel"]
 [ext_resource type="Script" path="res://scripts/user_interface/level_import.gd" id="2_script"]
-[ext_resource type="Theme" path="res://assets/resources/themes/level_inspect.tres" id="3_theme"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="3_theme"]
 [ext_resource type="StyleBox" path="res://assets/resources/themes/backdrop_panel.tres" id="4_backdrop"]
 [ext_resource type="Texture2D" path="res://assets/ui/paste_icon.png" id="5_paste"]
 [ext_resource type="Script" path="res://scripts/user_interface/responsive_dialog_panel.gd" id="6_panel"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="7_touch"]
 
 [node name="LevelImport" type="Control"]
 layout_mode = 3
@@ -24,12 +25,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = ExtResource("4_backdrop")
+theme_type_variation = &"DialogBackdrop"
 
 [node name="Panel" type="Panel" parent="Background"]
 unique_name_in_owner = true
 layout_mode = 0
-theme_override_styles/panel = ExtResource("1_panel")
+theme_type_variation = &"DialogPanel"
 script = ExtResource("6_panel")
 maximum_size = Vector2(460, 320)
 
@@ -92,6 +93,8 @@ deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
 
 [node name="Paste" type="Button" parent="Background/Panel/Margin/Scroll/Layout/CodeRow"]
+icon_alignment = 1
+script = ExtResource("7_touch")
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(48, 48)
@@ -105,6 +108,7 @@ size_flags_vertical = 3
 mouse_filter = 2
 
 [node name="SaveBtn" type="Button" parent="Background/Panel/Margin/Scroll/Layout"]
+script = ExtResource("7_touch")
 unique_name_in_owner = true
 layout_mode = 2
 custom_minimum_size = Vector2(0, 48)

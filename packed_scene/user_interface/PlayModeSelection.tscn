@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cgcph1mual0b8"]
 
-[ext_resource type="Theme" path="res://assets/resources/themes/mode_selection.tres" id="1_wbtf6"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="1_wbtf6"]
+[ext_resource type="Script" path="res://scripts/user_interface/touch_button.gd" id="touch"]
 [ext_resource type="Script" uid="uid://dgqqsla4soc8h" path="res://scripts/user_interface/play_mode_selection.gd" id="2_j1dwl"]
 [ext_resource type="Script" uid="uid://bvtwtisjf6pso" path="res://scripts/utility/play_mode/play_mode.gd" id="3_syb7d"]
 [ext_resource type="Resource" uid="uid://cdb1s2jwkb0yd" path="res://assets/resources/levels/play_mode/tutorial_mode.tres" id="4_hwcqv"]
@@ -8,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://cqsjj643jp1lf" path="res://assets/resources/levels/play_mode/endless_mode.tres" id="6_0xo1f"]
 [ext_resource type="Resource" uid="uid://d0xanyjlyiox4" path="res://assets/resources/levels/play_mode/blitz_mode.tres" id="7_i45mq"]
 [ext_resource type="Resource" uid="uid://bopno5li70h0j" path="res://assets/resources/levels/play_mode/puzzle_mode.tres" id="8_gywfq"]
-[ext_resource type="Theme" path="res://assets/resources/themes/level_inspect.tres" id="9_r4e6y"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="9_r4e6y"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="10_j8ioe"]
 [ext_resource type="Script" uid="uid://dm6kp12cyh2x5" path="res://scripts/user_interface/responsive_dialog_panel.gd" id="10_r6ujm"]
 [ext_resource type="Texture2D" uid="uid://co8hljrfufw3q" path="res://assets/ui/chevron_right_icon.png" id="12_ipigk"]
@@ -48,7 +49,7 @@ offset_right = 464.0
 offset_bottom = 686.5
 pivot_offset = Vector2(224, 260)
 size_flags_vertical = 3
-theme_override_styles/panel = SubResource("StyleBoxEmpty_k64a5")
+theme_type_variation = &"EmptyPanel"
 script = ExtResource("10_r6ujm")
 maximum_size = Vector2(640, 520)
 anim_time = 0.0
@@ -79,6 +80,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="LeftBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/LeftBox" unique_id=1473662469]
+icon_alignment = 1
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -86,7 +89,6 @@ size_flags_stretch_ratio = 9.0
 focus_mode = 0
 theme = ExtResource("1_wbtf6")
 theme_type_variation = &"ModeNavigation"
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("10_j8ioe")
 flat = true
 
@@ -117,13 +119,14 @@ layout_mode = 2
 size_flags_horizontal = 0
 
 [node name="RightBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/Container/RightBox" unique_id=1502995579]
+icon_alignment = 1
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 9.0
 focus_mode = 0
 theme_type_variation = &"ModeNavigation"
-theme_override_styles/focus = SubResource("StyleBoxEmpty_vniwo")
 icon = ExtResource("12_ipigk")
 flat = true
 
@@ -133,11 +136,13 @@ size_flags_vertical = 10
 theme_override_constants/separation = 15
 
 [node name="VSeparator" type="VSeparator" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer" unique_id=1776471965]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")
 
 [node name="PlayBtn" type="Button" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer" unique_id=1020497314]
+script = ExtResource("touch")
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -149,6 +154,7 @@ text = "PLAY"
 icon_alignment = 2
 
 [node name="VSeparator2" type="VSeparator" parent="Backdrop/Panel/MarginContainer/ArenaSelection/HBoxContainer" unique_id=183578294]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_xpiqf")

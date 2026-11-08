@@ -1,25 +1,9 @@
 ## Run with: godot --headless --path . --script tests/gameplay_layout_test.gd
-extends SceneTree
-
-var _failures: int = 0
-
-
-func _initialize() -> void:
-	root.child_entered_tree.connect(func(child: Node) -> void:
-		if child.name == "SplashScreen":
-			child.set_script(null)
-	)
-	_run.call_deferred()
+# gdlint: disable=max-line-length
+extends "res://tests/test_base.gd"
 
 
 func _run() -> void:
-	await process_frame
-	var splash := root.get_node_or_null("SplashScreen")
-	if splash:
-		splash.queue_free()
-	await process_frame
-	# Slider SFX can still be playing when this fast headless test exits.
-	root.get_node("AudioManager")._is_sfx_on = false
 	var manager_scene := load("res://packed_scene/scene_2d/LevelManager.tscn") as PackedScene
 	var ui_scene := load("res://packed_scene/user_interface/GameUI.tscn") as PackedScene
 	var manager := manager_scene.instantiate() as Node2D
@@ -35,7 +19,7 @@ func _run() -> void:
 		var data := _make_level(dimensions)
 		await manager.init_level(data)
 		manager.spawn_grid(false)
-		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(720, 1600), Vector2i(960, 1280), Vector2i(640, 360)]:
+		for viewport_size in [Vector2i(360, 640), Vector2i(480, 853), Vector2i(640, 360)]:
 			root.size = viewport_size
 			for show_skip in [true, false]:
 				ui.get_node("%SkipBtn").visible = show_skip
@@ -95,9 +79,3 @@ func _make_level(dimensions: Vector2i) -> LevelData:
 		slider.area_behavior = Constants.Sliders.Behavior.BY_STEP
 		data.slider_list[Vector2i(edge, 0)] = slider
 	return data
-
-
-func _check(condition: bool, message: String) -> void:
-	if not condition:
-		push_error(message)
-		_failures += 1

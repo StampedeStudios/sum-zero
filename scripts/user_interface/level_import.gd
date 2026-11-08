@@ -2,9 +2,6 @@ class_name LevelImport extends Control
 
 signal level_imported
 
-const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
-const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
-
 var _error_timer: Timer
 
 @onready var paste: Button = %Paste
@@ -90,17 +87,15 @@ func close() -> void:
 
 func _show_error() -> void:
 	save_btn.disabled = true
-	paste.add_theme_stylebox_override("normal", BUTTON_ERROR)
-	paste.add_theme_color_override("icon_normal_color", Color.DARK_RED)
-	code.add_theme_color_override("font_color", Color.DARK_RED)
+	paste.theme_type_variation = &"ImportError"
+	code.theme_type_variation = &"ImportErrorField"
 
 	_error_timer.start()
 
 
 func _clear_error(clear_code: bool = true) -> void:
-	paste.add_theme_stylebox_override("normal", BUTTON_NORMAL)
-	paste.remove_theme_color_override("icon_normal_color")
-	code.remove_theme_color_override("font_color")
+	paste.theme_type_variation = &"InspectCopy"
+	code.theme_type_variation = &"ImportField"
 	if clear_code:
 		code.text = ""
 	_update_save_btn()

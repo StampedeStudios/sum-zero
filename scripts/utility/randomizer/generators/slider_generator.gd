@@ -22,7 +22,7 @@ func generate() -> void:
 	var possible_sliders: Dictionary[Vector2i, Array]
 	await _get_possible_sliders(possible_sliders)
 	if possible_sliders.is_empty():
-		push_warning("Generated a level with no sliders. Generating again")
+		GameLog.warning("Generator", "No slider positions available for generated board")
 		return
 
 	var filtered_sliders: Dictionary[Vector2i, RandomizerSlider]
@@ -437,18 +437,6 @@ func _apply_slider_effect(cell: CellData, area_effect: Constants.Sliders.Effect)
 				2:
 					cell.value += randi_range(1, 2)
 					cell.value = clamp(cell.value, -4, 4)
-
-
-## Checks if two sliders are opposite to each other.
-func _is_opposite_slider(a: Vector2i, b: Vector2i) -> bool:
-	if a.y != b.y:
-		return false
-
-	if a.x != b.x:
-		if a.x % 2 == b.x % 2:
-			return true
-
-	return false
 
 
 ## Gets all possible sliders for the current grid configuration.

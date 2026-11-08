@@ -16,28 +16,15 @@ var _hide_next_time: bool
 @onready var hint_label: Label = %HintLabel
 @onready var sprite: TextureRect = %TextureRect
 @onready var play_btn: Button = %NextBtn
-@onready var margin: MarginContainer = %MarginContainer
 @onready var hint_options: HBoxContainer = %HintOptions
 @onready var show_hints: CheckBox = %ShowHints
 
 
-func _ready() -> void:
-	hint.add_theme_font_size_override("normal_font_size", GameManager.small_text_font_size)
-	hint.add_theme_font_size_override("bold_font_size", GameManager.small_text_font_size)
-	hint.add_theme_font_size_override("italic_font_size", GameManager.small_text_font_size)
-	show_hints.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
-
-	label.add_theme_font_size_override("font_size", GameManager.text_font_size)
-	hint_label.add_theme_font_size_override("font_size", GameManager.text_font_size)
-	play_btn.add_theme_font_size_override("font_size", GameManager.title_font_size)
-
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-
 func setup(data: TutorialData) -> void:
+	_current_hint = 0
+	_hide_next_time = false
+	show_hints.set_pressed_no_signal(false)
+	hint.scroll_to_line(0)
 	_tips = data.hints
 	_images = data.images
 	_name = data.tutorial_name
@@ -47,9 +34,10 @@ func setup(data: TutorialData) -> void:
 		sprite.texture = _images[0]
 	else:
 		sprite.texture = null
+	sprite.visible = sprite.texture != null
 
-	if _tips.size() > 0:
-		hint.text = _tips[0]
+	hint.text = _tips[0] if not _tips.is_empty() else ""
+	label.visible = _tips.size() > 1
 
 	if _tips.size() <= 1:
 		label.hide()
@@ -57,6 +45,7 @@ func setup(data: TutorialData) -> void:
 	else:
 		play_btn.text = tr("NEXT")
 		label.text = tr("TIP_OF") % [1, _tips.size()]
+	get_node("%Content").refresh.call_deferred()
 
 
 func _on_next_btn_pressed() -> void:
@@ -64,15 +53,18 @@ func _on_next_btn_pressed() -> void:
 
 	# Continue if there are more tips
 	if _current_hint < _tips.size():
+		hint.scroll_to_line(0)
 		hint.text = _tips[_current_hint]
 		label.text = tr("TIP_OF") % [_current_hint + 1, _tips.size()]
 
 		# Change image if there are any
 		if _images.size() > _current_hint:
 			sprite.texture = _images[_current_hint]
+		sprite.visible = sprite.texture != null
 
 		if _current_hint == _tips.size() - 1:
 			play_btn.text = tr("PLAY")
+		get_node("%Content").refresh.call_deferred()
 
 	else:
 		on_tutorial_closed.emit()

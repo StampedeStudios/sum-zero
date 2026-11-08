@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="4_vhyu8"]
 [ext_resource type="Texture2D" uid="uid://dfgmcpqqxnmi8" path="res://assets/ui/skip_icon.png" id="7_nrp2l"]
 [ext_resource type="Script" path="res://scripts/user_interface/board_host.gd" id="8_board_host"]
-[ext_resource type="Theme" path="res://assets/resources/themes/gameplay.tres" id="9_gameplay"]
+[ext_resource type="Theme" path="res://assets/resources/themes/ui.tres" id="9_gameplay"]
 
 [node name="GameUI" type="Control" unique_id=1004930862]
 layout_mode = 3
