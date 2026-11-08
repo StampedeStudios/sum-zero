@@ -27,6 +27,9 @@ var _is_record: bool
 
 
 func _ready() -> void:
+	for star in [left_star, middle_star, right_star]:
+		star.resized.connect(func() -> void: star.pivot_offset = star.size / 2)
+		star.pivot_offset = star.size / 2
 	right_star.scale = Vector2(0, 0)
 	left_star.scale = Vector2(0, 0)
 	middle_star.scale = Vector2(0, 0)
@@ -64,15 +67,15 @@ func _animate_stars(star_count: int) -> void:
 		tween.parallel()
 
 		if star_count >= 1:
-			tween.tween_property(left_star, "scale", Vector2(0.7, 0.7), STAR_ANIM_DURATION)
+			tween.tween_property(left_star, "scale", Vector2.ONE, STAR_ANIM_DURATION)
 			tween.tween_interval(STAR_ANIM_INTERVAL)
 
 		if star_count >= 2:
-			tween.tween_property(middle_star, "scale", Vector2(0.8, 0.8), STAR_ANIM_DURATION)
+			tween.tween_property(middle_star, "scale", Vector2.ONE, STAR_ANIM_DURATION)
 			tween.tween_interval(STAR_ANIM_INTERVAL)
 
 		if star_count >= 3:
-			tween.tween_property(right_star, "scale", Vector2(0.7, 0.7), STAR_ANIM_DURATION)
+			tween.tween_property(right_star, "scale", Vector2.ONE, STAR_ANIM_DURATION)
 			tween.tween_interval(STAR_ANIM_INTERVAL)
 
 		await tween.finished

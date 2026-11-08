@@ -44,9 +44,12 @@ theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 40
 theme_override_constants/margin_bottom = 60
+mouse_filter = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Background/MarginContainer" unique_id=710621894]
 layout_mode = 2
+mouse_filter = 2
+stretch_mode = 2
 
 [node name="Control" type="Control" parent="Background/MarginContainer/AspectRatioContainer" unique_id=2073722851]
 unique_name_in_owner = true

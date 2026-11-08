@@ -5,7 +5,8 @@
 [ext_resource type="StyleBox" uid="uid://byr8amhnwal4k" path="res://assets/resources/themes/panel.tres" id="2_qhpg7"]
 [ext_resource type="StyleBox" uid="uid://d3ep4nluuoc3h" path="res://assets/resources/themes/backdrop_panel.tres" id="3_wt55p"]
 [ext_resource type="Theme" uid="uid://dujdfelccpvvo" path="res://assets/resources/themes/primary.tres" id="4_a08wn"]
-[ext_resource type="Script" uid="uid://dutxq6mimctej" path="res://scripts/user_interface/animated_panel.gd" id="5_xk0ej"]
+[ext_resource type="Script" path="res://scripts/user_interface/builder_save_panel.gd" id="5_xk0ej"]
+[ext_resource type="Theme" path="res://assets/resources/themes/builder.tres" id="6_builder"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_obo31"]
 
@@ -52,10 +53,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Background/Panel/MarginContainer" unique_id=558622172]
 layout_mode = 2
@@ -66,6 +67,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 theme_override_constants/separation = 20
+theme = ExtResource("6_builder")
 
 [node name="LevelName" type="LineEdit" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=281510799]
 unique_name_in_owner = true
@@ -73,6 +75,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_q3qhm")
 placeholder_text = "LEV_NAME"
+theme_type_variation = &"BuilderField"
 alignment = 1
 max_length = 15
 context_menu_enabled = false
@@ -88,6 +91,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_q3qhm")
 placeholder_text = "MOVES"
+theme_type_variation = &"BuilderField"
 alignment = 1
 max_length = 2
 context_menu_enabled = false
@@ -100,7 +104,7 @@ virtual_keyboard_type = 2
 
 [node name="HSeparator" type="HSeparator" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1173606816]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 8
 theme_override_styles/separator = SubResource("StyleBoxEmpty_obo31")
 
 [node name="SaveBtn" type="Button" parent="Background/Panel/MarginContainer/VBoxContainer2/VBoxContainer" unique_id=1856775553]
@@ -111,6 +115,7 @@ size_flags_stretch_ratio = 2.0
 focus_mode = 0
 theme = ExtResource("4_a08wn")
 text = "SAVE"
+theme_type_variation = &"BuilderSave"
 icon_alignment = 2
 
 [connection signal="gui_input" from="Background" to="." method="_on_background_gui_input"]

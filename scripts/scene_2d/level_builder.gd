@@ -23,14 +23,17 @@ var _multiselection_panel: Panel
 var _multiselection_area: Area2D
 var _multiselection_coll: CollisionShape2D
 var _multiselection_cells: Array[BuilderCell]
+var _board_rect: Rect2
+var _preview_rect: Rect2
+var _pan_offset := Vector2.ZERO
+var _move_tween: Tween
+var _resizing: bool = false
 
 @onready var grid: Node2D = %Grid
 
 
 func _ready() -> void:
-	GameManager.set_level_scale(3, 3)
-	grid.position = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
-	grid.scale = Vector2.ZERO
+	_board_rect = get_viewport_rect()
 	GameManager.on_state_change.connect(_on_state_change)
 	GameManager.builder_ui.reset_builder_level.connect(_reset_builder_grid)
 
@@ -42,12 +45,31 @@ func _ready() -> void:
 		GameManager.builder_selection = builder_selection
 
 
-func _on_scale_change(new_scale: Vector2) -> void:
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	tween.tween_property(grid, "scale", new_scale, 0.1).from_current()
+func set_board_rect(rect: Rect2) -> void:
+	_board_rect = rect
+	_update_board_layout()
+
+
+func set_preview_rect(rect: Rect2) -> void:
+	_preview_rect = rect
+	_update_board_layout()
+
+
+func _update_board_layout() -> void:
+	if not _level_data:
+		return
+	var rect := _preview_rect if _resizing and _preview_rect.has_area() else _board_rect
+	var extent := Vector2(_level_data.width + 2, _level_data.height + 2) * Constants.Sizes.CELL_SIZE
+	var available := (rect.size - Vector2.ONE * 16.0).max(Vector2.ONE)
+	var fit := minf(minf(available.x / extent.x, available.y / extent.y), 120.0 / Constants.Sizes.CELL_SIZE)
+	if _move_tween:
+		_move_tween.kill()
+	grid.scale = Vector2.ONE * fit
+	grid.global_position = rect.get_center() + _pan_offset
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
+	_resizing = new_state == Constants.GameState.BUILDER_RESIZE
 	match new_state:
 		Constants.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
@@ -58,7 +80,8 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 		Constants.GameState.BUILDER_IDLE:
 			self.show()
 			_multiselection_cells.clear()
-			_on_scale_change(GameManager.level_scale)
+			_pan_offset = Vector2.ZERO
+			_update_board_layout()
 
 		Constants.GameState.BUILDER_SAVE:
 			var scene := ResourceLoader.load(BUILDER_SAVE) as PackedScene
@@ -76,7 +99,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 				get_tree().root.add_child.call_deferred(builder_resize)
 				builder_resize.on_height_change.connect(_on_height_change)
 				builder_resize.on_width_change.connect(_on_width_change)
-				builder_resize.on_zoom_change.connect(_on_scale_change)
 				GameManager.builder_resize = builder_resize
 
 			var level_size: Vector2i
@@ -104,7 +126,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 					elif cell_pos.y > bottom_right.y:
 						bottom_right.y = cell_pos.y
 
-				size = (bottom_right - top_left) / GameManager.level_scale
+				size = (bottom_right - top_left) / grid.global_scale
 				size += Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 				pos = top_left + (bottom_right - top_left) / 2
 				GameManager.builder_selection.init_selection.call_deferred(true, pos, size)
@@ -116,7 +138,7 @@ func construct_level(level_data: LevelData = null, is_imported: bool = false) ->
 	if level_data != null:
 		_level_data = level_data
 
-	GameManager.set_level_scale(_level_data.width, _level_data.height)
+	_update_board_layout()
 	var half_cell := Vector2.ONE * Constants.Sizes.CELL_SIZE / 2
 	var half_grid := Vector2(_level_data.width, _level_data.height) * Constants.Sizes.CELL_SIZE / 2
 
@@ -370,12 +392,15 @@ func _on_height_change(new_height: int) -> void:
 
 
 func move_grid(offset: Vector2) -> void:
-	var new_pos: Vector2
 	if offset == Vector2.ZERO:
-		new_pos = get_viewport_rect().get_center() - Vector2(0, GameManager.CENTER_OFFSET)
+		_pan_offset = Vector2.ZERO
 	else:
-		new_pos = grid.position + offset
-	await create_tween().tween_property(grid, "position", new_pos, 0.05).from_current().finished
+		_pan_offset += offset
+	if _move_tween:
+		_move_tween.kill()
+	_move_tween = create_tween()
+	_move_tween.tween_property(grid, "global_position", _board_rect.get_center() + _pan_offset, 0.05).from_current()
+	await _move_tween.finished
 
 
 func get_level_data() -> LevelData:

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0kxf2aagymwn"]
 
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_8okdn"]
+[ext_resource type="Theme" path="res://assets/resources/themes/mode_selection.tres" id="1_8okdn"]
 [ext_resource type="Texture2D" uid="uid://b4852v4k8v28w" path="res://assets/ui/blitz_icon.png" id="2_ycfvy"]
 [ext_resource type="Script" uid="uid://csls7wodyuv2j" path="res://scripts/user_interface/play_mode_ui.gd" id="3_xnc8d"]
 [ext_resource type="Texture2D" uid="uid://16abxdrsop2l" path="res://assets/ui/locked_mode.png" id="4_3km7s"]
@@ -12,8 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 30
-theme_override_constants/margin_right = 30
+mouse_filter = 2
 script = ExtResource("3_xnc8d")
 
 [node name="ModeTexture" type="TextureRect" parent="." unique_id=310191294]
@@ -23,7 +22,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_8okdn")
 texture = ExtResource("2_ycfvy")
-expand_mode = 2
+mouse_filter = 2
+expand_mode = 1
 stretch_mode = 5
 
 [node name="OverlayTexture" type="TextureRect" parent="." unique_id=41679481]
@@ -35,7 +35,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("1_8okdn")
 texture = ExtResource("4_3km7s")
-expand_mode = 5
+mouse_filter = 2
+expand_mode = 1
 stretch_mode = 5
 
 [node name="MarginContainer" type="MarginContainer" parent="OverlayTexture" unique_id=461770146]
@@ -45,16 +46,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_right = 12
 
 [node name="OverlayMessage" type="RichTextLabel" parent="OverlayTexture/MarginContainer" unique_id=2068610177]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 4
+size_flags_vertical = 3
 theme = ExtResource("1_8okdn")
 theme_override_fonts/bold_font = ExtResource("5_wxucm")
-theme_override_font_sizes/normal_font_size = 36
-theme_override_font_sizes/bold_font_size = 36
+theme_type_variation = &"ModeMessage"
+mouse_filter = 2
 bbcode_enabled = true
+horizontal_alignment = 1
+vertical_alignment = 1
 text = "LOCKED_MSG"
-fit_content = true
+fit_content = false
+scroll_active = true

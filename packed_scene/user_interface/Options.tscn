@@ -1,9 +1,11 @@
 [gd_scene format=3 uid="uid://c2701iq6kr7jy"]
 
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="1_ncc3j"]
+[ext_resource type="Theme" path="res://assets/resources/themes/options.tres" id="1_ncc3j"]
 [ext_resource type="Script" uid="uid://bk7sonpreiywf" path="res://scripts/user_interface/options.gd" id="2_mjy7k"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_50nmf"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_lkk5h"]
+[ext_resource type="Texture2D" path="res://assets/ui/checked.png" id="5_on"]
+[ext_resource type="Texture2D" path="res://assets/ui/unchecked.png" id="6_off"]
 
 [node name="OptionsMenu" type="Control" unique_id=664681847]
 layout_mode = 3
@@ -23,14 +25,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 80
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
 [node name="BoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1823285031]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 24
 
 [node name="TopBar" type="HBoxContainer" parent="MarginContainer/BoxContainer" unique_id=1206371537]
 layout_mode = 2
@@ -43,14 +45,26 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("1_ncc3j")
-theme_override_constants/icon_max_width = 64
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"OptionsBack"
 theme_override_styles/pressed = ExtResource("3_lkk5h")
 text = "BACK"
 icon = ExtResource("3_50nmf")
 flat = true
+expand_icon = true
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/BoxContainer" unique_id=527340861]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/BoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Content" type="VBoxContainer" parent="MarginContainer/BoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 24
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/BoxContainer/ScrollContainer/Content" unique_id=527340861]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 0
@@ -72,67 +86,79 @@ popup/item_4/id = 4
 popup/item_5/text = "Polski"
 popup/item_5/id = 5
 
-[node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer" unique_id=1483602569]
+[node name="Options" type="VBoxContainer" parent="MarginContainer/BoxContainer/ScrollContainer/Content" unique_id=1483602569]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 20
 
-[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1116718912]
+[node name="MusicContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options" unique_id=1116718912]
 layout_mode = 2
 
-[node name="MusicLabel" type="Label" parent="MarginContainer/BoxContainer/Options/MusicContainer" unique_id=341521505]
+[node name="MusicLabel" type="Label" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/MusicContainer" unique_id=341521505]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "MUSIC"
+autowrap_mode = 3
 
-[node name="MusicBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/MusicContainer" unique_id=1289450015]
+[node name="MusicBtn" type="Button" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/MusicContainer" unique_id=1289450015]
+icon = ExtResource("6_off")
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+custom_minimum_size = Vector2(72, 48)
 focus_mode = 0
 theme = ExtResource("1_ncc3j")
-theme_override_constants/icon_max_width = 128
+theme_type_variation = &"OptionsToggle"
+toggle_mode = true
+expand_icon = true
 flat = true
 
-[node name="SfxContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1109193070]
+[node name="SfxContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options" unique_id=1109193070]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SfxLabel" type="Label" parent="MarginContainer/BoxContainer/Options/SfxContainer" unique_id=10797646]
+[node name="SfxLabel" type="Label" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/SfxContainer" unique_id=10797646]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "SFX"
+autowrap_mode = 3
 
-[node name="SfxBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/SfxContainer" unique_id=503549544]
+[node name="SfxBtn" type="Button" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/SfxContainer" unique_id=503549544]
+icon = ExtResource("5_on")
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+custom_minimum_size = Vector2(72, 48)
 focus_mode = 0
-theme_override_constants/icon_max_width = 128
+theme_type_variation = &"OptionsToggle"
+toggle_mode = true
+expand_icon = true
 button_pressed = true
 flat = true
 
-[node name="TutorialContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/Options" unique_id=1691322220]
+[node name="TutorialContainer" type="HBoxContainer" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options" unique_id=1691322220]
 layout_mode = 2
 
-[node name="TutorialLabel" type="Label" parent="MarginContainer/BoxContainer/Options/TutorialContainer" unique_id=497640080]
+[node name="TutorialLabel" type="Label" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/TutorialContainer" unique_id=497640080]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 text = "TUTORIAL"
+autowrap_mode = 3
 
-[node name="TutorialBtn" type="CheckButton" parent="MarginContainer/BoxContainer/Options/TutorialContainer" unique_id=182084780]
+[node name="TutorialBtn" type="Button" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options/TutorialContainer" unique_id=182084780]
+icon = ExtResource("5_on")
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
+custom_minimum_size = Vector2(72, 48)
 focus_mode = 0
-theme_override_constants/icon_max_width = 128
+theme_type_variation = &"OptionsToggle"
+toggle_mode = true
+expand_icon = true
 button_pressed = true
 flat = true
 
-[node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/Options" unique_id=857452754]
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/BoxContainer/ScrollContainer/Content/Options" unique_id=857452754]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -143,8 +169,8 @@ theme_override_colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 text = "ABOUT_US"
 
 [connection signal="pressed" from="MarginContainer/BoxContainer/TopBar/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="item_selected" from="MarginContainer/BoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
-[connection signal="toggled" from="MarginContainer/BoxContainer/Options/MusicContainer/MusicBtn" to="." method="_on_music_btn_toggled"]
-[connection signal="toggled" from="MarginContainer/BoxContainer/Options/SfxContainer/SfxBtn" to="." method="_on_sfx_btn_toggled"]
-[connection signal="toggled" from="MarginContainer/BoxContainer/Options/TutorialContainer/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
-[connection signal="pressed" from="MarginContainer/BoxContainer/Options/LinkButton" to="." method="_on_link_button_pressed"]
+[connection signal="item_selected" from="MarginContainer/BoxContainer/ScrollContainer/Content/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/ScrollContainer/Content/Options/MusicContainer/MusicBtn" to="." method="_on_music_btn_toggled"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/ScrollContainer/Content/Options/SfxContainer/SfxBtn" to="." method="_on_sfx_btn_toggled"]
+[connection signal="toggled" from="MarginContainer/BoxContainer/ScrollContainer/Content/Options/TutorialContainer/TutorialBtn" to="." method="_on_tutorial_btn_toggled"]
+[connection signal="pressed" from="MarginContainer/BoxContainer/ScrollContainer/Content/Options/LinkButton" to="." method="_on_link_button_pressed"]

@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://bpri6h0m2juyf"]
 
 [ext_resource type="Script" uid="uid://p0ttlgs7a8s5" path="res://scripts/user_interface/builder_ui.gd" id="1_w1118"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_0xa7q"]
+[ext_resource type="Theme" path="res://assets/resources/themes/builder.tres" id="2_0xa7q"]
+[ext_resource type="Script" path="res://scripts/user_interface/builder_board_host.gd" id="9_host"]
 [ext_resource type="Texture2D" uid="uid://i6hhtf1fq6e2" path="res://assets/ui/chevron_icon.png" id="3_6lbb1"]
 [ext_resource type="Texture2D" uid="uid://dm1fbfmrtic6e" path="res://assets/ui/reset_icon.png" id="3_34h8o"]
 [ext_resource type="StyleBox" uid="uid://d4hkio4buolkf" path="res://assets/resources/themes/button.tres" id="3_fimi7"]
@@ -21,7 +22,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+mouse_filter = 2
+theme = ExtResource("2_0xa7q")
 script = ExtResource("1_w1118")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=588660279]
@@ -33,58 +35,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="TopContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1930506900]
+[node name="Layout" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/separation = 16
 
-[node name="ExitBtn" type="Button" parent="MarginContainer/TopContainer" unique_id=1718026392]
+[node name="TopContainer" type="HFlowContainer" parent="MarginContainer/Layout" unique_id=1930506900]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+
+[node name="ExitBtn" type="Button" parent="MarginContainer/Layout/TopContainer" unique_id=1718026392]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_constants/icon_max_width = 64
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderBack"
 theme_override_styles/pressed = ExtResource("3_fimi7")
 text = "BACK"
 icon = ExtResource("3_6lbb1")
 flat = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TopContainer" unique_id=1633513691]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/Layout/TopContainer" unique_id=1633513691]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_constants/separation = 15
+mouse_filter = 2
+theme_override_constants/separation = 8
 alignment = 2
 
-[node name="GenerateHole" type="Button" parent="MarginContainer/TopContainer/HBoxContainer" unique_id=1784874023]
+[node name="GenerateHole" type="Button" parent="MarginContainer/Layout/TopContainer/HBoxContainer" unique_id=1784874023]
 layout_mode = 2
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
+theme_type_variation = &"BuilderGenerator"
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("6_yivi7")
 
-[node name="GenerateBlock" type="Button" parent="MarginContainer/TopContainer/HBoxContainer" unique_id=1827253675]
+[node name="GenerateBlock" type="Button" parent="MarginContainer/Layout/TopContainer/HBoxContainer" unique_id=1827253675]
 layout_mode = 2
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
 theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderGenerator"
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("7_la7xs")
 
-[node name="GenerateSlider" type="Button" parent="MarginContainer/TopContainer/HBoxContainer" unique_id=398491154]
+[node name="GenerateSlider" type="Button" parent="MarginContainer/Layout/TopContainer/HBoxContainer" unique_id=398491154]
 layout_mode = 2
 size_flags_vertical = 4
 focus_mode = 0
@@ -93,30 +104,38 @@ theme_override_colors/icon_normal_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_colors/icon_pressed_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_colors/icon_hover_color = Color(0, 0.556863, 0.67451, 0.858824)
 theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderGenerator"
 theme_override_styles/normal = ExtResource("5_n8w6v")
 theme_override_styles/pressed = ExtResource("6_7m075")
 theme_override_styles/hover = ExtResource("5_n8w6v")
 icon = ExtResource("8_locvh")
 
-[node name="BottomContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1654617071]
+[node name="BoardHost" type="Control" parent="MarginContainer/Layout"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_constants/separation = 20
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("9_host")
+
+[node name="BottomContainer" type="HFlowContainer" parent="MarginContainer/Layout" unique_id=1654617071]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
 alignment = 1
 
-[node name="SaveBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=360398309]
+[node name="SaveBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=360398309]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderAction"
 icon = ExtResource("5_e30bv")
 
-[node name="ResizeBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=1291593526]
+[node name="ResizeBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=1291593526]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -124,32 +143,33 @@ size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
 icon = ExtResource("4_5ca4s")
+theme_type_variation = &"BuilderAction"
 
-[node name="ResetBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=1331468324]
+[node name="ResetBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=1331468324]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderAction"
 icon = ExtResource("3_34h8o")
 
-[node name="PlayBtn" type="Button" parent="MarginContainer/BottomContainer" unique_id=1676099210]
+[node name="PlayBtn" type="Button" parent="MarginContainer/Layout/BottomContainer" unique_id=1676099210]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 focus_mode = 0
 theme = ExtResource("2_0xa7q")
-theme_override_font_sizes/font_size = 50
+theme_type_variation = &"BuilderAction"
 icon = ExtResource("5_05dex")
 
-[connection signal="pressed" from="MarginContainer/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateHole" to="." method="_on_generate_hole_pressed"]
-[connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateBlock" to="." method="_on_generate_block_pressed"]
-[connection signal="pressed" from="MarginContainer/TopContainer/HBoxContainer/GenerateSlider" to="." method="_on_generate_slider_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
-[connection signal="pressed" from="MarginContainer/BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/TopContainer/ExitBtn" to="." method="_on_exit_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/TopContainer/HBoxContainer/GenerateHole" to="." method="_on_generate_hole_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/TopContainer/HBoxContainer/GenerateBlock" to="." method="_on_generate_block_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/TopContainer/HBoxContainer/GenerateSlider" to="." method="_on_generate_slider_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/SaveBtn" to="." method="_on_save_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/ResizeBtn" to="." method="_on_resize_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/ResetBtn" to="." method="_on_reset_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/Layout/BottomContainer/PlayBtn" to="." method="_on_play_btn_pressed"]

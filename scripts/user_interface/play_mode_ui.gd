@@ -47,8 +47,6 @@ func setup(mode: PlayMode, unlock_arena_modes_in_editor: bool = false) -> void:
 	else:
 		overlay_texture.hide()
 
-	message.add_theme_font_size_override("font_size", GameManager.text_font_size)
-
 
 func is_locked() -> bool:
 	return _is_locked

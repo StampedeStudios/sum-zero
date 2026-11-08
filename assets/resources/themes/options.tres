@@ -1,0 +1,41 @@
+[gd_resource type="Theme" format=3]
+
+[ext_resource type="StyleBox" path="res://assets/resources/themes/options_button.tres" id="1_select"]
+[ext_resource type="StyleBox" path="res://assets/resources/themes/options_panel.tres" id="2_popup"]
+[ext_resource type="Texture2D" path="res://assets/ui/arrow_down.png" id="3_arrow"]
+
+[sub_resource type="StyleBoxEmpty" id="Empty"]
+
+[resource]
+default_font_size = 24
+Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+Button/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionsBack/base_type = &"Button"
+OptionsBack/constants/icon_max_width = 32
+OptionsToggle/base_type = &"Button"
+OptionsToggle/constants/icon_max_width = 64
+OptionsToggle/colors/icon_normal_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_hover_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_pressed_color = Color(1, 1, 1, 1)
+OptionsToggle/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+OptionsToggle/styles/normal = SubResource("Empty")
+OptionsToggle/styles/hover = SubResource("Empty")
+OptionsToggle/styles/pressed = SubResource("Empty")
+OptionButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+OptionButton/constants/arrow_margin = 8
+OptionButton/icons/arrow = ExtResource("3_arrow")
+OptionButton/styles/normal = ExtResource("1_select")
+OptionButton/styles/hover = ExtResource("1_select")
+OptionButton/styles/pressed = ExtResource("1_select")
+PopupMenu/font_sizes/font_size = 24
+PopupMenu/styles/panel = ExtResource("2_popup")
+LinkButton/colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
+LinkButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
+LinkButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)

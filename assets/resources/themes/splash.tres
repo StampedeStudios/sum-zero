@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3]
+
+[resource]
+SplashLogo/base_type = &"Control"
+SplashLogo/constants/maximum_logo_width = 520
+Label/font_sizes/font_size = 24
+Label/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)

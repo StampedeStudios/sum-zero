@@ -15,14 +15,6 @@ var _current_page: int
 
 
 func _ready() -> void:
-	add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	level_grid.add_theme_constant_override("h_separation", int(GameManager.vertical_margin / 2.0))
-	level_grid.add_theme_constant_override("v_separation", int(GameManager.vertical_margin / 2.0))
-
 	for child in level_grid.get_children():
 		if child is LevelButtonBase:
 			_levels.append(child)
@@ -40,7 +32,7 @@ func update_page(world: Constants.LevelGroup, page: int) -> void:
 
 func refresh_page() -> void:
 	var first_level: int = (_current_page - 1) * _levels.size()
-	var last_level: int = _current_page * _levels.size()
+	var last_level: int = _current_page * _levels.size() - 1
 	var levels_progress: Array[LevelProgress]
 	levels_progress = SaveManager.get_page_levels(_current_world, first_level, last_level)
 
@@ -60,6 +52,7 @@ func refresh_page() -> void:
 					level.pressed.connect(show_inspect.bind(level_id, levels_progress[i]))
 		else:
 			level.construct_empty()
+			level.disabled = _current_world != Constants.LevelGroup.CUSTOM
 			match _current_world:
 				Constants.LevelGroup.CUSTOM:
 					level.pressed.connect(show_import)

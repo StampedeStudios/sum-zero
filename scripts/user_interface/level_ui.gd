@@ -6,8 +6,6 @@
 class_name LevelUI extends Control
 
 const PAGE_SIZE := 9
-const DISABLED_COLOR := Color(0.75, 0.75, 0.75, 1)
-const ACTIVE_BTN_COLOR := Color(0.251, 0.184, 0.106)
 const PAGE_PER_SECOND: float = 5
 const BUILDER_UI = "res://packed_scene/user_interface/BuilderUI.tscn"
 const LEVEL_BUILDER = "res://packed_scene/scene_2d/LevelBuilder.tscn"
@@ -30,33 +28,17 @@ var _levels_page: Array[LevelPage]
 @onready var left: Button = %Left
 @onready var right: Button = %Right
 @onready var title: Label = %Title
-@onready var margin: MarginContainer = %MarginContainer
 @onready var exit_btn: Button = %ExitBtn
-@onready var pages: HBoxContainer = %Pages
-@onready var builder_btn: Button = $MarginContainer/VBoxContainer/VBoxContainer/BuilderBtn
+@onready var pages: Control = %Pages
+@onready var page_host: Control = %PageHost
+@onready var builder_btn: Button = %BuilderBtn
 
 
 func _ready() -> void:
 	if _world == Constants.LevelGroup.CUSTOM:
 		builder_btn.show()
 
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	title.add_theme_font_size_override("font_size", GameManager.text_font_size)
-	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-	exit_btn.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
-
-	left.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
-	right.add_theme_constant_override("icon_max_width", GameManager.btn_icon_max_width)
-
-	_page_width = get_viewport().size.x
-	pages.size.x = _page_width * 3
-	pages.size.y = get_viewport().size.y
-	pages.position.x = _page_width / 2 - pages.size.x / 2
-	pages.position.y = get_viewport().size.y - pages.size.y
+	page_host.resized.connect(_layout_pages)
 
 	for child in pages.get_children():
 		if child is LevelPage:
@@ -68,6 +50,18 @@ func _ready() -> void:
 	_set_start_point()
 	_check_pages()
 	_init_pages()
+	_layout_pages.call_deferred()
+
+
+func _layout_pages() -> void:
+	# A resize cancels an unfinished swipe, retaining the last settled page.
+	if _tween:
+		_tween.kill()
+	_has_drag = false
+	_end_animation()
+	_page_width = page_host.size.x
+	pages.layout_pages()
+	_check_pages()
 
 
 func set_context(world: Constants.LevelGroup) -> void:
@@ -91,9 +85,12 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			GameManager.reset_active_level_id()
 			self.queue_free.call_deferred()
 		Constants.GameState.LEVEL_PICK:
+			_check_pages()
 			_init_pages()
 			self.show()
+			_layout_pages.call_deferred()
 		_:
+			_layout_pages()
 			self.hide()
 
 
@@ -110,7 +107,9 @@ func _check_pages() -> void:
 			# Accounting for at least one placeholder_button, always present in custom level panel
 			_num_pages = ceil(float(SaveManager.get_num_levels(_world) + 1) / PAGE_SIZE)
 
-	title.text = "%02d of %02d" % [_current_page, _num_pages]
+	_num_pages = maxi(1, _num_pages)
+	_current_page = clampi(_current_page, 1, _num_pages)
+	title.text = "%02d / %02d" % [_current_page, _num_pages]
 	if _current_page == 1:
 		left.disabled = true
 		_levels_page[0].toggle_page(false)
@@ -142,7 +141,7 @@ func _init_pages() -> void:
 
 
 func _on_left_pressed() -> void:
-	if !_has_movement:
+	if !_has_movement and not left.disabled:
 		AudioManager.play_click_sound()
 		_start_position = pages.global_position.x
 		_target_position = _start_position + _page_width
@@ -150,7 +149,7 @@ func _on_left_pressed() -> void:
 
 
 func _on_right_pressed() -> void:
-	if !_has_movement:
+	if !_has_movement and not right.disabled:
 		AudioManager.play_click_sound()
 		_start_position = pages.global_position.x
 		_target_position = _start_position - _page_width
@@ -159,15 +158,18 @@ func _on_right_pressed() -> void:
 
 func _move_left(transition_time: float) -> void:
 	_has_movement = true
-	_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
-	await _tween.finished
+	_tween.finished.connect(_finish_move_left)
+
+
+func _finish_move_left() -> void:
 	_current_page += 1
 
 	var page := _levels_page.pop_front() as LevelPage
 	pages.move_child(page, 2)
 	_levels_page.push_back(page)
-	pages.global_position.x = _start_position
+	_layout_pages()
 
 	if _current_page < _num_pages:
 		page.update_page(_world, _current_page + 1)
@@ -177,15 +179,18 @@ func _move_left(transition_time: float) -> void:
 
 func _move_right(transition_time: float) -> void:
 	_has_movement = true
-	_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	_tween.tween_property(pages, "global_position:x", _target_position, transition_time)
-	await _tween.finished
+	_tween.finished.connect(_finish_move_right)
+
+
+func _finish_move_right() -> void:
 	_current_page -= 1
 
 	var page := _levels_page.pop_back() as LevelPage
 	pages.move_child(page, 0)
 	_levels_page.push_front(page)
-	pages.global_position.x = _start_position
+	_layout_pages()
 
 	if _current_page > 1:
 		page.update_page(_world, _current_page - 1)
@@ -195,9 +200,7 @@ func _move_right(transition_time: float) -> void:
 
 func _refresh_next() -> void:
 	_check_pages()
-	# Next page
-	if _current_page < _num_pages:
-		_levels_page[2].update_page(_world, _current_page + 1)
+	_init_pages()
 
 
 func _process(_delta: float) -> void:
@@ -229,7 +232,7 @@ func _process(_delta: float) -> void:
 				end = 0
 				interp = (1 - remap(current, start, end, 0, 1)) / PAGE_PER_SECOND
 				_target_position = _start_position
-				_tween = get_tree().create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(
+				_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(
 					Tween.EASE_OUT
 				)
 				_tween.tween_property(pages, "global_position:x", _target_position, interp)
@@ -243,7 +246,7 @@ func _end_animation() -> void:
 
 
 func _on_pages_drag() -> void:
-	if !_has_movement:
+	if !_has_movement and visible:
 		_start_drag = get_global_mouse_position().x
 		_start_position = pages.global_position.x
 		_has_drag = true

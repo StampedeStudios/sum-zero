@@ -2,19 +2,17 @@ class_name BuilderResize extends Control
 
 signal on_width_change(new_width: int)
 signal on_height_change(new_height: int)
-signal on_zoom_change(new_scale: Vector2)
 
 var _width: int
 var _height: int
-var _scale: float
 
 @onready var control: Control = %Control
 
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	for child: TextureRect in control.get_children():
-		child.position.y = child.position.y - GameManager.CENTER_OFFSET
+	control.resized.connect(_update_zoom)
+	control.item_rect_changed.connect(_update_zoom)
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
@@ -30,7 +28,6 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 func init_query(level_size: Vector2i) -> void:
 	_width = level_size.x
 	_height = level_size.y
-	_scale = 0
 	_update_zoom.call_deferred()
 
 
@@ -77,12 +74,8 @@ func _update_height(new_height: int) -> void:
 
 
 func _update_zoom() -> void:
-	var new_scale: float
-	var max_size := maxi(_width, _height) + 2
-	new_scale = control.size.x / Constants.Sizes.CELL_SIZE / max_size
-	if new_scale != _scale:
-		_scale = new_scale
-		on_zoom_change.emit(Vector2(_scale, _scale))
+	if visible and is_instance_valid(GameManager.level_builder):
+		GameManager.level_builder.set_preview_rect(control.get_global_rect())
 
 
 func _on_background_gui_input(event: InputEvent) -> void:

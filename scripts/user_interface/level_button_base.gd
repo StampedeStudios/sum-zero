@@ -21,6 +21,7 @@ func construct(id := -1, is_locked := true, stars := 0) -> void:
 		add_theme_color_override("icon_normal_color", Color(0.251, 0.184, 0.106, 1.0))
 		add_theme_color_override("icon_hover_color", Color(0.251, 0.184, 0.106, 1.0))
 		add_theme_color_override("icon_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
+		add_theme_color_override("icon_hover_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
 
 	else:
 		disabled = false
@@ -28,6 +29,7 @@ func construct(id := -1, is_locked := true, stars := 0) -> void:
 		add_theme_color_override("icon_normal_color", Color.WHITE)
 		add_theme_color_override("icon_hover_color", Color.WHITE)
 		add_theme_color_override("icon_pressed_color", Color.WHITE)
+		add_theme_color_override("icon_hover_pressed_color", Color.WHITE)
 
 		var font := ResourceLoader.load(FONT) as Font
 		var icon_path: String = [ZERO_STARS, ONE_STAR, TWO_STARS, THREE_STARS, EXTRA_STARS][stars]
@@ -35,17 +37,18 @@ func construct(id := -1, is_locked := true, stars := 0) -> void:
 		icon = load(icon_path)
 		text = str(id + 1)
 
-		self.add_theme_font_size_override("font_size", GameManager.text_font_size)
 		self.add_theme_font_override("font", font)
 
 
 func construct_empty() -> void:
+	disabled = false
 	text = ""
 	icon = load(ADD_ICON)
 
 	add_theme_color_override("icon_normal_color", Color(0.251, 0.184, 0.106, 1.0))
 	add_theme_color_override("icon_hover_color", Color(0.251, 0.184, 0.106, 1.0))
 	add_theme_color_override("icon_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
+	add_theme_color_override("icon_hover_pressed_color", Color(0.251, 0.184, 0.106, 1.0))
 
 
 func _pressed() -> void:

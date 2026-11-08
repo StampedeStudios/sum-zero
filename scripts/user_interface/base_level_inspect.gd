@@ -21,9 +21,7 @@ var _level_id: int
 
 
 func _ready() -> void:
-	right_star.scale = Vector2(0, 0)
-	left_star.scale = Vector2(0, 0)
-	middle_star.scale = Vector2(0, 0)
+	update_stars(0)
 
 	await panel.open()
 
@@ -54,7 +52,7 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 		elif num_stars > 3:
 			num_stars = 4
 
-		update_stars(num_stars)
+	update_stars(num_stars)
 
 	_post_init(progress)
 
@@ -62,14 +60,9 @@ func init_inspector(level_id: int, progress: LevelProgress) -> void:
 ## Updates the star UI based on the count.
 ## @param star_count The number of stars to display.
 func update_stars(star_count: int) -> void:
-	if star_count >= 1:
-		left_star.scale = Vector2(0.7, 0.7)
-
-	if star_count >= 2:
-		middle_star.scale = Vector2(0.8, 0.8)
-
-	if star_count >= 3:
-		right_star.scale = Vector2(0.7, 0.7)
+	left_star.visible = star_count >= 1
+	middle_star.visible = star_count >= 2
+	right_star.visible = star_count >= 3
 
 
 func _on_build_btn_pressed() -> void:

@@ -6,25 +6,10 @@ signal reset_builder_level
 const LEVEL_MANAGER = "res://packed_scene/scene_2d/LevelManager.tscn"
 const BUILDER_TEST = "res://packed_scene/user_interface/BuilderTest.tscn"
 
-@onready var margin: MarginContainer = %MarginContainer
-@onready var exit_btn: Button = %ExitBtn
-@onready var buttons: HBoxContainer = %BottomContainer
-@onready var top_buttons: HBoxContainer = %HBoxContainer
+@onready var board_host: Control = %BoardHost
 
 
 func _ready() -> void:
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	exit_btn.add_theme_font_size_override("font_size", GameManager.subtitle_font_size)
-
-	for button in top_buttons.get_children():
-		button.add_theme_constant_override("icon_max_width", GameManager.icon_max_width)
-
-	buttons.add_theme_constant_override("separation", GameManager.btns_separation)
-
 	GameManager.on_state_change.connect(_on_state_change)
 
 
@@ -34,6 +19,7 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 			self.queue_free.call_deferred()
 		Constants.GameState.BUILDER_IDLE:
 			self.visible = true
+			board_host._update_board.call_deferred()
 		_:
 			self.visible = false
 

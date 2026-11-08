@@ -1,183 +1,146 @@
 [gd_scene format=3 uid="uid://wqs3xar34kkp"]
 
-[ext_resource type="Script" uid="uid://dnx4y6iushgis" path="res://scripts/user_interface/levels_page.gd" id="1_c4mma"]
-[ext_resource type="Script" uid="uid://c2vb4jfe5f5oq" path="res://scripts/user_interface/level_button_base.gd" id="2_pd1rl"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_v4rw7"]
-[ext_resource type="StyleBox" uid="uid://cerm48ggpi77x" path="res://assets/resources/themes/level_button.tres" id="3_e2n4l"]
+[ext_resource type="Script" path="res://scripts/user_interface/levels_page.gd" id="1_page"]
+[ext_resource type="Script" path="res://scripts/user_interface/level_button_base.gd" id="2_button"]
+[ext_resource type="Script" path="res://scripts/user_interface/level_grid_layout.gd" id="3_layout"]
+[ext_resource type="Theme" path="res://assets/resources/themes/level_menu.tres" id="4_theme"]
+[ext_resource type="Texture2D" path="res://assets/ui/three_stars.png" id="5_three"]
+[ext_resource type="Texture2D" path="res://assets/ui/two_stars.png" id="6_two"]
+[ext_resource type="Texture2D" path="res://assets/ui/one_star.png" id="7_one"]
+[ext_resource type="Texture2D" path="res://assets/ui/zero_stars.png" id="8_zero"]
+[ext_resource type="Texture2D" path="res://assets/ui/lock_icon.png" id="9_lock"]
+[ext_resource type="FontFile" path="res://assets/ui/fonts/FiraMono-Bold.ttf" id="10_font"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5gnc8"]
+[node name="Page" type="Control"]
+offset_right = 400.0
+offset_bottom = 600.0
+mouse_filter = 2
+theme = ExtResource("4_theme")
+script = ExtResource("1_page")
 
-[node name="Margin" type="MarginContainer" unique_id=1268501208]
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
 mouse_filter = 2
-theme_override_constants/margin_left = 60
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
-script = ExtResource("1_c4mma")
+script = ExtResource("3_layout")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1716412521]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1687224122]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
-mouse_filter = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_5gnc8")
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="VBoxContainer" unique_id=1087743541]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 7.0
-mouse_filter = 2
-
-[node name="LevelGrid" type="GridContainer" parent="VBoxContainer/AspectRatioContainer" unique_id=1627010429]
+[node name="LevelGrid" type="GridContainer" parent="Center"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/h_separation = 60
-theme_override_constants/v_separation = 60
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
 columns = 3
 
-[node name="Level1" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=296896808]
+[node name="Level1" type="Button" parent="Center/LevelGrid"]
+text = "1"
+icon = ExtResource("5_three")
+theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level2" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=429859030]
+[node name="Level2" type="Button" parent="Center/LevelGrid"]
+text = "2"
+icon = ExtResource("6_two")
+theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level3" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=384445653]
+[node name="Level3" type="Button" parent="Center/LevelGrid"]
+text = "3"
+icon = ExtResource("7_one")
+theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level4" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=867911239]
+[node name="Level4" type="Button" parent="Center/LevelGrid"]
+text = "4"
+icon = ExtResource("8_zero")
+theme_override_fonts/font = ExtResource("10_font")
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level5" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=1857299286]
+[node name="Level5" type="Button" parent="Center/LevelGrid"]
+disabled = true
+icon = ExtResource("9_lock")
+theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level6" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=1199804946]
+[node name="Level6" type="Button" parent="Center/LevelGrid"]
+disabled = true
+icon = ExtResource("9_lock")
+theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level7" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=2094220274]
+[node name="Level7" type="Button" parent="Center/LevelGrid"]
+disabled = true
+icon = ExtResource("9_lock")
+theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level8" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=1523906609]
+[node name="Level8" type="Button" parent="Center/LevelGrid"]
+disabled = true
+icon = ExtResource("9_lock")
+theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="Level9" type="Button" parent="VBoxContainer/AspectRatioContainer/LevelGrid" unique_id=972096563]
+[node name="Level9" type="Button" parent="Center/LevelGrid"]
+disabled = true
+icon = ExtResource("9_lock")
+theme_override_colors/icon_disabled_color = Color(0.251, 0.184, 0.106, 1)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 focus_mode = 0
 mouse_filter = 1
-theme = ExtResource("2_v4rw7")
-theme_override_styles/normal = ExtResource("3_e2n4l")
-theme_override_styles/pressed = ExtResource("3_e2n4l")
-theme_override_styles/hover = ExtResource("3_e2n4l")
+theme_type_variation = &"LevelTile"
 icon_alignment = 1
 expand_icon = true
-script = ExtResource("2_pd1rl")
+script = ExtResource("2_button")
 
-[node name="HSeparator2" type="HSeparator" parent="VBoxContainer" unique_id=442662310]
-layout_mode = 2
-size_flags_vertical = 3
-mouse_filter = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_5gnc8")
-
-[connection signal="gui_input" from="VBoxContainer/AspectRatioContainer/LevelGrid" to="." method="_on_level_grid_gui_input"]
+[connection signal="gui_input" from="Center/LevelGrid" to="." method="_on_level_grid_gui_input"]

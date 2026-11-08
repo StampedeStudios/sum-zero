@@ -6,6 +6,9 @@ signal special_action
 signal remove_action
 
 const STD_SIZE := Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
+const BUTTON_SIZE := Vector2(44, 44)
+var _center: Vector2
+var _area_size: Vector2
 
 @export var backward_cell_texture: Texture2D
 @export var forward_cell_texture: Texture2D
@@ -24,20 +27,26 @@ const STD_SIZE := Vector2(Constants.Sizes.CELL_SIZE, Constants.Sizes.CELL_SIZE)
 
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
-	control.scale = GameManager.level_scale
-	panel.size = get_viewport_rect().size
+	panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	for button in [backward, forward, special, remove]:
+		button.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+		button.add_theme_constant_override("icon_max_width", 32)
+		button.size = BUTTON_SIZE
+		button.pivot_offset = BUTTON_SIZE / 2
 
 
 func _on_state_change(new_state: Constants.GameState) -> void:
 	match new_state:
-		Constants.GameState.MAIN_MENU:
+		Constants.GameState.MAIN_MENU, Constants.GameState.LEVEL_PICK:
 			self.queue_free.call_deferred()
 		_:
 			self.visible = false
 
 
 func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
-	const AREA_DISTANCE: int = 16
+	_center = GameManager.level_builder.grid.to_local(center)
+	_area_size = area_size
 	if is_cell:
 		backward.icon = backward_cell_texture
 		forward.icon = forward_cell_texture
@@ -47,12 +56,27 @@ func init_selection(is_cell: bool, center: Vector2, area_size: Vector2) -> void:
 		forward.icon = forward_slider_texture
 		special.icon = special_slider_texture
 
-	backward.position.x = -area_size.x / 2 - AREA_DISTANCE
-	forward.position.x = area_size.x / 2 + AREA_DISTANCE
-	special.position.y = -area_size.y / 2 - AREA_DISTANCE - remove.size.y
-	remove.position.y = area_size.y / 2 + AREA_DISTANCE
-	control.global_position = center
+	_update_layout()
 	self.show.call_deferred()
+
+
+func _process(_delta: float) -> void:
+	if visible and is_instance_valid(GameManager.level_builder):
+		_update_layout()
+
+
+func _update_layout() -> void:
+	var grid := GameManager.level_builder.grid
+	var center := grid.to_global(_center)
+	var half_area := _area_size * grid.global_scale / 2
+	control.global_position = Vector2.ZERO
+	backward.position = center + Vector2(-half_area.x - 6 - BUTTON_SIZE.x, -BUTTON_SIZE.y / 2)
+	forward.position = center + Vector2(half_area.x + 6, -BUTTON_SIZE.y / 2)
+	special.position = center + Vector2(-BUTTON_SIZE.x / 2, -half_area.y - 6 - BUTTON_SIZE.y)
+	remove.position = center + Vector2(-BUTTON_SIZE.x / 2, half_area.y + 6)
+	var limit := get_viewport_rect().size - BUTTON_SIZE - Vector2.ONE * 8
+	for button in [backward, forward, special, remove]:
+		button.position = button.position.clamp(Vector2.ONE * 8, limit)
 
 
 func _on_backward_pressed() -> void:

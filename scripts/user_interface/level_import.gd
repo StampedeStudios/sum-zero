@@ -5,7 +5,7 @@ signal level_imported
 const BUTTON_ERROR = preload("res://assets/resources/themes/button_error.tres")
 const BUTTON_NORMAL = preload("res://assets/resources/themes/copy_button.tres")
 
-var _inserted_code: String
+var _error_timer: Timer
 
 @onready var paste: Button = %Paste
 @onready var level_name: LineEdit = %LevelName
@@ -15,6 +15,11 @@ var _inserted_code: String
 
 
 func _ready() -> void:
+	_error_timer = Timer.new()
+	_error_timer.one_shot = true
+	_error_timer.wait_time = 1.0
+	_error_timer.timeout.connect(_clear_error)
+	add_child(_error_timer)
 	panel.open()
 
 
@@ -26,7 +31,7 @@ func _on_background_gui_input(event: InputEvent) -> void:
 
 func _on_save_btn_pressed() -> void:
 	AudioManager.play_click_sound()
-	var level_data: LevelData = Encoder.decode(_inserted_code)
+	var level_data: LevelData = Encoder.decode(code.text)
 	if level_data == null:
 		_show_error()
 	else:
@@ -39,9 +44,7 @@ func _on_save_btn_pressed() -> void:
 func _on_code_pressed() -> void:
 	AudioManager.play_click_sound()
 	var cb_content := DisplayServer.clipboard_get()
-	_inserted_code = cb_content.split("\n")[0]
-	code.text = " " + _inserted_code
-	_update_save_btn()
+	_on_code_text_changed(cb_content.split("\n")[0].strip_edges())
 
 
 func _on_level_name_text_changed(new_text: String) -> void:
@@ -58,6 +61,9 @@ func _on_level_name_text_changed(new_text: String) -> void:
 
 
 func _on_code_text_changed(new_text: String) -> void:
+	if not _error_timer.is_stopped():
+		_error_timer.stop()
+		_clear_error(false)
 	var regex := RegEx.new()
 	regex.compile("^[A-Za-z0-9-]+$")
 
@@ -88,8 +94,13 @@ func _show_error() -> void:
 	paste.add_theme_color_override("icon_normal_color", Color.DARK_RED)
 	code.add_theme_color_override("font_color", Color.DARK_RED)
 
-	await get_tree().create_timer(1).timeout
+	_error_timer.start()
+
+
+func _clear_error(clear_code: bool = true) -> void:
 	paste.add_theme_stylebox_override("normal", BUTTON_NORMAL)
 	paste.remove_theme_color_override("icon_normal_color")
 	code.remove_theme_color_override("font_color")
-	code.text = ""
+	if clear_code:
+		code.text = ""
+	_update_save_btn()

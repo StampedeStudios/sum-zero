@@ -18,6 +18,8 @@ func _run() -> void:
 	if splash:
 		splash.queue_free()
 	await process_frame
+	# Slider SFX can still be playing when this fast headless test exits.
+	root.get_node("AudioManager")._is_sfx_on = false
 	var manager_scene := load("res://packed_scene/scene_2d/LevelManager.tscn") as PackedScene
 	var ui_scene := load("res://packed_scene/user_interface/GameUI.tscn") as PackedScene
 	var manager := manager_scene.instantiate() as Node2D

@@ -7,6 +7,7 @@ const UPDATE_TIME: float = 0.5
 var _score: int
 var _tween: Tween
 var _summary: GameSummary
+var _closing := false
 
 @onready var panel: AnimatedPanel = %Panel
 @onready var stats: HBoxContainer = %Stats
@@ -25,6 +26,8 @@ func _ready() -> void:
 	_update_score(_score)
 
 	await panel.open()
+	if _closing:
+		return
 	_calculate_score()
 
 
@@ -41,33 +44,42 @@ func _calculate_score() -> void:
 		_update_stats_multiplier(multiplier)
 		stats.show()
 
-		_tween = get_tree().create_tween()
+		_tween = create_tween()
 		_tween.tween_interval(1)
 		_tween.tween_method(_update_score, old_score, _score, UPDATE_TIME)
 		_tween.set_parallel()
 		_tween.tween_method(_update_stats_multiplier, multiplier, 0, UPDATE_TIME)
 		await _tween.finished
+		if _closing:
+			return
 		stats.hide()
 
 	_tween = create_tween()
 	_tween.tween_interval(0.5)
 
-	_tween.tween_method(_update_separation, 0, 250, 0.3)
+	# Reveal the final action row without growing the layout beyond its host.
+	_tween.tween_property(actions, "modulate:a", 1.0, 0.3).from(0.0)
 
 	await _tween.finished
+	if _closing:
+		return
 
 	var new_record: bool = SaveManager.update_blitz_score(_score)
 	if new_record:
-		_tween = get_tree().create_tween()
+		_tween = create_tween()
 		_tween.tween_interval(0.5)
 		await _tween.finished
+		if _closing:
+			return
 		record_icon.show()
 
-	await _tween.finished
 
-
-func _update_separation(separation: int) -> void:
-	separator.add_theme_constant_override("separation", separation)
+func _exit_tree() -> void:
+	_closing = true
+	if _tween and _tween.is_running():
+		_tween.kill()
+		# Release the suspended score loop when dismissed mid-calculation.
+		_tween.finished.emit()
 
 
 func _close(next: Constants.GameState) -> void:

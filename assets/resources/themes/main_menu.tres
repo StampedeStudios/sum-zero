@@ -1,6 +1,6 @@
-[gd_resource type="Theme" format=3]
+[gd_resource type="Theme" format=3 uid="uid://by6ryjn8xqmg3"]
 
-[ext_resource type="StyleBox" path="res://assets/resources/themes/menu_button.tres" id="1_button"]
+[ext_resource type="StyleBox" uid="uid://b3nahe0titjxm" path="res://assets/resources/themes/menu_button.tres" id="1_button"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hover"]
 content_margin_left = 20.0
@@ -29,24 +29,24 @@ MainMenuButton/colors/font_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/font_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/font_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/font_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
-MainMenuButton/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/icon_hover_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/icon_hover_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
+MainMenuButton/colors/icon_normal_color = Color(0.25098, 0.184314, 0.105882, 1)
 MainMenuButton/colors/icon_pressed_color = Color(0.25098, 0.184314, 0.105882, 1)
-MainMenuButton/constants/icon_max_width = 50
 MainMenuButton/constants/h_separation = 16
+MainMenuButton/constants/icon_max_width = 50
 MainMenuButton/font_sizes/font_size = 40
-MainMenuButton/styles/normal = ExtResource("1_button")
 MainMenuButton/styles/hover = SubResource("StyleBoxFlat_hover")
-MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_hover")
 MainMenuButton/styles/hover_pressed = SubResource("StyleBoxFlat_hover")
-MenuSpacing/base_type = &"VBoxContainer"
-MenuSpacing/constants/separation = 20
+MainMenuButton/styles/normal = ExtResource("1_button")
+MainMenuButton/styles/pressed = SubResource("StyleBoxFlat_hover")
 MenuMargins/base_type = &"MarginContainer"
+MenuMargins/constants/margin_bottom = 32
 MenuMargins/constants/margin_left = 24
 MenuMargins/constants/margin_right = 24
 MenuMargins/constants/margin_top = 32
-MenuMargins/constants/margin_bottom = 32
 MenuSeparator/base_type = &"HSeparator"
 MenuSeparator/constants/separation = 64
 MenuSeparator/styles/separator = SubResource("StyleBoxLine_separator")
+MenuSpacing/base_type = &"VBoxContainer"
+MenuSpacing/constants/separation = 20

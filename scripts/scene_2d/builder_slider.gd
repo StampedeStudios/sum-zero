@@ -6,7 +6,6 @@ class_name BuilderSlider extends Node2D
 signal on_slider_change(ref: BuilderSlider, data: SliderData)
 
 const SLIDER_COLLECTION = preload("res://assets/resources/utility/slider_collection.tres")
-const HALF_BUILDER_SELECTION: int = 300
 
 var _data: SliderData
 var _is_valid: bool = false
@@ -62,7 +61,7 @@ func _check_screen_margin() -> void:
 	var offset: Vector2
 	var screen_size: Vector2
 
-	margin = HALF_BUILDER_SELECTION * GameManager.level_scale.x
+	margin = 80.0
 	screen_size = get_viewport_rect().size
 
 	# Horizontal check

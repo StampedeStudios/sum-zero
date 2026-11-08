@@ -1,3 +1,4 @@
+@tool
 class_name AnimatedPanel extends Panel
 
 @export var anim_time: float = 0.2

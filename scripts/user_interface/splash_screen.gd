@@ -3,27 +3,12 @@ class_name SplashScreen extends Control
 @onready var splash_top: AnimatedSprite2D = %SplashTop
 @onready var splash_bottom: AnimatedSprite2D = %SplashBottom
 @onready var version_label: Label = %VersionLabel
-@onready var margin: MarginContainer = %MarginContainer
+@onready var logo_host: Control = %LogoHost
 
 
 func _ready() -> void:
 	version_label.text = ProjectSettings.get("application/config/version")
-	margin.add_theme_constant_override("margin_left", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_right", GameManager.horizontal_margin)
-	margin.add_theme_constant_override("margin_top", GameManager.vertical_margin)
-	margin.add_theme_constant_override("margin_bottom", GameManager.vertical_margin)
-
-	version_label.add_theme_font_size_override("font_size", GameManager.text_font_size)
-
-	var new_scale: Vector2 = GameManager.ui_scale * 0.7
-	var x: float = get_viewport_rect().size.x
-	var y: float = get_viewport_rect().size.y
-
-	splash_top.scale = new_scale
-	splash_top.position = Vector2(x / 2, y / 2 - (175 / 2.0 * new_scale.x))
-
-	splash_bottom.scale = new_scale
-	splash_bottom.position = Vector2(x / 2, y / 2 + (175 / 2.0 * new_scale.x))
+	logo_host.layout_logo()
 
 	await get_tree().create_timer(1).timeout
 	for frame in range(17):
@@ -41,7 +26,7 @@ func _ready() -> void:
 
 	await get_tree().create_timer(1.2).timeout
 
-	var tween := get_tree().create_tween()
+	var tween := create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, 0.1)
 	await tween.finished
 

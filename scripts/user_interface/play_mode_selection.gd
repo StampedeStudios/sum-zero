@@ -10,13 +10,13 @@ const PLAY_MODE_UI := "res://packed_scene/user_interface/PlayModeUI.tscn"
 @export var unlock_arena_modes_in_editor: bool = false
 
 var _current_mode_index := 0
+var _snap_tween: Tween
+var _cards_initialized := false
 
 @onready var panel: AnimatedPanel = %Panel
 @onready var scroll_container: ScrollContainer = %HContainer
 @onready var hbox_container: HBoxContainer = %HBoxContainer
 
-@onready var arena_selection: VBoxContainer = %ArenaSelection
-@onready var margin: MarginContainer = %MarginContainer
 @onready var play_btn: Button = %PlayBtn
 @onready var left_btn: Button = %LeftBtn
 @onready var right_btn: Button = %RightBtn
@@ -25,14 +25,7 @@ var _current_mode_index := 0
 func _ready() -> void:
 	GameManager.on_state_change.connect(_on_state_change)
 
-	var h_margin: int = roundi(GameManager.horizontal_margin / 2.0)
-	var v_margin: int = roundi(GameManager.horizontal_margin / 2.0)
-
-	margin.add_theme_constant_override("margin_left", v_margin)
-	margin.add_theme_constant_override("margin_right", h_margin)
-	margin.add_theme_constant_override("margin_top", v_margin)
-	margin.add_theme_constant_override("margin_bottom", h_margin)
-
+	scroll_container.resized.connect(_resize_cards)
 	await panel.open()
 
 
@@ -49,17 +42,28 @@ func _on_state_change(new_state: Constants.GameState) -> void:
 
 func setup() -> void:
 	# Insert each mode as scrollable element
-	for mode: PlayMode in arena_modes:
-		var scene := ResourceLoader.load(PLAY_MODE_UI) as PackedScene
-		var mode_ui := scene.instantiate() as PlayModeUI
-		mode_ui.custom_minimum_size.x = scroll_container.size.x
-		hbox_container.add_child(mode_ui)
-		mode_ui.setup(mode, unlock_arena_modes_in_editor)
-
+	if not _cards_initialized:
+		for _mode: PlayMode in arena_modes:
+			var scene := ResourceLoader.load(PLAY_MODE_UI) as PackedScene
+			var mode_ui := scene.instantiate() as PlayModeUI
+			hbox_container.add_child(mode_ui)
+		_cards_initialized = true
+	for index in range(arena_modes.size()):
+		(hbox_container.get_child(index) as PlayModeUI).setup(arena_modes[index], unlock_arena_modes_in_editor)
+	_resize_cards()
 	_set_first_uncompleted_mode.call_deferred()
 
-	if _current_mode_index == 0:
-		left_btn.disabled = true
+
+func _resize_cards() -> void:
+	if _snap_tween:
+		_snap_tween.kill()
+	for card: Control in hbox_container.get_children():
+		card.custom_minimum_size.x = scroll_container.size.x
+	_restore_scroll.call_deferred()
+
+
+func _restore_scroll() -> void:
+	scroll_container.scroll_horizontal = roundi(_current_mode_index * scroll_container.size.x)
 
 
 func _set_first_uncompleted_mode() -> void:
@@ -71,29 +75,38 @@ func _set_first_uncompleted_mode() -> void:
 		else:
 			break
 
-	var step := scroll_container.get_h_scroll_bar().max_value / arena_modes.size()
-	var target_scroll := ceili(_current_mode_index * step)
-	scroll_container.scroll_horizontal = target_scroll
+	_select_mode(_current_mode_index, false)
 
 
-func _select_mode(index: int) -> void:
+func _select_mode(index: int, animate: bool = true) -> void:
+	if arena_modes.is_empty():
+		play_btn.disabled = true
+		left_btn.disabled = true
+		right_btn.disabled = true
+		return
 	index = clamp(index, 0, arena_modes.size() - 1)
 	var mode_instance := hbox_container.get_child(index) as PlayModeUI
 	play_btn.disabled = mode_instance.is_locked()
 
 	_current_mode_index = index
-	_snap_to_current_mode()
+	left_btn.disabled = index == 0
+	right_btn.disabled = index == arena_modes.size() - 1
+	if animate:
+		_snap_to_current_mode()
+	else:
+		_restore_scroll.call_deferred()
 
 
 func _snap_to_current_mode() -> void:
-	var step := scroll_container.get_h_scroll_bar().max_value / arena_modes.size()
-	var target_scroll := ceili(_current_mode_index * step)
-
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	var step := maxf(scroll_container.size.x, 1.0)
+	var target_scroll := roundi(_current_mode_index * step)
+	if _snap_tween:
+		_snap_tween.kill()
+	_snap_tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 	var distance := absf(target_scroll - scroll_container.get_h_scroll_bar().value)
-	var duration := remap(distance, 0, step, 0, 0.6)
-	tween.tween_property(scroll_container, "scroll_horizontal", target_scroll, duration)
+	var duration := clampf(distance / step, 0, 1) * 0.3
+	_snap_tween.tween_property(scroll_container, "scroll_horizontal", target_scroll, duration)
 
 
 func _close() -> void:
@@ -103,6 +116,8 @@ func _close() -> void:
 
 
 func _on_play_btn_pressed() -> void:
+	if play_btn.disabled or arena_modes.is_empty():
+		return
 	AudioManager.play_click_sound()
 	var mode := arena_modes[_current_mode_index]
 	if mode is ArenaMode:
@@ -141,28 +156,16 @@ func _on_play_btn_pressed() -> void:
 func _on_left_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_select_mode(_current_mode_index - 1)
-	_snap_to_current_mode()
-
-	if _current_mode_index == 0:
-		left_btn.disabled = true
-
-	right_btn.disabled = false
 
 
 func _on_right_btn_pressed() -> void:
 	AudioManager.play_click_sound()
 	_select_mode(_current_mode_index + 1)
-	_snap_to_current_mode()
-
-	if _current_mode_index == arena_modes.size() - 1:
-		right_btn.disabled = true
-
-	left_btn.disabled = false
 
 
 func _on_h_container_scroll_ended() -> void:
 	var current_position := roundi(
-		scroll_container.get_h_scroll_bar().value / scroll_container.size.x
+		scroll_container.get_h_scroll_bar().value / maxf(scroll_container.size.x, 1.0)
 	)
 
 	_select_mode(current_position)

@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://dnr4mhs6bw3li" path="res://scripts/user_interface/splash_screen.gd" id="1_4f1xo"]
 [ext_resource type="SpriteFrames" uid="uid://djx34o01sudf1" path="res://assets/vfx/splash.tres" id="1_xckb4"]
 [ext_resource type="SpriteFrames" uid="uid://cn3cx17fnev2" path="res://assets/vfx/splash_zero.tres" id="2_mv0cm"]
-[ext_resource type="Theme" uid="uid://d018ofb37nf7u" path="res://assets/resources/themes/default.tres" id="2_wrkr5"]
+[ext_resource type="Theme" path="res://assets/resources/themes/splash.tres" id="2_wrkr5"]
+[ext_resource type="Script" path="res://scripts/user_interface/splash_logo_layout.gd" id="5_layout"]
 
 [node name="SplashScreen" type="Control" unique_id=1431907062]
 layout_mode = 3
@@ -14,22 +15,19 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_wrkr5")
 script = ExtResource("1_4f1xo")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=786202100]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1071160996]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer" unique_id=1071160996]
-layout_mode = 2
-size_flags_vertical = 3
 color = Color(0.64255, 0.71, 0.639, 0.776471)
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/ColorRect" unique_id=187783986]
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect" unique_id=187783986]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -37,26 +35,40 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="VersionLabel" type="Label" parent="VBoxContainer/ColorRect/MarginContainer" unique_id=1750729295]
+[node name="Content" type="VBoxContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="LogoHost" type="Control" parent="ColorRect/MarginContainer/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_type_variation = &"SplashLogo"
+script = ExtResource("5_layout")
+
+[node name="VersionLabel" type="Label" parent="ColorRect/MarginContainer/Content" unique_id=1750729295]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.490196)
 layout_mode = 2
-size_flags_vertical = 8
+mouse_filter = 2
 theme = ExtResource("2_wrkr5")
 text = "1.0"
 horizontal_alignment = 1
 
-[node name="SplashTop" type="AnimatedSprite2D" parent="VBoxContainer" unique_id=1610604792]
+[node name="SplashTop" type="AnimatedSprite2D" parent="ColorRect/MarginContainer/Content/LogoHost" unique_id=1610604792]
 unique_name_in_owner = true
-position = Vector2(360, 573)
-scale = Vector2(0.7, 0.7)
 sprite_frames = ExtResource("1_xckb4")
 
-[node name="SplashBottom" type="AnimatedSprite2D" parent="VBoxContainer" unique_id=2002065729]
+[node name="SplashBottom" type="AnimatedSprite2D" parent="ColorRect/MarginContainer/Content/LogoHost" unique_id=2002065729]
 unique_name_in_owner = true
-position = Vector2(360, 707)
-scale = Vector2(0.7, 0.7)
 sprite_frames = ExtResource("2_mv0cm")
 
-[connection signal="gui_input" from="VBoxContainer/ColorRect" to="." method="_on_color_rect_gui_input"]
+[connection signal="gui_input" from="ColorRect" to="." method="_on_color_rect_gui_input"]
